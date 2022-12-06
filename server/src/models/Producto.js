@@ -6,29 +6,32 @@ module.exports = (sequelize) => {
   sequelize.define('Producto', {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey:true,
-      autoIncrement:true
+      primaryKey: true,
+      autoIncrement: true
     },
-    URL : {
+    URL: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    precio:{
+    precio: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    color:{
+    color: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    talla:{
+    talla: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    marca:{
+    marca: {
       type: DataTypes.STRING,
       allowNull: false,
     }
-    
-  });
+
+  },
+    {
+      timestamps: false,
+    });
 };
