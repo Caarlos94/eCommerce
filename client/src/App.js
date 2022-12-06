@@ -1,10 +1,13 @@
 import './App.css';
+import Home from './componentes/home/home.jsx';
+// import {BrowserRouter} from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Henry Dogs</h1>
-    </div>
+   
+    <Home/>
+    
+ 
   );
 }
 
