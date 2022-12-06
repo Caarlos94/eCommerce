@@ -1,13 +1,9 @@
 // Importa las action types acá
-import {GET_PRODUCTS} from '../actions/actions.js'
+import { GET_PRODUCTS } from '../actions/actions.js'
 
 
 const initialState = {
-totalVideogames:[],
-videogames: [],
-videogamesid:{},
-searchVideoGames:[],
-data:''
+productos:[]
 };
 
 
@@ -16,33 +12,13 @@ const rootReducer = (state = initialState, action) => {
 switch (action.type) {
 
 case GET_PRODUCTS:{
+    console.log(action.payload);
 return{
  ...state,
- data : 'hola'
+  productos : [...action.payload]
 }
 }
 
-// case GET_VIDEOGAME_ID:{
-// return{
-//  ...state,
-//  videogamesid : action.payload
-// }
-// } 
-
-// case GET_SEARCHVIDEOGAMES:{
-// return{
-//  ...state,
-//  searchVideoGames : action.payload
-// }
-// }
-
-// case LIMPIAR_STATE:{
-// return{
-//  ...state,
-//  searchVideoGames: [],
-//  videogamesid: {}
-// }
-// }
 
 }
 return{...state};

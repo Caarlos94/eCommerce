@@ -1,5 +1,4 @@
-const Products = JSON.parse(`{
-    "Productos": [
+const Productos = [
         {
           "URL": "https://www.tienda.quonam.com.ar/media/catalog/product/cache/d38be127ecf06dfec35606e11d013cfe/2/4/24-ED6053-AZUL_1_6.jpg",
           "color": "azul",
@@ -201,6 +200,6 @@ const Products = JSON.parse(`{
           "categoria":"Zapatillas"
         }
       ]
-  }`)
+  
 
-export default Products;
+export default Productos;
