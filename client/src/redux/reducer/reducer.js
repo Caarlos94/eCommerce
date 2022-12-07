@@ -1,9 +1,10 @@
 // Importa las action types acá
-import { GET_PRODUCTS } from '../actions/actions.js'
+import { GET_PRODUCTS , SEARCHxNAME } from '../actions/actions.js'
 
 
 const initialState = {
-productos:[]
+products:[],
+productsXname:[]
 };
 
 
@@ -12,12 +13,20 @@ const rootReducer = (state = initialState, action) => {
 switch (action.type) {
 
 case GET_PRODUCTS:{
-    console.log(action.payload);
 return{
  ...state,
-  productos : [...action.payload]
+ products : [...action.payload]
 }
-}
+};
+
+case SEARCHxNAME:{
+  const productsFilter = state.products.filter(Element => Element.categoria.includes(action.payload))
+  
+  return{
+   ...state,
+   productsXname : [...productsFilter]
+  }
+  }
 
 
 }

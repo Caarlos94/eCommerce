@@ -14,7 +14,7 @@ dispatch(getProducts())
 
 
     return (
-        <h1>soy home</h1>
+      <div></div>
     )
 
 }
