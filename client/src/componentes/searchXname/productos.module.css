@@ -1,0 +1,17 @@
+.div{
+   border: 1px solid black;
+   text-align: center;
+}
+
+
+.divInfo{
+    border: 1px solid black;
+    margin: 25px;
+    width: 60%;
+    position: relative;
+    left: 17%;
+}
+
+.img{
+    width: 100%;
+}

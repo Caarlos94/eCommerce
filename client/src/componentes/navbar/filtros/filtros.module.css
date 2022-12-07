@@ -1,0 +1,9 @@
+.div{
+    display: inline-block;
+    position: relative;
+    left:33%;
+    top: 70px;
+}
+.select{
+    margin: 10px;
+}

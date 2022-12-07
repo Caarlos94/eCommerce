@@ -9,6 +9,10 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoIncrement: true
     },
+    nombre: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     URL: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -29,7 +33,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     }
-
   },
     {
       timestamps: false,
