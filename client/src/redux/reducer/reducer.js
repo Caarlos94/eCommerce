@@ -13,9 +13,10 @@ const rootReducer = (state = initialState, action) => {
 switch (action.type) {
 
 case GET_PRODUCTS:{
+  console.log(action.payload);
 return{
  ...state,
- products : [...action.payload]
+ products : [...action.payload.Productos]
 }
 };
 
