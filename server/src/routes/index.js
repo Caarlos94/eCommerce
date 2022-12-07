@@ -1,5 +1,6 @@
 const { Router } = require("express");
-let data = require("../data");
+const axios = require("axios");
+// let data = require("../data");
 const { Producto, Categoria } = require("../db");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -26,25 +27,29 @@ router.get("/category", async (req, res) => {
 
 router.get("/products/", async (req, res) => {
   try {
-    data.Productos.forEach(async (el) => {
-      const addedProduct = await Producto.findOrCreate({
-        where: {
-          URL: el.URL,
-          color: el.color,
-          marca: el.marca,
-          precio: el.precio,
-          talla: el.talla,
-        },
-      });
+    axios
+      .get("https://suprastore-8cd78-default-rtdb.firebaseio.com/.json")
+      .then((response) =>
+        response.data.Productos.forEach(async (el) => {
+          const addedProduct = await Producto.findOrCreate({
+            where: {
+              URL: el.URL,
+              color: el.color,
+              marca: el.marca,
+              precio: el.precio,
+              talla: el.talla,
+            },
+          });
 
-      console.log(addedProduct[0]);
+          console.log(addedProduct[0]);
 
-      const matchingCategory = await Categoria.findAll({
-        where: { nombre: el.categoria },
-      });
+          const matchingCategory = await Categoria.findAll({
+            where: { nombre: el.categoria },
+          });
 
-      addedProduct[0].addCategoria(matchingCategory);
-    });
+          addedProduct[0].addCategoria(matchingCategory);
+        })
+      );
 
     res.status(200).json(await Producto.findAll());
     return;
