@@ -2,7 +2,7 @@
 import { GET_PRODUCTS } from '../actions/actions.js';
 
 const initialState = {
-  productos: [],
+  products: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -11,7 +11,7 @@ const rootReducer = (state = initialState, action) => {
       console.log(action.payload);
       return {
         ...state,
-        productos: [...action.payload],
+        products: [...action.payload.Productos],
       };
     }
   }
