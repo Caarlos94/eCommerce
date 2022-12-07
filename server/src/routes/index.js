@@ -33,6 +33,7 @@ router.get("/products/", async (req, res) => {
         response.data.Productos.forEach(async (el) => {
           const addedProduct = await Producto.findOrCreate({
             where: {
+              nombre: el.nombre,
               URL: el.URL,
               color: el.color,
               marca: el.marca,
