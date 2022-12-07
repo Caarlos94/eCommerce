@@ -1,0 +1,32 @@
+.hero {
+  width: 100%;
+  height: 85vh;
+  background-image: url('../../img/stadium.jpg');
+  background-position: bottom;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.textoHero {
+  width: 800px;
+  height: 600px;
+  position: absolute;
+  left: 80px;
+}
+
+.hero h1 {
+  font-size: 100px;
+  color: #ffffff;
+  background-image: -webkit-linear-gradient(270deg, #ffffff 65%, #000000 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  font-size: 30px;
+  font-weight: bold;
+}
