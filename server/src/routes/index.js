@@ -28,7 +28,7 @@ router.get("/category", async (req, res) => {
 router.get("/products/", async (req, res) => {
   try {
     axios
-      .get("https://suprastore-8cd78-default-rtdb.firebaseio.com/.json")
+      .get("https://supra-sports-default-rtdb.firebaseio.com/.json")
       .then((response) =>
         response.data.Productos.forEach(async (el) => {
           const addedProduct = await Producto.findOrCreate({
