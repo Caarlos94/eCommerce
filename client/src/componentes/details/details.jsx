@@ -3,6 +3,7 @@ import s from './details.module.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../redux/actions/actions.js';
+import Navbar from '../navbar/navbar';
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const Details = () => {
 
   return (
     <div>
-      <h1>NavBar</h1>
+      <Navbar />
       {products.length ? (
         <div className={s.detailCont}>
           <div className={s.imgCont}>
@@ -22,7 +23,7 @@ const Details = () => {
           </div>
           <div className={s.textCont}>
             <div className={s.productDesc}>
-              <h2>{products[0].marca}</h2>
+              <h2>{products[0].nombre}</h2>
               <p>{products[0].precio}</p>
               <p>
                 {products[0].categoria}, {products[0].color}

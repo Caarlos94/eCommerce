@@ -19,11 +19,6 @@
 .hero h1 {
   font-size: 100px;
   color: #ffffff;
-  background-image: -webkit-linear-gradient(270deg, #ffffff 65%, #000000 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  text-fill-color: transparent;
-  -webkit-text-fill-color: transparent;
 }
 
 .hero p {
