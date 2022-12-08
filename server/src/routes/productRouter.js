@@ -1,16 +1,17 @@
 const { Router } = require('express')
 const productRouter = Router()
-const { getDataBaseProducts } = require('./functions')
+const { getDataBaseProducts, getProducts } = require('./functions')
 const { Categoria, Producto } = require("../db.js"); 
 
 productRouter.get("/", async(req, res) => {
     try {
         let productos = await getDataBaseProducts()
-        res.status(200).json(productos)
+        let getProduct = await getProducts()
+        res.status(200).json(getProduct.Productos.concat(productos))
     } catch (error) {
        res.status(400).send(error.message) 
     }
-})
+}) 
 
 productRouter.post("/", async (req, res) => {
     try {

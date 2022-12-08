@@ -18,27 +18,24 @@ const getCategories = async () => {
 const getProducts = async () => {
     let response = await fetch(`https://supra-sports-default-rtdb.firebaseio.com/.json`); 
     let commits = await response.json()
-    commits.Productos.forEach(async (e) => {
-        await Producto.findOrCreate({where: { nombre:e.nombre, URL: e.URL, color: e.color, marca: e.marca, talla: e.talla, precio: e.precio }}) 
-        //let busqueda = await Categoria.findOne({ where: {nombre: e.categoria} })
-    })
+    // commits.Productos.forEach(async (e) => {
+    //     await Producto.findOrCreate({where: { nombre:e.nombre, URL: e.URL, color: e.color, marca: e.marca, talla: e.talla, precio: e.precio }}) 
+    // })
     return commits
 }
 
 // Get Created Products from DB
 const getDataBaseProducts = async () => {
-    const productosDB = await getProducts()
     const allProductsDB = await Producto.findAll({include: { model: Categoria, attributes: ["nombre"], through: { attributes: [] }}});
-    allProductsDB.forEach(e => {
-        let newArr = e.dataValues.Categoria.map(e => e.nombre)
-        e.dataValues.Categoria = newArr.join(", ");
+    allProductsDB.forEach(e => { 
+        let newArr = e.dataValues.categoria.map(e => e.nombre)
+        e.dataValues.categoria = newArr.join(", ");
     })
-    const respuesta = productosDB.Productos.concat(allProductsDB)
-    return respuesta;
+    return allProductsDB;
 }
 
 module.exports = {
     getProducts,
     getCategories,
-    getDataBaseProducts
+    getDataBaseProducts,
 }
