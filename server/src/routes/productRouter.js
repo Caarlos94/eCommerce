@@ -23,15 +23,15 @@ productRouter.post("/", async (req, res) => {
         res.status(200).json(newProduct)
     } catch (error) {
         res.status(400).json(error.message)
-    }
-})
+    } 
+}) 
 
 productRouter.delete("/", async(req, res) => {
     try {
         const { id } = req.body 
-        const Producto = await Producto.findByPk(id)
-        await poke.destroy()
-        res.status(200)._construct.send(poke)
+        const product = await Producto.findByPk(id)
+        await product.destroy()
+        res.status(200).json(product)
     } catch (error) {
         res.status(404).send(error.message)
     }
@@ -41,7 +41,7 @@ productRouter.put("/:atributo", async(req, res) => {
     const { atributo } = req.params
     const { value } = req.query
     try {
-        const newProduct = await Pokemon.update(
+        const newProduct = await Producto.update(
             {[atributo]: value},
             {where:{[atributo]:null}}
         )
