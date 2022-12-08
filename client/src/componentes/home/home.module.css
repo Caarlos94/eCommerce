@@ -1,7 +1,12 @@
 .hero {
   width: 100%;
   height: 85vh;
-  background-image: url('../../img/stadium.jpg');
+  background-image: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0.3)
+    ),
+    url('../../img/stadium.jpg');
   background-position: bottom;
   background-size: cover;
   position: relative;
@@ -16,12 +21,102 @@
   left: 80px;
 }
 
+.imgHero {
+  width: 950px;
+  height: 700px;
+  position: absolute;
+  right: 80px;
+  z-index: 100;
+  display: flex;
+}
+
+.img1 {
+  background-image: url('../../img/messi.jpg');
+  background-position: center;
+  background-size: cover;
+  width: 540px;
+  height: 673px;
+  position: relative;
+  z-index: 10;
+}
+
+.img11 {
+  width: 540px;
+  height: 673px;
+  position: absolute;
+  background-color: black;
+  top: 20px;
+  left: -20px;
+  z-index: -1;
+}
+
+.img2 {
+  background-image: url('../../img/img2.png');
+  width: 326px;
+  height: 334px;
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+  bottom: 0;
+  right: 20px;
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.img3 {
+  background-image: url('../../img/img3.png');
+  width: 333px;
+  height: 338px;
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+  right: 30px;
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
 .hero h1 {
   font-size: 100px;
   color: #ffffff;
+  text-shadow: 3px 3px 0 #222, 5px 5px 0 #000000b5, 5px 5px 5px #f2f2f2;
 }
 
 .hero p {
   font-size: 30px;
   font-weight: bold;
+}
+
+.textoHero button {
+  padding: 10px;
+  width: 200px;
+  outline: none;
+  border: 2px solid black;
+  background-color: white;
+  color: white;
+  position: relative;
+  letter-spacing: 1px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.textoHero button::before {
+  content: 'VER COLECCION';
+  /*Button's value/text-content */
+  position: absolute;
+  top: -14%;
+  left: 7%;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.15s ease-in-out;
+  font-weight: bold;
+}
+
+.textoHero button:hover::before {
+  top: 0;
+  left: 0;
 }
