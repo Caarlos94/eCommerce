@@ -2,8 +2,14 @@ const axios = require("axios");
 
 const { Producto, Categoria } = require("../db");
 
-const fillWithFirebaseData = async (req, res) => {
+const setDefaultData = async (req, res) => {
   try {
+    const categories = await Categoria.findAll();
+
+    if (!categories.length) {
+      throw new Error("Debe añadirse valores a la tabla de categorias");
+    }
+
     axios
       .get("https://supra-sports-default-rtdb.firebaseio.com/.json")
       .then((response) =>
@@ -36,10 +42,22 @@ const fillWithFirebaseData = async (req, res) => {
 
 const getProducts = async (req, res) => {
   try {
+    const categories = await Categoria.findAll();
+
+    if (!categories.length) {
+      throw new Error("Debe añadirse valores a la tabla de categorias");
+    }
+
     const allProducts = await Producto.findAll({
       include: { model: Categoria, through: { attributes: [] } },
       order: [["id", "ASC"]],
     });
+
+    if (!allProducts.length) {
+      return res
+        .status(200)
+        .json("Actualmente no hay productos en la base de datos");
+    }
 
     let formattedProducts = [];
 
@@ -59,7 +77,7 @@ const getProducts = async (req, res) => {
     res.status(200).json(formattedProducts);
     return;
   } catch (error) {
-    res.status(404).json(error);
+    res.status(404).json(error.message);
   }
 };
 
@@ -94,7 +112,7 @@ const updateProduct = async (req, res) => {
     console.log(updatedProduct);
 
     // También podría usarse update o set
-    res.status(200).json("product");
+    res.status(200).json("Product updated successfully");
 
     return;
   } catch (error) {
@@ -102,4 +120,4 @@ const updateProduct = async (req, res) => {
   }
 };
 
-module.exports = { fillWithFirebaseData, getProducts, updateProduct };
+module.exports = { setDefaultData, getProducts, updateProduct };

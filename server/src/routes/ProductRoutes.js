@@ -3,11 +3,11 @@ const router = Router();
 
 const {
   getProducts,
-  fillWithFirebaseData,
+  setDefaultData,
   updateProduct,
 } = require("../controllers/ProductController");
 
-router.get("/dummydata", fillWithFirebaseData);
+router.get("/defaultData", setDefaultData);
 
 router.get("/", getProducts);
 
