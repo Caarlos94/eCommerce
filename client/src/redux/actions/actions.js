@@ -1,8 +1,6 @@
-import axios from axios;
-
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const SEARCHxNAME = 'SEARCHxNAME';
-
+export const GET_CATEGORYS = 'GET_CATEGORYS';
 
 // export const getProducts = () => { 
 
@@ -19,13 +17,26 @@ export const getProducts = () => {
   };
 };
 
-export function postProd(payload) {
-  return async function () {
-    const response = await axios.post('/products/', payload)
-    return response
+
+export function getCategorys() {
+  return function (dispatch) {
+    fetch('http://localhost:3001/category')
+      .then(response => response.json())
+      .then((data) => dispatch({ type: GET_CATEGORYS, payload: data }))
   }
 }
 
+export function postProd(dataForm) {
+  return function () {
+    fetch('http://localhost:3001/products', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataForm)
+    })
+  }
+}
 
 export const searchXname = (name) => {
   return {

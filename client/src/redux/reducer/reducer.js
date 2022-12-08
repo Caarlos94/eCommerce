@@ -1,10 +1,11 @@
 // Importa las action types acá
-import { GET_PRODUCTS, SEARCHxNAME } from '../actions/actions.js'
+import { GET_PRODUCTS, SEARCHxNAME, GET_CATEGORYS } from '../actions/actions.js'
 
 
 const initialState = {
   products: [],
-  productsXname: []
+  productsXname: [],
+  categorys: []
 };
 
 
@@ -19,6 +20,12 @@ const rootReducer = (state = initialState, action) => {
         products: [...action.payload.Productos]
       }
     };
+
+    case GET_CATEGORYS:
+      return {
+        ...state,
+        categorys: action.payload,
+      }
 
     case 'POST_PROD':
       return {
@@ -35,10 +42,10 @@ const rootReducer = (state = initialState, action) => {
         productsXname: [...productsFilter]
       }
     }
-
+    default:
+      return { ...state };
 
   }
-  return { ...state };
 };
 
 export default rootReducer;

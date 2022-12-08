@@ -17,7 +17,7 @@ const dispatch = useDispatch()
 
 useEffect(()=>{
 dispatch(searchXname(props.match.params.id))
-},[props.match.params.id])
+},[props.match.params.id, dispatch])
 
 
  
