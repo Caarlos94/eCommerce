@@ -9,25 +9,29 @@ module.exports = (sequelize) => {
       primaryKey:true,
       autoIncrement:true
     },
+    nombre: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     URL: {
       type: DataTypes.STRING,
-      // allowNull: false,
+      allowNull: false,
     },
     precio:{
       type: DataTypes.STRING,
-      // allowNull: false,
+      allowNull: false,
     },
     color:{
       type: DataTypes.STRING,
-      // allowNull: false,
+      allowNull: false,
     },
     talla:{
       type: DataTypes.STRING,
-      // allowNull: false,
+      allowNull: false,
     },
     marca:{
       type: DataTypes.STRING,
-      // allowNull: false,
+      allowNull: false,
     }
     
   }, { timestamps: false });
