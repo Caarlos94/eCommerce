@@ -15,11 +15,11 @@ const rootReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case GET_PRODUCTS: {
-      console.log(action.payload);
+      //console.log(action.payload);
       return {
         ...state,
-        products: [...action.payload.Productos],
-        productsHome: [...action.payload.Productos],
+        products: [...action.payload],
+        productsHome: [...action.payload],
       }
     };
 
@@ -36,7 +36,7 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case SEARCHxNAME: {
-      const productsFilter = state.products.filter(Element => Element.nombre.toLowerCase().includes(action.payload.toLowerCase()))
+      const productsFilter = state.products.filter(Element => Element.nombre.includes(action.payload))
       return {
         ...state,
         productsHome: [...productsFilter]

@@ -10,9 +10,9 @@ const validate = (input, prods) => {
     if (!(/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/).test(input.nombre)) {
         errors.nombre = 'Este dato es incorrecto... Es obligatorio, no se permiten caracteres especiales o números.'
     }
-    if (prods.some(e => e.nombre.toUpperCase() === input.nombre.toUpperCase())) {
+    /* if (prods.some(e => e.nombre.toUpperCase() === input.nombre.toUpperCase())) {
         errors.nombre = 'Este producto ya existe!'
-    }
+    } */
     if (!input.URL) {
         errors.URL = 'Este dato es obligatorio.'
     }

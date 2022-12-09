@@ -10,7 +10,7 @@ export const SEARCHxNAME = 'SEARCHxNAME';
 
 export const getProducts = () => {
   return function (dispatch) {
-    return fetch("https://supra-sports-default-rtdb.firebaseio.com/.json")
+    return fetch("http://localhost:3001/products")
       .then(response => response.json())
       .then(data => dispatch({ type: GET_PRODUCTS, payload: data }))
   };
@@ -52,7 +52,6 @@ export const searchXname = (name) => {
 }
 
 export const searchXmarca = (marca) => {
-  console.log('hola soy marca');
   return {
     type: SEARCHxMARCA,
     payload: marca
