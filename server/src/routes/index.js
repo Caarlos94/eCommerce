@@ -1,14 +1,11 @@
 const { Router } = require("express");
 const axios = require("axios");
-// let data = require("../data");
 const { Producto, Categoria } = require("../db");
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
+
+
 
 const router = Router();
 
-// Configurar los routers
-// Ejemplo: router.use('/auth', authRouter);
 
 const Category = ["Camperas", "Remeras", "Zapatillas", "Shorts", "Pantalones"];
 
@@ -24,6 +21,7 @@ router.get("/category", async (req, res) => {
     res.status(400).send(error.message);
   }
 });
+
 
 router.get("/products/", async (req, res) => {
   try {
@@ -59,4 +57,4 @@ router.get("/products/", async (req, res) => {
   }
 });
 
-module.exports = router;
+
