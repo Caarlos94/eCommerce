@@ -23,7 +23,7 @@ const Details = () => {
       {products.length ? (
         <div className={s.detailCont}>
           <div className={s.imgCont}>
-            <img src={products[0].URL}></img>
+            <img src={products[0].URL} alt='img'></img>
           </div>
           <div className={s.textCont}>
             <div className={s.productDesc}>

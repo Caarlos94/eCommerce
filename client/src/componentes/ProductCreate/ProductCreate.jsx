@@ -75,10 +75,11 @@ export default function ProdCreate() {
         }
     }
 
+
     const handlerSubmit = (e) => {
         e.preventDefault();
-        console.log(input)
-        dispatch(postProd(input))
+        console.log(input);
+        dispatch(postProd(input));
         alert('Producto publicado con éxito! Se te redirigirá al inicio...')
         setInput({
             nombre: '',
