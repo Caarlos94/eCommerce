@@ -89,12 +89,12 @@ export default function ProdCreate() {
             marca: '',
             categoria: ''
         })
-        history.push('/home')//me manda al home
+        history.push('/')//me manda al home
     }
 
     return (
         <div>
-            <Link to='/home'>
+            <Link to='/'>
                 <button>Volver</button>
             </Link>
             <div>
