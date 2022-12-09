@@ -1,17 +1,17 @@
-// <<<<<<< HEAD
 import React from 'react';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { getProducts } from '../../redux/actions/actions.js';
 import s from './home.module.css';
 import Navbar from '../navbar/navbar.jsx';
+import Cards from '../Card/Cards';
+import { useDispatch } from 'react-redux';
 
 const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getProducts());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
@@ -32,31 +32,11 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <h1>Cards</h1>
+      <div className="App">
+        <Cards />
+      </div>
     </div>
   );
 };
 
 export default Home;
-// =======
-// import React from 'react'
-// import { useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { getProducts } from '../../redux/actions/actions.js'
-
-// const Home = () => {
-
-//     const dispatch = useDispatch()
-
-// useEffect(()=>{
-// dispatch(getProducts())
-// },[])
-
-//     return (
-//       <div></div>
-//     )
-
-// }
-
-// export default Home
-// >>>>>>> development
