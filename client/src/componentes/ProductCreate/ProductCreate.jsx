@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from "react-router-dom";
 import { getCategorys, getProducts, postProd } from "../../redux/actions/actions";
+import style from './ProductCreate.module.css'
 
 
 const validate = (input, prods) => {
@@ -9,11 +10,14 @@ const validate = (input, prods) => {
     if (!(/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/).test(input.nombre)) {
         errors.nombre = 'Este dato es incorrecto... Es obligatorio, no se permiten caracteres especiales o números.'
     }
-    if (input.precio < 1) {
-        errors.precio = 'Este dato es obligatorio, solo permite números positivos.'
-    }
     if (prods.some(e => e.nombre.toUpperCase() === input.nombre.toUpperCase())) {
-        errors.nombre = 'Este producto ya existe!' 
+        errors.nombre = 'Este producto ya existe!'
+    }
+    if (!input.URL) {
+        errors.URL = 'Este dato es obligatorio.'
+    }
+    if (input.precio < 1) {
+        errors.precio = 'Este dato es obligatorio, solo permite números mayores a uno.'
     }
     if (!(/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/).test(input.color)) {
         errors.color = 'Este dato es obligatorio, no se permiten caracteres especiales, números o espacios.'
@@ -31,17 +35,10 @@ const validate = (input, prods) => {
 export default function ProdCreate() {
     const dispatch = useDispatch();
     const prods = useSelector(state => state.products)
+    const categs = useSelector(state => state.categorys)
 
     const history = useHistory();
-    const [errors, setErrors] = useState({
-        nombre: '',
-        URL: '',
-        precio: '',
-        color: '',
-        talla: '',
-        marca: '',
-        categoria: ''
-    })
+    const [errors, setErrors] = useState({})
     const [input, setInput] = useState({
         nombre: '',
         URL: '',
@@ -54,7 +51,7 @@ export default function ProdCreate() {
 
     useEffect(() => {
         dispatch(getProducts());
-        /* dispatch(getCategorys()); */
+        dispatch(getCategorys());
     }, [dispatch])
 
     const handlerChange = (e) => {
@@ -69,11 +66,11 @@ export default function ProdCreate() {
         ))
     }
 
-    const handlerCheck = (e) => {
-        if (e.target.checked) {// si el input está check(si está marcado)
-            setInput({ //setea el estado con el e.target.value
+    const handlerSelectCateg = (e) => {
+        if (!input.categoria.includes(e.target.value)) {
+            setInput({
                 ...input,
-                categoria: e.target.value,
+                categoria: e.target.value
             })
         }
     }
@@ -95,7 +92,6 @@ export default function ProdCreate() {
         history.push('/home')//me manda al home
     }
 
-
     return (
         <div>
             <Link to='/home'>
@@ -104,48 +100,59 @@ export default function ProdCreate() {
             <div>
                 <h1>Crear Producto</h1>
                 <form onSubmit={(e) => handlerSubmit(e)}>
-                    <div>
+
+                    <div className={style.inputs}>
                         <label>Nombre: </label>
                         <input type='text' name='nombre' value={input.nombre} onChange={(e) => handlerChange(e)} ></input>
-                        {errors.nombre && (<p>{errors.nombre}</p>)}
+                        {errors.nombre && (<p className={style.errors}>{errors.nombre}</p>)}
                     </div>
 
                     <div>
                         <label>Imagen: </label>
-                        <input type='text' value={input.URL} name='URL' onChange={(e) => handlerChange(e)} disabled={!input.nombre || errors.nombre}></input>
+                        <input type='text' value={input.URL} name='URL' onChange={(e) => handlerChange(e)}
+                            disabled={!input.nombre || errors.nombre}></input>
+
+                        {errors.URL && !errors.nombre && (<p className={style.errors}>{errors.URL}</p>)}
                     </div>
 
                     <div>
                         <label>Precio </label>
-                        <input type='number' value={input.precio} name='precio' onChange={(e) => handlerChange(e)} disabled={!input.URL || errors.URL}></input>
-                        {errors.precio && input.URL && (<p>{errors.precio}</p>)}
+                        <input type='number' value={input.precio} name='precio' onChange={(e) => handlerChange(e)}
+                            disabled={!input.nombre || !input.URL || errors.URL}></input>
+
+                        {errors.precio && input.URL && (<p className={style.errors}>{errors.precio}</p>)}
                     </div>
 
                     <div>
                         <label>Color: </label>
-                        <input type='text' value={input.color} name='color' onChange={(e) => handlerChange(e)} disabled={!input.precio || errors.precio}></input>
-                        {errors.color && !errors.precio && (<p>{errors.color}</p>)}
+                        <input type='text' value={input.color} name='color' onChange={(e) => handlerChange(e)}
+                            disabled={!input.nombre || !input.URL || !input.precio || errors.precio}></input>
+
+                        {errors.color && !errors.precio && (<p className={style.errors}>{errors.color}</p>)}
                     </div>
 
                     <div>
                         <label>Talla: </label>
-                        <input type='text' value={input.talla} name='talla' onChange={(e) => handlerChange(e)} disabled={!input.color || errors.color}></input>
-                        {errors.talla && !errors.color && (<p>{errors.talla}</p>)}
+                        <input type='text' value={input.talla} name='talla' onChange={(e) => handlerChange(e)}
+                            disabled={!input.nombre || !input.URL || !input.precio || !input.color || errors.color}></input>
+
+                        {errors.talla && !errors.color && (<p className={style.errors}>{errors.talla}</p>)}
                     </div>
 
                     <div>
                         <label>Marca: </label>
-                        <input type='text' value={input.marca} name='marca' onChange={(e) => handlerChange(e)} disabled={!input.talla || errors.talla}></input>
-                        {errors.marca && !errors.talla && (<p>{errors.marca}</p>)}
+                        <input type='text' value={input.marca} name='marca' onChange={(e) => handlerChange(e)}
+                            disabled={!input.nombre || !input.URL || !input.precio || !input.color || !input.talla || errors.talla}></input>
+
+                        {errors.marca && !errors.talla && (<p className={style.errors}>{errors.marca}</p>)}
                     </div>
-                    <div>
-                        <label>Categoría:</label>
-                        <label><input type="checkbox" name="Camperas" value="Camperas" onChange={(e) => handlerCheck(e)} />Campera</label>
-                        <label><input type="checkbox" name="Remeras" value="Remeras" onChange={(e) => handlerCheck(e)} />Remera</label>
-                        <label><input type="checkbox" name="Shorts" value="Shorts" onChange={(e) => handlerCheck(e)} />Short</label>
-                        <label><input type="checkbox" name="Zapatillas" value="Zapatillas" onChange={(e) => handlerCheck(e)} />Zapatillas</label>
-                        <label><input type="checkbox" name="Pantalones" value="Pantalones" onChange={(e) => handlerCheck(e)} />Pantalón</label>
-                    </div>
+
+                    <label>Categoría: </label>
+                    <select onChange={(e) => handlerSelectCateg(e)}>
+                        {categs.map(c => (
+                            <option value={c} key={categs.indexOf(c)}>{c}</option>
+                        ))}
+                    </select>
 
                     <div>
                         <button type="submit" disabled={!input.nombre || errors.nombre || errors.precio || errors.color || errors.talla || errors.marca || !input.categoria}>
