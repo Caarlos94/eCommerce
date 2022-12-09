@@ -1,12 +1,10 @@
-
 import React from 'react';
 import { useEffect } from 'react';
 import { getProducts } from '../../redux/actions/actions.js';
 import s from './home.module.css';
 import Navbar from '../navbar/navbar.jsx';
-import Cards from '../Card/Cards'
-import { useDispatch} from 'react-redux';
-
+import Cards from '../Card/Cards';
+import { useDispatch } from 'react-redux';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -34,8 +32,8 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className='App'>
-        <Cards/>
+      <div className="App">
+        <Cards />
       </div>
     </div>
   );

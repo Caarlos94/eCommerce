@@ -75,7 +75,6 @@ export default function ProdCreate() {
         }
     }
 
-
     const handlerSubmit = (e) => {
         e.preventDefault();
         console.log(input);
