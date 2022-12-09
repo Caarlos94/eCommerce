@@ -1,10 +1,13 @@
 import React from "react";
 import Card from "./Card";
+import { getProducts } from '../../redux/actions/actions'
 
 
 import img1 from '../assets/adidas-blanca.webp'
 import img2 from '../assets/adidas-rosa.webp'
 import img3 from '../assets/nike-blanca.webp'
+import { useDispatch, useSelector } from "react-redux";
+
 
 const cards = [
     {
@@ -39,12 +42,16 @@ const cards = [
     }
 ]
 
+
 function Cards(){
+    const dispatch = useDispatch()
+    const allProducts = useSelector(state => state.products)
+
     return(
         <div className="container d-flex justify-content-center h-100 align-items-center">
             <div className="row">
                 {
-                    cards.map(card => (
+                    allProducts.map(card => (
                         <div className="col-md-4" key={card.id}>
                             <Card title={card.title} imgSource={card.image} branch={card.branch} price={card.price} color={card.color} description={card.description} url={card.url}/>
                         </div>

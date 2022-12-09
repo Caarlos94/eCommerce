@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { getProducts } from '../../redux/actions/actions.js';
 import s from './home.module.css';
 import Navbar from '../navbar/navbar.jsx';
+import Cards from '../Card/Cards'
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -32,7 +33,9 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <h1>Cards</h1>
+      <div className='App'>
+        <Cards/>
+      </div>
     </div>
   );
 };

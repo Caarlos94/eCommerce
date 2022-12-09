@@ -19,7 +19,7 @@ import './App.css';
 //     </div>
 // =======
 import Navbar from './componentes/navbar/navbar.jsx';
-import SearchXname from './componentes/searchXname/SearchXname.jsx';
+//import SearchXname from './componentes/searchXname/SearchXname.jsx';
 import Home from './componentes/home/home.jsx';
 import Details from './componentes/details/details.jsx';
 
@@ -33,7 +33,7 @@ function App() {
         <Details />
       </Route>
 
-      <Route path="/filtrados/:id" component={SearchXname} />
+      <Route path="/filtrados/:id" />
     </div>
 
     // >>>>>>> development

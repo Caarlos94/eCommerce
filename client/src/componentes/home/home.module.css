@@ -120,3 +120,8 @@
   top: 0;
   left: 0;
 }
+
+.App{
+  background: beige ;
+  height: 100vh  ;
+}

@@ -1,5 +1,8 @@
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const SEARCHxNAME = 'SEARCHxNAME';
+export const SEARCHxMARCA = 'SEARCHxMARCA';
+export const SEARCHxPRECIO = 'SEARCHxPRECIO';
+export const SEARCHxTALLA = 'SEARCHxTALLA';
 
 export const getProducts = () => {
   return function (dispatch) {
