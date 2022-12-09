@@ -2,7 +2,7 @@ const axios = require("axios");
 
 const { Producto, Categoria } = require("../db");
 
-const setDefaultData = async (req, res) => {
+const setProductDefaultData = async (req, res) => {
   try {
     const categories = await Categoria.findAll();
 
@@ -111,7 +111,6 @@ const updateProduct = async (req, res) => {
 
     console.log(updatedProduct);
 
-    // También podría usarse update o set
     res.status(200).json("Product updated successfully");
 
     return;
@@ -120,4 +119,4 @@ const updateProduct = async (req, res) => {
   }
 };
 
-module.exports = { setDefaultData, getProducts, updateProduct };
+module.exports = { setProductDefaultData, getProducts, updateProduct };

@@ -3,11 +3,11 @@ const router = Router();
 
 const {
   getProducts,
-  setDefaultData,
+  setProductDefaultData,
   updateProduct,
 } = require("../controllers/ProductController");
 
-router.get("/defaultData", setDefaultData);
+router.get("/defaultData", setProductDefaultData);
 
 router.get("/", getProducts);
 

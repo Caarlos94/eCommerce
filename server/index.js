@@ -17,12 +17,20 @@
 //     =====`-.____`.___ \_____/___.-`___.-'=====
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const server = require('./src/app.js');
-const { conn } = require('./src/db.js');
-
+const server = require("./src/app.js");
+const { conn } = require("./src/db.js");
+const {
+  setCategoryDefaultData,
+} = require("./src/controllers/CategoryControllers");
+const {
+  setProductDefaultData,
+} = require("./src/controllers/ProductController");
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
-  server.listen(3001, () => {
-    console.log('%s listening at 3001'); // eslint-disable-line no-console
+conn
+  .sync({ force: true })
+  .then(() => {})
+  .then(() => {
+    server.listen(3001, () => {
+      console.log("%s listening at 3001"); // eslint-disable-line no-console
+    });
   });
-});

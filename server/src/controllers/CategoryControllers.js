@@ -1,7 +1,7 @@
 const { default: axios } = require("axios");
 const { Categoria } = require("../db");
 
-const setDefaultData = async (req, res) => {
+const setCategoryDefaultData = async (req, res) => {
   try {
     axios
       .get("https://supra-sports-default-rtdb.firebaseio.com/.json")
@@ -46,13 +46,13 @@ const postCategory = async (req, res) => {
     categoria =
       categoria.charAt(0).toUpperCase() + categoria.slice(1).toLowerCase();
 
-    const matchingCategories = await Categoria.findAll({
-      where: { nombre: categoria },
-    });
+    // const matchingCategories = await Categoria.findAll({
+    //   where: { nombre: categoria },
+    // });
 
-    if (matchingCategories.length) {
-      throw new Error("La categoría ya existe");
-    }
+    // if (matchingCategories.length) {
+    //   throw new Error("La categoría ya existe");
+    // }
 
     // verificar que no exista ya
 
@@ -145,7 +145,7 @@ const deleteCategory = async (req, res) => {
 };
 
 module.exports = {
-  setDefaultData,
+  setCategoryDefaultData,
   getCategories,
   postCategory,
   deleteCategory,

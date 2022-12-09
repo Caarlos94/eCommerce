@@ -2,14 +2,14 @@ const { Router } = require("express");
 const router = Router();
 
 const {
-  setDefaultData,
+  setCategoryDefaultData,
   getCategories,
   postCategory,
   deleteCategory,
   updateCategory,
 } = require("../controllers/CategoryControllers");
 
-router.get("/defaultData", setDefaultData);
+router.get("/defaultData", setCategoryDefaultData);
 
 router.get("/", getCategories);
 

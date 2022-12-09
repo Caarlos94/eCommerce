@@ -14,6 +14,7 @@ module.exports = (sequelize) => {
       nombre: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: { arg: true, msg: "La categoria ya existe" },
       },
     },
     { timestamps: false }
