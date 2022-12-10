@@ -1,15 +1,9 @@
 const axios = require("axios");
 
-const { Producto, Categoria, Image, Color } = require("../db");
+const { Producto, Categoria, Image, Color, Size } = require("../db");
 
 const setProductDefaultData = async (req, res) => {
   try {
-    const categories = await Categoria.findAll();
-
-    if (!categories.length) {
-      throw new Error("Debe añadirse valores a la tabla de categorias");
-    }
-
     axios
       .get("https://suprastore-8cd78-default-rtdb.firebaseio.com/.json")
       .then((response) =>
@@ -19,7 +13,6 @@ const setProductDefaultData = async (req, res) => {
               nombre: el.nombre,
               marca: el.marca,
               precio: el.precio,
-              talla: el.talla,
             },
           });
 
@@ -43,7 +36,7 @@ const setProductDefaultData = async (req, res) => {
           addedProduct[0].addCategoria(matchingCategory);
 
           /*----------------- Agregando relacion de colores -------------------*/
-          // verificacion adicional ya que el firebase json no está actualizado. (El key de todas las propiedades URL deberia ser un array)
+          // verificacion adicional ya que el firebase json no está actualizado. (El key de todas las propiedades color deberia ser un array)
 
           if (Array.isArray(el.color)) {
             el.color.forEach(async (color) => {
@@ -68,6 +61,21 @@ const setProductDefaultData = async (req, res) => {
 
             addedProduct[0].addColor(matchingColor);
           }
+
+          /*----------------- Agregando relacion de tallas -------------------*/
+          // verificacion adicional ya que el firebase json no está actualizado. (El key de todas las propiedades talla deberia ser un array)
+
+          if (Array.isArray(el.talla)) {
+            el.talla.forEach(async (size) => {
+              let matchingSize = await Size.findOne({
+                where: {
+                  nombre: size.toString(),
+                },
+              });
+
+              addedProduct[0].addSize(matchingSize);
+            });
+          }
         })
       );
 
@@ -90,6 +98,8 @@ const getProducts = async (req, res) => {
       include: [
         { model: Categoria, through: { attributes: [] } },
         { model: Image },
+        { model: Color, through: { attributes: [] } },
+        { model: Size, through: { attributes: [] } },
       ],
       order: [["id", "ASC"]],
     });
@@ -109,13 +119,25 @@ const getProducts = async (req, res) => {
         imagesArr.push({ id: img.id, nombre: img.nombre })
       );
 
+      let colorsArr = [];
+
+      product.Colors.forEach((color) => {
+        colorsArr.push({ id: color.id, nombre: color.nombre });
+      });
+
+      let sizesArr = [];
+
+      product.Sizes.forEach((size) => {
+        sizesArr.push({ id: size.id, nombre: size.nombre });
+      });
+
       formattedProducts.push({
         id: product.id,
         nombre: product.nombre,
         URL: imagesArr,
         precio: product.precio,
-        color: product.color,
-        talla: product.talla,
+        color: colorsArr,
+        talla: sizesArr,
         marca: product.marca,
         categoria: product.Categoria[0].nombre,
       });
@@ -133,7 +155,7 @@ const updateProduct = async (req, res) => {
     const { id, nombre, URL, precio, color, talla, marca, categoria } =
       req.body;
 
-    await Producto.findByPk(parseInt(id), {
+    Producto.findByPk(parseInt(id), {
       include: [{ model: Categoria, attributes: ["nombre"] }],
     })
       .then((product) => {

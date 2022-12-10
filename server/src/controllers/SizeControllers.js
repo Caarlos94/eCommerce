@@ -1,33 +1,33 @@
-const { Color } = require("../db");
+const { Size } = require("../db");
 
-const getColors = async (req, res) => {
+const getSizes = async (req, res) => {
   try {
-    const colors = await Color.findAll();
+    const sizes = await Size.findAll();
 
-    res.status(200).json(colors);
+    res.status(200).json(sizes);
   } catch (error) {
     res.status(404).send(error.message);
   }
 };
 
-const postColor = async (req, res) => {
+const postSize = async (req, res) => {
   try {
-    let { color } = req.body;
+    let { size } = req.body;
 
-    if (typeof color !== "string" || !color) {
+    if (typeof size !== "string" || !size) {
       throw new Error("Valor inválido");
     }
-    color = color.charAt(0).toUpperCase() + color.slice(1).toLowerCase();
+    size = size.charAt(0).toUpperCase() + size.slice(1).toLowerCase();
 
-    await Color.create({ nombre: color });
+    await Size.create({ nombre: size });
 
-    res.status(200).json(`El color ${color} se creó exitosamente`);
+    res.status(200).json(`El size ${size} se creó exitosamente`);
   } catch (error) {
     return res.status(404).json(error.message);
   }
 };
 
-const updateColor = async (req, res) => {
+const updateSize = async (req, res) => {
   try {
     let { nombreActual, nombreNuevo } = req.body;
 
@@ -37,7 +37,7 @@ const updateColor = async (req, res) => {
       typeof nombreNuevo != "string"
     ) {
       throw new Error(
-        `Valor inválido. Enviar como {"nombreActual":"azul","nombreNuevo":"gris" }`
+        `Valor inválido. Enviar como {"nombreActual":"L","nombreNuevo":"Large" }`
       );
     }
     nombreActual =
@@ -47,11 +47,11 @@ const updateColor = async (req, res) => {
     nombreNuevo =
       nombreNuevo.charAt(0).toUpperCase() + nombreNuevo.slice(1).toLowerCase();
 
-    const allColors = await Color.findAll();
+    const allSizes = await Size.findAll();
     let hasNewName = false;
     let hasCurrentName = false;
 
-    allColors.forEach((c) => {
+    allSizes.forEach((c) => {
       if (c.nombre === nombreNuevo) {
         hasNewName = true;
       }
@@ -61,19 +61,19 @@ const updateColor = async (req, res) => {
     });
 
     if (!hasCurrentName) {
-      throw new Error(`El color ${nombreActual} no existe`);
+      throw new Error(`La talla ${nombreActual} no existe`);
     }
 
-    if (hasNewName) throw new Error(`El color ${nombreNuevo} ya existe`);
+    if (hasNewName) throw new Error(`La talla ${nombreNuevo} ya existe`);
 
-    const matchingColor = await Color.findOne({
+    const matchingSize = await Size.findOne({
       where: { nombre: nombreActual },
     });
 
-    matchingColor.nombre = nombreNuevo;
-    matchingColor.save();
+    matchingSize.nombre = nombreNuevo;
+    matchingSize.save();
 
-    res.status(200).json("El color fue actualizado");
+    res.status(200).json("La talla fue actualizado");
   } catch (error) {
     res.status(404).json(error.message);
   }
@@ -107,8 +107,8 @@ const deleteColor = async (req, res) => {
 };
 
 module.exports = {
-  getColors,
-  postColor,
-  deleteColor,
-  updateColor,
+  getSizes,
+  postSize,
+  // deleteColor,
+  updateSize,
 };

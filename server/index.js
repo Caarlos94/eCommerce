@@ -19,7 +19,7 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
-const { seeder } = require("./src/controllers/CategoryControllers");
+const { seeder } = require("./src/controllers/seeder");
 
 // Syncing all the models at once.
 

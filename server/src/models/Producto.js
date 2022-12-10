@@ -19,10 +19,6 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      talla: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       marca: {
         type: DataTypes.STRING,
         allowNull: false,

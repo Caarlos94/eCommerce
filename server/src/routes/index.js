@@ -3,6 +3,8 @@ const { Router } = require("express");
 // Ejemplo: const authRouter = require('./auth.js');
 const product = require("./ProductRoutes");
 const category = require("./CategoryRoutes");
+const color = require("./ColorRoutes");
+const size = require("./SizeRoutes");
 
 const router = Router();
 
@@ -11,5 +13,7 @@ const router = Router();
 
 router.use("/products", product);
 router.use("/categories", category);
+router.use("/colors", color);
+router.use("/sizes", size);
 
 module.exports = router;
