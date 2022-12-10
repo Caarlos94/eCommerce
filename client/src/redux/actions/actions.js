@@ -7,6 +7,7 @@ export const SEARCHxPRECIO = 'SEARCHxPRECIO';
 export const SEARCHxTALLA = 'SEARCHxTALLA';
 export const SEARCHxNAME = 'SEARCHxNAME';
 export const GET_DETAILS = 'GET_DETAILS';
+export const SEARCHxCATEG = 'SEARCHxCATEG';
 
 export const getProducts = () => {
   return function (dispatch) {
@@ -44,18 +45,6 @@ export function getDetails(id) {
   };
 }
 
-/* export function postProd(dataForm) {
-  return function () {
-    fetch('http://localhost:3001/products', {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(dataForm)
-    })
-  }
-} */
-
 export const searchXname = (name) => {
   return {
     type: SEARCHxNAME,
@@ -87,5 +76,12 @@ export const searchXtalla = (talla) => {
   return {
     type: SEARCHxTALLA,
     payload: talla,
+  };
+};
+
+export const searchXcateg = (categ) => {
+  return {
+    type: SEARCHxCATEG,
+    payload: categ,
   };
 };

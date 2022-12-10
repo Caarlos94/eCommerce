@@ -19,7 +19,7 @@ const Home = () => {
       <div className={s.hero}>
         <div className={s.textoHero}>
           <h1>Supra Sports</h1>
-          <button>AAAAAA</button>
+          {/* <button>AAAAAA</button> */}
         </div>
         <div className={s.imgHero}>
           <div>

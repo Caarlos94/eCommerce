@@ -31,7 +31,7 @@ const Details = () => {
               <h2>{details[0].nombre}</h2>
               <p>{details[0].precio}</p>
               <p>
-                {details[0].categoria}, {details[0].color}
+                {details[0].marca}, {details[0].color}
               </p>
               <p>Talla: {details[0].talla}</p>
             </div>

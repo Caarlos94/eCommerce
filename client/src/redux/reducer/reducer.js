@@ -6,6 +6,7 @@ import {
   SEARCHxPRECIO,
   SEARCHxTALLA,
   GET_CATEGORYS,
+  SEARCHxCATEG,
 } from '../actions/actions.js';
 
 const initialState = {
@@ -57,75 +58,86 @@ const rootReducer = (state = initialState, action) => {
     case SEARCHxMARCA: {
       let productsFilter = [];
       if (action.payload === 'todas') {
-        let arr = [...state.products];
-        if (state.precio[1] !== 0)
-          arr = arr.filter(
-            (Element) =>
-              state.precio[0] <= parseInt(Element.precio) &&
-              state.precio[1] >= parseInt(Element.precio)
-          );
-        if (state.talla !== 'todas')
-          arr = arr.filter((Element) => Element.talla.includes(state.talla));
-        productsFilter = [...arr];
-      } else {
-        productsFilter = state.products.filter((Element) =>
-          Element.marca.includes(action.payload)
-        );
+        let arr = [...state.products]
+        if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
+        if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
+        productsFilter = [...arr]
+      }
+      else {
+        let arr = [...state.products]
+        arr = arr.filter(Element => Element.marca.includes(action.payload));
+        if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
+        if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
+        productsFilter = [...arr]
       }
       return {
         ...state,
         productsHome: [...productsFilter],
-        marca: action.payload,
-      };
+        marca: action.payload
+      }
     }
 
     case SEARCHxTALLA: {
       let productsFilter = [];
       if (action.payload === 'todas') {
-        let arr = [...state.products];
-        if (state.precio[1] !== 0)
-          arr = arr.filter(
-            (Element) =>
-              state.precio[0] <= parseInt(Element.precio) &&
-              state.precio[1] >= parseInt(Element.precio)
-          );
-        if (state.marca !== 'todas')
-          arr = arr.filter((Element) => Element.marca.includes(state.marca));
-        productsFilter = [...arr];
-      } else {
-        productsFilter = state.productsHome.filter((Element) =>
-          Element.talla.includes(action.payload)
-        );
+        let arr = [...state.products]
+        if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
+        if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
+        productsFilter = [...arr]
+      }
+      else {
+        let arr = [...state.products]
+        arr = arr.filter(Element => Element.talla.includes(action.payload));
+        if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
+        if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
+        productsFilter = [...arr]
       }
       return {
         ...state,
         productsHome: [...productsFilter],
-        talla: action.payload,
-      };
+        talla: action.payload
+      }
     }
 
     case SEARCHxPRECIO: {
-      let productsFilter = [];
+      let arr = [...state.products]
       if (action.payload[1] === 0) {
-        let arr = [...state.products];
-        if (state.marca !== 'todas')
-          arr = arr.filter((Element) => Element.marca.includes(state.marca));
-        if (state.talla !== 'todas')
-          arr = arr.filter((Element) => Element.talla.includes(state.talla));
-        productsFilter = [...arr];
-      } else {
-        productsFilter = state.productsHome.filter(
-          (Element) =>
-            action.payload[0] <= parseInt(Element.precio) &&
-            action.payload[1] >= parseInt(Element.precio)
-        );
+        let arr = [...state.products]
+        if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
+        if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
+        arr = [...arr]
+      }
+      else {
+        arr = arr.filter(Element => action.payload[0] <= parseInt(Element.precio) && action.payload[1] >= parseInt(Element.precio))
+        if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
+        if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
       }
       return {
         ...state,
-        productsHome: [...productsFilter],
-        precio: [...action.payload],
-      };
+        productsHome: [...arr],
+        precio: [...action.payload]
+      }
     }
+
+/*     case SEARCHxCATEG: {
+      let arr = [...state.products]
+      if (action.payload[1] === 0) {
+        let arr = [...state.products]
+        if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
+        if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
+        arr = [...arr]
+      }
+      else {
+        arr = arr.filter(Element => action.payload[0] <= parseInt(Element.precio) && action.payload[1] >= parseInt(Element.precio))
+        if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
+        if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
+      }
+      return {
+        ...state,
+        productsHome: [...arr],
+        precio: [...action.payload]
+      }
+    } */
 
     default:
       return { ...state };
