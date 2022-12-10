@@ -13,8 +13,8 @@ const validate = (input, prods) => {
     if (prods.some(e => e.nombre.toUpperCase() === input.nombre.toUpperCase())) {
         errors.nombre = 'Este producto ya existe!'
     }
-    if (!input.URL) {
-        errors.URL = 'Este dato es obligatorio.'
+    if (!(/(https?:\/\/.*\.(?:png|jpg|jpeg))/i).test(input.URL)) {
+        errors.URL = 'Este dato es obligatorio, solo permite imágenes de tipo .jpg/.png/.jpeg'
     }
     if (input.precio < 1) {
         errors.precio = 'Este dato es obligatorio, solo permite números mayores a uno.'
@@ -75,7 +75,6 @@ export default function ProdCreate() {
         }
     }
 
-
     const handlerSubmit = (e) => {
         e.preventDefault();
         console.log(input);
@@ -121,7 +120,7 @@ export default function ProdCreate() {
                         <input type='number' value={input.precio} name='precio' onChange={(e) => handlerChange(e)}
                             disabled={!input.nombre || !input.URL || errors.URL}></input>
 
-                        {errors.precio && input.URL && (<p className={style.errors}>{errors.precio}</p>)}
+                        {errors.precio && !errors.URL && (<p className={style.errors}>{errors.precio}</p>)}
                     </div>
 
                     <div>
