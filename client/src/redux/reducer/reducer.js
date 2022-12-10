@@ -1,53 +1,70 @@
-import { legacy_createStore } from 'redux';
-import { GET_PRODUCTS, SEARCHxNAME, SEARCHxMARCA, SEARCHxPRECIO, SEARCHxTALLA, GET_CATEGORYS} from '../actions/actions.js'
+import { GET_PRODUCTS,
+         SEARCHxNAME,
+         SEARCHxMARCA, 
+         SEARCHxPRECIO, 
+         SEARCHxTALLA, 
+         GET_CATEGORYS , 
+         GET_DETAILS ,
+         LIMPIAR_SATE} from '../actions/actions.js'
 
 
 const initialState = {
   products: [],
   productsHome: [],
+  details: [],
   categorys: [],
   marca: 'todas',
   talla: 'todas',
-  precio: [0, 0]
+  precio: [0, 0],
 };
 
-
 const rootReducer = (state = initialState, action) => {
-
   switch (action.type) {
 
 
     case GET_PRODUCTS: {
-
-    if(state.products.length == 0){
-      return {
-        ...state,
-        products: [...action.payload.Productos],
-        productsHome: [...action.payload.Productos],
+      if(state.products.length == 0 ){
+        return {
+          ...state,
+          products: [...action.payload],
+          productsHome: [...action.payload],
+        }
       }
     }
 
-    }
-  
-
-    case GET_CATEGORYS:
+    case GET_CATEGORYS:{
       return {
         ...state,
         categorys: action.payload,
       }
+    }
+
+    case GET_DETAILS:
+      console.log(action.payload);
+      return {
+        ...state,
+        details: action.payload,
+      }
+
+    case LIMPIAR_SATE:
+        console.log(action.payload);
+        return {
+         ...state,
+          details: [],
+        }
 
     case 'POST_PROD':
       return {
         ...state,
-        products: action.payload
-      };
+        products: action.payload,
+      }
 
     case SEARCHxNAME: {
       const productsFilter = state.products.filter(Element => Element.nombre.toLowerCase().includes(action.payload.toLowerCase()))
       return {
         ...state,
-        productsHome: [...productsFilter]
-      }
+        productsHome: [...productsFilter],
+      };
     }
 
     case SEARCHxMARCA: {
@@ -97,7 +114,7 @@ const rootReducer = (state = initialState, action) => {
     case SEARCHxPRECIO: {
       let arr =  [...state.products]
       if (action.payload[1] === 0) {
-        let arr = [...state.products]
+         arr = [...state.products]
         if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
         if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
         arr = [...arr]

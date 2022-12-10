@@ -30,6 +30,7 @@ const Filtros = () => {
     else {
       dispatch(searchXtalla(el.target.value));
     }
+  };
     
         // return(
         //     <div className={style.div}>
@@ -43,6 +44,8 @@ const Filtros = () => {
         //         <option value="Umbro">Umbro</option>
         //         <option value="Le coq sportif">Le coq sportif</option>
         //        </select>
+
+
   
   return (
     <div className={style.div}>
@@ -75,7 +78,6 @@ const Filtros = () => {
         <option value="xxl">XXL</option>
       </select>
     </div>
-  );
-};
+  );;
 }
 export default Filtros;
