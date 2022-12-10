@@ -2,7 +2,7 @@ import React from "react";
 import style from './filtros.module.css';
 import { useDispatch } from 'react-redux';
 
-import { searchXmarca, searchXprecio, searchXtalla, searchXcateg } from '../../../redux/actions/actions.js'
+import { searchXmarca, searchXprecio, searchXtalla} from '../../../redux/actions/actions.js'
 
 const Filtros = () => {
 
@@ -28,13 +28,9 @@ const Filtros = () => {
       dispatch(searchXtalla(el.target.value))
     }
   }
-  const handlerSelectCateg = (el) => {
-    if (el.target.value === "categoria") return
-    else {
-      dispatch(searchXcateg(el.target.value))
-    }
-  }
 
+
+  
   return (
     <div className={style.div}>
 
@@ -67,7 +63,7 @@ const Filtros = () => {
         <option value="XXL">XXL</option>
       </select>
 
-      <select onChange={e => handlerSelectCateg(e)} className={style.select}>
+      <select className={style.select}>
         <option hidden>Categoría</option>
         <option value="todas">Todas</option>
         <option value="Camperas">Camperas</option>

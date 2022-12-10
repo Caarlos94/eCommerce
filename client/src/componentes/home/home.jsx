@@ -13,13 +13,14 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getProducts());
+    /* dispatch(getCategorys()) */;
   }, [dispatch]);
-
 
   const handlerClick = (e) => {
     e.preventDefault();
     dispatch(getProducts())
   }
+
   return (
     <div>
       <Navbar />
@@ -45,7 +46,6 @@ const Home = () => {
         </div>
 
       </div>
-
       <div className="App">
         <Cards />
       </div>

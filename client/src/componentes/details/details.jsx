@@ -2,18 +2,21 @@ import React from 'react';
 import s from './details.module.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDetails } from '../../redux/actions/actions.js';
+import { getDetails , limpiarState} from '../../redux/actions/actions.js';
 import Navbar from '../navbar/navbar';
 import { NavLink, useParams } from 'react-router-dom';
 
 const Details = () => {
   const dispatch = useDispatch();
-  const details = useSelector((state) => state.details);
+  
   let { id } = useParams();
 
   useEffect(() => {
+    dispatch(limpiarState())
     dispatch(getDetails(id));
   }, [dispatch, id]);
+
+  const details = useSelector((state) => state.details);
 
   return (
     <div>
@@ -35,7 +38,7 @@ const Details = () => {
               <h5>Talla: {details[0].talla.toUpperCase()}</h5>
             </div>
             <button>AÑADIR AL CARRITO</button>
-          </div>
+          </div> 
         </div>
       ) : (
         <p>error</p>

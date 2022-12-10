@@ -1,13 +1,14 @@
 import {
   GET_PRODUCTS,
-  GET_DETAILS,
   SEARCHxNAME,
   SEARCHxMARCA,
   SEARCHxPRECIO,
   SEARCHxTALLA,
   GET_CATEGORYS,
-  SEARCHxCATEG,
-} from '../actions/actions.js';
+  GET_DETAILS,
+  LIMPIAR_SATE
+} from '../actions/actions.js'
+
 
 const initialState = {
   products: [],
@@ -21,32 +22,41 @@ const initialState = {
 
 
 const rootReducer = (state = initialState, action) => {
+
   switch (action.type) {
     case GET_PRODUCTS: {
-      //console.log(action.payload);
-      return {
-        ...state,
-        products: [...action.payload],
-        productsHome: [...action.payload],
-      }
-    };
-
+      if (state.products.length !== 0) {
+        return {
+          ...state,
+          products: [...action.payload],
+          productsHome: [...action.payload],
+        }
+      } break
+    }
     case GET_CATEGORYS:
       return {
         ...state,
         categorys: action.payload,
-      };
+      }
+
     case GET_DETAILS:
+      console.log(action.payload);
       return {
         ...state,
         details: action.payload,
-      };
+      }
+
+    case LIMPIAR_SATE:
+      return {
+        ...state,
+        details: [],
+      }
 
     case 'POST_PROD':
       return {
         ...state,
         products: action.payload,
-      };
+      }
 
     case SEARCHxNAME: {
       const productsFilter = state.products.filter(Element => Element.nombre.toLowerCase().includes(action.payload.toLowerCase()))
@@ -103,7 +113,7 @@ const rootReducer = (state = initialState, action) => {
     case SEARCHxPRECIO: {
       let arr = [...state.products]
       if (action.payload[1] === 0) {
-        let arr = [...state.products]
+        arr = [...state.products]
         if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
         if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
         arr = [...arr]
