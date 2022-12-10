@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <div className={s.hero}>
+      {/* <div className={s.hero}>
         <div className={s.textoHero}>
           <h1>Supra Sports</h1>
           <button>AAAAAA</button>
@@ -34,9 +34,9 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className='App'>
+      <div className='App'> */}
         <Cards/>
-      </div>
+      {/* </div> */}
     </div>
   );
 };

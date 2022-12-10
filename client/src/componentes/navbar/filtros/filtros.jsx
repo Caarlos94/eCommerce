@@ -40,8 +40,8 @@ const Filtros = () => {
                 <option value="Adidas">Adidas</option>
                 <option value="Nike">Nike</option>
                 <option value="puma">Puma</option>
-                <option value="humbro">Umbro</option>
-                <option value="le coq sportif">Le coq sportif</option>
+                <option value="Umbro">Umbro</option>
+                <option value="Le coq sportif">Le coq sportif</option>
                </select>
 
                <select  onChange={e => fn3(e)} className={style.select}>

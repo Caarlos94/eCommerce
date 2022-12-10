@@ -1,3 +1,4 @@
+import { legacy_createStore } from 'redux';
 import { GET_PRODUCTS, SEARCHxNAME, SEARCHxMARCA, SEARCHxPRECIO, SEARCHxTALLA, GET_CATEGORYS} from '../actions/actions.js'
 
 
@@ -14,14 +15,20 @@ const initialState = {
 const rootReducer = (state = initialState, action) => {
 
   switch (action.type) {
+
+
     case GET_PRODUCTS: {
-      console.log(action.payload);
+
+    if(state.products.length == 0){
       return {
         ...state,
         products: [...action.payload.Productos],
         productsHome: [...action.payload.Productos],
       }
-    };
+    }
+
+    }
+  
 
     case GET_CATEGORYS:
       return {
@@ -52,7 +59,11 @@ const rootReducer = (state = initialState, action) => {
         productsFilter = [...arr]
       }
       else {
-        productsFilter = state.products.filter(Element => Element.marca.includes(action.payload))
+        let arr = [...state.products]
+         arr = arr.filter(Element => Element.marca.includes(action.payload));
+        if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
+        if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
+        productsFilter = [...arr]
       }
       return {
         ...state,
@@ -70,7 +81,11 @@ const rootReducer = (state = initialState, action) => {
         productsFilter = [...arr]
       }
       else {
-        productsFilter = state.productsHome.filter(Element => Element.talla.includes(action.payload))
+        let arr = [...state.products]
+        arr = arr.filter(Element => Element.talla.includes(action.payload));
+       if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
+       if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
+       productsFilter = [...arr]
       }
       return {
         ...state,
@@ -80,19 +95,21 @@ const rootReducer = (state = initialState, action) => {
     }
 
     case SEARCHxPRECIO: {
-      let productsFilter = [];
+      let arr =  [...state.products]
       if (action.payload[1] === 0) {
         let arr = [...state.products]
         if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
         if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
-        productsFilter = [...arr]
+        arr = [...arr]
       }
       else {
-        productsFilter = state.productsHome.filter(Element => action.payload[0] <= parseInt(Element.precio) && action.payload[1] >= parseInt(Element.precio))
+        arr = arr.filter(Element => action.payload[0] <= parseInt(Element.precio) && action.payload[1] >= parseInt(Element.precio))
+        if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
+        if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
       }
       return {
         ...state,
-        productsHome: [...productsFilter],
+        productsHome: [...arr],
         precio: [...action.payload]
       }
     }

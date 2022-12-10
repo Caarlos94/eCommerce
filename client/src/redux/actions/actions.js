@@ -8,6 +8,18 @@ export const SEARCHxTALLA = 'SEARCHxTALLA';
 export const SEARCHxNAME = 'SEARCHxNAME';
 
 
+
+
+
+// export const getProductsHome = () => {
+//   return function (dispatch) {
+//     return fetch("https://supra-sports-default-rtdb.firebaseio.com/.json")
+//       .then(response => response.json())
+//       .then(data => dispatch({ type: GET_PRODUCTS_HOME, payload: data }))
+//   };
+// };
+
+
 export const getProducts = () => {
   return function (dispatch) {
     return fetch("https://supra-sports-default-rtdb.firebaseio.com/.json")
