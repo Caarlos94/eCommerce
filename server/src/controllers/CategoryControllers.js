@@ -1,5 +1,17 @@
-const { default: axios } = require("axios");
+const axios = require("axios");
 const { Categoria } = require("../db");
+
+const categoriesSeed = () => {
+  axios
+    .get("https://supra-sports-default-rtdb.firebaseio.com/.json")
+    .then((res) => {
+      let categories = res.data.Productos.map((p) => p.categoria);
+      categories = new Set(categories);
+      categories.forEach(async (c) => {
+        await Categoria.findOrCreate({ where: { nombre: c } });
+      });
+    });
+};
 
 const setCategoryDefaultData = async (req, res) => {
   try {
@@ -150,4 +162,5 @@ module.exports = {
   postCategory,
   deleteCategory,
   updateCategory,
+  categoriesSeed,
 };

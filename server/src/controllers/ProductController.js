@@ -1,6 +1,7 @@
 const axios = require("axios");
+const { CommandCompleteMessage } = require("pg-protocol/dist/messages");
 
-const { Producto, Categoria } = require("../db");
+const { Producto, Categoria, Image } = require("../db");
 
 const setProductDefaultData = async (req, res) => {
   try {
@@ -11,19 +12,25 @@ const setProductDefaultData = async (req, res) => {
     }
 
     axios
-      .get("https://supra-sports-default-rtdb.firebaseio.com/.json")
+      .get("https://suprastore-8cd78-default-rtdb.firebaseio.com/.json")
       .then((response) =>
         response.data.Productos.forEach(async (el) => {
           const addedProduct = await Producto.findOrCreate({
             where: {
               nombre: el.nombre,
-              URL: el.URL,
               color: el.color,
               marca: el.marca,
               precio: el.precio,
               talla: el.talla,
             },
           });
+          if (Array.isArray(el.URL)) {
+            el.URL.forEach((img) =>
+              addedProduct[0].createImage({ nombre: img })
+            );
+          } else {
+            addedProduct[0].createImage({ nombre: el.URL });
+          }
 
           const matchingCategory = await Categoria.findOne({
             where: { nombre: el.categoria },
@@ -49,7 +56,10 @@ const getProducts = async (req, res) => {
     }
 
     const allProducts = await Producto.findAll({
-      include: { model: Categoria, through: { attributes: [] } },
+      include: [
+        { model: Categoria, through: { attributes: [] } },
+        { model: Image },
+      ],
       order: [["id", "ASC"]],
     });
 
@@ -62,10 +72,14 @@ const getProducts = async (req, res) => {
     let formattedProducts = [];
 
     for (let product of allProducts) {
+      let imagesArr = [];
+
+      product.Images.forEach((img) => imagesArr.push(img.nombre));
+
       formattedProducts.push({
         id: product.id,
         nombre: product.nombre,
-        URL: product.URL,
+        URL: imagesArr,
         precio: product.precio,
         color: product.color,
         talla: product.talla,
@@ -106,10 +120,6 @@ const updateProduct = async (req, res) => {
     const product = await Producto.findByPk(parseInt(id));
 
     await product.setCategoria(category.id);
-
-    const updatedProduct = await product.getCategoria();
-
-    console.log(updatedProduct);
 
     res.status(200).json("Product updated successfully");
 

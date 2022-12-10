@@ -36,21 +36,16 @@ let capsEntries = entries.map((entry) => [
   entry[1],
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
-// (async () => {
-//   try {
-//     await sequelize.authenticate();
-//     console.log("Connection has been established successfully.");
-//   } catch (error) {
-//     console.error("Unable to connect to the database:", error);
-//   }
-// })();
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Producto, Categoria } = sequelize.models;
+const { Producto, Categoria, Image } = sequelize.models;
 
 Producto.belongsToMany(Categoria, { through: "Producto_Categoria" });
 Categoria.belongsToMany(Producto, { through: "Producto_Categoria" });
+
+Producto.hasMany(Image);
+Image.belongsTo(Producto);
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);

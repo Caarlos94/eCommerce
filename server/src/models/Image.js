@@ -4,7 +4,7 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-    "Producto",
+    "Image",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -14,22 +14,8 @@ module.exports = (sequelize) => {
       nombre: {
         type: DataTypes.STRING,
         allowNull: false,
-      },
-      precio: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      color: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      talla: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      marca: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        unique: { arg: true, msg: "La imagen ya existe" },
+        validate: { isUrl: true },
       },
     },
     { timestamps: false }

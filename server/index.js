@@ -19,16 +19,15 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
-const {
-  setCategoryDefaultData,
-} = require("./src/controllers/CategoryControllers");
-const {
-  setProductDefaultData,
-} = require("./src/controllers/ProductController");
+const { categoriesSeed } = require("./src/controllers/CategoryControllers");
+
 // Syncing all the models at once.
+
 conn
   .sync({ force: true })
-  .then(() => {})
+  .then(() => {
+    categoriesSeed();
+  })
   .then(() => {
     server.listen(3001, () => {
       console.log("%s listening at 3001"); // eslint-disable-line no-console
