@@ -88,7 +88,7 @@ const rootReducer = (state = initialState, action) => {
       }
       else {
         let arr = [...state.products]
-        arr = arr.filter(Element => Element.talla.toLowerCase().includes(action.payload.toLowerCase()));
+        arr = arr.filter(Element => Element.talla.toLowerCase() === action.payload.toLowerCase());
         if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
         if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
         productsFilter = [...arr]
@@ -119,26 +119,6 @@ const rootReducer = (state = initialState, action) => {
         precio: [...action.payload]
       }
     }
-
-/*     case SEARCHxCATEG: {
-      let arr = [...state.products]
-      if (action.payload[1] === 0) {
-        let arr = [...state.products]
-        if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
-        if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
-        arr = [...arr]
-      }
-      else {
-        arr = arr.filter(Element => action.payload[0] <= parseInt(Element.precio) && action.payload[1] >= parseInt(Element.precio))
-        if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
-        if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
-      }
-      return {
-        ...state,
-        productsHome: [...arr],
-        precio: [...action.payload]
-      }
-    } */
 
     default:
       return { ...state };
