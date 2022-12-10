@@ -19,6 +19,7 @@ const initialState = {
   precio: [0, 0],
 };
 
+
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCTS: {
