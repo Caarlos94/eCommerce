@@ -66,7 +66,7 @@ const rootReducer = (state = initialState, action) => {
       }
       else {
         let arr = [...state.products]
-        arr = arr.filter(Element => Element.marca.includes(action.payload));
+        arr = arr.filter(Element => Element.marca.toLowerCase().includes(action.payload.toLowerCase()));
         if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
         if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
         productsFilter = [...arr]
@@ -88,7 +88,7 @@ const rootReducer = (state = initialState, action) => {
       }
       else {
         let arr = [...state.products]
-        arr = arr.filter(Element => Element.talla.includes(action.payload));
+        arr = arr.filter(Element => Element.talla.toLowerCase().includes(action.payload.toLowerCase()));
         if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
         if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
         productsFilter = [...arr]

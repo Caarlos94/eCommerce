@@ -56,11 +56,11 @@ const Filtros = () => {
       <select onChange={e => fn4(e)} className={style.select}>
         <option hidden>talla</option>
         <option value="todas">Todas</option>
-        <option value="L">L</option>
         <option value="S">S</option>
         <option value="M">M</option>
-        <option value="xl">XL</option>
-        <option value="xxl">XXL</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+        <option value="XXL">XXL</option>
       </select>
 
     </div>)
