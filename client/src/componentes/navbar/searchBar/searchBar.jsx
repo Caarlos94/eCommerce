@@ -24,7 +24,7 @@ const dispatch = useDispatch()
 
     return(
         <div className={style.divInput}>
-        <input type='text' placeholder='busca tu video juego...' onChange={fnState} value={state} className={style.input}></input>
+        <input type='text' placeholder='Buscar productos...' onChange={fnState} value={state} className={style.input}></input>
          <button type="submit" onClick={limpiarState} className={style.button}>buscar</button>
         </div>
     )

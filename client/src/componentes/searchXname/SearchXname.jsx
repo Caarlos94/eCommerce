@@ -9,7 +9,7 @@ import style from './productos.module.css'
 
 
 const SearchXname = (props) => {
- 
+
 
 
 const dispatch = useDispatch()

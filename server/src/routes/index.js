@@ -24,6 +24,5 @@ router.get("/category", async (req, res) => {
 // Ejemplo: router.use('/auth', authRouter);
 
 
+
 module.exports = router;
-
-
