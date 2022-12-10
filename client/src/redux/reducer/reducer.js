@@ -5,7 +5,8 @@ import { GET_PRODUCTS,
          SEARCHxTALLA, 
          GET_CATEGORYS , 
          GET_DETAILS ,
-         LIMPIAR_SATE} from '../actions/actions.js'
+         LIMPIAR_SATE ,
+         SEARCHxCATEGORIA} from '../actions/actions.js'
 
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   categorys: [],
   marca: 'todas',
   talla: 'todas',
+  categoria:'todas',
   precio: [0, 0],
 };
 
@@ -67,12 +69,37 @@ const rootReducer = (state = initialState, action) => {
       };
     }
 
+    case SEARCHxCATEGORIA: {
+      let productsFilter = [];
+      if (action.payload === 'todas') {
+        let arr = [...state.products]
+        if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
+        if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
+        if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
+        productsFilter = [...arr]
+      }
+      else {
+        let arr = [...state.products]
+         arr = arr.filter(Element => Element.categoria.includes(action.payload));
+         if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
+         if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
+        if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
+        productsFilter = [...arr]
+      }
+      return {
+        ...state,
+        productsHome: [...productsFilter],
+        categoria: action.payload
+      }
+    }
+
     case SEARCHxMARCA: {
       let productsFilter = [];
       if (action.payload === 'todas') {
         let arr = [...state.products]
         if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
         if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
+        if (state.categoria !== 'todas') arr = arr.filter(Element => Element.categoria.includes(state.categoria))
         productsFilter = [...arr]
       }
       else {
@@ -80,6 +107,7 @@ const rootReducer = (state = initialState, action) => {
          arr = arr.filter(Element => Element.marca.includes(action.payload));
         if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
         if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
+        if (state.categoria !== 'todas') arr = arr.filter(Element => Element.categoria.includes(state.categoria))
         productsFilter = [...arr]
       }
       return {
@@ -95,6 +123,7 @@ const rootReducer = (state = initialState, action) => {
         let arr = [...state.products]
         if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
         if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
+        if (state.categoria !== 'todas') arr = arr.filter(Element => Element.categoria.includes(state.categoria))
         productsFilter = [...arr]
       }
       else {
@@ -102,6 +131,7 @@ const rootReducer = (state = initialState, action) => {
         arr = arr.filter(Element => Element.talla.includes(action.payload));
        if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
        if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
+       if (state.categoria !== 'todas') arr = arr.filter(Element => Element.categoria.includes(state.categoria))
        productsFilter = [...arr]
       }
       return {
@@ -117,12 +147,14 @@ const rootReducer = (state = initialState, action) => {
          arr = [...state.products]
         if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
         if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
+        if (state.categoria !== 'todas') arr = arr.filter(Element => Element.categoria.includes(state.categoria))
         arr = [...arr]
       }
       else {
         arr = arr.filter(Element => action.payload[0] <= parseInt(Element.precio) && action.payload[1] >= parseInt(Element.precio))
         if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
         if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
+        if (state.categoria !== 'todas') arr = arr.filter(Element => Element.categoria.includes(state.categoria))
       }
       return {
         ...state,

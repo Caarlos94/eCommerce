@@ -8,6 +8,9 @@ export const SEARCHxTALLA = 'SEARCHxTALLA';
 export const SEARCHxNAME = 'SEARCHxNAME';
 export const GET_DETAILS = 'GET_DETAILS';
 export const LIMPIAR_SATE = 'LIMPIAR_SATE';
+export const SEARCHxCATEGORIA = 'SEARCHxCATEGORIA';
+
+
 
 
 let sinInternet = [
@@ -354,3 +357,11 @@ export const searchXtalla = (talla) => {
     payload: talla,
   };
 };
+
+export const searchXcategoria = (categoria) => {
+  return {
+    type: SEARCHxCATEGORIA,
+    payload: categoria,
+  };
+};
+
