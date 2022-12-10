@@ -19,14 +19,14 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
-const { categoriesSeed } = require("./src/controllers/CategoryControllers");
+const { seeder } = require("./src/controllers/CategoryControllers");
 
 // Syncing all the models at once.
 
 conn
   .sync({ force: true })
   .then(() => {
-    categoriesSeed();
+    seeder();
   })
   .then(() => {
     server.listen(3001, () => {

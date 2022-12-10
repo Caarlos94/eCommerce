@@ -1,14 +1,36 @@
 const axios = require("axios");
-const { Categoria } = require("../db");
+const { Categoria, Size, Color } = require("../db");
 
-const categoriesSeed = () => {
+const seeder = () => {
   axios
-    .get("https://supra-sports-default-rtdb.firebaseio.com/.json")
+    .get("https://suprastore-8cd78-default-rtdb.firebaseio.com/.json")
     .then((res) => {
       let categories = res.data.Productos.map((p) => p.categoria);
       categories = new Set(categories);
       categories.forEach(async (c) => {
         await Categoria.findOrCreate({ where: { nombre: c } });
+      });
+
+      // Tal vez no sea necesario si ya se está filtrando en el front. Tienes tallas por número y por letra
+
+      let sizes = res.data.Productos.map((p) => p.talla);
+      sizes = new Set(sizes);
+      sizes.forEach(async (size) => {
+        await Size.findOrCreate({ where: { nombre: size } });
+      });
+
+      // el seeder de color debe buscar todos los colores en los arrays
+
+      let colors = res.data.Productos.map((p) => p.color);
+      colors = colors.flat();
+      colors = new Set(colors);
+      colors.forEach(async (color) => {
+        await Color.findOrCreate({
+          where: {
+            nombre:
+              color.charAt(0).toUpperCase() + color.slice(1).toLowerCase(),
+          },
+        });
       });
     });
 };
@@ -162,5 +184,5 @@ module.exports = {
   postCategory,
   deleteCategory,
   updateCategory,
-  categoriesSeed,
+  seeder,
 };

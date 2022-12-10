@@ -1,7 +1,6 @@
 const axios = require("axios");
-const { CommandCompleteMessage } = require("pg-protocol/dist/messages");
 
-const { Producto, Categoria, Image } = require("../db");
+const { Producto, Categoria, Image, Color } = require("../db");
 
 const setProductDefaultData = async (req, res) => {
   try {
@@ -18,12 +17,15 @@ const setProductDefaultData = async (req, res) => {
           const addedProduct = await Producto.findOrCreate({
             where: {
               nombre: el.nombre,
-              color: el.color,
               marca: el.marca,
               precio: el.precio,
               talla: el.talla,
             },
           });
+
+          /*----------------- Agregando imagenes y relacion -------------------*/
+
+          // verificacion adicional ya que el firebase json no está actualizado. (El key de todas las propiedades URL deberia ser un array)
           if (Array.isArray(el.URL)) {
             el.URL.forEach((img) =>
               addedProduct[0].createImage({ nombre: img })
@@ -32,11 +34,40 @@ const setProductDefaultData = async (req, res) => {
             addedProduct[0].createImage({ nombre: el.URL });
           }
 
+          /*----------------- Agregando relacion de categorias ----------------*/
+
           const matchingCategory = await Categoria.findOne({
             where: { nombre: el.categoria },
           });
 
           addedProduct[0].addCategoria(matchingCategory);
+
+          /*----------------- Agregando relacion de colores -------------------*/
+          // verificacion adicional ya que el firebase json no está actualizado. (El key de todas las propiedades URL deberia ser un array)
+
+          if (Array.isArray(el.color)) {
+            el.color.forEach(async (color) => {
+              let matchingColor = await Color.findOne({
+                where: {
+                  nombre:
+                    color.charAt(0).toUpperCase() +
+                    color.slice(1).toLowerCase(),
+                },
+              });
+
+              addedProduct[0].addColor(matchingColor);
+            });
+          } else {
+            const matchingColor = await Color.findOne({
+              where: {
+                nombre:
+                  el.color.charAt(0).toUpperCase() +
+                  el.color.slice(1).toLowerCase(),
+              },
+            });
+
+            addedProduct[0].addColor(matchingColor);
+          }
         })
       );
 
@@ -74,7 +105,9 @@ const getProducts = async (req, res) => {
     for (let product of allProducts) {
       let imagesArr = [];
 
-      product.Images.forEach((img) => imagesArr.push(img.nombre));
+      product.Images.forEach((img) =>
+        imagesArr.push({ id: img.id, nombre: img.nombre })
+      );
 
       formattedProducts.push({
         id: product.id,
