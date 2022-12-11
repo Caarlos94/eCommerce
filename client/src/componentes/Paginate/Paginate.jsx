@@ -15,10 +15,12 @@ const Paginado = ({ productos, productsPerPage, fnPaginado, currentPage }) => {
             numberOfPages.map(num => {
               return (
                 <button
-                  className={currentPage !== num ? style.paginadoBoton : style.paginadoSelect}
+                  className={style.paginadoBoton}
+                  style={currentPage === num ? { color: 'green', background:'darkgrey' } : {}}
                   key={num}
                   onClick={() => fnPaginado(num)}>{num}</button>
               )
+
             })
           }
         </div>

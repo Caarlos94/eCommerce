@@ -10,6 +10,7 @@ import {
   searchXcategoria,
   /* emptyError, */
   getProducts,
+  getProducts2
 } from '../../../redux/actions/actions.js';
 
 const Filtros = () => {
@@ -30,15 +31,18 @@ const Filtros = () => {
     dispatch(searchXtalla(el.target.value));
   };
 
- /*  const handlerError = (e) => {
-    dispatch(emptyError());
-  }; */
+  /*  const handlerError = (e) => {
+     dispatch(emptyError());
+   }; */
 
-  const handlerClick = (e) => {
+/*   const handlerClick = (e) => {
     e.preventDefault();
     dispatch(getProducts());
-  };
+  }; */
 
+  const handlerClickAllProds = () => {
+    dispatch(getProducts2())
+  }
   return (
     <div className={style.div}>
       <div className={style.allFilters}>
@@ -83,7 +87,7 @@ const Filtros = () => {
       </div>
       <div className={style.clear}>
         <NavLink to="/">
-          <button onClick={(e) => handlerClick(e)}>All Products</button>
+          <button onClick={(e) => handlerClickAllProds(e)}>All Products</button>
         </NavLink>
       </div>
 

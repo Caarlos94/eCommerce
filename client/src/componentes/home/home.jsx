@@ -23,7 +23,7 @@ const Home = () => {
   const lastIndex = page * productsPerPage // 1 * 8 = 8
   const firstIndex = lastIndex - productsPerPage   // 8 - 8 = 0
   const currentPage = allProducts.slice(firstIndex, lastIndex);
-
+  
   const fnPaginado = (page) => {   // FUNCIÓN PARA MODIFICAR EL ESTADO LOCAL PAGE
     setPages(page);
   };
