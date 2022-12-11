@@ -1,7 +1,7 @@
 import React from "react";
-import "./Paginate.module.css"
+import style from "./Paginate.module.css"
 
-const Paginado = ({ productos, productsPerPage, fnPaginado }) => {
+const Paginado = ({ productos, productsPerPage, fnPaginado, currentPage }) => {
   const numberOfPages = [];
   for (let i = 1; i <= Math.ceil(productos / productsPerPage); i++) {
     numberOfPages.push(i);
@@ -9,13 +9,19 @@ const Paginado = ({ productos, productsPerPage, fnPaginado }) => {
 
   return (
     <>
-      <div className="paginadoContainer">
-        <div className="paginadoBotonContainer">
+      <div className={style.paginadoContainer}>
+        <div className={style.paginadoBotonContainer}>
           {
             numberOfPages.map(num => {
               return (
-              <button className="paginadoBoton" key={num} onClick={()=> fnPaginado(num) }>{num}</button>
-            )})
+                <button
+                  className={style.paginadoBoton}
+                  style={currentPage === num ? { color: 'green', background:'darkgrey' } : {}}
+                  key={num}
+                  onClick={() => fnPaginado(num)}>{num}</button>
+              )
+
+            })
           }
         </div>
       </div>

@@ -1,8 +1,9 @@
 .errors {
-  display: inline-flex;
-  border-radius: 3px;
+  display: flex;
+  margin-top: 10px;
+  padding-left: 12px;
+  border-radius: 4px;
   background-color: #ec39399d;
-  width: 240px;
   justify-content: center;
 }
 

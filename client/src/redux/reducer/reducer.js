@@ -9,6 +9,7 @@ import {
   LIMPIAR_SATE,
   SEARCHxCATEGORIA,
   EMPTY_ERROR,
+  ORDER_PRECIO,
 } from '../actions/actions.js'
 
 
@@ -29,13 +30,18 @@ const rootReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case GET_PRODUCTS: {
-      if (state.products.length === 0) {
+      console.log(action.payload);
+      if (state.products.length === 0 || action.payload[1] === 'volver a cargar los productos') {
         return {
           ...state,
-          products: [...action.payload],
-          productsHome: [...action.payload],
+          products: [...action.payload[0]],
+          productsHome: [...action.payload[0]],
         }
-      } break
+      } return {
+        ...state,
+        products: [...state.products],
+        productsHome: [...state.productsHome]
+      }
     }
     case GET_CATEGORYS:
       return {
@@ -85,6 +91,23 @@ const rootReducer = (state = initialState, action) => {
       }
     }
 
+    case ORDER_PRECIO:
+      const arrPrecio = action.payload === 'asc'
+        ? state.productsHome.sort((a, b) => { //compara dos valores, en este caso los dos pesos
+          if (parseInt(a.precio) > parseInt(b.precio)) return 1; //los va posicionando a la derecha
+          if (parseInt(a.precio) < parseInt(b.precio)) return -1;//o a la izquierda
+          return 0;//o si son iguales los deja así
+        })
+        : state.productsHome.sort((a, b) => {
+          if (parseInt(a.precio) > parseInt(b.precio)) return -1;
+          if (parseInt(a.precio) < parseInt(b.precio)) return 1;
+          return 0;
+        })
+      return {
+        ...state,
+        products: [...arrPrecio],
+      };
+
     case SEARCHxCATEGORIA: {
       let productsFilter = [];
       if (action.payload === 'todas') {
@@ -103,18 +126,22 @@ const rootReducer = (state = initialState, action) => {
         productsFilter = [...arr]
       }
 
+      let setError = '';
+
       if (productsFilter.length === 0) {
-        return {
-          ...state,
-          error: true
-        }
+        setError = true
       } else {
-        return {
-          ...state,
-          productsHome: [...productsFilter],
-          categoria: action.payload
-        }
+        setError = false
       }
+
+
+      return {
+        ...state,
+        productsHome: [...productsFilter],
+        categoria: action.payload,
+        error: setError
+      }
+
     }
 
     case SEARCHxMARCA: {
@@ -135,18 +162,34 @@ const rootReducer = (state = initialState, action) => {
         productsFilter = [...arr]
       }
 
+      // if (productsFilter.length === 0) {
+      //   return {
+      //     ...state,
+      //     error: true
+      //   }
+      // } else {
+      //   return {
+      //     ...state,
+      //     productsHome: [...productsFilter],
+      //     marca: action.payload
+      //   }
+      // }
+      let setError = '';
+
       if (productsFilter.length === 0) {
-        return {
-          ...state,
-          error: true
-        }
+        setError = true
       } else {
-        return {
-          ...state,
-          productsHome: [...productsFilter],
-          marca: action.payload
-        }
+        setError = false
       }
+
+
+      return {
+        ...state,
+        productsHome: [...productsFilter],
+        marca: action.payload,
+        error: setError
+      }
+
     }
 
     case SEARCHxTALLA: {
@@ -167,18 +210,34 @@ const rootReducer = (state = initialState, action) => {
         productsFilter = [...arr]
       }
 
+      // if (productsFilter.length === 0) {
+      //   return {
+      //     ...state,
+      //     error: true
+      //   }
+      // } else {
+      //   return {
+      //     ...state,
+      //     productsHome: [...productsFilter],
+      //     talla: action.payload
+      //   }
+      // }
+      let setError = '';
+
       if (productsFilter.length === 0) {
-        return {
-          ...state,
-          error: true
-        }
+        setError = true
       } else {
-        return {
-          ...state,
-          productsHome: [...productsFilter],
-          talla: action.payload
-        }
+        setError = false
       }
+
+
+      return {
+        ...state,
+        productsHome: [...productsFilter],
+        talla: action.payload,
+        error: setError
+      }
+
     }
 
     case SEARCHxPRECIO: {
@@ -197,18 +256,34 @@ const rootReducer = (state = initialState, action) => {
         if (state.categoria !== 'todas') arr = arr.filter(Element => Element.categoria.includes(state.categoria))
       }
 
+      // if (arr.length === 0) {
+      //   return {
+      //     ...state,
+      //     error: true
+      //   }
+      // } else {
+      //   return {
+      //     ...state,
+      //     productsHome: [...arr],
+      //     precio: [...action.payload]
+      //   }
+      // }
+      let setError = '';
+
       if (arr.length === 0) {
-        return {
-          ...state,
-          error: true
-        }
+        setError = true
       } else {
-        return {
-          ...state,
-          productsHome: [...arr],
-          precio: [...action.payload]
-        }
+        setError = false
       }
+
+
+      return {
+        ...state,
+        productsHome: [...arr],
+        precio: [...action.payload],
+        error: setError
+      }
+
     }
     default:
       return { ...state };
