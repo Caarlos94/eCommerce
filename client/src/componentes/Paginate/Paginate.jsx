@@ -1,25 +1,26 @@
-import React from 'react'
-import style from './Paginate.module.css'
+import React from "react";
+import "./Paginate.module.css"
 
-export default function Paginado({ productsPerPage, allProducts, paginado, page}){
-    const pageNumbers = []
+const Paginado = ({ productos, productsPerPage, fnPaginado }) => {
+  const numberOfPages = [];
+  for (let i = 1; i <= Math.ceil(productos / productsPerPage); i++) {
+    numberOfPages.push(i);
+  }
 
-    for (let i = 0 ; i < Math.ceil(allProducts/productsPerPage); i++){
-        pageNumbers.push(i + 1)
-    }
+  return (
+    <>
+      <div className="paginadoContainer">
+        <div className="paginadoBotonContainer">
+          {
+            numberOfPages.map(num => {
+              return (
+              <button className="paginadoBoton" key={num} onClick={()=> fnPaginado(num) }>{num}</button>
+            )})
+          }
+        </div>
+      </div>
+    </>
+  );
+};
 
-    return(
-        <nav>
-            <ul className={style.pagination}>
-                {
-                    pageNumbers && pageNumbers.map( number => (
-                        <li key={number} style={{ listStyle:'none' }}>
-                            <button className={style.buttons} style={ page === number ? {color:"white", background:'darkgrey'} : {}}onClick={() => paginado(number)}>{number}</button>
-                        </li>
-                    ))
-                }
-            </ul>
-        </nav>
-    )
-
-}
+export default Paginado
