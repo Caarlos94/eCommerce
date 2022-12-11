@@ -1,10 +1,18 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getProducts } from '../../redux/actions/actions.js';
 import s from './home.module.css';
 import Navbar from '../navbar/navbar.jsx';
 import Cards from '../Card/Cards';
 import { useDispatch } from 'react-redux';
+import Paginado from '../Paginate/Paginate'
+
+
+/* const DATOS_API = Array.from({length:60}, (value, index) => {
+  return{id:index, title:`Item #${index}`}
+}) */
+
+/* const ITEMS_PER_PAGE = 10 */
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -12,6 +20,44 @@ const Home = () => {
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
+
+
+
+  /* const [page, setPages] = useState(1); // CREAMOS UN ESTADO PARA MANEJAR EL PAGINADO
+  const productsPerPage = 8
+  const lastIndex =  page * productsPerPage // 1 * 8 = 8
+  const firstIndex = lastIndex - productsPerPage   // 8 - 8 = 0
+  const currentePage = products.slice(firstIndex, lastIndex);
+
+  const fnPaginado = (page) => {   // FUNCIÓN PARA MODIFICAR EL ESTADO LOCAL PAGE
+    setPages(page);
+  }; */
+
+  /* const [datosFromApi, setDatosFromApi] = useState(DATOS_API);
+
+  const [items, setItems] = useState([...DATOS_API].splice(0, ITEMS_PER_PAGE));
+
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const nextHandler = () => {
+    const totalElementos = datosFromApi.length;
+    const nextPage = currentPage + 1;
+    const firstIndex = nextPage * ITEMS_PER_PAGE;
+    if (firstIndex === totalElementos) return;
+    setItems([...datosFromApi].splice(firstIndex, ITEMS_PER_PAGE));
+    setCurrentPage(nextPage);
+  }
+
+  
+  const prevHandler = () => {
+    const prevPage = currentPage - 1;
+    if (prevPage < 0) return;
+    const firstIndex = prevPage * ITEMS_PER_PAGE;
+    setItems([...datosFromApi].splice(firstIndex, ITEMS_PER_PAGE));
+    setCurrentPage(prevPage);
+  } */
+
+  
 
   return (
     <div>
@@ -35,6 +81,7 @@ const Home = () => {
       <div className="App">
         <Cards />
       </div>
+      
     </div>
   );
 };
