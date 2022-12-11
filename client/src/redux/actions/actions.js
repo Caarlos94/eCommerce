@@ -8,6 +8,10 @@ export const SEARCHxTALLA = 'SEARCHxTALLA';
 export const SEARCHxNAME = 'SEARCHxNAME';
 export const GET_DETAILS = 'GET_DETAILS';
 export const LIMPIAR_SATE = 'LIMPIAR_SATE';
+export const SEARCHxCATEGORIA = 'SEARCHxCATEGORIA';
+export const EMPTY_ERROR = 'EMPTY_ERROR';
+
+
 
 export const getProducts = () => {
   return function (dispatch) {
@@ -33,6 +37,10 @@ export function postProd(payload) {
     );
     return response;
   };
+}
+
+export const emptyError = () => {
+  return { type: EMPTY_ERROR }
 }
 
 export function getDetails(id) {
@@ -84,3 +92,11 @@ export const searchXtalla = (talla) => {
     payload: talla,
   };
 };
+
+export const searchXcategoria = (categoria) => {
+  return {
+    type: SEARCHxCATEGORIA,
+    payload: categoria,
+  };
+};
+

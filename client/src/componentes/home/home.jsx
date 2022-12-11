@@ -3,14 +3,17 @@ import { useEffect } from 'react';
 import { getProducts } from '../../redux/actions/actions.js';
 import s from './home.module.css';
 import Navbar from '../navbar/navbar.jsx';
+import Loading from '../../componentes/Loading/Loading'
 import Cards from '../Card/Cards';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import messiNotFound from '../../img/messiNotFound.gif'
 
 
 const Home = () => {
   const dispatch = useDispatch();
-
+  const allProds = useSelector((state) => state.products)
+  const error = useSelector((state) => state.error)
   useEffect(() => {
     dispatch(getProducts());
     /* dispatch(getCategorys()) */;
@@ -42,13 +45,23 @@ const Home = () => {
             <div className={s.img2}></div>
             <div className={s.img3}></div>
           </div>
-
         </div>
-
       </div>
-      <div className="App">
-        <Cards />
-      </div>
+      {allProds.length > 0
+        ?
+        <div className="App">
+          {error ? (
+            <div>
+              <h1>No se encontraron coincidencias!</h1>
+              <img src={messiNotFound} alt='img'></img>
+            </div>
+          ) : (<Cards />)}
+        </div>
+        :
+        <div>
+          <Loading />
+        </div>
+      }
     </div>
   );
 };

@@ -2,41 +2,53 @@ import React from "react";
 import style from './filtros.module.css';
 import { useDispatch } from 'react-redux';
 
-import { searchXmarca, searchXprecio, searchXtalla} from '../../../redux/actions/actions.js'
+import {
+  searchXmarca,
+  searchXprecio,
+  searchXtalla,
+  searchXcategoria,
+  emptyError
+} from '../../../redux/actions/actions.js';
 
 const Filtros = () => {
-
-
   const dispatch = useDispatch()
 
-
+  const fn = (el) => {
+    dispatch(searchXcategoria(el.target.value));
+  };
   const fn2 = (el) => {
-    if (el.target.value === "marca") return
-    else {
-      dispatch(searchXmarca(el.target.value))
-    }
-  }
+    dispatch(searchXmarca(el.target.value));
+  };
+
   const fn3 = (el) => {
-    if (el.target.value === "precio") return
-    else {
-      dispatch(searchXprecio(el.target.value))
-    }
-  }
+    dispatch(searchXprecio(el.target.value));
+  };
+
   const fn4 = (el) => {
-    if (el.target.value === "talla") return
-    else {
-      dispatch(searchXtalla(el.target.value))
-    }
+    dispatch(searchXtalla(el.target.value));
+
+  };
+
+  const handlerError = (e) => {
+    dispatch(emptyError())
   }
 
-
-  
   return (
     <div className={style.div}>
+      <select onChange={(e) => fn(e)} className={style.select}>
+        <option hidden>Categorias</option>
+        <option value="todas" onClick={(e) => handlerError(e)}>Todas</option>
+        <option value="Camperas">Camperas</option>
+        <option value="Pantalones">Pantalones</option>
+        <option value="Remeras">Remeras</option>
+        <option value="Shorts">Shorts</option>
+        <option value="Zapatillas">Zapatillas</option>
+      </select>
 
-      <select onChange={e => fn2(e)} className={style.select}>
-        <option hidden>Marca</option>
-        <option value="todas">Todas</option>
+
+      <select onChange={(e) => fn2(e)} className={style.select}>
+        <option hidden>marca</option>
+        <option value="todas">todas</option>
         <option value="Adidas">Adidas</option>
         <option value="Nike">Nike</option>
         <option value="Puma">Puma</option>
@@ -46,7 +58,7 @@ const Filtros = () => {
 
       <select onChange={e => fn3(e)} className={style.select}>
         <option hidden>Precio</option>
-        <option value={[0, 0]}>Todos</option>
+        <option value={[0, 0]} onClick={(e) => handlerError(e)}>Todos</option>
         <option value={[10, 15]}>10 a 15 usd$</option>
         <option value={[15, 20]}>15 a 20 usd$</option>
         <option value={[20, 25]}>20 a 25 usd$</option>
@@ -63,17 +75,9 @@ const Filtros = () => {
         <option value="XXL">XXL</option>
       </select>
 
-      <select className={style.select}>
-        <option hidden>Categoría</option>
-        <option value="todas">Todas</option>
-        <option value="Camperas">Camperas</option>
-        <option value="Remeras">Remeras</option>
-        <option value="Pantalones">Pantalones</option>
-        <option value="Shorts">Shorts</option>
-        <option value="Zapatillas">Zapatillas</option>
-      </select>
-
-    </div>)
+      <button onClick={(e) => handlerError(e)}>resolver errores de filtros</button>
+    </div >
+  )
 }
 
 
