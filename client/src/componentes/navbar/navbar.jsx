@@ -5,24 +5,21 @@ import style from './navbar.module.css';
 import { NavLink } from "react-router-dom";
 
 
-// import { Link } from "react-router-dom";
-
-
-
 const Navbar = () => {
 
-    return (
-       <div className={style.div}>
-         <SearchBar/>
 
-         <Filtros/>
-        
+  return (
+    <div className={style.div}>
+      <SearchBar />
+
+      <Filtros />
+      <div>
         <NavLink to='/product'>
           <button>Publicar un producto!</button>
         </NavLink>
-
-       </div>
-     );
+      </div>
+    </div>
+  );
 }
 
 export default Navbar

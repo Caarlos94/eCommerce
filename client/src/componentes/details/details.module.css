@@ -12,6 +12,10 @@
   align-items: center;
   border: 1px solid black;
 }
+.imgCont img{
+  height: auto;
+  width: 400px;
+}
 
 .textCont {
   background-color: #edeff0;

@@ -7,7 +7,11 @@ export const SEARCHxPRECIO = 'SEARCHxPRECIO';
 export const SEARCHxTALLA = 'SEARCHxTALLA';
 export const SEARCHxNAME = 'SEARCHxNAME';
 export const GET_DETAILS = 'GET_DETAILS';
-export const SEARCHxCATEG = 'SEARCHxCATEG';
+export const LIMPIAR_SATE = 'LIMPIAR_SATE';
+export const SEARCHxCATEGORIA = 'SEARCHxCATEGORIA';
+export const EMPTY_ERROR = 'EMPTY_ERROR';
+
+
 
 export const getProducts = () => {
   return function (dispatch) {
@@ -35,6 +39,10 @@ export function postProd(payload) {
   };
 }
 
+export const emptyError = () => {
+  return { type: EMPTY_ERROR }
+}
+
 export function getDetails(id) {
   return async function (dispatch) {
     const response = await axios.get(`http://localhost:3001/products/${id}`);
@@ -42,6 +50,12 @@ export function getDetails(id) {
       type: GET_DETAILS,
       payload: response.data,
     });
+  };
+}
+
+export function limpiarState(id) {
+  return {
+    type: LIMPIAR_SATE,
   };
 }
 
@@ -79,9 +93,10 @@ export const searchXtalla = (talla) => {
   };
 };
 
-export const searchXcateg = (categ) => {
+export const searchXcategoria = (categoria) => {
   return {
-    type: SEARCHxCATEG,
-    payload: categ,
+    type: SEARCHxCATEGORIA,
+    payload: categoria,
   };
 };
+
