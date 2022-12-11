@@ -30,7 +30,7 @@ const postCategory = async (req, res) => {
 
     // verificar que no exista ya
 
-    await Categoria.create({ nombre: categoria });
+    Categoria.create({ nombre: categoria });
 
     res.status(200).json(`La categoría ${categoria} se creó exitosamente`);
   } catch (error) {

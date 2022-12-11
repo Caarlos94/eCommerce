@@ -160,7 +160,16 @@ const getProducts = async (req, res) => {
 const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    const { nombre, URL, precio, color, talla, marca, categoria } = req.body;
+    const {
+      nombre,
+      deletedImages,
+      addedImages,
+      precio,
+      color,
+      talla,
+      marca,
+      categoria,
+    } = req.body;
 
     Producto.findByPk(parseInt(id), {
       include: [{ model: Categoria, attributes: ["nombre"] }],
@@ -203,8 +212,6 @@ const updateProduct = async (req, res) => {
     });
     productSizes.forEach((entry) => entry.destroy());
 
-    res.status(200).json("Product updated successfully");
-
     //agrega tallas recibidas
 
     talla.forEach(async (talla) => {
@@ -214,10 +221,122 @@ const updateProduct = async (req, res) => {
       product.addSize(matchingSize);
     });
 
+    // elimina imagenes seleccionadas
+
+    deletedImages.forEach((imgId) =>
+      Image.findByPk(parseInt(imgId)).then((img) => img.destroy())
+    );
+
+    //agrega imagenes seleccionadas
+
+    addedImages.forEach((img) => product.createImage({ nombre: img }));
+
+    res.status(200).json("Product updated successfully");
     return;
   } catch (error) {
     res.status(404).json(error.message);
   }
 };
 
-module.exports = { setProductDefaultData, getProducts, updateProduct };
+const postProduct = async (req, res) => {
+  //Espera recibir un objeto como este:
+
+  // {
+  //   nombre: "Chaqueta invierno",
+  //   precio: 34,
+  //   marca: "Avellaneda",
+  //   imagenes: [
+  //     "https://cdn.shopify.com/s/files/1/0034/5459/9217/products/product-image-554242470_1024x1024@2x.jpg?v=1571720317",
+  //     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTown4u2TWUQTvbw6QnvvB5wbSFmM3CHyTV7w&usqp=CAU",
+  //   ],
+  //   tallas: [XL, M],
+  //   colores: ["Amarillo", "Azul", "Rojo"],
+  //   categoria: "Pantalones",
+  // };
+  try {
+    const { nombre, precio, marca, imagenes, tallas, colores, categoria } =
+      req.body;
+
+    const product = await Producto.create({
+      nombre,
+      marca,
+      precio,
+    });
+
+    // relaciona categoria
+
+    const matchingCategory = await Categoria.findOne({
+      where: { nombre: categoria },
+    });
+
+    product.addCategoria(matchingCategory);
+
+    //relaciona tallas
+
+    tallas.forEach(async (size) => {
+      let matchingSize = await Size.findOne({
+        where: {
+          nombre: size.toString(),
+        },
+      });
+
+      product.addSize(matchingSize);
+    });
+
+    // relaciona colores
+
+    colores.forEach(async (color) => {
+      let matchingColor = await Color.findOne({
+        where: {
+          nombre: color,
+        },
+      });
+
+      product.addColor(matchingColor);
+    });
+
+    // agrega imagenes
+
+    imagenes.forEach((img) => product.createImage({ nombre: img }));
+
+    return res.status(200).json("El producto se agregó correctamente");
+  } catch (error) {
+    res.status(404).json(error.message);
+  }
+};
+
+const deleteProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Producto.findByPk(parseInt(id));
+    await product.destroy();
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+};
+
+// el formulario debe enviar un objeto como este:
+
+// {
+//   id: 1,
+//   nombre: "Campera Deportiva NOTAdidas",
+//   deletedImages: [1, 2],
+//   addedImages: [
+//     "https://m.media-amazon.com/images/I/71czpl8TjzL._AC_UY1000_.jpg",
+//     "https://www.tradeinn.com/f/13822/138225338/le-coq-sportif-sudadera-con-capucha-as-saint-etienne-presentacion.jpg",
+//   ],
+//   precio: "40",
+//   color: ["Amarillo", "Azul", "Rojo"],
+//   talla: ["M", "XXL"],
+//   marca: "NOTAdidas",
+//   categoria: "Pantalones",
+// };
+
+module.exports = {
+  setProductDefaultData,
+  getProducts,
+  updateProduct,
+  deleteProduct,
+  postProduct,
+};

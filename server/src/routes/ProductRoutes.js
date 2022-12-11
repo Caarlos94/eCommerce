@@ -5,12 +5,18 @@ const {
   getProducts,
   setProductDefaultData,
   updateProduct,
+  deleteProduct,
+  postProduct,
 } = require("../controllers/ProductController");
 
 router.get("/defaultData", setProductDefaultData);
 
 router.get("/", getProducts);
 
-router.put("/:id", updateProduct); // deberia ser ruta PUT, solo tengo get de prueba
+router.put("/:id", updateProduct);
+
+router.post("/", postProduct);
+
+router.delete("/:id", deleteProduct);
 
 module.exports = router;

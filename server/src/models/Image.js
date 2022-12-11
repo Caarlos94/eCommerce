@@ -14,7 +14,6 @@ module.exports = (sequelize) => {
       nombre: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: { arg: true, msg: "La imagen ya existe" },
         validate: { isUrl: true },
       },
     },
