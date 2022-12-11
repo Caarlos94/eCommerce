@@ -1,5 +1,3 @@
-// const axios = require("axios");
-
 const {
   Producto,
   Categoria,
@@ -12,6 +10,142 @@ const {
 
 const getProducts = async (req, res) => {
   try {
+    // const queries = {};
+    const { size, color, categoria } = req.query;
+
+    if (size || color || categoria) {
+      // if (size) queries.size = size;
+      // if (color) queries.color = color;
+      // if (categoria) queries.categoria = categoria;
+
+      let categoryArray;
+      let colorArray = [];
+      let sizeArray = [];
+
+      let idArray = [];
+      let amountOfFilters = 0;
+
+      if (categoria) {
+        amountOfFilters++;
+        categoryArray = await Categoria.findOne({
+          where: { nombre: categoria },
+          include: [{ model: Producto, through: { attributes: [] } }],
+        });
+        categoryArray.Productos.forEach((producto) =>
+          idArray.push(producto.id)
+        );
+      }
+
+      if (color) {
+        amountOfFilters++;
+        colorArray = await Color.findOne({
+          where: { nombre: color },
+          include: [{ model: Producto, through: { attributes: [] } }],
+        });
+
+        colorArray.Productos.forEach((producto) => idArray.push(producto.id));
+      }
+
+      if (size) {
+        amountOfFilters++;
+        sizeArray = await Size.findOne({
+          where: { nombre: size },
+          include: [{ model: Producto, through: { attributes: [] } }],
+        });
+
+        sizeArray.Productos.forEach((producto) => idArray.push(producto.id));
+      }
+      console.log("filters applied: " + amountOfFilters);
+
+      const count = {};
+
+      for (const element of idArray) {
+        if (count[element]) {
+          count[element] += 1;
+        } else {
+          count[element] = 1;
+        }
+      }
+
+      let matchingIdsArr = []; // id para productos que hacen match con todos los filtros
+
+      for (const [id, matches] of Object.entries(count)) {
+        if (parseInt(matches) === amountOfFilters) matchingIdsArr.push(id);
+      }
+
+      matchingIdsArr = matchingIdsArr.map((id) => parseInt(id));
+
+      // console.log(matchingIdsArr); // ids de productos que cumplen todos los filtros
+
+      // MANEJANDO PRODUCTOS EN BASE A IDS OBTENIDOS
+
+      const allProducts = await Producto.findAll({
+        include: [
+          { model: Categoria, through: { attributes: [] } },
+          { model: Image },
+          { model: Color, through: { attributes: [] } },
+          { model: Size, through: { attributes: [] } },
+        ],
+        order: [["id", "ASC"]],
+      });
+
+      // if (!allProducts.length) {
+      //   return res
+      //     .status(200)
+      //     .json("Actualmente no hay productos en la base de datos");
+      // }
+
+      let formattedProducts = [];
+
+      for (let product of allProducts) {
+        let imagesArr = [];
+
+        product.Images.forEach((img) =>
+          imagesArr.push({ id: img.id, nombre: img.nombre })
+        );
+
+        let colorsArr = [];
+
+        product.Colors.forEach((color) => {
+          colorsArr.push({ id: color.id, nombre: color.nombre });
+        });
+
+        let sizesArr = [];
+
+        product.Sizes.forEach((size) => {
+          sizesArr.push({ id: size.id, nombre: size.nombre });
+        });
+
+        formattedProducts.push({
+          id: product.id,
+          nombre: product.nombre,
+          URL: imagesArr,
+          precio: product.precio,
+          color: colorsArr,
+          talla: sizesArr,
+          marca: product.marca,
+          categoria: product.Categoria[0].nombre,
+        });
+      }
+
+      // const testarrob = [{ id: 1 }, { id: 3 }, { id: 5 }];
+
+      const filteredProducts = [];
+
+      for (let i in formattedProducts) {
+        for (let j in matchingIdsArr) {
+          if (formattedProducts[i].id === matchingIdsArr[j]) {
+            filteredProducts.push(formattedProducts[i]);
+          }
+        }
+      }
+
+      res.status(200).json(filteredProducts);
+      return;
+    }
+
+    /*-------------------------------- DE NO HABER QUERIES SE EJECUTA EL CODIGO DE ABAJO--------------------------------*/
+
     const categories = await Categoria.findAll();
 
     if (!categories.length) {
@@ -251,7 +385,6 @@ const deleteProduct = async (req, res) => {
 };
 
 module.exports = {
-  // setProductDefaultData,
   getProducts,
   updateProduct,
   deleteProduct,

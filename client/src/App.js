@@ -10,7 +10,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Henry Dogs</h1>
+      <h1>eCommerce</h1>
     </div>
   );
 }
