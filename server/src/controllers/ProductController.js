@@ -1,4 +1,4 @@
-const axios = require("axios");
+// const axios = require("axios");
 
 const {
   Producto,
@@ -9,89 +9,6 @@ const {
   Producto_Color,
   Producto_Size,
 } = require("../db");
-
-const setProductDefaultData = async (req, res) => {
-  try {
-    axios
-      .get("https://suprastore-8cd78-default-rtdb.firebaseio.com/.json")
-      .then((response) =>
-        response.data.Productos.forEach(async (el) => {
-          const addedProduct = await Producto.findOrCreate({
-            where: {
-              nombre: el.nombre,
-              marca: el.marca,
-              precio: el.precio,
-            },
-          });
-
-          /*----------------- Agregando imagenes y relacion -------------------*/
-
-          // verificacion adicional ya que el firebase json no está actualizado. (El key de todas las propiedades URL deberia ser un array)
-          if (Array.isArray(el.URL)) {
-            el.URL.forEach((img) =>
-              addedProduct[0].createImage({ nombre: img })
-            );
-          } else {
-            addedProduct[0].createImage({ nombre: el.URL });
-          }
-
-          /*----------------- Agregando relacion de categorias ----------------*/
-
-          const matchingCategory = await Categoria.findOne({
-            where: { nombre: el.categoria },
-          });
-
-          addedProduct[0].addCategoria(matchingCategory);
-
-          /*----------------- Agregando relacion de colores -------------------*/
-          // verificacion adicional ya que el firebase json no está actualizado. (El key de todas las propiedades color deberia ser un array)
-
-          if (Array.isArray(el.color)) {
-            el.color.forEach(async (color) => {
-              let matchingColor = await Color.findOne({
-                where: {
-                  nombre:
-                    color.charAt(0).toUpperCase() +
-                    color.slice(1).toLowerCase(),
-                },
-              });
-
-              addedProduct[0].addColor(matchingColor);
-            });
-          } else {
-            const matchingColor = await Color.findOne({
-              where: {
-                nombre:
-                  el.color.charAt(0).toUpperCase() +
-                  el.color.slice(1).toLowerCase(),
-              },
-            });
-
-            addedProduct[0].addColor(matchingColor);
-          }
-
-          /*----------------- Agregando relacion de tallas -------------------*/
-          // verificacion adicional ya que el firebase json no está actualizado. (El key de todas las propiedades talla deberia ser un array)
-          if (Array.isArray(el.talla)) {
-            el.talla.forEach(async (size) => {
-              let matchingSize = await Size.findOne({
-                where: {
-                  nombre: size.toString(),
-                },
-              });
-
-              addedProduct[0].addSize(matchingSize);
-            });
-          }
-        })
-      );
-
-    res.status(200).json("Dummy data posted to database");
-    return;
-  } catch (error) {
-    res.status(404).json(error.message);
-  }
-};
 
 const getProducts = async (req, res) => {
   try {
@@ -158,6 +75,23 @@ const getProducts = async (req, res) => {
 };
 
 const updateProduct = async (req, res) => {
+  // el formulario debe enviar un objeto como este:
+
+  // {
+  //   id: 1,
+  //   nombre: "Campera Deportiva NOTAdidas",
+  //   deletedImages: [1, 2],
+  //   addedImages: [
+  //     "https://m.media-amazon.com/images/I/71czpl8TjzL._AC_UY1000_.jpg",
+  //     "https://www.tradeinn.com/f/13822/138225338/le-coq-sportif-sudadera-con-capucha-as-saint-etienne-presentacion.jpg",
+  //   ],
+  //   precio: "40",
+  //   color: ["Amarillo", "Azul", "Rojo"],
+  //   talla: ["M", "XXL"],
+  //   marca: "NOTAdidas",
+  //   categoria: "Pantalones",
+  // };
+
   try {
     const { id } = req.params;
     const {
@@ -241,7 +175,7 @@ const updateProduct = async (req, res) => {
 const postProduct = async (req, res) => {
   //Espera recibir un objeto como este:
 
-  // {
+  // const postObj= {
   //   nombre: "Chaqueta invierno",
   //   precio: 34,
   //   marca: "Avellaneda",
@@ -316,25 +250,8 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-// el formulario debe enviar un objeto como este:
-
-// {
-//   id: 1,
-//   nombre: "Campera Deportiva NOTAdidas",
-//   deletedImages: [1, 2],
-//   addedImages: [
-//     "https://m.media-amazon.com/images/I/71czpl8TjzL._AC_UY1000_.jpg",
-//     "https://www.tradeinn.com/f/13822/138225338/le-coq-sportif-sudadera-con-capucha-as-saint-etienne-presentacion.jpg",
-//   ],
-//   precio: "40",
-//   color: ["Amarillo", "Azul", "Rojo"],
-//   talla: ["M", "XXL"],
-//   marca: "NOTAdidas",
-//   categoria: "Pantalones",
-// };
-
 module.exports = {
-  setProductDefaultData,
+  // setProductDefaultData,
   getProducts,
   updateProduct,
   deleteProduct,
