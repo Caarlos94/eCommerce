@@ -41,17 +41,35 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 const { Producto, Categoria, Image, Size, Color } = sequelize.models;
 
-Producto.belongsToMany(Categoria, { through: "Producto_Categoria" });
-Categoria.belongsToMany(Producto, { through: "Producto_Categoria" });
+const Producto_Categoria = sequelize.define(
+  "Producto_Categoria",
+  {},
+  { timestamps: false }
+);
+
+const Producto_Size = sequelize.define(
+  "Producto_Size",
+  {},
+  { timestamps: false }
+);
+
+const Producto_Color = sequelize.define(
+  "Producto_Color",
+  {},
+  { timestamps: false }
+);
+
+Producto.belongsToMany(Categoria, { through: Producto_Categoria });
+Categoria.belongsToMany(Producto, { through: Producto_Categoria });
 
 Producto.hasMany(Image);
 Image.belongsTo(Producto);
 
-Producto.belongsToMany(Size, { through: "Producto_Size" });
-Size.belongsToMany(Producto, { through: "Producto_Size" });
+Producto.belongsToMany(Size, { through: Producto_Size });
+Size.belongsToMany(Producto, { through: Producto_Size });
 
-Producto.belongsToMany(Color, { through: "Producto_Color" });
-Color.belongsToMany(Producto, { through: "Producto_Color" });
+Producto.belongsToMany(Color, { through: Producto_Color });
+Color.belongsToMany(Producto, { through: Producto_Color });
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);

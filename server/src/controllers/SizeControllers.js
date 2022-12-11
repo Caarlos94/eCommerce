@@ -17,7 +17,9 @@ const postSize = async (req, res) => {
     if (typeof size !== "string" || !size) {
       throw new Error("Valor inválido");
     }
-    size = size.charAt(0).toUpperCase() + size.slice(1).toLowerCase();
+    if (!!isNaN(size)) {
+      size = size.toUpperCase();
+    } // no sería necesario si lo posteamos por id
 
     await Size.create({ nombre: size });
 
@@ -37,15 +39,17 @@ const updateSize = async (req, res) => {
       typeof nombreNuevo != "string"
     ) {
       throw new Error(
-        `Valor inválido. Enviar como {"nombreActual":"L","nombreNuevo":"Large" }`
+        `Valor inválido. Enviar como {"nombreActual":"L","nombreNuevo":"LARGE" }`
       );
     }
-    nombreActual =
-      nombreActual.charAt(0).toUpperCase() +
-      nombreActual.slice(1).toLowerCase();
 
-    nombreNuevo =
-      nombreNuevo.charAt(0).toUpperCase() + nombreNuevo.slice(1).toLowerCase();
+    if (!!isNaN(nombreActual)) {
+      nombreActual = nombreActual.toUpperCase();
+    }
+
+    if (!!isNaN(nombreNuevo)) {
+      nombreNuevo = nombreNuevo.toUpperCase();
+    }
 
     const allSizes = await Size.findAll();
     let hasNewName = false;
@@ -79,28 +83,31 @@ const updateSize = async (req, res) => {
   }
 };
 
-const deleteColor = async (req, res) => {
+const deleteSize = async (req, res) => {
   try {
-    let { color } = req.body;
+    let { size } = req.body;
 
-    if (typeof color !== "string" || !color) {
+    if (typeof size !== "string" || !size) {
       throw new Error(
-        `Valor inválido. Insertar nombre de la color como {color:"nombre del color"}`
+        `Valor inválido. Insertar nombre de la color como {size:"nombre de la talla"}`
       );
     }
-    color = color.charAt(0).toUpperCase() + color.slice(1).toLowerCase();
 
-    const matchingColor = await Color.findOne({
-      where: { nombre: color },
+    if (!!isNaN(size)) {
+      size = size.toUpperCase();
+    } // no sería necesario si lo eliminamos por id
+
+    const matchingSize = await Size.findOne({
+      where: { nombre: size },
     });
 
-    if (!matchingColor) {
-      throw new Error("No existe tal categoría");
+    if (!matchingSize) {
+      throw new Error("No existe tal talla");
     }
 
-    matchingColor.destroy();
+    matchingSize.destroy();
 
-    res.status(200).json(`El color ${color} fue eliminado`);
+    res.status(200).json(`La talla ${size} fue eliminada`);
   } catch (error) {
     res.status(404).json(error.message);
   }
@@ -109,6 +116,6 @@ const deleteColor = async (req, res) => {
 module.exports = {
   getSizes,
   postSize,
-  // deleteColor,
+  deleteSize,
   updateSize,
 };

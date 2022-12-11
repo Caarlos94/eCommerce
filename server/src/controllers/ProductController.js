@@ -1,6 +1,14 @@
 const axios = require("axios");
 
-const { Producto, Categoria, Image, Color, Size } = require("../db");
+const {
+  Producto,
+  Categoria,
+  Image,
+  Color,
+  Size,
+  Producto_Color,
+  Producto_Size,
+} = require("../db");
 
 const setProductDefaultData = async (req, res) => {
   try {
@@ -64,7 +72,6 @@ const setProductDefaultData = async (req, res) => {
 
           /*----------------- Agregando relacion de tallas -------------------*/
           // verificacion adicional ya que el firebase json no está actualizado. (El key de todas las propiedades talla deberia ser un array)
-
           if (Array.isArray(el.talla)) {
             el.talla.forEach(async (size) => {
               let matchingSize = await Size.findOne({
@@ -152,18 +159,15 @@ const getProducts = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
-    const { id, nombre, URL, precio, color, talla, marca, categoria } =
-      req.body;
+    const { id } = req.params;
+    const { nombre, URL, precio, color, talla, marca, categoria } = req.body;
 
     Producto.findByPk(parseInt(id), {
       include: [{ model: Categoria, attributes: ["nombre"] }],
     })
       .then((product) => {
         product.nombre = nombre ? nombre : product.nombre;
-        product.URL = URL ? URL : product.URL;
         product.precio = precio ? precio : product.precio;
-        product.color = color ? color : product.color;
-        product.talla = talla ? talla : product.talla;
         product.marca = marca ? marca : product.marca;
 
         product.save();
@@ -176,7 +180,39 @@ const updateProduct = async (req, res) => {
 
     await product.setCategoria(category.id);
 
+    //elimina colores preexistentes
+
+    let productoColors = await Producto_Color.findAll({
+      where: { ProductoId: parseInt(id) },
+    });
+    productoColors.forEach((entry) => entry.destroy());
+
+    //agrega colores recibidos
+
+    color.forEach(async (color) => {
+      const matchingColor = await Color.findOne({
+        where: { nombre: color },
+      });
+      product.addColor(matchingColor);
+    });
+
+    //elimina tallas preexistentes
+
+    let productSizes = await Producto_Size.findAll({
+      where: { ProductoId: parseInt(id) },
+    });
+    productSizes.forEach((entry) => entry.destroy());
+
     res.status(200).json("Product updated successfully");
+
+    //agrega tallas recibidas
+
+    talla.forEach(async (talla) => {
+      const matchingSize = await Size.findOne({
+        where: { nombre: talla },
+      });
+      product.addSize(matchingSize);
+    });
 
     return;
   } catch (error) {

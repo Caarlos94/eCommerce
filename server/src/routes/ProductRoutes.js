@@ -11,6 +11,6 @@ router.get("/defaultData", setProductDefaultData);
 
 router.get("/", getProducts);
 
-router.put("/", updateProduct);
+router.put("/:id", updateProduct); // deberia ser ruta PUT, solo tengo get de prueba
 
 module.exports = router;

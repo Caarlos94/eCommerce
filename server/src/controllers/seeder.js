@@ -17,6 +17,9 @@ const seeder = () => {
       sizes = sizes.flat();
       sizes = new Set(sizes);
       sizes.forEach(async (size) => {
+        if (!!isNaN(size)) {
+          size = size.toUpperCase();
+        }
         await Size.findOrCreate({ where: { nombre: size.toString() } });
       });
 

@@ -5,7 +5,7 @@ const {
   getSizes,
   postSize,
   updateSize,
-  // deleteColor,
+  deleteSize,
 } = require("../controllers/SizeControllers");
 
 router.get("/", getSizes);
@@ -14,6 +14,6 @@ router.post("/", postSize);
 
 router.put("/", updateSize);
 
-// router.delete("/", deleteColor);
+router.delete("/", deleteSize);
 
 module.exports = router;
