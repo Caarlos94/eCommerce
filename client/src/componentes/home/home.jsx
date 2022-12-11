@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { getProducts } from '../../redux/actions/actions.js';
+import { getProducts2 , getProducts } from '../../redux/actions/actions.js';
 import s from './home.module.css';
 import Navbar from '../navbar/navbar.jsx';
 import Loading from '../../componentes/Loading/Loading'
@@ -16,13 +16,13 @@ const Home = () => {
   const error = useSelector((state) => state.error)
   useEffect(() => {
     dispatch(getProducts());
-    /* dispatch(getCategorys()) */;
   }, [dispatch]);
 
-  const handlerClick = (e) => {
-    e.preventDefault();
-    dispatch(getProducts())
+  const handlerClick = () => {
+    dispatch(getProducts2())
   }
+
+  console.log(error);
 
   return (
     <div>
@@ -30,13 +30,13 @@ const Home = () => {
       <NavLink to='/'>
         <button onClick={e => handlerClick(e)}>Volver a cargar todos los productos!</button>
       </NavLink>
-      <div className={s.hero}>
-        <div className={s.textoHero}>
+     <div className={s.hero}>
+        {/* <div className={s.textoHero}>
           <h1>Supra Sports</h1>
-          <button>AAAAAA</button>{/* botón de "ver colección" */}
+          <button>AAAAAA</button>botón de "ver colección"
         </div>
 
-        <div className={s.imgHero}>
+         <div className={s.imgHero}>
           <div>
             <div className={s.img1}></div>
             <div className={s.img11}></div>
@@ -45,9 +45,9 @@ const Home = () => {
             <div className={s.img2}></div>
             <div className={s.img3}></div>
           </div>
-        </div>
-      </div>
-      {allProds.length > 0
+        </div>  */}
+      </div> 
+    {allProds.length > 0
         ?
         <div className="App">
           {error ? (
@@ -59,9 +59,9 @@ const Home = () => {
         </div>
         :
         <div>
-          <Loading />
+          {/* <Loading /> */}
         </div>
-      }
+      } 
     </div>
   );
 };

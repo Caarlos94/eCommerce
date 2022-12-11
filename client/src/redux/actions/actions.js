@@ -17,7 +17,15 @@ export const getProducts = () => {
   return function (dispatch) {
     return fetch("http://localhost:3001/products")
       .then(response => response.json())
-      .then(data => dispatch({ type: GET_PRODUCTS, payload: data }))
+      .then(data => dispatch({ type: GET_PRODUCTS, payload: [data,'dejar todo como esta']}))
+  };
+};
+
+export const getProducts2 = () => {
+  return function (dispatch) {
+    return fetch("http://localhost:3001/products")
+      .then(response => response.json())
+      .then(data => dispatch({ type: GET_PRODUCTS, payload: [data,'volver a cargar los productos'] }))
   };
 };
 
