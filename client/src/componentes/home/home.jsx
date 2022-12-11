@@ -3,37 +3,26 @@ import { useEffect } from 'react';
 import { getProducts } from '../../redux/actions/actions.js';
 import s from './home.module.css';
 import Navbar from '../navbar/navbar.jsx';
-/* import Loading from '../../componentes/Loading/Loading'; */
 import Cards from '../Card/Cards';
-import { useDispatch, useSelector } from 'react-redux';
-/* import { NavLink } from 'react-router-dom'; */
-/* import messiNotFound from '../../img/messiNotFound.gif'; */
+import { useDispatch} from 'react-redux';
+
 
 const Home = () => {
   const dispatch = useDispatch();
-  /* const allProds = useSelector((state) => state.products);
-  const error = useSelector((state) => state.error); */
+  /* const allProds = useSelector((state) => state.products); */
+  /* const error = useSelector((state) => state.error); */
+
   useEffect(() => {
     dispatch(getProducts());
-    /* dispatch(getCategorys()) */
   }, [dispatch]);
-
-  // const handlerClick = (e) => {
-  //   e.preventDefault();
-  //   dispatch(getProducts());
-  // };
 
   return (
     <div>
       <Navbar />
-      {/* <NavLink to="/">
-        <button onClick={(e) => handlerClick(e)}>Clear filter</button>
-      </NavLink> */}
       <div className={s.hero}>
         <div className={s.textoHero}>
           <h1>Supra Sports</h1>
-          <button>Ver coleccion</button>
-          {/* botón de "ver colección" */}
+          <button>Ver coleccion</button>{/* botón de "ver colección" */}
         </div>
 
         <div className={s.imgHero}>
@@ -50,6 +39,7 @@ const Home = () => {
       <div>
         <Cards />
       </div>
+
     </div>
   );
 };
