@@ -1,30 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { getProducts } from '../../redux/actions/actions.js';
 import s from './home.module.css';
 import Navbar from '../navbar/navbar.jsx';
-import Cards from '../Card/Cards';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import Paginado from '../Paginate/Paginate.jsx';
+import Card from '../Card/Card.js';
 
 
 const Home = () => {
   const dispatch = useDispatch();
-  /* const allProds = useSelector((state) => state.products); */
   /* const error = useSelector((state) => state.error); */
+  const allProducts = useSelector((state) => state.productsHome);
+
 
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
 
+  const [page, setPages] = useState(1); // CREAMOS UN ESTADO PARA MANEJAR EL PAGINADO
+  const productsPerPage = 8
+  const lastIndex = page * productsPerPage // 1 * 8 = 8
+  const firstIndex = lastIndex - productsPerPage   // 8 - 8 = 0
+  const currentPage = allProducts.slice(firstIndex, lastIndex);
+
+  const fnPaginado = (page) => {   // FUNCIÓN PARA MODIFICAR EL ESTADO LOCAL PAGE
+    setPages(page);
+  };
+
+
   return (
     <div>
-      <Navbar />
+      <Navbar setPages={setPages} />
       <div className={s.hero}>
         <div className={s.textoHero}>
           <h1>Supra Sports</h1>
-          <button>Ver coleccion</button>{/* botón de "ver colección" */}
+          <button>Ver coleccion</button>
         </div>
-
         <div className={s.imgHero}>
           <div className={s.messi}>
             <div className={s.img1}></div>
@@ -36,8 +48,32 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <Paginado
+        currentPage={currentPage}
+        key={allProducts.id}
+        productos={allProducts.length}
+        productsPerPage={productsPerPage}
+        fnPaginado={fnPaginado}>
+      </Paginado>
       <div>
-        <Cards />
+        <div className="container d-flex justify-content-center h-100 align-items-center">
+          <div className="row">
+            {currentPage.map((card) => (
+              <div className="col-md-4" key={card.id}>
+                <Card
+                  nombre={card.nombre}
+                  URL={card.URL}
+                  marca={card.marca}
+                  precio={card.precio}
+                  color={card.color}
+                  talla={card.talla}
+                  categoria={card.categoria}
+                  id={card.id}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
     </div>

@@ -5,7 +5,7 @@ import { searchXname } from '../../../redux/actions/actions.js';
 import { useDispatch } from 'react-redux';
 import img from '../../../img/lupa.png';
 
-const SearchBar = () => {
+const SearchBar = ({ setPages }) => {
   const [state, setState] = useState('');
 
   const dispatch = useDispatch();
@@ -16,6 +16,7 @@ const SearchBar = () => {
 
   const limpiarState = () => {
     dispatch(searchXname(state));
+    setPages(1);
     setState('');
   };
 

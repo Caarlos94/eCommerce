@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SearchBar from './searchBar/searchBar.jsx';
 import Filtros from './filtros/filtros.jsx';
 import style from './navbar.module.css';
@@ -6,8 +6,17 @@ import { NavLink } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
 import user from '../../img/user.svg';
 import shopping from '../../img/shopping.png';
+import { useDispatch } from 'react-redux';
+import { getProducts } from '../../redux/actions/actions.js';
 
-const Navbar = () => {
+const Navbar = ({ setPages }) => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProducts);
+  }, [dispatch]);
+
   return (
     <div className={style.div}>
       <div className={style.black}></div>
@@ -21,7 +30,7 @@ const Navbar = () => {
           <Filtros />
         </div>
         <div className={style.searchBar}>
-          <SearchBar />
+          <SearchBar setPages={setPages} />
         </div>
         <div className={style.btns}>
           <div className={style.btn}>
