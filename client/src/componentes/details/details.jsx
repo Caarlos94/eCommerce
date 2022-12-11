@@ -3,7 +3,7 @@ import s from './details.module.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDetails, limpiarState } from '../../redux/actions/actions.js';
-import Navbar from '../navbar/navbar';
+/* import Navbar from '../navbar/navbar'; */
 import { NavLink, useParams } from 'react-router-dom';
 import SearchBar from '../navbar/searchBar/searchBar';
 import back from '../../img/back.png';

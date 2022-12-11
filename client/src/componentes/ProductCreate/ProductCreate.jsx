@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory, NavLink } from 'react-router-dom';
+import { useHistory, NavLink } from 'react-router-dom';
 import {
   getCategorys,
   getProducts,
@@ -16,8 +16,7 @@ import shopping from '../../img/shopping.png';
 const validate = (input, prods) => {
   let errors = {};
   if (!/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(input.nombre)) {
-    errors.nombre =
-      'Este dato es incorrecto... Es obligatorio, no se permiten caracteres especiales o números.';
+    errors.nombre = 'Este dato es incorrecto... Es obligatorio, no se permiten caracteres especiales o números.';
   }
   if (
     prods.some((e) => e.nombre.toUpperCase() === input.nombre.toUpperCase())

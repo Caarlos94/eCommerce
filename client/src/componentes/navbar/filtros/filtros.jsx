@@ -8,7 +8,7 @@ import {
   searchXprecio,
   searchXtalla,
   searchXcategoria,
-  emptyError,
+  /* emptyError, */
   getProducts,
 } from '../../../redux/actions/actions.js';
 
@@ -30,9 +30,9 @@ const Filtros = () => {
     dispatch(searchXtalla(el.target.value));
   };
 
-  const handlerError = (e) => {
+ /*  const handlerError = (e) => {
     dispatch(emptyError());
-  };
+  }; */
 
   const handlerClick = (e) => {
     e.preventDefault();
@@ -44,9 +44,7 @@ const Filtros = () => {
       <div className={style.allFilters}>
         <select onChange={(e) => fn(e)} className={style.select}>
           <option hidden>Categorias</option>
-          <option value="todas" onClick={(e) => handlerError(e)}>
-            Todas
-          </option>
+          <option value="todas">Todas</option>
           <option value="Camperas">Camperas</option>
           <option value="Pantalones">Pantalones</option>
           <option value="Remeras">Remeras</option>
@@ -66,9 +64,7 @@ const Filtros = () => {
 
         <select onChange={(e) => fn3(e)} className={style.select}>
           <option hidden>Precio</option>
-          <option value={[0, 0]} onClick={(e) => handlerError(e)}>
-            Todos
-          </option>
+          <option value={[0, 0]}>Todos</option>
           <option value={[10, 15]}>10 a 15 usd$</option>
           <option value={[15, 20]}>15 a 20 usd$</option>
           <option value={[20, 25]}>20 a 25 usd$</option>
