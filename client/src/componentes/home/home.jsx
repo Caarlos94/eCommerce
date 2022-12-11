@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { getProducts } from '../../redux/actions/actions.js';
+import { getProducts, orderPrecio } from '../../redux/actions/actions.js';
 import s from './home.module.css';
 import Navbar from '../navbar/navbar.jsx';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,16 +18,23 @@ const Home = () => {
     dispatch(getProducts());
   }, [dispatch]);
 
+  const [order, setOrder] = useState('');
   const [page, setPages] = useState(1); // CREAMOS UN ESTADO PARA MANEJAR EL PAGINADO
   const productsPerPage = 8
   const lastIndex = page * productsPerPage // 1 * 8 = 8
   const firstIndex = lastIndex - productsPerPage   // 8 - 8 = 0
   const currentPage = allProducts.slice(firstIndex, lastIndex);
-  
+
   const fnPaginado = (page) => {   // FUNCIÓN PARA MODIFICAR EL ESTADO LOCAL PAGE
     setPages(page);
   };
 
+  const handlerOrderPrecio = (e) => {
+    e.preventDefault();
+    dispatch(orderPrecio(e.target.value));
+    setPages(1); //cuando hago el ordenamiento seteo para que arranque en la prim página
+    setOrder(`Ordenado ${e.target.value}`)//cuando seteo esta página, me modifica el estado local y lo modifica
+  };
 
   return (
     <div>
@@ -55,6 +62,13 @@ const Home = () => {
         productsPerPage={productsPerPage}
         fnPaginado={fnPaginado}>
       </Paginado>
+
+      <select onChange={e => handlerOrderPrecio(e)} className={s.b}>
+        <option hidden>Ordenar por Precio</option>
+        <option value="asc">Menor a Mayor</option>
+        <option value="desc">Mayor a Menor</option>
+      </select>
+      
       <div>
         <div className="container d-flex justify-content-center h-100 align-items-center">
           <div className="row">

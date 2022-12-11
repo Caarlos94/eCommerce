@@ -9,6 +9,7 @@ import {
   LIMPIAR_SATE,
   SEARCHxCATEGORIA,
   EMPTY_ERROR,
+  ORDER_PRECIO,
 } from '../actions/actions.js'
 
 
@@ -36,11 +37,11 @@ const rootReducer = (state = initialState, action) => {
           products: [...action.payload[0]],
           productsHome: [...action.payload[0]],
         }
-       } return {
+      } return {
         ...state,
         products: [...state.products],
         productsHome: [...state.productsHome]
-       }
+      }
     }
     case GET_CATEGORYS:
       return {
@@ -90,6 +91,23 @@ const rootReducer = (state = initialState, action) => {
       }
     }
 
+    case ORDER_PRECIO:
+      const arrPrecio = action.payload === 'asc'
+        ? state.productsHome.sort((a, b) => { //compara dos valores, en este caso los dos pesos
+          if (parseInt(a.precio) > parseInt(b.precio)) return 1; //los va posicionando a la derecha
+          if (parseInt(a.precio) < parseInt(b.precio)) return -1;//o a la izquierda
+          return 0;//o si son iguales los deja así
+        })
+        : state.productsHome.sort((a, b) => {
+          if (parseInt(a.precio) > parseInt(b.precio)) return -1;
+          if (parseInt(a.precio) < parseInt(b.precio)) return 1;
+          return 0;
+        })
+      return {
+        ...state,
+        products: [...arrPrecio],
+      };
+
     case SEARCHxCATEGORIA: {
       let productsFilter = [];
       if (action.payload === 'todas') {
@@ -106,24 +124,24 @@ const rootReducer = (state = initialState, action) => {
         if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
         if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
         productsFilter = [...arr]
-      }   
+      }
 
       let setError = '';
 
       if (productsFilter.length === 0) {
         setError = true
-        }else{
-       setError = false
+      } else {
+        setError = false
       }
-      
 
-        return {
-          ...state,
-          productsHome: [...productsFilter],
-          categoria: action.payload,
-          error: setError
-        }
-      
+
+      return {
+        ...state,
+        productsHome: [...productsFilter],
+        categoria: action.payload,
+        error: setError
+      }
+
     }
 
     case SEARCHxMARCA: {
@@ -157,21 +175,21 @@ const rootReducer = (state = initialState, action) => {
       //   }
       // }
       let setError = '';
-      
+
       if (productsFilter.length === 0) {
         setError = true
-        }else{
-       setError = false
+      } else {
+        setError = false
       }
-      
 
-        return {
-          ...state,
-          productsHome: [...productsFilter],
-          marca: action.payload,
-          error: setError
-        }
-      
+
+      return {
+        ...state,
+        productsHome: [...productsFilter],
+        marca: action.payload,
+        error: setError
+      }
+
     }
 
     case SEARCHxTALLA: {
@@ -205,21 +223,21 @@ const rootReducer = (state = initialState, action) => {
       //   }
       // }
       let setError = '';
-      
+
       if (productsFilter.length === 0) {
         setError = true
-        }else{
-       setError = false
+      } else {
+        setError = false
       }
-      
 
-        return {
-          ...state,
-          productsHome: [...productsFilter],
-          talla: action.payload,
-          error: setError
-        }
-      
+
+      return {
+        ...state,
+        productsHome: [...productsFilter],
+        talla: action.payload,
+        error: setError
+      }
+
     }
 
     case SEARCHxPRECIO: {
@@ -251,21 +269,21 @@ const rootReducer = (state = initialState, action) => {
       //   }
       // }
       let setError = '';
-      
+
       if (arr.length === 0) {
         setError = true
-        }else{
-       setError = false
+      } else {
+        setError = false
       }
-      
 
-        return {
-          ...state,
-          productsHome: [...arr],
-          precio: [...action.payload],
-          error: setError
-        }
-      
+
+      return {
+        ...state,
+        productsHome: [...arr],
+        precio: [...action.payload],
+        error: setError
+      }
+
     }
     default:
       return { ...state };
