@@ -15,37 +15,41 @@ import shopping from '../../img/shopping.png';
 
 const validate = (input, prods) => {
   let errors = {};
-  if (!/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(input.nombre)) {
-    errors.nombre = 'Este dato es incorrecto... Es obligatorio, no se permiten caracteres especiales o números.';
+  if (input.nombre) {
+    if (!(/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/).test(input.nombre)) {
+      errors.nombre = 'Este dato es incorrecto... Es obligatorio, no se permiten caracteres especiales o números.'
+    }
+    if (prods.some(e => e.nombre.toUpperCase() === input.nombre.toUpperCase())) {
+      errors.nombre = 'Este producto ya existe!'
+    }
   }
-  if (
-    prods.some((e) => e.nombre.toUpperCase() === input.nombre.toUpperCase())
-  ) {
-    errors.nombre = 'Este producto ya existe!';
+  if (input.URL) {
+    if (!(/(https?:\/\/.*\.(?:png|jpg|jpeg))/i).test(input.URL)) {
+      errors.URL = 'Este dato es obligatorio, solo permite imágenes de tipo .jpg/.png/.jpeg'
+    }
   }
-  if (!/(https?:\/\/.*\.(?:png|jpg|jpeg))/i.test(input.URL)) {
-    errors.URL =
-      'Este dato es obligatorio, solo permite imágenes de tipo .jpg/.png/.jpeg';
+  if (input.precio) {
+    if (input.precio < 1) {
+      errors.precio = 'Este dato es obligatorio, solo permite números mayores a uno.'
+    }
   }
-  if (input.precio < 1) {
-    errors.precio =
-      'Este dato es obligatorio, solo permite números mayores a uno.';
+  if (input.color) {
+    if (!(/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/).test(input.color)) {
+      errors.color = 'Este dato es obligatorio, no se permiten caracteres especiales, números o espacios.'
+    }
   }
-  if (!/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(input.color)) {
-    errors.color =
-      'Este dato es obligatorio, no se permiten caracteres especiales, números o espacios.';
+  if (input.talla) {
+    if (!(/^[A-Za-z0-9\s]+$/).test(input.talla)) {
+      errors.talla = 'Este dato es obligatorio, no se permiten caracteres especiales.'
+    }
   }
-  if (!/^[A-Za-z0-9\s]+$/.test(input.talla)) {
-    errors.talla =
-      'Este dato es obligatorio, no se permiten caracteres especiales.';
+  if (input.marca) {
+    if (!(/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/).test(input.marca)) {
+      errors.marca = 'Este dato es obligatorio, no se permiten caracteres especiales o números.'
+    }
   }
-  if (!/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(input.marca)) {
-    errors.marca =
-      'Este dato es obligatorio, no se permiten caracteres especiales o números.';
-  }
-
   return errors;
-};
+}
 
 export default function ProdCreate() {
   const dispatch = useDispatch();
@@ -127,13 +131,13 @@ export default function ProdCreate() {
           </div>
           <div className={style.btns}>
             <div className={style.btn}>
-              <img src={user} alt=""></img>
+              <img src={user} alt="user"></img>
             </div>
             <div className={style.btn}>
-              <img src={heart} alt=""></img>
+              <img src={heart} alt="fav"></img>
             </div>
             <div className={style.btn}>
-              <img src={shopping} alt=""></img>
+              <img src={shopping} alt="carrito"></img>
             </div>
           </div>
         </div>
@@ -142,6 +146,7 @@ export default function ProdCreate() {
         <h1>Crear Producto</h1>
         <div className={style.forms}>
           <form onSubmit={(e) => handlerSubmit(e)}>
+
             <div className={style.inputs}>
               <label>Nombre: </label>
               <input
@@ -160,12 +165,8 @@ export default function ProdCreate() {
                 value={input.URL}
                 name="URL"
                 onChange={(e) => handlerChange(e)}
-                disabled={!input.nombre || errors.nombre}
               ></input>
-
-              {errors.URL && !errors.nombre && (
-                <p className={style.errors}>{errors.URL}</p>
-              )}
+              {errors.URL && <p className={style.errors}>{errors.URL}</p>}
             </div>
 
             <div className={style.inputs}>
@@ -175,12 +176,8 @@ export default function ProdCreate() {
                 value={input.precio}
                 name="precio"
                 onChange={(e) => handlerChange(e)}
-                disabled={!input.nombre || !input.URL || errors.URL}
               ></input>
-
-              {errors.precio && !errors.URL && (
-                <p className={style.errors}>{errors.precio}</p>
-              )}
+              {errors.precio && <p className={style.errors}>{errors.precio}</p>}
             </div>
 
             <div className={style.inputs}>
@@ -190,14 +187,9 @@ export default function ProdCreate() {
                 value={input.color}
                 name="color"
                 onChange={(e) => handlerChange(e)}
-                disabled={
-                  !input.nombre || !input.URL || !input.precio || errors.precio
-                }
               ></input>
 
-              {errors.color && !errors.precio && (
-                <p className={style.errors}>{errors.color}</p>
-              )}
+              {errors.color && <p className={style.errors}>{errors.color}</p>}
             </div>
 
             <div className={style.inputs}>
@@ -207,18 +199,8 @@ export default function ProdCreate() {
                 value={input.talla}
                 name="talla"
                 onChange={(e) => handlerChange(e)}
-                disabled={
-                  !input.nombre ||
-                  !input.URL ||
-                  !input.precio ||
-                  !input.color ||
-                  errors.color
-                }
               ></input>
-
-              {errors.talla && !errors.color && (
-                <p className={style.errors}>{errors.talla}</p>
-              )}
+              {errors.talla && <p className={style.errors}>{errors.talla}</p>}
             </div>
 
             <div className={style.inputs}>
@@ -228,19 +210,8 @@ export default function ProdCreate() {
                 value={input.marca}
                 name="marca"
                 onChange={(e) => handlerChange(e)}
-                disabled={
-                  !input.nombre ||
-                  !input.URL ||
-                  !input.precio ||
-                  !input.color ||
-                  !input.talla ||
-                  errors.talla
-                }
               ></input>
-
-              {errors.marca && !errors.talla && (
-                <p className={style.errors}>{errors.marca}</p>
-              )}
+              {errors.marca && <p className={style.errors}>{errors.marca}</p>}
             </div>
 
             <div className={style.category}>

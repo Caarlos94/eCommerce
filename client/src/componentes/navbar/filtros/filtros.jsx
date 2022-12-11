@@ -35,11 +35,6 @@ const Filtros = () => {
      dispatch(emptyError());
    }; */
 
-/*   const handlerClick = (e) => {
-    e.preventDefault();
-    dispatch(getProducts());
-  }; */
-
   const handlerClickAllProds = () => {
     dispatch(getProducts2())
   }
@@ -84,6 +79,8 @@ const Filtros = () => {
           <option value="XL">XL</option>
           <option value="XXL">XXL</option>
         </select>
+
+
       </div>
       <div className={style.clear}>
         <NavLink to="/">
