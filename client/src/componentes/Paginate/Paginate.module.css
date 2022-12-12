@@ -21,9 +21,16 @@
   font-size: 17px;
   font-weight: 700;
   color: white;
+  margin-left: 10px;
+}
+
+.numberList:hover {
+  transform: translateY(-10%);
+  transition: all 0.3s;
 }
 
 .current {
+  margin-left: 10px;
   --clr-font-main: hsla(0 0% 20% / 100);
   --btn-bg-1: hsla(194 100% 69% / 1);
   --btn-bg-2: hsla(217 100% 56% / 1);
@@ -36,12 +43,10 @@
   font-weight: 500;
   transition: 0.8s;
   background-size: 280% auto;
-  background-image: linear-gradient(
-    325deg,
-    var(--btn-bg-2) 0%,
-    var(--btn-bg-1) 55%,
-    var(--btn-bg-2) 90%
-  );
+  background-image: linear-gradient(325deg,
+      var(--btn-bg-2) 0%,
+      var(--btn-bg-1) 55%,
+      var(--btn-bg-2) 90%);
   border: none;
   border-radius: var(--radii);
   color: var(--btn-bg-color);
@@ -53,6 +58,8 @@
 
 .current:hover {
   background-position: right top;
+  transform: translateY(-5%);
+  transition: all 0.3s;
 }
 
 .current:is(:focus, :focus-within, :active) {

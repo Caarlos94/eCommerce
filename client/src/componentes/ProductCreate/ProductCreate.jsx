@@ -4,8 +4,8 @@ import { useHistory, NavLink } from 'react-router-dom';
 import {
   getCategorys,
   getProducts,
+  getProducts2,
   postProd,
-  getProducts2
 } from '../../redux/actions/actions';
 import style from './ProductCreate.module.css';
 import SearchBar from '../navbar/searchBar/searchBar';
@@ -17,48 +17,40 @@ import shopping from '../../img/shopping.png';
 const validate = (input, prods) => {
   let errors = {};
   if (input.nombre) {
-    if (!/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(input.nombre)) {
-      errors.nombre =
-        'Este dato es incorrecto... Es obligatorio, no se permiten caracteres especiales o números.';
+    if (!(/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/).test(input.nombre)) {
+      errors.nombre = 'Este dato es incorrecto... Es obligatorio, no se permiten caracteres especiales o números.'
     }
-    if (
-      prods.some((e) => e.nombre.toUpperCase() === input.nombre.toUpperCase())
-    ) {
-      errors.nombre = 'Este producto ya existe!';
+    if (prods.some(e => e.nombre.toUpperCase() === input.nombre.toUpperCase())) {
+      errors.nombre = 'Este producto ya existe!'
     }
   }
   if (input.URL) {
-    if (!/(https?:\/\/.*\.(?:png|jpg|jpeg))/i.test(input.URL)) {
-      errors.URL =
-        'Este dato es obligatorio, solo permite imágenes de tipo .jpg/.png/.jpeg';
+    if (!(/(https?:\/\/.*\.(?:png|jpg|jpeg))/i).test(input.URL)) {
+      errors.URL = 'Este dato es obligatorio, solo permite imágenes de tipo .jpg/.png/.jpeg'
     }
   }
   if (input.precio) {
     if (input.precio < 1) {
-      errors.precio =
-        'Este dato es obligatorio, solo permite números mayores a uno.';
+      errors.precio = 'Este dato es obligatorio, solo permite números mayores a uno.'
     }
   }
   if (input.color) {
-    if (!/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(input.color)) {
-      errors.color =
-        'Este dato es obligatorio, no se permiten caracteres especiales, números o espacios.';
+    if (!(/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/).test(input.color)) {
+      errors.color = 'Este dato es obligatorio, no se permiten caracteres especiales, números o espacios.'
     }
   }
   if (input.talla) {
-    if (!/^[A-Za-z0-9\s]+$/.test(input.talla)) {
-      errors.talla =
-        'Este dato es obligatorio, no se permiten caracteres especiales.';
+    if (!(/^[A-Za-z0-9\s]+$/).test(input.talla)) {
+      errors.talla = 'Este dato es obligatorio, no se permiten caracteres especiales.'
     }
   }
   if (input.marca) {
-    if (!/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(input.marca)) {
-      errors.marca =
-        'Este dato es obligatorio, no se permiten caracteres especiales o números.';
+    if (!(/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/).test(input.marca)) {
+      errors.marca = 'Este dato es obligatorio, no se permiten caracteres especiales o números.'
     }
   }
   return errors;
-};
+}
 
 export default function ProdCreate() {
   const dispatch = useDispatch();
@@ -112,7 +104,7 @@ export default function ProdCreate() {
     console.log(input);
     dispatch(postProd(input));
     setTimeout(() => dispatch(getProducts2()), 100);
-    alert('Producto publicado con éxito! Se te redirigirá al inicio...')
+    alert('Producto publicado con éxito! Se te redirigirá al inicio...');
     setInput({
       nombre: '',
       URL: '',
@@ -120,7 +112,7 @@ export default function ProdCreate() {
       color: '',
       talla: '',
       marca: '',
-      categoria: ''
+      categoria: '',
     });
     history.push('/'); //me manda al home
   };
@@ -156,6 +148,7 @@ export default function ProdCreate() {
         <h1>Crear Producto</h1>
         <div className={style.forms}>
           <form onSubmit={(e) => handlerSubmit(e)}>
+
             <div className={style.inputs}>
               <label>Nombre: </label>
               <input
@@ -255,4 +248,4 @@ export default function ProdCreate() {
       </div>
     </div>
   );
-};
+}

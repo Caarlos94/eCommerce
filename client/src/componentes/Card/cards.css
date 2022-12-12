@@ -11,6 +11,7 @@
 
 .card-body {
   padding: 2rem 0 !important;
+  height: 240px;
 }
 
 .card-text {

@@ -80,7 +80,7 @@ const Filtros = ({ setPages }) => {
       </div>
       <div className={style.clear}>
         <NavLink to="/">
-          <button onClick={(e) => handlerClickAllProds(e)}>All Products</button>
+          <button onClick={(e) => handlerClickAllProds(e)}>Todos los Productos</button>
         </NavLink>
       </div>
     </div>

@@ -1,32 +1,53 @@
-import React from 'react';
-import style from './Paginate.module.css';
+import React from "react";
+import style from "./Paginate.module.css";
 
 const Paginado = ({
-  productos,
   productsPerPage,
-  fnPaginado,
-  page,
+  totalProducts,
+  paginate,
+  paginatePrev,
+  paginateNext,
+  currentPage,
 }) => {
   const numberOfPages = [];
-  for (let i = 1; i <= Math.ceil(productos / productsPerPage); i++) {
+
+  for (let i = 1; i <= Math.ceil(totalProducts / productsPerPage); i++) {
     numberOfPages.push(i);
   }
+
+  const handlePrev = () => {
+    paginatePrev(currentPage - 1);
+  };
+
+  const handleNext = () => {
+    paginateNext(currentPage + 1);
+  };
 
   return (
     <>
       <div className={style.paginadoContainer}>
-        <div className={style.paginadoBotonContainer}>
+        <div /* className={style.paginadoBotonContainer} */>
+          <button onClick={handlePrev} disabled={currentPage == 1} className={style.numberList}>
+            Anterior
+          </button>
           {numberOfPages.map((num) => {
             return (
               <button
-                className={page !== num ? style.numberList : style.current}
+                className={currentPage !== num ? style.numberList : style.current}
                 key={num}
-                onClick={() => fnPaginado(num)}
+                onClick={() => paginate(num)}
               >
                 {num}
               </button>
             );
           })}
+          <button
+            onClick={handleNext}
+            disabled={currentPage == numberOfPages.length}
+            className={style.numberList}
+          >
+            Siguiente
+          </button>
         </div>
       </div>
     </>

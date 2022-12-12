@@ -12,6 +12,13 @@
   align-items: center;
 }
 
+.section {
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 400px 400px 400px;
+  grid-template-rows: auto;
+}
+
 .notFound {
   display: flex;
   justify-content: center;
