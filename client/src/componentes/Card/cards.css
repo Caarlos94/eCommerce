@@ -40,3 +40,7 @@
 .card-img-top:hover {
   transform: scale(1.25);
 }
+
+.tarjeta{
+  align-content: center;
+}
