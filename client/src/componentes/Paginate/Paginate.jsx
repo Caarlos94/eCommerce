@@ -1,23 +1,32 @@
-import React from 'react'
-import style from './Paginate.module.css'
+import React from "react";
+import style from "./Paginate.module.css"
 
-const Paginate = (props) => {
-    
-    const items = props.items.map((item,index) => {
-        return <li key={item.id}>{item.title}</li>
-    })
-    
-    return (
-        <div>
-            <button onClick={props.prevHandler}>Prev</button>
-            <h2>{props.currentPage}</h2>
-            <button onClick={props.nextHandler}>Next</button>
+const Paginado = ({ productos, productsPerPage, fnPaginado, currentPage }) => {
+  const numberOfPages = [];
+  for (let i = 1; i <= Math.ceil(productos / productsPerPage); i++) {
+    numberOfPages.push(i);
+  }
 
-            <ul>
-                {items}
-            </ul>
+  return (
+    <>
+      <div className={style.paginadoContainer}>
+        <div className={style.paginadoBotonContainer}>
+          {
+            numberOfPages.map(num => {
+              return (
+                <button
+                  className={style.paginadoBoton}
+                  style={currentPage === num ? { color: 'green', background:'darkgrey' } : {}}
+                  key={num}
+                  onClick={() => fnPaginado(num)}>{num}</button>
+              )
+
+            })
+          }
         </div>
-    )
-}
+      </div>
+    </>
+  );
+};
 
-export default Paginate;
+export default Paginado

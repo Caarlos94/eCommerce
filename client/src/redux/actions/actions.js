@@ -7,12 +7,24 @@ export const SEARCHxPRECIO = 'SEARCHxPRECIO';
 export const SEARCHxTALLA = 'SEARCHxTALLA';
 export const SEARCHxNAME = 'SEARCHxNAME';
 export const GET_DETAILS = 'GET_DETAILS';
+export const LIMPIAR_SATE = 'LIMPIAR_SATE';
+export const SEARCHxCATEGORIA = 'SEARCHxCATEGORIA';
+export const EMPTY_ERROR = 'EMPTY_ERROR';
+export const ORDER_PRECIO = 'ORDER_PRECIO';
 
 export const getProducts = () => {
   return function (dispatch) {
     return fetch("http://localhost:3001/products")
       .then(response => response.json())
-      .then(data => dispatch({ type: GET_PRODUCTS, payload: data }))
+      .then(data => dispatch({ type: GET_PRODUCTS, payload: [data, 'dejar todo como esta'] }))
+  };
+};
+
+export const getProducts2 = () => {
+  return function (dispatch) {
+    return fetch("http://localhost:3001/products")
+      .then(response => response.json())
+      .then(data => dispatch({ type: GET_PRODUCTS, payload: [data, 'volver a cargar los productos'] }))
   };
 };
 
@@ -34,6 +46,10 @@ export function postProd(payload) {
   };
 }
 
+export const emptyError = () => {
+  return { type: EMPTY_ERROR }
+}
+
 export function getDetails(id) {
   return async function (dispatch) {
     const response = await axios.get(`http://localhost:3001/products/${id}`);
@@ -44,17 +60,17 @@ export function getDetails(id) {
   };
 }
 
-/* export function postProd(dataForm) {
-  return function () {
-    fetch('http://localhost:3001/products', {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(dataForm)
-    })
+export function limpiarState(id) {
+  return {
+    type: LIMPIAR_SATE,
+  };
+}
+export function orderPrecio(payload) {
+  return {
+    type: ORDER_PRECIO,
+    payload: payload,
   }
-} */
+}
 
 export const searchXname = (name) => {
   return {
@@ -89,3 +105,11 @@ export const searchXtalla = (talla) => {
     payload: talla,
   };
 };
+
+export const searchXcategoria = (categoria) => {
+  return {
+    type: SEARCHxCATEGORIA,
+    payload: categoria,
+  };
+};
+

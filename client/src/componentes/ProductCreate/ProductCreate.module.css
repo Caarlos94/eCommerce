@@ -1,7 +1,175 @@
 .errors {
-    display: inline-flex;
-    border-radius: 3px;
-    background-color: #ec39399d;
-    width: 240px;
-    justify-content: center;
+  display: flex;
+  margin-top: 10px;
+  padding-left: 12px;
+  border-radius: 4px;
+  background-color: #ec39399d;
+  justify-content: center;
+}
+
+.createHeader {
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+}
+
+.black {
+  width: 100%;
+  height: 30%;
+  background-color: black;
+}
+
+.white {
+  width: 100%;
+  height: 70%;
+  background-color: white;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.btns {
+  width: 150px;
+  height: 50px;
+  display: flex;
+  position: absolute;
+  right: 5%;
+}
+
+.btn {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.btn img {
+  width: 25px;
+}
+
+.btn:nth-child(3) img {
+  width: 35px;
+}
+
+.search {
+  width: 300px;
+  position: absolute;
+  right: 15%;
+}
+
+.backHome {
+  border: 1px solid black;
+  display: flex;
+  padding: 5px;
+  color: black;
+  background-color: white;
+  font-weight: bold;
+  transition: all 0.4s;
+  position: absolute;
+  left: 3%;
+  top: 7%;
+}
+
+.backHome:hover {
+  filter: invert(100%);
+}
+
+.createCont {
+  background-color: #edeff0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.createCont h1 {
+  font-weight: bold;
+  font-size: 60px;
+}
+
+.forms {
+  padding-top: 50px;
+  width: 40%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputs {
+  margin-top: 20px;
+  width: 300px;
+  position: relative;
+}
+
+.inputs input {
+  position: absolute;
+  right: 0;
+}
+
+.inputs label {
+  font-weight: bold;
+  margin-right: 30px;
+}
+
+select {
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.category {
+  margin-top: 30px;
+}
+
+.category label {
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.publicar {
+  display: flex;
+  justify-content: center;
+}
+
+.publicar button {
+  margin-top: 50px;
+  padding: 15px 25px;
+  border: unset;
+  border-radius: 15px;
+  color: #212121;
+  z-index: 1;
+  background: #e8e8e8;
+  position: relative;
+  font-weight: 1000;
+  font-size: 17px;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.publicar button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-color: #212121;
+  z-index: -1;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+}
+
+.publicar button:hover {
+  color: #e8e8e8;
+}
+
+.publicar button:hover::before {
+  width: 100%;
 }
