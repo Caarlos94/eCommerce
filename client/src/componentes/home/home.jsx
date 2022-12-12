@@ -18,8 +18,7 @@ const Home = () => {
   }, [dispatch]);
 
   const [order, setOrder] = useState("");
-
-  const [currentPage, setCurrentPage] = useState(1); // CREAMOS UN ESTADO PARA MANEJAR EL PAGINADO
+  const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 8;
   const lastIndex = currentPage * productsPerPage; // 1 * 8 = 8
   const firstIndex = lastIndex - productsPerPage; // 8 - 8 = 0
@@ -43,7 +42,7 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar setCurrentPage={setCurrentPage} />
+      <Navbar setPages={setCurrentPage} />
       <div className={s.hero}>
         <div className={s.textoHero}>
           <h1>Supra Sports</h1>
