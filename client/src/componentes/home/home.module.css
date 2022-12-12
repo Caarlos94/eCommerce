@@ -1,0 +1,157 @@
+.hero {
+  width: 100%;
+  height: 85vh;
+  background-image: linear-gradient(0deg,
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0.3)),
+    url('../../img/stadium.jpg');
+  background-position: bottom;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.notFound {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.textoHero {
+  width: 800px;
+  height: 600px;
+  position: absolute;
+  left: 80px;
+}
+
+.imgHero {
+  width: 50%;
+  height: 90%;
+  position: absolute;
+  right: 80px;
+  z-index: 100;
+  display: flex;
+}
+
+.messi {
+  width: 60%;
+}
+
+.extras {
+  width: 40%;
+}
+
+.img1 {
+  background-image: url('../../img/messi.jpg');
+  background-position: center;
+  background-size: cover;
+  width: 90%;
+  height: 90%;
+  position: relative;
+  z-index: 10;
+}
+
+.img11 {
+  width: 53%;
+  height: 90%;
+  position: absolute;
+  background-color: black;
+  top: 20px;
+  left: -20px;
+  z-index: -1;
+}
+
+.img2 {
+  background-image: url('../../img/img2.png');
+  /* width: 326px;
+  height: 334px; */
+  width: 90%;
+  height: 40%;
+  background-position: center;
+  background-size: cover;
+
+  bottom: 0;
+  right: 20px;
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.extras {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.img3 {
+  background-image: url('../../img/img3.png');
+  /* width: 333px;
+  height: 338px; */
+  width: 85%;
+  height: 35%;
+  background-position: center;
+  background-size: cover;
+
+  right: 30px;
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.hero h1 {
+  font-size: 100px;
+  color: #ffffff;
+  text-shadow: 3px 3px 0 #222, 5px 5px 0 #000000b5, 5px 5px 5px #f2f2f2;
+}
+
+.hero p {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.textoHero button {
+  padding: 10px;
+  width: 200px;
+  outline: none;
+  border: 2px solid black;
+  background-color: white;
+  color: white;
+  position: relative;
+  letter-spacing: 1px;
+  font-weight: bold;
+  cursor: pointer;
+  top: 50px;
+}
+
+.textoHero button::before {
+  content: 'VER COLECCION';
+  /*Button's value/text-content */
+  position: absolute;
+  top: -14%;
+  left: 7%;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.15s ease-in-out;
+  font-weight: bold;
+}
+
+.textoHero button:hover::before {
+  top: 0;
+  left: 0;
+}
+
+.b {
+  margin: 10px;
+  padding: 5px 10px;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+}
