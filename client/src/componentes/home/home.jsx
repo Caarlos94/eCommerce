@@ -95,7 +95,8 @@ const Home = () => {
         </div>
         :
         <div className={s.notFound}>
-          <h1 >No se encontraron coincidencias!</h1>
+          <h1 >Estamos buscando lo que necesitas!</h1>
+          <h2>En caso de no cargar te recomendamos refrescar la página...</h2>
           <img src={messiNotFound} alt='img'></img>
         </div>
       }
