@@ -10,25 +10,29 @@ import {
   searchXcategoria,
   /* emptyError, */
   getProducts,
-  getProducts2
+  getProducts2,
 } from '../../../redux/actions/actions.js';
 
-const Filtros = () => {
+const Filtros = ({ setPages }) => {
   const dispatch = useDispatch();
 
   const fn = (el) => {
     dispatch(searchXcategoria(el.target.value));
+    setPages(1);
   };
   const fn2 = (el) => {
     dispatch(searchXmarca(el.target.value));
+    setPages(1);
   };
 
   const fn3 = (el) => {
     dispatch(searchXprecio(el.target.value));
+    setPages(1);
   };
 
   const fn4 = (el) => {
     dispatch(searchXtalla(el.target.value));
+    setPages(1);
   };
 
   /*  const handlerError = (e) => {
@@ -36,8 +40,8 @@ const Filtros = () => {
    }; */
 
   const handlerClickAllProds = () => {
-    dispatch(getProducts2())
-  }
+    dispatch(getProducts2());
+  };
   return (
     <div className={style.div}>
       <div className={style.allFilters}>
@@ -79,8 +83,6 @@ const Filtros = () => {
           <option value="XL">XL</option>
           <option value="XXL">XXL</option>
         </select>
-
-
       </div>
       <div className={style.clear}>
         <NavLink to="/">
