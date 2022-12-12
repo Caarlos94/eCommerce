@@ -1,0 +1,48 @@
+.divInput {
+  width: 100%;
+  height: 38px;
+  /* position: absolute;
+  right: 2%;
+  top: 40px; */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border 2s;
+}
+
+.divInput:hover {
+  border: 1px solid black;
+}
+
+.input {
+  height: 35px;
+  width: 80%;
+  border: 1px solid none;
+  border-radius: 3px 0 0 3px;
+  left: 0;
+  position: absolute;
+  background-color: #eceff1;
+  border: transparent;
+  padding: 10px;
+}
+.button {
+  border: transparent;
+  height: 35px;
+  width: 20%;
+  font-size: 20px;
+  color: rgb(12, 12, 12);
+  background-color: white;
+  border-radius: 0 3px 3px 0;
+  /* position: relative; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 0;
+  position: absolute;
+  background-color: #eceff1;
+}
+
+.lupa {
+  width: 40px;
+}

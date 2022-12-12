@@ -1,0 +1,47 @@
+.paginadoContainer {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.paginadoBotonContainer {
+    width: 135px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.paginadoBoton {
+    background-color: #fff;
+    border: 1.5px solid #000;
+    color: #000;
+    font-weight: bold;
+}
+
+/* .paginadoBoton:visited {
+    transform: translateY(-0.25rem);
+    transition: all 0.4s;
+    cursor: pointer;
+    color: #fff;
+    background-color: rgba(128, 128, 128, 0.89);
+    box-shadow: 1px 2px 1px 0 rgb(60, 60, 60);
+} */
+
+.paginadoBoton:hover {
+    transform: translateY(-0.25rem);
+    transition: all 0.4s;
+    cursor: pointer;
+    color: #fff;
+    background-color: rgba(128, 128, 128, 0.89);
+    box-shadow: 1px 2px 1px 0 rgb(60, 60, 60);
+}
+
+.paginadoSelect {
+    transform: translateY(-0.25rem);
+    transition: all 0.4s;
+    cursor: pointer;
+    color: #fff;
+    background-color: rgba(128, 128, 128, 0.89);
+    box-shadow: 1px 2px 1px 0 rgb(60, 60, 60);
+}

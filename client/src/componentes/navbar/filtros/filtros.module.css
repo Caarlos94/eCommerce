@@ -1,0 +1,64 @@
+.div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  width: 100%;
+}
+
+.allFilters {
+}
+
+.select {
+  margin: 10px;
+  padding: 5px 10px;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.div button {
+  width: 200px;
+  border-radius: 5px;
+  padding: 2px 5px;
+}
+
+.clear {
+}
+
+.clear button {
+  width: 120px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  background-color: #ecd448;
+  font-weight: bolder;
+  box-shadow: 0 2px 0 2px #000;
+}
+
+.clear button:before {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 120%;
+  background-color: #ff6700;
+  top: 50%;
+  transform: skewX(30deg) translate(-150%, -50%);
+  transition: all 0.5s;
+}
+
+.clear button:hover {
+  background-color: #4cc9f0;
+  color: #fff;
+  box-shadow: 0 2px 0 2px #0d3b66;
+}
+
+.clear button:hover::before {
+  transform: skewX(30deg) translate(150%, -50%);
+  transition-delay: 0.1s;
+}
+
+.clear button:active {
+  transform: scale(0.9);
+}
