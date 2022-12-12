@@ -102,7 +102,8 @@ export default function ProdCreate() {
     e.preventDefault();
     console.log(input);
     dispatch(postProd(input));
-    alert('Producto publicado con éxito! Se te redirigirá al inicio...');
+    setTimeout(() => dispatch(getProducts()), 100);
+    alert('Producto publicado con éxito! Se te redirigirá al inicio...')
     setInput({
       nombre: '',
       URL: '',
@@ -110,7 +111,7 @@ export default function ProdCreate() {
       color: '',
       talla: '',
       marca: '',
-      categoria: '',
+      categoria: ''
     });
     history.push('/'); //me manda al home
   };
@@ -246,4 +247,4 @@ export default function ProdCreate() {
       </div>
     </div>
   );
-}
+};
