@@ -12,8 +12,15 @@
   align-items: center;
 }
 
+.section {
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 400px 400px 400px;
+  grid-template-rows: auto;
+}
+
 .notFound {
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -154,21 +161,4 @@
   color: white;
   font-weight: bold;
   border-radius: 5px;
-}
-
-.cards{
-  border: 2px solid red;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 50px;
-  margin-right: 50px;
-  margin-top: 20px;
-}
-
-.section{
-  justify-content: center;
-  display: grid;
-  grid-template-columns: 400px 400px 400px;
-  grid-template-rows: auto;
 }

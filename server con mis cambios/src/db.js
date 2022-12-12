@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
+console.log(DB_HOST);
 
 const sequelize = new Sequelize(
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/ecommerce`,
@@ -35,24 +36,40 @@ let capsEntries = entries.map((entry) => [
   entry[1],
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
-// (async () => {
-//   try {
-//     await sequelize.authenticate();
-//     console.log("Connection has been established successfully.");
-//   } catch (error) {
-//     console.error("Unable to connect to the database:", error);
-//   }
-// })();
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Producto, Categoria, Cliente } = sequelize.models;
+const { Producto, Categoria, Image, Size, Color } = sequelize.models;
 
-Producto.belongsToMany(Categoria, { through: "Producto_Categoria" });
-Categoria.belongsToMany(Producto, { through: "Producto_Categoria" });
+const Producto_Categoria = sequelize.define(
+  "Producto_Categoria",
+  {},
+  { timestamps: false }
+);
 
-Cliente.belongsToMany(Producto, { through: "Compras" });
-Producto.belongsToMany(Cliente, { through: "Compras" });
+const Producto_Size = sequelize.define(
+  "Producto_Size",
+  {},
+  { timestamps: false }
+);
+
+const Producto_Color = sequelize.define(
+  "Producto_Color",
+  {},
+  { timestamps: false }
+);
+
+Producto.belongsToMany(Categoria, { through: Producto_Categoria });
+Categoria.belongsToMany(Producto, { through: Producto_Categoria });
+
+Producto.hasMany(Image);
+Image.belongsTo(Producto);
+
+Producto.belongsToMany(Size, { through: Producto_Size });
+Size.belongsToMany(Producto, { through: Producto_Size });
+
+Producto.belongsToMany(Color, { through: Producto_Color });
+Color.belongsToMany(Producto, { through: Producto_Color });
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);

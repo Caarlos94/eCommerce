@@ -11,11 +11,12 @@
 
 .card-body {
   padding: 2rem 0 !important;
+  height: 240px;
 }
 
 .card-text {
   padding: 0.3rem 1rem;
-  font-size: 1rem;
+  font-size: 0.7rem;
 }
 
 .overflow {
@@ -39,8 +40,4 @@
 
 .card-img-top:hover {
   transform: scale(1.25);
-}
-
-.tarjeta{
-  align-content: center;
 }
