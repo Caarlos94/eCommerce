@@ -46,9 +46,9 @@ export function postProd(payload) {
   };
 }
 
-export const emptyError = () => {
+/* export const emptyError = () => {
   return { type: EMPTY_ERROR }
-}
+} */
 
 export function getDetails(id) {
   return async function (dispatch) {

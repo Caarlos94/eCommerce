@@ -10,7 +10,6 @@ import { useDispatch } from 'react-redux';
 import { getProducts } from '../../redux/actions/actions.js';
 
 const Navbar = ({ setPages }) => {
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,7 +26,7 @@ const Navbar = ({ setPages }) => {
           </NavLink>
         </div>
         <div className={style.filtros}>
-          <Filtros />
+          <Filtros setPages={setPages} />
         </div>
         <div className={style.searchBar}>
           <SearchBar setPages={setPages} />

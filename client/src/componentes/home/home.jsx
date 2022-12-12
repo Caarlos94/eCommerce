@@ -6,14 +6,12 @@ import Navbar from '../navbar/navbar.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import Paginado from '../Paginate/Paginate.jsx';
 import Card from '../Card/Card.js';
-import messiNotFound from '../../img/messiNotFound.gif'
-
+import messiNotFound from '../../img/messiNotFound.gif';
 
 const Home = () => {
   const dispatch = useDispatch();
   /* const error = useSelector((state) => state.error); */
   const allProducts = useSelector((state) => state.productsHome);
-
 
   useEffect(() => {
     dispatch(getProducts());
@@ -21,12 +19,13 @@ const Home = () => {
 
   const [order, setOrder] = useState('');
   const [page, setPages] = useState(1); // CREAMOS UN ESTADO PARA MANEJAR EL PAGINADO
-  const productsPerPage = 8
-  const lastIndex = page * productsPerPage // 1 * 8 = 8
-  const firstIndex = lastIndex - productsPerPage   // 8 - 8 = 0
+  const productsPerPage = 8;
+  const lastIndex = page * productsPerPage; // 1 * 8 = 8
+  const firstIndex = lastIndex - productsPerPage; // 8 - 8 = 0
   const currentPage = allProducts.slice(firstIndex, lastIndex);
 
-  const fnPaginado = (page) => {   // FUNCIÓN PARA MODIFICAR EL ESTADO LOCAL PAGE
+  const fnPaginado = (page) => {
+    // FUNCIÓN PARA MODIFICAR EL ESTADO LOCAL PAGE
     setPages(page);
   };
 
@@ -34,7 +33,7 @@ const Home = () => {
     e.preventDefault();
     dispatch(orderPrecio(e.target.value));
     setPages(1); //cuando hago el ordenamiento seteo para que arranque en la prim página
-    setOrder(`Ordenado ${e.target.value}`)//cuando seteo esta página, me modifica el estado local y lo modifica
+    setOrder(`Ordenado ${e.target.value}`); //cuando seteo esta página, me modifica el estado local y lo modifica
   };
 
   return (
@@ -56,17 +55,18 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {allProducts.length > 0
-        ? <div>
+      {allProducts.length > 0 ? (
+        <div>
           <Paginado
             currentPage={currentPage}
             key={allProducts.id}
             productos={allProducts.length}
             productsPerPage={productsPerPage}
-            fnPaginado={fnPaginado}>
-          </Paginado>
+            page={page}
+            fnPaginado={fnPaginado}
+          ></Paginado>
 
-          <select onChange={e => handlerOrderPrecio(e)} className={s.b}>
+          <select onChange={(e) => handlerOrderPrecio(e)} className={s.b}>
             <option hidden>Ordenar por Precio</option>
             <option value="asc">Menor a Mayor</option>
             <option value="desc">Mayor a Menor</option>
@@ -93,14 +93,22 @@ const Home = () => {
             </div>
           </div>
         </div>
-        :
+      ) : (
         <div className={s.notFound}>
           <h1 >Estamos buscando lo que necesitas!</h1>
           <h2>En caso de no cargar te recomendamos refrescar la página...</h2>
           <img src={messiNotFound} alt='img'></img>
         </div>
-      }
-    </div >
+      )}
+      <Paginado
+        currentPage={currentPage}
+        key={allProducts.id}
+        productos={allProducts.length}
+        productsPerPage={productsPerPage}
+        page={page}
+        fnPaginado={fnPaginado}
+      ></Paginado>
+    </div>
   );
 };
 
