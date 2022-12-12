@@ -74,10 +74,10 @@ const Home = () => {
           </select>
 
           <div>
-            <div /* "container d-flex justify-content-center h-100 align-items-center" */>
-              <div className={s.section}>
+            <div className="container d-flex justify-content-center h-100 align-items-center">
+              <div className="row">
                 {currentPage.map((card) => (
-                  <div key={card.id}>
+                  <div className="col-md-4" key={card.id}>
                     <Card
                       nombre={card.nombre}
                       URL={card.URL}
