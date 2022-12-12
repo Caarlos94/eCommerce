@@ -90,6 +90,7 @@ export default function ProdCreate() {
         e.preventDefault();
         console.log(input);
         dispatch(postProd(input));
+         setTimeout(() => dispatch(getProducts()), 100);
         alert('Producto publicado con éxito! Se te redirigirá al inicio...')
         setInput({
             nombre: '',
