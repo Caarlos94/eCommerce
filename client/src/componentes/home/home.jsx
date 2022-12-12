@@ -4,15 +4,15 @@ import { getProducts } from '../../redux/actions/actions.js';
 import s from './home.module.css';
 import Navbar from '../navbar/navbar.jsx';
 import Cards from '../Card/Cards';
-import { useDispatch } from 'react-redux';
-import Paginado from '../Paginate/Paginate'
+import { useDispatch, useSelector } from 'react-redux';
+import Paginate from '../Paginate/Paginate'
 
 
 /* const DATOS_API = Array.from({length:60}, (value, index) => {
   return{id:index, title:`Item #${index}`}
 }) */
 
-/* const ITEMS_PER_PAGE = 10 */
+const ITEMS_PER_PAGE = 10
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -21,21 +21,11 @@ const Home = () => {
     dispatch(getProducts());
   }, [dispatch]);
 
+  const allProductos = useSelector(state=>state.products)
 
+  const [datosFromApi, setDatosFromApi] = useState(allProductos);
 
-  /* const [page, setPages] = useState(1); // CREAMOS UN ESTADO PARA MANEJAR EL PAGINADO
-  const productsPerPage = 8
-  const lastIndex =  page * productsPerPage // 1 * 8 = 8
-  const firstIndex = lastIndex - productsPerPage   // 8 - 8 = 0
-  const currentePage = products.slice(firstIndex, lastIndex);
-
-  const fnPaginado = (page) => {   // FUNCIÓN PARA MODIFICAR EL ESTADO LOCAL PAGE
-    setPages(page);
-  }; */
-
-  /* const [datosFromApi, setDatosFromApi] = useState(DATOS_API);
-
-  const [items, setItems] = useState([...DATOS_API].splice(0, ITEMS_PER_PAGE));
+  const [items, setItems] = useState([...allProductos].splice(0, ITEMS_PER_PAGE));
 
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -55,9 +45,9 @@ const Home = () => {
     const firstIndex = prevPage * ITEMS_PER_PAGE;
     setItems([...datosFromApi].splice(firstIndex, ITEMS_PER_PAGE));
     setCurrentPage(prevPage);
-  } */
 
-  
+    console.log('prev')
+  }
 
   return (
     <div>
@@ -81,7 +71,8 @@ const Home = () => {
       <div className="App">
         <Cards />
       </div>
-      
+      <Paginate currentPage={currentPage} items={items} nextHandler={nextHandler} prevHandler={prevHandler}>
+      </Paginate>
     </div>
   );
 };
