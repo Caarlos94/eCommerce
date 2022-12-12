@@ -60,18 +60,17 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <Paginado
+        productsPerPage={productsPerPage} // pupsPerPage
+        totalProducts={allProducts.length} // totalPups
+        paginate={fnPaginado} //paginate
+        paginatePrev={paginatePrev}
+        currentPage={currentPage}
+        paginateNext={paginateNext}
+        key={allProducts.id}
+      ></Paginado>
       {allProducts.length > 0 ? (
         <div>
-          <Paginado
-            productsPerPage={productsPerPage} // pupsPerPage
-            totalProducts={allProducts.length} // totalPups
-            paginate={fnPaginado} //paginate
-            paginatePrev={paginatePrev}
-            currentPage={currentPage}
-            paginateNext={paginateNext}
-            key={allProducts.id}
-          ></Paginado>
-
           <select onChange={(e) => handlerOrderPrecio(e)} className={s.b}>
             <option hidden>Ordenar por Precio</option>
             <option value="asc">Menor a Mayor</option>
