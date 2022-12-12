@@ -86,7 +86,6 @@
 .img11 {
   width: 100%;
   height: 70%;
-  border: 1px solid blue;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,7 +99,7 @@
 .img111 {
   width: 50%;
   height: 90%;
-  border: 1px solid green;
+
   background-position: center;
   background-size: cover;
 }
@@ -108,18 +107,16 @@
 .img23 {
   width: 100%;
   height: 30%;
-  border: 1px solid green;
+
   display: flex;
 }
 
 .img2 {
   width: 50%;
-  border: 1px solid brown;
 }
 
 .img3 {
   width: 50%;
-  border: 1px solid brown;
 }
 
 .textCont {
