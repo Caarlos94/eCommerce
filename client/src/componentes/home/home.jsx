@@ -83,7 +83,7 @@ const Home = () => {
                   <div className="col-md-4" key={card.id}>
                     <Card
                       nombre={card.nombre}
-                      URL={card.URL}
+                      URL={card.URL[0].nombre}
                       marca={card.marca}
                       precio={card.precio}
                       color={card.color}
