@@ -8,8 +8,6 @@ import {
   searchXprecio,
   searchXtalla,
   searchXcategoria,
-  /* emptyError, */
-  getProducts,
   getProducts2,
 } from '../../../redux/actions/actions.js';
 
@@ -34,10 +32,6 @@ const Filtros = ({ setPages }) => {
     dispatch(searchXtalla(el.target.value));
     setPages(1);
   };
-
-  /*  const handlerError = (e) => {
-     dispatch(emptyError());
-   }; */
 
   const handlerClickAllProds = () => {
     dispatch(getProducts2());
@@ -89,10 +83,6 @@ const Filtros = ({ setPages }) => {
           <button onClick={(e) => handlerClickAllProds(e)}>All Products</button>
         </NavLink>
       </div>
-
-      {/* <button onClick={(e) => handlerError(e)}>
-        Resolver errores de filtros
-      </button> */}
     </div>
   );
 };

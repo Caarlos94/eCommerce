@@ -5,6 +5,7 @@ import {
   getCategorys,
   getProducts,
   postProd,
+  getProducts2
 } from '../../redux/actions/actions';
 import style from './ProductCreate.module.css';
 import SearchBar from '../navbar/searchBar/searchBar';
@@ -110,7 +111,7 @@ export default function ProdCreate() {
     e.preventDefault();
     console.log(input);
     dispatch(postProd(input));
-    setTimeout(() => dispatch(getProducts()), 100);
+    setTimeout(() => dispatch(getProducts2()), 100);
     alert('Producto publicado con éxito! Se te redirigirá al inicio...')
     setInput({
       nombre: '',

@@ -93,7 +93,7 @@ const rootReducer = (state = initialState, action) => {
 
     case ORDER_PRECIO:
       const arrPrecio = action.payload === 'asc'
-        ? state.productsHome.sort((a, b) => { //compara dos valores, en este caso los dos pesos
+        ? state.productsHome.sort((a, b) => { //compara dos valores, en este caso los dos precios
           if (parseInt(a.precio) > parseInt(b.precio)) return 1; //los va posicionando a la derecha
           if (parseInt(a.precio) < parseInt(b.precio)) return -1;//o a la izquierda
           return 0;//o si son iguales los deja así
@@ -105,7 +105,7 @@ const rootReducer = (state = initialState, action) => {
         })
       return {
         ...state,
-        products: [...arrPrecio],
+        productsHome: [...arrPrecio],
       };
 
     case SEARCHxCATEGORIA: {

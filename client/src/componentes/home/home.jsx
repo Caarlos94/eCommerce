@@ -68,6 +68,7 @@ const Home = () => {
 
           <select onChange={(e) => handlerOrderPrecio(e)} className={s.b}>
             <option hidden>Ordenar por Precio</option>
+            <option value='aleat'>Aleatorio</option>
             <option value="asc">Menor a Mayor</option>
             <option value="desc">Mayor a Menor</option>
           </select>

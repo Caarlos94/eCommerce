@@ -5,7 +5,6 @@ const Paginado = ({
   productos,
   productsPerPage,
   fnPaginado,
-  currentPage,
   page,
 }) => {
   const numberOfPages = [];
