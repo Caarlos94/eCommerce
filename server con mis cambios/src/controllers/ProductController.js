@@ -209,9 +209,7 @@ const updateProduct = async (req, res) => {
       categoria,
     } = req.body;
 
-    Producto.findByPk(parseInt(id), {
-      include: [{ model: Categoria, attributes: ["nombre"] }],
-    })
+    Producto.findByPk(parseInt(id))
       .then((product) => {
         product.nombre = nombre ? nombre : product.nombre;
         product.precio = precio ? precio : product.precio;
