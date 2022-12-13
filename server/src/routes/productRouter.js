@@ -35,6 +35,7 @@ productRouter.get('/:id', async (req, res) => {
             color: r.color,
             categoria: r.categoria,
             talla: r.talla,
+            stock: r.stock,
           };
         });
         res.status(200).json(prod);

@@ -19,7 +19,7 @@ const Home = () => {
 
   const [order, setOrder] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 8;
+  const productsPerPage = 9;
   const lastIndex = currentPage * productsPerPage; // 1 * 8 = 8
   const firstIndex = lastIndex - productsPerPage; // 8 - 8 = 0
   const currentProducts = allProducts.slice(firstIndex, lastIndex);
@@ -70,7 +70,7 @@ const Home = () => {
       ></Paginado>
       {allProducts.length > 0 ? (
         <div>
-          <select onChange={(e) => handlerOrderPrecio(e)} className={s.b}>
+          <select onChange={(e) => handlerOrderPrecio(e)} className={s.select}>
             <option hidden>Ordenar por Precio</option>
             <option value="asc">Menor a Mayor</option>
             <option value="desc">Mayor a Menor</option>

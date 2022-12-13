@@ -74,6 +74,7 @@ const Details = () => {
               <h5>Marca: {details[0].marca}</h5>
               <h5>Color: {details[0].color}</h5>
               <h5>Talla: {details[0].talla.toUpperCase()}</h5>
+              <h6>Stock: {details[0].stock}</h6>
             </div>
             <div className={s.botones}>
               <button>AÑADIR AL CARRITO</button>
