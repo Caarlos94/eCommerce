@@ -92,13 +92,14 @@ const rootReducer = (state = initialState, action) => {
     }
 
     case ORDER_PRECIO:
+      let arr = [...state.products]
       const arrPrecio = action.payload === 'asc'
-        ? state.productsHome.sort((a, b) => { //compara dos valores, en este caso los dos precios
+        ? arr.sort((a, b) => { //compara dos valores, en este caso los dos precios
           if (parseInt(a.precio) > parseInt(b.precio)) return 1; //los va posicionando a la derecha
           if (parseInt(a.precio) < parseInt(b.precio)) return -1;//o a la izquierda
           return 0;//o si son iguales los deja así
         })
-        : state.productsHome.sort((a, b) => {
+        : arr.sort((a, b) => {
           if (parseInt(a.precio) > parseInt(b.precio)) return -1;
           if (parseInt(a.precio) < parseInt(b.precio)) return 1;
           return 0;
@@ -162,18 +163,6 @@ const rootReducer = (state = initialState, action) => {
         productsFilter = [...arr]
       }
 
-      // if (productsFilter.length === 0) {
-      //   return {
-      //     ...state,
-      //     error: true
-      //   }
-      // } else {
-      //   return {
-      //     ...state,
-      //     productsHome: [...productsFilter],
-      //     marca: action.payload
-      //   }
-      // }
       let setError = '';
 
       if (productsFilter.length === 0) {
@@ -210,18 +199,6 @@ const rootReducer = (state = initialState, action) => {
         productsFilter = [...arr]
       }
 
-      // if (productsFilter.length === 0) {
-      //   return {
-      //     ...state,
-      //     error: true
-      //   }
-      // } else {
-      //   return {
-      //     ...state,
-      //     productsHome: [...productsFilter],
-      //     talla: action.payload
-      //   }
-      // }
       let setError = '';
 
       if (productsFilter.length === 0) {
@@ -256,18 +233,6 @@ const rootReducer = (state = initialState, action) => {
         if (state.categoria !== 'todas') arr = arr.filter(Element => Element.categoria.includes(state.categoria))
       }
 
-      // if (arr.length === 0) {
-      //   return {
-      //     ...state,
-      //     error: true
-      //   }
-      // } else {
-      //   return {
-      //     ...state,
-      //     productsHome: [...arr],
-      //     precio: [...action.payload]
-      //   }
-      // }
       let setError = '';
 
       if (arr.length === 0) {
