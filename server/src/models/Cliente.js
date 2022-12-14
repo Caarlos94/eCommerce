@@ -6,8 +6,8 @@ module.exports = (sequelize) => {
   sequelize.define('Cliente', {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey:true,
-      autoIncrement:true
+      primaryKey: true,
+      autoIncrement: true
     },
     username: {
       type: DataTypes.STRING,
@@ -15,23 +15,23 @@ module.exports = (sequelize) => {
       unique: true,
     },
     mail: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
     },
     password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
     },
     picture: {
-        type: DataTypes.STRING,
+      type: DataTypes.STRING,
     },
     direction: {
-        type: DataTypes.STRING
+      type: DataTypes.STRING
     },
     purchase_history: {  //PENDIENTE
-        type: DataTypes.STRING
+      type: DataTypes.STRING
     }
-  }, { timestamps: false } );
+  }, { timestamps: false });
 };
