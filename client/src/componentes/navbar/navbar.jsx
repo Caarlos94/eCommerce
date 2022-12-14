@@ -8,6 +8,7 @@ import user from '../../img/user.svg';
 import shopping from '../../img/shopping.png';
 import { useDispatch } from 'react-redux';
 import { getProducts } from '../../redux/actions/actions.js';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = ({ setPages }) => {
   const dispatch = useDispatch();
@@ -15,6 +16,8 @@ const Navbar = ({ setPages }) => {
   useEffect(() => {
     dispatch(getProducts);
   }, [dispatch]);
+
+  const { loginWithRedirect } = useAuth0()
 
   return (
     <div className={style.div}>
@@ -32,9 +35,9 @@ const Navbar = ({ setPages }) => {
           <SearchBar setPages={setPages} />
         </div>
         <div className={style.btns}>
-          <div className={style.btn}>
+          <button onClick={()=> loginWithRedirect()} className={style.btn}>
             <img src={user} alt=""></img>
-          </div>
+          </button>
           <div className={style.btn}>
             <img src={heart} alt=""></img>
           </div>
