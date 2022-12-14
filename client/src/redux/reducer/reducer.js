@@ -108,6 +108,7 @@ const rootReducer = (state = initialState, action) => {
         products: [...arrPrecio],
       };
 
+      
     case SEARCHxCATEGORIA: {
       let productsFilter = [];
       if (action.payload === 'todas') {
@@ -162,18 +163,7 @@ const rootReducer = (state = initialState, action) => {
         productsFilter = [...arr]
       }
 
-      // if (productsFilter.length === 0) {
-      //   return {
-      //     ...state,
-      //     error: true
-      //   }
-      // } else {
-      //   return {
-      //     ...state,
-      //     productsHome: [...productsFilter],
-      //     marca: action.payload
-      //   }
-      // }
+
       let setError = '';
 
       if (productsFilter.length === 0) {
@@ -210,18 +200,6 @@ const rootReducer = (state = initialState, action) => {
         productsFilter = [...arr]
       }
 
-      // if (productsFilter.length === 0) {
-      //   return {
-      //     ...state,
-      //     error: true
-      //   }
-      // } else {
-      //   return {
-      //     ...state,
-      //     productsHome: [...productsFilter],
-      //     talla: action.payload
-      //   }
-      // }
       let setError = '';
 
       if (productsFilter.length === 0) {
@@ -256,18 +234,6 @@ const rootReducer = (state = initialState, action) => {
         if (state.categoria !== 'todas') arr = arr.filter(Element => Element.categoria.includes(state.categoria))
       }
 
-      // if (arr.length === 0) {
-      //   return {
-      //     ...state,
-      //     error: true
-      //   }
-      // } else {
-      //   return {
-      //     ...state,
-      //     productsHome: [...arr],
-      //     precio: [...action.payload]
-      //   }
-      // }
       let setError = '';
 
       if (arr.length === 0) {

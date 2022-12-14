@@ -11,7 +11,6 @@ import messiNotFound from '../../img/messiNotFound.gif'
 
 const Home = () => {
   const dispatch = useDispatch();
-  /* const error = useSelector((state) => state.error); */
   const allProducts = useSelector((state) => state.productsHome);
 
 
