@@ -26,7 +26,10 @@ const PaymentInstance = new PaymentController(new PaymentService());
 //     body: JSON.stringify(testItemsData),
 //   })
 //     .then((data) => data.json())
-//     .then((data) => window.open(data["init_point"], "_self"));
+//     .then((data) => {
+//       if (data.error) console.log(data); // manejar caso de error
+//       window.open(data["init_point"], "_self");
+//     });
 // };
 
 router.post("/payment", (req, res, next) => {
