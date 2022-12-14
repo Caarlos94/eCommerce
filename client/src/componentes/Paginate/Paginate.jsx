@@ -26,19 +26,14 @@ const Paginado = ({
   return (
     <>
       <div className={style.paginadoContainer}>
-        <div className={style.paginadoBotonContainer}>
-          <button onClick={handlePrev} disabled={currentPage == 1}>
-            Previous Page
+        <div /* className={style.paginadoBotonContainer} */>
+          <button onClick={handlePrev} disabled={currentPage == 1} className={style.numberList}>
+            Anterior
           </button>
           {numberOfPages.map((num) => {
             return (
               <button
-                className={style.paginadoBoton}
-                style={
-                  currentPage === num
-                    ? { color: "green", background: "darkgrey" }
-                    : {}
-                }
+                className={currentPage !== num ? style.numberList : style.current}
                 key={num}
                 onClick={() => paginate(num)}
               >
@@ -49,8 +44,9 @@ const Paginado = ({
           <button
             onClick={handleNext}
             disabled={currentPage == numberOfPages.length}
+            className={style.numberList}
           >
-            Next Page
+            Siguiente
           </button>
         </div>
       </div>

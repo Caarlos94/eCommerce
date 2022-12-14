@@ -6,7 +6,7 @@ function Card({ nombre, URL, marca, precio, categoria, id }) {
     return (
         <NavLink to={`/details/${id}`} style={{ textDecoration: 'none' }}>
             <div className="card text-center">
-                <div className="overflow" style={{ backgroundImage: `url(${URL})`}}>
+                <div className="overflow" style={{ backgroundImage: `url(${URL})` }}>
                     {/* <img src={URL} alt="" className="card-img-top " /> */}
                 </div>
 
@@ -19,7 +19,7 @@ function Card({ nombre, URL, marca, precio, categoria, id }) {
                     </p>
                 </div>
             </div>
-    </NavLink>
+        </NavLink>
     );
 }
 

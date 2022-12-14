@@ -19,7 +19,7 @@ const Home = () => {
 
   const [order, setOrder] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 8;
+  const productsPerPage = 9;
   const lastIndex = currentPage * productsPerPage; // 1 * 8 = 8
   const firstIndex = lastIndex - productsPerPage; // 8 - 8 = 0
   const currentProducts = allProducts.slice(firstIndex, lastIndex);
@@ -70,20 +70,20 @@ const Home = () => {
       ></Paginado>
       {allProducts.length > 0 ? (
         <div>
-          <select onChange={(e) => handlerOrderPrecio(e)} className={s.b}>
+          <select onChange={(e) => handlerOrderPrecio(e)} className={s.select}>
             <option hidden>Ordenar por Precio</option>
             <option value="asc">Menor a Mayor</option>
             <option value="desc">Mayor a Menor</option>
           </select>
 
           <div>
-            <div className="container d-flex justify-content-center h-100 align-items-center">
-              <div className="row">
+            <div /* className="container d-flex justify-content-center h-100 align-items-center" */>
+              <div className={s.section}>
                 {currentProducts.map((card) => (
-                  <div className="col-md-4" key={card.id}>
+                  <div key={card.id}>
                     <Card
                       nombre={card.nombre}
-                      URL={card.URL[0].nombre}
+                      URL={card.URL}
                       marca={card.marca}
                       precio={card.precio}
                       color={card.color}
@@ -99,10 +99,20 @@ const Home = () => {
         </div>
       ) : (
         <div className={s.notFound}>
-          <h1>No se encontraron coincidencias!</h1>
-          <img src={messiNotFound} alt="img"></img>
+          <h1 >Estamos buscando lo que necesitas!</h1>
+          <h2>En caso de no cargar te recomendamos refrescar la página...</h2>
+          <img src={messiNotFound} alt='img'></img>
         </div>
       )}
+      <Paginado
+        productsPerPage={productsPerPage} // pupsPerPage
+        totalProducts={allProducts.length} // totalPups
+        paginate={fnPaginado} //paginate
+        paginatePrev={paginatePrev}
+        currentPage={currentPage}
+        paginateNext={paginateNext}
+        key={allProducts.id}
+      ></Paginado>
     </div>
   );
 };

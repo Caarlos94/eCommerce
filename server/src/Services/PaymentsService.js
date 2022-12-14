@@ -18,9 +18,9 @@ class PaymentService {
         },
       ],
       back_urls: {
-        success: "/failure",
-        failure: "/pending",
-        pending: "/success",
+        success: "http://localhost:3001/products",
+        failure: "http://localhost:3001/products",
+        pending: "http://localhost:3001/products",
       },
       notifi_url: "https://www.your-site.com/ipn",
     };

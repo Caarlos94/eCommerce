@@ -4,6 +4,7 @@ import { useHistory, NavLink } from 'react-router-dom';
 import {
   getCategorys,
   getProducts,
+  getProducts2,
   postProd,
 } from '../../redux/actions/actions';
 import style from './ProductCreate.module.css';
@@ -102,6 +103,7 @@ export default function ProdCreate() {
     e.preventDefault();
     console.log(input);
     dispatch(postProd(input));
+    setTimeout(() => dispatch(getProducts2()), 100);
     alert('Producto publicado con éxito! Se te redirigirá al inicio...');
     setInput({
       nombre: '',
