@@ -70,6 +70,7 @@ productRouter.post("/", async (req, res) => {
 productRouter.delete("/", async (req, res) => {
   try {
     const { id } = req.body;
+    z``;
     const product = await Producto.findByPk(id);
     await product.destroy();
     res.status(200).json(product);

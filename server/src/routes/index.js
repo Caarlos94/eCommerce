@@ -12,26 +12,6 @@ const PaymentService = require("../Services/PaymentsService");
 
 const PaymentInstance = new PaymentController(new PaymentService());
 
-// ESTA FUNCION DEBE EJECUTARSE EN EL CARRITO PARA REDIRECCIONAR A PAGO EN MERCADOPAGO
-
-// testItemsData debe ser el array de items a pagar
-// Hay un ejemplo del array en en la carpeta "Ejemplos de items a pagar"
-
-// const handleBuy = () => {
-//   fetch("http://localhost:3001/payment", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(testItemsData),
-//   })
-//     .then((data) => data.json())
-//     .then((data) => {
-//       if (data.error) console.log(data); // manejar caso de error
-//       window.open(data["init_point"], "_self");
-//     });
-// };
-
 router.post("/payment", (req, res, next) => {
   PaymentInstance.getPaymentLink(req, res);
 });
