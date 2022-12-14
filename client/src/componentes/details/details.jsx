@@ -62,10 +62,6 @@ const Details = () => {
                 style={{ backgroundImage: `url(${details[0].URL})` }}
               ></div>
             </div>
-            {/* <div className={s.img23}>
-              <div className={s.img2}></div>
-              <div className={s.img3}></div>
-            </div> */}
           </div>
           <div className={s.textCont}>
             <div className={s.productDesc}>
