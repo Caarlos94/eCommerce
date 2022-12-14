@@ -1,0 +1,74 @@
+.paginadoContainer {
+  margin-bottom: 15px;
+  margin-top: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.paginadoBotonContainer {
+  width: 400px;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+
+.numberList {
+  background: rgb(0, 0, 0);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: 700;
+  color: white;
+  margin-left: 10px;
+}
+
+.numberList:hover {
+  transform: translateY(-10%);
+  transition: all 0.3s;
+}
+
+.current {
+  margin-left: 10px;
+  --clr-font-main: hsla(0 0% 20% / 100);
+  --btn-bg-1: hsla(194 100% 69% / 1);
+  --btn-bg-2: hsla(217 100% 56% / 1);
+  --btn-bg-color: hsla(360 100% 100% / 1);
+  --radii: 0.5em;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: var(--size, 1rem);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-weight: 500;
+  transition: 0.8s;
+  background-size: 280% auto;
+  background-image: linear-gradient(325deg,
+      var(--btn-bg-2) 0%,
+      var(--btn-bg-1) 55%,
+      var(--btn-bg-2) 90%);
+  border: none;
+  border-radius: var(--radii);
+  color: var(--btn-bg-color);
+  box-shadow: 0px 0px 20px rgba(71, 184, 255, 0.5),
+    0px 5px 5px -1px rgba(58, 125, 233, 0.25),
+    inset 4px 4px 8px rgba(175, 230, 255, 0.5),
+    inset -4px -4px 8px rgba(19, 95, 216, 0.35);
+}
+
+.current:hover {
+  background-position: right top;
+  transform: translateY(-5%);
+  transition: all 0.3s;
+}
+
+.current:is(:focus, :focus-within, :active) {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--btn-bg-color), 0 0 0 6px var(--btn-bg-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-donate {
+    transition: linear;
+  }
+}

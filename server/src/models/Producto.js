@@ -5,30 +5,38 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('Producto', {
     id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV1,
+      primaryKey: true,
+      alowNull: false,
+    },
+    nombre: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    URL: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    precio: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    color: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    talla: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    marca: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    stock: {
       type: DataTypes.INTEGER,
-      primaryKey:true,
-      autoIncrement:true
-    },
-    URL : {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    precio:{
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    color:{
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    talla:{
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    marca:{
-      type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     }
-    
-  });
+  }, { timestamps: false });
 };
