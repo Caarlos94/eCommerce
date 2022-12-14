@@ -10,6 +10,7 @@ import {
   SEARCHxCATEGORIA,
   EMPTY_ERROR,
   ORDER_PRECIO,
+  GET_USER,
 } from '../actions/actions.js'
 
 
@@ -17,6 +18,7 @@ const initialState = {
   products: [],
   productsHome: [],
   details: [],
+  user: [],
   categorys: [],
   marca: 'todas',
   talla: 'todas',
@@ -47,6 +49,12 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         categorys: action.payload,
+      }
+
+    case GET_USER:
+      return {
+        ...state,
+        user: action.payload
       }
 
     case GET_DETAILS:

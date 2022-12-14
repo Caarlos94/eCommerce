@@ -3,14 +3,7 @@ import ProductCreate from './componentes/ProductCreate/ProductCreate';
 import Home from './componentes/home/home.jsx';
 import Details from './componentes/details/details';
 import { Route } from 'react-router-dom';
-/*import { useEffect } from "react";
 
-
-  useEffect(() => {
-    fetch("http://localhost:3001/products")
-      .then((data) => data.json())
-      .then((data) => console.log(data));
-  }, []); */
 function App() {
   return (
     <div>
