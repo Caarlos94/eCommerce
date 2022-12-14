@@ -12,20 +12,31 @@ const PaymentService = require("../Services/PaymentsService");
 
 const PaymentInstance = new PaymentController(new PaymentService());
 
-router.get("/", (req, res, next) => {
-  res.status(200).send({
-    "/payment": "generates a payment link",
-    "/subscription": "generates a subscription link",
-  });
-});
+// ESTA FUNCION DEBE EJECUTARSE EN EL CARRITO PARA REDIRECCIONAR A PAGO EN MERCADOPAGO
 
-router.get("/payment", (req, res, next) => {
+// testItemsData debe ser el array de items a pagar
+// Hay un ejemplo del array en en la carpeta "Ejemplos de items a pagar"
+
+// const handleBuy = () => {
+//   fetch("http://localhost:3001/payment", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(testItemsData),
+//   })
+//     .then((data) => data.json())
+//     .then((data) => window.open(data["init_point"], "_self"));
+// };
+
+router.post("/payment", (req, res, next) => {
   PaymentInstance.getPaymentLink(req, res);
 });
 
-router.get("/subscription", (req, res, next) => {
-  PaymentInstance.getSubscriptionLink(req, res);
-});
+// router.get("/subscription", (req, res, next) => {
+//   // debería ser post si realmente se fuera a usar
+//   PaymentInstance.getSubscriptionLink(req, res);
+// });
 
 router.use("/products", productRouter);
 router.use("/user", userRouter);

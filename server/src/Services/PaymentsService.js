@@ -1,22 +1,11 @@
 const axios = require("axios");
 
 class PaymentService {
-  async createPayment() {
+  async createPayment(req) {
     const url = "https://api.mercadopago.com/checkout/preferences";
+
     const body = {
-      items: [
-        {
-          id: "item-ID-1234",
-          title: "Mi producto",
-          currency_id: "ARS",
-          picture_url:
-            "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
-          description: "Descripción del Item",
-          category_id: "art",
-          quantity: 1,
-          unit_price: 75.76,
-        },
-      ],
+      items: req.body,
       back_urls: {
         success: "http://localhost:3001/products",
         failure: "http://localhost:3001/products",
