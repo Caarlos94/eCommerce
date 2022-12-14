@@ -16,7 +16,6 @@ import { Route } from "react-router-dom";
 function App() {
   return (
     <div>
-      <button onClick={handleBuy}>BUY</button>
       <Route exact path="/" component={Home} />
       <Route path="/product" component={ProductCreate} />
       <Route path="/details/:id" component={Details} />
