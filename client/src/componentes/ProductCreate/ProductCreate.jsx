@@ -4,6 +4,7 @@ import { useHistory, NavLink } from 'react-router-dom';
 import {
   getCategorys,
   getProducts,
+  getProducts2,
   postProd,
 } from '../../redux/actions/actions';
 import style from './ProductCreate.module.css';
@@ -48,6 +49,11 @@ const validate = (input, prods) => {
       errors.marca = 'Este dato es obligatorio, no se permiten caracteres especiales o números.'
     }
   }
+  if (input.stock) {
+    if (input.stock < 0 || !(/^[0-9]+$/).test(input.stock)) {
+      errors.stock = 'Este dato es obligatorio, solo permite números entero y mayor o igual 0.'
+    }
+  }
   return errors;
 }
 
@@ -66,6 +72,7 @@ export default function ProdCreate() {
     talla: '',
     marca: '',
     categoria: '',
+    stock: '',
   });
 
   useEffect(() => {
@@ -102,6 +109,7 @@ export default function ProdCreate() {
     e.preventDefault();
     console.log(input);
     dispatch(postProd(input));
+    setTimeout(() => dispatch(getProducts2()), 100);
     alert('Producto publicado con éxito! Se te redirigirá al inicio...');
     setInput({
       nombre: '',
@@ -111,6 +119,7 @@ export default function ProdCreate() {
       talla: '',
       marca: '',
       categoria: '',
+      stock: '',
     });
     history.push('/'); //me manda al home
   };
@@ -212,6 +221,17 @@ export default function ProdCreate() {
                 onChange={(e) => handlerChange(e)}
               ></input>
               {errors.marca && <p className={style.errors}>{errors.marca}</p>}
+            </div>
+
+            <div className={style.inputs}>
+              <label>Stock: </label>
+              <input
+                type="number"
+                value={input.stock}
+                name="stock"
+                onChange={(e) => handlerChange(e)}
+              ></input>
+              {errors.stock && <p className={style.errors}>{errors.stock}</p>}
             </div>
 
             <div className={style.category}>

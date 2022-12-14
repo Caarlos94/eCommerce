@@ -11,20 +11,21 @@ export const LIMPIAR_SATE = 'LIMPIAR_SATE';
 export const SEARCHxCATEGORIA = 'SEARCHxCATEGORIA';
 export const EMPTY_ERROR = 'EMPTY_ERROR';
 export const ORDER_PRECIO = 'ORDER_PRECIO';
+export const GET_USER = 'GET_USER';
 
 export const getProducts = () => {
-  return function (dispatch) {
-    return fetch("http://localhost:3001/products")
-      .then(response => response.json())
-      .then(data => dispatch({ type: GET_PRODUCTS, payload: [data, 'dejar todo como esta'] }))
+  return async function (dispatch) {
+    const response = await fetch("http://localhost:3001/products");
+    const data = await response.json();
+    return dispatch({ type: GET_PRODUCTS, payload: [data, 'dejar todo como esta'] });
   };
 };
 
 export const getProducts2 = () => {
-  return function (dispatch) {
-    return fetch("http://localhost:3001/products")
-      .then(response => response.json())
-      .then(data => dispatch({ type: GET_PRODUCTS, payload: [data, 'volver a cargar los productos'] }))
+  return async function (dispatch) {
+    const response = await fetch("http://localhost:3001/products");
+    const data = await response.json();
+    return dispatch({ type: GET_PRODUCTS, payload: [data, 'volver a cargar los productos'] });
   };
 };
 
@@ -34,7 +35,17 @@ export function getCategorys() {
       .then((response) => response.json())
       .then((data) => dispatch({ type: GET_CATEGORYS, payload: data }));
   };
-}
+};
+
+/* export function getUserInfo() {
+  return async function (dispatch) {
+    const response = await axios.get(`http://localhost:3001/user/`);
+    return dispatch({
+      type: GET_USER,
+      payload: response.data,
+    });
+  };
+}; */
 
 export function postProd(payload) {
   return async function () {
@@ -44,10 +55,6 @@ export function postProd(payload) {
     );
     return response;
   };
-}
-
-export const emptyError = () => {
-  return { type: EMPTY_ERROR }
 }
 
 export function getDetails(id) {

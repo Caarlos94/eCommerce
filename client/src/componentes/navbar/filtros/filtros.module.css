@@ -10,12 +10,29 @@
 }
 
 .select {
-  margin: 10px;
+  --bg: #000;
+  --hover-bg: #ffffff;
+  --hover-text: #000;
+  color: #fff;
+  border: 1px solid var(--bg);
+  border-radius: 4px;
   padding: 5px 10px;
-  background-color: black;
-  color: white;
+  margin: 10px;
   font-weight: bold;
-  border-radius: 5px;
+  background: var(--bg);
+  transition: 0.2s;
+}
+
+.select:hover {
+  color: var(--hover-text);
+  transform: translate(-0.25rem, -0.25rem);
+  background: var(--hover-bg);
+  box-shadow: 0.25rem 0.25rem var(--bg);
+}
+
+.select:active {
+  transform: translate(0);
+  box-shadow: none;
 }
 
 .div button {

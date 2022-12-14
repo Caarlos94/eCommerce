@@ -9,35 +9,40 @@ import {
   searchXprecio,
   searchXtalla,
   searchXcategoria,
+  /* emptyError, */
+  getProducts,
   getProducts2
 } from '../../../redux/actions/actions.js';
 
 const Filtros = () => {
-
-
   const dispatch = useDispatch();
 
   const fn = (el) => {
     dispatch(searchXcategoria(el.target.value));
+    setPages(1);
   };
 
   const fn2 = (el) => {
     dispatch(searchXmarca(el.target.value));
+    setPages(1);
   };
 
   const fn3 = (el) => {
-    dispatch(searchXprecio(el.target.value)); 
+    dispatch(searchXprecio(el.target.value));
   };
 
   const fn4 = (el) => {
     dispatch(searchXtalla(el.target.value));
+    setPages(1);
   };
 
-  const handlerClickAllProds = (el) => {
-    dispatch(getProducts2())
-    .option1.value = 'Categorias'
-  }
+  /*  const handlerError = (e) => {
+     dispatch(emptyError());
+   }; */
 
+  const handlerClickAllProds = () => {
+    dispatch(getProducts2())
+  }
   return (
     <div className={style.div}>
       <div className={style.allFilters}>
@@ -53,7 +58,7 @@ const Filtros = () => {
 
 
         <select onChange={(e) => fn2(e)} className={style.select}>
-          <option className='option2' hidden>Marca</option>
+          <option hidden>Marca</option>
           <option value="todas">todas</option>
           <option value="Adidas">Adidas</option>
           <option value="Nike">Nike</option>
@@ -80,15 +85,16 @@ const Filtros = () => {
           <option value="XL">XL</option>
           <option value="XXL">XXL</option>
         </select>
-
-
       </div>
       <div className={style.clear}>
         <NavLink to="/">
-          <button onClick={(e) => handlerClickAllProds(e)}>All Products</button>
+          <button onClick={(e) => handlerClickAllProds(e)}>Todos los Productos</button>
         </NavLink>
       </div>
 
+      {/* <button onClick={(e) => handlerError(e)}>
+        Resolver errores de filtros
+      </button> */}
     </div>
   );
 };
