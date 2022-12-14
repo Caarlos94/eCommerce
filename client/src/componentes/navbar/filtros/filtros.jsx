@@ -15,24 +15,20 @@ const Filtros = ({ setPages }) => {
   const dispatch = useDispatch();
 
   const fn = (el) => {
-    el.preventDefault();
     dispatch(searchXcategoria(el.target.value));
     setPages(1);
   };
   const fn2 = (el) => {
-    el.preventDefault();
     dispatch(searchXmarca(el.target.value));
     setPages(1);
   };
 
   const fn3 = (el) => {
-    el.preventDefault();
     dispatch(searchXprecio(el.target.value));
     setPages(1);
   };
 
   const fn4 = (el) => {
-    el.preventDefault();
     dispatch(searchXtalla(el.target.value));
     setPages(1);
   };
@@ -81,7 +77,6 @@ const Filtros = ({ setPages }) => {
           <option value="XL">XL</option>
           <option value="XXL">XXL</option>
         </select>
-
       </div>
       <div className={style.clear}>
         <NavLink to="/">

@@ -10,13 +10,14 @@ import messiNotFound from "../../img/messiNotFound.gif";
 
 const Home = () => {
   const dispatch = useDispatch();
+  /* const error = useSelector((state) => state.error); */
   const allProducts = useSelector((state) => state.productsHome);
 
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
 
-    const [order, setOrder] = useState("");
+  const [order, setOrder] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 9;
   const lastIndex = currentPage * productsPerPage; // 1 * 8 = 8
@@ -32,12 +33,12 @@ const Home = () => {
 
   const paginateNext = (nextPage) => setCurrentPage(nextPage);
 
-    const handlerOrderPrecio = (e) => {
-      e.preventDefault();
-      dispatch(orderPrecio(e.target.value));
-      setCurrentPage(1); //cuando hago el ordenamiento seteo para que arranque en la prim página
-      setOrder(`Ordenado ${e.target.value}`); //cuando seteo esta página, me modifica el estado local y lo modifica
-    };
+  const handlerOrderPrecio = (e) => {
+    e.preventDefault();
+    dispatch(orderPrecio(e.target.value));
+    setCurrentPage(1); //cuando hago el ordenamiento seteo para que arranque en la prim página
+    setOrder(`Ordenado ${e.target.value}`); //cuando seteo esta página, me modifica el estado local y lo modifica
+  };
 
   return (
     <div>
@@ -67,15 +68,14 @@ const Home = () => {
         paginateNext={paginateNext}
         key={allProducts.id}
       ></Paginado>
-
-      <select onChange={(e) => handlerOrderPrecio(e)} className={s.select}>
-        <option hidden>Ordenar por Precio</option>
-        <option value="asc">Menor a Mayor</option>
-        <option value="desc">Mayor a Menor</option>
-      </select>
-
       {allProducts.length > 0 ? (
         <div>
+          <select onChange={(e) => handlerOrderPrecio(e)} className={s.select}>
+            <option hidden>Ordenar por Precio</option>
+            <option value="asc">Menor a Mayor</option>
+            <option value="desc">Mayor a Menor</option>
+          </select>
+
           <div>
             <div /* className="container d-flex justify-content-center h-100 align-items-center" */>
               <div className={s.section}>

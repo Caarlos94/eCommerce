@@ -11,6 +11,7 @@ export const LIMPIAR_SATE = 'LIMPIAR_SATE';
 export const SEARCHxCATEGORIA = 'SEARCHxCATEGORIA';
 export const EMPTY_ERROR = 'EMPTY_ERROR';
 export const ORDER_PRECIO = 'ORDER_PRECIO';
+export const GET_USER = 'GET_USER';
 
 export const getProducts = () => {
   return async function (dispatch) {
@@ -34,7 +35,17 @@ export function getCategorys() {
       .then((response) => response.json())
       .then((data) => dispatch({ type: GET_CATEGORYS, payload: data }));
   };
-}
+};
+
+/* export function getUserInfo() {
+  return async function (dispatch) {
+    const response = await axios.get(`http://localhost:3001/user/`);
+    return dispatch({
+      type: GET_USER,
+      payload: response.data,
+    });
+  };
+}; */
 
 export function postProd(payload) {
   return async function () {
@@ -45,10 +56,6 @@ export function postProd(payload) {
     return response;
   };
 }
-
-/* export const emptyError = () => {
-  return { type: EMPTY_ERROR }
-} */
 
 export function getDetails(id) {
   return async function (dispatch) {

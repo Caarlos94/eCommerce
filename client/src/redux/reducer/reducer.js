@@ -10,6 +10,7 @@ import {
   SEARCHxCATEGORIA,
   EMPTY_ERROR,
   ORDER_PRECIO,
+  GET_USER,
 } from '../actions/actions.js'
 
 
@@ -17,6 +18,7 @@ const initialState = {
   products: [],
   productsHome: [],
   details: [],
+  user: [],
   categorys: [],
   marca: 'todas',
   talla: 'todas',
@@ -47,6 +49,12 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         categorys: action.payload,
+      }
+
+    case GET_USER:
+      return {
+        ...state,
+        user: action.payload
       }
 
     case GET_DETAILS:
@@ -92,14 +100,13 @@ const rootReducer = (state = initialState, action) => {
     }
 
     case ORDER_PRECIO:
-      let arr = [...state.products]
       const arrPrecio = action.payload === 'asc'
-        ? arr.sort((a, b) => { //compara dos valores, en este caso los dos precios
+        ? state.productsHome.sort((a, b) => { //compara dos valores, en este caso los dos precios
           if (parseInt(a.precio) > parseInt(b.precio)) return 1; //los va posicionando a la derecha
           if (parseInt(a.precio) < parseInt(b.precio)) return -1;//o a la izquierda
           return 0;//o si son iguales los deja así
         })
-        : arr.sort((a, b) => {
+        : state.productsHome.sort((a, b) => {
           if (parseInt(a.precio) > parseInt(b.precio)) return -1;
           if (parseInt(a.precio) < parseInt(b.precio)) return 1;
           return 0;
@@ -163,6 +170,18 @@ const rootReducer = (state = initialState, action) => {
         productsFilter = [...arr]
       }
 
+      // if (productsFilter.length === 0) {
+      //   return {
+      //     ...state,
+      //     error: true
+      //   }
+      // } else {
+      //   return {
+      //     ...state,
+      //     productsHome: [...productsFilter],
+      //     marca: action.payload
+      //   }
+      // }
       let setError = '';
 
       if (productsFilter.length === 0) {
@@ -199,6 +218,18 @@ const rootReducer = (state = initialState, action) => {
         productsFilter = [...arr]
       }
 
+      // if (productsFilter.length === 0) {
+      //   return {
+      //     ...state,
+      //     error: true
+      //   }
+      // } else {
+      //   return {
+      //     ...state,
+      //     productsHome: [...productsFilter],
+      //     talla: action.payload
+      //   }
+      // }
       let setError = '';
 
       if (productsFilter.length === 0) {
@@ -233,6 +264,18 @@ const rootReducer = (state = initialState, action) => {
         if (state.categoria !== 'todas') arr = arr.filter(Element => Element.categoria.includes(state.categoria))
       }
 
+      // if (arr.length === 0) {
+      //   return {
+      //     ...state,
+      //     error: true
+      //   }
+      // } else {
+      //   return {
+      //     ...state,
+      //     productsHome: [...arr],
+      //     precio: [...action.payload]
+      //   }
+      // }
       let setError = '';
 
       if (arr.length === 0) {
