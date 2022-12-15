@@ -10,7 +10,6 @@ import {
   searchXtalla,
   searchXcategoria,
   /* emptyError, */
-  getProducts,
   getProducts2
 } from '../../../redux/actions/actions.js';
 
@@ -19,12 +18,12 @@ const Filtros = () => {
 
   const fn = (el) => {
     dispatch(searchXcategoria(el.target.value));
-    setPages(1);
+    // setPages(1);
   };
 
   const fn2 = (el) => {
     dispatch(searchXmarca(el.target.value));
-    setPages(1);
+    // setPages(1);
   };
 
   const fn3 = (el) => {
@@ -33,12 +32,10 @@ const Filtros = () => {
 
   const fn4 = (el) => {
     dispatch(searchXtalla(el.target.value));
-    setPages(1);
+
   };
 
-  /*  const handlerError = (e) => {
-     dispatch(emptyError());
-   }; */
+
 
   const handlerClickAllProds = () => {
     dispatch(getProducts2())

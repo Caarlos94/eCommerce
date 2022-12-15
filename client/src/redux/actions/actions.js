@@ -12,6 +12,9 @@ export const SEARCHxCATEGORIA = 'SEARCHxCATEGORIA';
 export const EMPTY_ERROR = 'EMPTY_ERROR';
 export const ORDER_PRECIO = 'ORDER_PRECIO';
 export const GET_USER = 'GET_USER';
+export const POST_PROD = 'POST_PROD';
+
+
 
 export const getProducts = () => {
   return async function (dispatch) {
