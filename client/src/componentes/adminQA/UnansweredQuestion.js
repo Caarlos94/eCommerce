@@ -3,6 +3,7 @@ import classes from "./UnansweredQuestion.module.css";
 
 const UnansweredQuestion = ({ question }) => {
   const [answer, setAnswer] = useState("");
+  const [didSubmit, setDidSubmit] = useState(false);
 
   const handleChange = (e) => {
     setAnswer(e.target.value);
@@ -17,9 +18,10 @@ const UnansweredQuestion = ({ question }) => {
       },
       body: JSON.stringify({ questionId: question.questionId, answer }),
     });
+    setDidSubmit(true);
   };
 
-  return !question.answer ? (
+  return !question.answer && !didSubmit ? (
     <div>
       <div>
         <p>Nombre del producto: {question.productName}</p>
@@ -32,8 +34,11 @@ const UnansweredQuestion = ({ question }) => {
           onChange={handleChange}
           name="respuesta"
           type="text"
+          value={answer}
         />
-        <button type="submit">Enviar respuesta</button>
+        <button disabled={!answer.length} type="submit">
+          Enviar respuesta
+        </button>
       </form>
     </div>
   ) : (

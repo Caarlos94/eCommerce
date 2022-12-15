@@ -54,29 +54,31 @@ const Details = () => {
 
       {/* <Navbar /> */}
       {details.length ? (
-        <div className={s.detailCont}>
-          <div className={s.imgCont}>
-            <div className={s.img11}>
-              {/* <img src={details[0].URL} alt="img"></img> */}
-              <div
-                className={s.img111}
-                style={{ backgroundImage: `url(${details[0].URL})` }}
-              ></div>
+        <div className={s["parent-container"]}>
+          <div className={s.detailCont}>
+            <div className={s.imgCont}>
+              <div className={s.img11}>
+                {/* <img src={details[0].URL} alt="img"></img> */}
+                <div
+                  className={s.img111}
+                  style={{ backgroundImage: `url(${details[0].URL})` }}
+                ></div>
+              </div>
             </div>
-          </div>
-          <div className={s.textCont}>
-            <div className={s.productDesc}>
-              <h2>{details[0].nombre.toUpperCase()}</h2>
-              <h3>${details[0].precio} U$D</h3>
-              <h5>Marca: {details[0].marca}</h5>
-              <h5>Color: {details[0].color}</h5>
-              <h5>Talla: {details[0].talla.toUpperCase()}</h5>
-              <h6>Stock: {details[0].stock}</h6>
-            </div>
-            <div className={s.botones}>
-              <button>AÑADIR AL CARRITO</button>
-              <div className={s.fav}>
-                <img src={heart} alt=""></img>
+            <div className={s.textCont}>
+              <div className={s.productDesc}>
+                <h2>{details[0].nombre.toUpperCase()}</h2>
+                <h3>${details[0].precio} U$D</h3>
+                <h5>Marca: {details[0].marca}</h5>
+                <h5>Color: {details[0].color}</h5>
+                <h5>Talla: {details[0].talla.toUpperCase()}</h5>
+                <h6>Stock: {details[0].stock}</h6>
+              </div>
+              <div className={s.botones}>
+                <button>AÑADIR AL CARRITO</button>
+                <div className={s.fav}>
+                  <img src={heart} alt=""></img>
+                </div>
               </div>
             </div>
           </div>

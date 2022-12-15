@@ -71,6 +71,12 @@
   width: 100%;
   height: 85vh;
   display: flex;
+  flex-direction: row;
+}
+
+.parent-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .imgCont {
@@ -158,7 +164,7 @@
 }
 
 .textCont button::before {
-  content: 'AÑADIR AL CARRITO';
+  content: "AÑADIR AL CARRITO";
   /*Button's value/text-content */
   position: absolute;
   top: -14%;
