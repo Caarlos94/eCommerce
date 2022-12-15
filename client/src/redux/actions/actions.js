@@ -113,3 +113,10 @@ export const searchXcategoria = (categoria) => {
   };
 };
 
+export const paraHacerandargit = (categoria) => {
+  return {
+    type: SEARCHxCATEGORIA,
+    payload: categoria,
+  };
+};
+
