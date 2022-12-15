@@ -32,7 +32,7 @@ const Carrito = () => {
   };
 
   return (
-    <div>
+    <div className={s.cont}>
       <div className={s.detailHeader}>
         <div className={s.black}></div>
         <div className={s.white}>
@@ -65,6 +65,10 @@ const Carrito = () => {
         <button onClick={() => handleClear()} className={s.limpiar}>
           Limpiar
         </button>
+        <div className={s.total}>
+          <p>Total:</p>
+        </div>
+        <button className={s.pagar}>Pagar ahora</button>
         {cart ? (
           cart.map((c) => (
             <CartProduct
