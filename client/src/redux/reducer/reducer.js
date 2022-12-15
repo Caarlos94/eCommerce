@@ -11,13 +11,17 @@ import {
   EMPTY_ERROR,
   ORDER_PRECIO,
   GET_USER,
-} from '../actions/actions.js'
-
+  ADD_TO_CART,
+  REMOVE_ONE_FROM_CART,
+  REMOVE_ALL_FROM_CART,
+  CLEAR_CART,
+} from '../actions/actions.js';
 
 const initialState = {
   products: [],
   productsHome: [],
   details: [],
+  cart: [],
   user: [],
   categorys: [],
   marca: 'todas',
@@ -27,63 +31,67 @@ const initialState = {
   error: false,
 };
 
-
 const rootReducer = (state = initialState, action) => {
-
   switch (action.type) {
     case GET_PRODUCTS: {
       console.log(action.payload);
-      if (state.products.length === 0 || action.payload[1] === 'volver a cargar los productos') {
+      if (
+        state.products.length === 0 ||
+        action.payload[1] === 'volver a cargar los productos'
+      ) {
         return {
           ...state,
           products: [...action.payload[0]],
           productsHome: [...action.payload[0]],
-        }
-      } return {
+        };
+      }
+      return {
         ...state,
         products: [...state.products],
-        productsHome: [...state.productsHome]
-      }
+        productsHome: [...state.productsHome],
+      };
     }
     case GET_CATEGORYS:
       return {
         ...state,
         categorys: action.payload,
-      }
+      };
 
     case GET_USER:
       return {
         ...state,
-        user: action.payload
-      }
+        user: action.payload,
+      };
 
     case GET_DETAILS:
       console.log(action.payload);
       return {
         ...state,
         details: action.payload,
-      }
+      };
 
     case LIMPIAR_SATE:
       return {
         ...state,
         details: [],
-      }
+      };
 
     case 'POST_PROD':
       return {
         ...state,
         products: action.payload,
-      }
+      };
 
     case SEARCHxNAME: {
-      const productsFilter = state.products.filter(Element => Element.nombre.toLowerCase().includes(action.payload.toLowerCase()))
+      const productsFilter = state.products.filter((Element) =>
+        Element.nombre.toLowerCase().includes(action.payload.toLowerCase())
+      );
 
       if (productsFilter.length === 0) {
         return {
           ...state,
-          error: true
-        }
+          error: true,
+        };
       } else {
         return {
           ...state,
@@ -95,22 +103,24 @@ const rootReducer = (state = initialState, action) => {
     case EMPTY_ERROR: {
       return {
         ...state,
-        error: false
-      }
+        error: false,
+      };
     }
 
     case ORDER_PRECIO:
-      const arrPrecio = action.payload === 'asc'
-        ? state.productsHome.sort((a, b) => { //compara dos valores, en este caso los dos precios
-          if (parseInt(a.precio) > parseInt(b.precio)) return 1; //los va posicionando a la derecha
-          if (parseInt(a.precio) < parseInt(b.precio)) return -1;//o a la izquierda
-          return 0;//o si son iguales los deja así
-        })
-        : state.productsHome.sort((a, b) => {
-          if (parseInt(a.precio) > parseInt(b.precio)) return -1;
-          if (parseInt(a.precio) < parseInt(b.precio)) return 1;
-          return 0;
-        })
+      const arrPrecio =
+        action.payload === 'asc'
+          ? state.productsHome.sort((a, b) => {
+              //compara dos valores, en este caso los dos precios
+              if (parseInt(a.precio) > parseInt(b.precio)) return 1; //los va posicionando a la derecha
+              if (parseInt(a.precio) < parseInt(b.precio)) return -1; //o a la izquierda
+              return 0; //o si son iguales los deja así
+            })
+          : state.productsHome.sort((a, b) => {
+              if (parseInt(a.precio) > parseInt(b.precio)) return -1;
+              if (parseInt(a.precio) < parseInt(b.precio)) return 1;
+              return 0;
+            });
       return {
         ...state,
         productsHome: [...arrPrecio],
@@ -119,55 +129,87 @@ const rootReducer = (state = initialState, action) => {
     case SEARCHxCATEGORIA: {
       let productsFilter = [];
       if (action.payload === 'todas') {
-        let arr = [...state.products]
-        if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
-        if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
-        if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
-        productsFilter = [...arr]
-      }
-      else {
-        let arr = [...state.products]
-        arr = arr.filter(Element => Element.categoria.includes(action.payload));
-        if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
-        if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
-        if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
-        productsFilter = [...arr]
+        let arr = [...state.products];
+        if (state.precio[1] !== 0)
+          arr = arr.filter(
+            (Element) =>
+              state.precio[0] <= parseInt(Element.precio) &&
+              state.precio[1] >= parseInt(Element.precio)
+          );
+        if (state.talla !== 'todas')
+          arr = arr.filter((Element) => Element.talla.includes(state.talla));
+        if (state.marca !== 'todas')
+          arr = arr.filter((Element) => Element.marca.includes(state.marca));
+        productsFilter = [...arr];
+      } else {
+        let arr = [...state.products];
+        arr = arr.filter((Element) =>
+          Element.categoria.includes(action.payload)
+        );
+        if (state.precio[1] !== 0)
+          arr = arr.filter(
+            (Element) =>
+              state.precio[0] <= parseInt(Element.precio) &&
+              state.precio[1] >= parseInt(Element.precio)
+          );
+        if (state.talla !== 'todas')
+          arr = arr.filter((Element) => Element.talla.includes(state.talla));
+        if (state.marca !== 'todas')
+          arr = arr.filter((Element) => Element.marca.includes(state.marca));
+        productsFilter = [...arr];
       }
 
       let setError = '';
 
       if (productsFilter.length === 0) {
-        setError = true
+        setError = true;
       } else {
-        setError = false
+        setError = false;
       }
-
 
       return {
         ...state,
         productsHome: [...productsFilter],
         categoria: action.payload,
-        error: setError
-      }
-
+        error: setError,
+      };
     }
 
     case SEARCHxMARCA: {
       let productsFilter = [];
       if (action.payload === 'todas') {
-        let arr = [...state.products]
-        if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
-        if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
-        if (state.categoria !== 'todas') arr = arr.filter(Element => Element.categoria.includes(state.categoria))
-        productsFilter = [...arr]
-      }
-      else {
-        let arr = [...state.products]
-        arr = arr.filter(Element => Element.marca.toLowerCase().includes(action.payload.toLowerCase()));
-        if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
-        if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
-        if (state.categoria !== 'todas') arr = arr.filter(Element => Element.categoria.includes(state.categoria))
-        productsFilter = [...arr]
+        let arr = [...state.products];
+        if (state.precio[1] !== 0)
+          arr = arr.filter(
+            (Element) =>
+              state.precio[0] <= parseInt(Element.precio) &&
+              state.precio[1] >= parseInt(Element.precio)
+          );
+        if (state.talla !== 'todas')
+          arr = arr.filter((Element) => Element.talla.includes(state.talla));
+        if (state.categoria !== 'todas')
+          arr = arr.filter((Element) =>
+            Element.categoria.includes(state.categoria)
+          );
+        productsFilter = [...arr];
+      } else {
+        let arr = [...state.products];
+        arr = arr.filter((Element) =>
+          Element.marca.toLowerCase().includes(action.payload.toLowerCase())
+        );
+        if (state.talla !== 'todas')
+          arr = arr.filter((Element) => Element.talla.includes(state.talla));
+        if (state.precio[1] !== 0)
+          arr = arr.filter(
+            (Element) =>
+              state.precio[0] <= parseInt(Element.precio) &&
+              state.precio[1] >= parseInt(Element.precio)
+          );
+        if (state.categoria !== 'todas')
+          arr = arr.filter((Element) =>
+            Element.categoria.includes(state.categoria)
+          );
+        productsFilter = [...arr];
       }
 
       // if (productsFilter.length === 0) {
@@ -185,37 +227,55 @@ const rootReducer = (state = initialState, action) => {
       let setError = '';
 
       if (productsFilter.length === 0) {
-        setError = true
+        setError = true;
       } else {
-        setError = false
+        setError = false;
       }
-
 
       return {
         ...state,
         productsHome: [...productsFilter],
         marca: action.payload,
-        error: setError
-      }
-
+        error: setError,
+      };
     }
 
     case SEARCHxTALLA: {
       let productsFilter = [];
       if (action.payload === 'todas') {
-        let arr = [...state.products]
-        if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
-        if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
-        if (state.categoria !== 'todas') arr = arr.filter(Element => Element.categoria.includes(state.categoria))
-        productsFilter = [...arr]
-      }
-      else {
-        let arr = [...state.products]
-        arr = arr.filter(Element => Element.talla.toLowerCase() === action.payload.toLowerCase());
-        if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
-        if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
-        if (state.categoria !== 'todas') arr = arr.filter(Element => Element.categoria.includes(state.categoria))
-        productsFilter = [...arr]
+        let arr = [...state.products];
+        if (state.precio[1] !== 0)
+          arr = arr.filter(
+            (Element) =>
+              state.precio[0] <= parseInt(Element.precio) &&
+              state.precio[1] >= parseInt(Element.precio)
+          );
+        if (state.marca !== 'todas')
+          arr = arr.filter((Element) => Element.marca.includes(state.marca));
+        if (state.categoria !== 'todas')
+          arr = arr.filter((Element) =>
+            Element.categoria.includes(state.categoria)
+          );
+        productsFilter = [...arr];
+      } else {
+        let arr = [...state.products];
+        arr = arr.filter(
+          (Element) =>
+            Element.talla.toLowerCase() === action.payload.toLowerCase()
+        );
+        if (state.marca !== 'todas')
+          arr = arr.filter((Element) => Element.marca.includes(state.marca));
+        if (state.precio[1] !== 0)
+          arr = arr.filter(
+            (Element) =>
+              state.precio[0] <= parseInt(Element.precio) &&
+              state.precio[1] >= parseInt(Element.precio)
+          );
+        if (state.categoria !== 'todas')
+          arr = arr.filter((Element) =>
+            Element.categoria.includes(state.categoria)
+          );
+        productsFilter = [...arr];
       }
 
       // if (productsFilter.length === 0) {
@@ -233,35 +293,46 @@ const rootReducer = (state = initialState, action) => {
       let setError = '';
 
       if (productsFilter.length === 0) {
-        setError = true
+        setError = true;
       } else {
-        setError = false
+        setError = false;
       }
-
 
       return {
         ...state,
         productsHome: [...productsFilter],
         talla: action.payload,
-        error: setError
-      }
-
+        error: setError,
+      };
     }
 
     case SEARCHxPRECIO: {
-      let arr = [...state.products]
+      let arr = [...state.products];
       if (action.payload[1] === 0) {
-        arr = [...state.products]
-        if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
-        if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
-        if (state.categoria !== 'todas') arr = arr.filter(Element => Element.categoria.includes(state.categoria))
-        arr = [...arr]
-      }
-      else {
-        arr = arr.filter(Element => action.payload[0] <= parseInt(Element.precio) && action.payload[1] >= parseInt(Element.precio))
-        if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
-        if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
-        if (state.categoria !== 'todas') arr = arr.filter(Element => Element.categoria.includes(state.categoria))
+        arr = [...state.products];
+        if (state.marca !== 'todas')
+          arr = arr.filter((Element) => Element.marca.includes(state.marca));
+        if (state.talla !== 'todas')
+          arr = arr.filter((Element) => Element.talla.includes(state.talla));
+        if (state.categoria !== 'todas')
+          arr = arr.filter((Element) =>
+            Element.categoria.includes(state.categoria)
+          );
+        arr = [...arr];
+      } else {
+        arr = arr.filter(
+          (Element) =>
+            action.payload[0] <= parseInt(Element.precio) &&
+            action.payload[1] >= parseInt(Element.precio)
+        );
+        if (state.marca !== 'todas')
+          arr = arr.filter((Element) => Element.marca.includes(state.marca));
+        if (state.talla !== 'todas')
+          arr = arr.filter((Element) => Element.talla.includes(state.talla));
+        if (state.categoria !== 'todas')
+          arr = arr.filter((Element) =>
+            Element.categoria.includes(state.categoria)
+          );
       }
 
       // if (arr.length === 0) {
@@ -279,20 +350,62 @@ const rootReducer = (state = initialState, action) => {
       let setError = '';
 
       if (arr.length === 0) {
-        setError = true
+        setError = true;
       } else {
-        setError = false
+        setError = false;
       }
-
 
       return {
         ...state,
         productsHome: [...arr],
         precio: [...action.payload],
-        error: setError
-      }
-
+        error: setError,
+      };
     }
+    case ADD_TO_CART:
+      let newProduct = state.details.find(
+        (product) => product.id === action.payload
+      );
+
+      let productInCart = state.cart.find(
+        (product) => product.id === newProduct.id
+      );
+
+      return productInCart
+        ? {
+            ...state,
+            cart: state.cart.map((c) =>
+              c.id === newProduct.id ? { ...c, cantidad: c.cantidad + 1 } : c
+            ),
+          }
+        : {
+            ...state,
+            cart: [...state.cart, { ...newProduct, cantidad: 1 }],
+          };
+
+    case REMOVE_ONE_FROM_CART:
+      let productToDelete = state.cart.find(
+        (product) => product.id === action.payload
+      );
+      console.log(productToDelete);
+      return productToDelete.cantidad > 1
+        ? {
+            ...state,
+            cart: state.cart.map((c) =>
+              c.id === action.payload ? { ...c, cantidad: c.cantidad - 1 } : c
+            ),
+          }
+        : {
+            ...state,
+            cart: state.cart.filter((c) => c.id !== action.payload),
+          };
+    case REMOVE_ALL_FROM_CART:
+      return {
+        ...state,
+        cart: state.cart.filter((c) => c.id !== action.payload),
+      };
+    case CLEAR_CART:
+      return initialState;
     default:
       return { ...state };
   }

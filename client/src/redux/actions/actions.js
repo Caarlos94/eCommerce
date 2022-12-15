@@ -12,20 +12,30 @@ export const SEARCHxCATEGORIA = 'SEARCHxCATEGORIA';
 export const EMPTY_ERROR = 'EMPTY_ERROR';
 export const ORDER_PRECIO = 'ORDER_PRECIO';
 export const GET_USER = 'GET_USER';
+export const ADD_TO_CART = 'ADD_TO_CART';
+export const REMOVE_ONE_FROM_CART = 'REMOVE_ONE_FROM_CART';
+export const REMOVE_ALL_FROM_CART = 'REMOVE_ALL_FROM_CART';
+export const CLEAR_CART = 'CLEAR_CART';
 
 export const getProducts = () => {
   return async function (dispatch) {
-    const response = await fetch("http://localhost:3001/products");
+    const response = await fetch('http://localhost:3001/products');
     const data = await response.json();
-    return dispatch({ type: GET_PRODUCTS, payload: [data, 'dejar todo como esta'] });
+    return dispatch({
+      type: GET_PRODUCTS,
+      payload: [data, 'dejar todo como esta'],
+    });
   };
 };
 
 export const getProducts2 = () => {
   return async function (dispatch) {
-    const response = await fetch("http://localhost:3001/products");
+    const response = await fetch('http://localhost:3001/products');
     const data = await response.json();
-    return dispatch({ type: GET_PRODUCTS, payload: [data, 'volver a cargar los productos'] });
+    return dispatch({
+      type: GET_PRODUCTS,
+      payload: [data, 'volver a cargar los productos'],
+    });
   };
 };
 
@@ -35,7 +45,7 @@ export function getCategorys() {
       .then((response) => response.json())
       .then((data) => dispatch({ type: GET_CATEGORYS, payload: data }));
   };
-};
+}
 
 /* export function getUserInfo() {
   return async function (dispatch) {
@@ -76,7 +86,7 @@ export function orderPrecio(payload) {
   return {
     type: ORDER_PRECIO,
     payload: payload,
-  }
+  };
 }
 
 export const searchXname = (name) => {
@@ -120,3 +130,26 @@ export const searchXcategoria = (categoria) => {
   };
 };
 
+export function addToCart(id) {
+  return {
+    type: ADD_TO_CART,
+    payload: id,
+  };
+}
+export function removeOneFromCart(id) {
+  return {
+    type: REMOVE_ONE_FROM_CART,
+    payload: id,
+  };
+}
+export function removeAllFromCart(id) {
+  return {
+    type: REMOVE_ALL_FROM_CART,
+    payload: id,
+  };
+}
+export function clearCart() {
+  return {
+    type: CLEAR_CART,
+  };
+}
