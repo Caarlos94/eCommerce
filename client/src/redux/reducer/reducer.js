@@ -18,7 +18,7 @@ const initialState = {
   products: [],
   productsHome: [],
   details: [],
-  user: [],
+  users: [],
   categorys: [],
   marca: 'todas',
   talla: 'todas',
@@ -54,7 +54,7 @@ const rootReducer = (state = initialState, action) => {
     case GET_USER:
       return {
         ...state,
-        user: action.payload
+        users: action.payload
       }
 
     case GET_DETAILS:

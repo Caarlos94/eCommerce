@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import SearchBar from './searchBar/searchBar.jsx';
 import Filtros from './filtros/filtros.jsx';
-/* import Perfil from './Perfil/Perfil.jsx'; */
 import style from './navbar.module.css';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
 import usuario from '../../img/user.svg';
 import shopping from '../../img/shopping.png';
@@ -20,13 +19,6 @@ const Navbar = ({ setPages }) => {
 
   const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0()
 
-  const handlerProfile = () => {
-    isAuthenticated ? alert(`
-        ${user.name}, 
-        ${user.email}`
-    ) : alert('no ha iniciado sesión todavía')
-  }
-
   return (
     <div className={style.div}>
       <div className={style.black}></div>
@@ -42,31 +34,33 @@ const Navbar = ({ setPages }) => {
         <div className={style.searchBar}>
           <SearchBar setPages={setPages} />
         </div>
-
         <div className={style.btns}>
-          <button onClick={handlerProfile} className={style.btn}>
-            <img src={usuario} alt=""></img>
-            {isAuthenticated && console.log(user)}
-          </button>
-
+          {isAuthenticated ? (
+            <div className={style.profileMenu}>
+              <details>
+                <summary>Hola {user.given_name}!</summary>
+                <div className={style.desplegable}>
+                  <div>
+                    <Link to="/profile" style={{ textDecoration: 'none' }} className={style.button}>Perfil</Link>
+                  </div>
+                  <div>
+                    <button onClick={() => logout()} className={style.button}>Cerrar sesión</button>
+                  </div>
+                </div>
+              </details>
+            </div>
+          ) : (
+            <button onClick={() => loginWithRedirect()} className={style.btn}> <img src={usuario} alt=""></img> </button>
+          )}
           <div className={style.btn}>
             <img src={heart} alt=""></img>
           </div>
           <div className={style.btn}>
             <img src={shopping} alt=""></img>
           </div>
-          {isAuthenticated ?
-            <div>
-              <button onClick={() => logout()} className={style.btn}>Cerrar Sesión</button>
-            </div>
-            :
-            <div>
-              <button onClick={() => loginWithRedirect()} className={style.btn}>Iniciar Sesión</button>
-            </div>
-          }
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

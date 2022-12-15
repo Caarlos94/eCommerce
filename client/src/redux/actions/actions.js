@@ -37,15 +37,24 @@ export function getCategorys() {
   };
 };
 
-/* export function getUserInfo() {
+export function getUserInfo() {
   return async function (dispatch) {
-    const response = await axios.get(`http://localhost:3001/user/`);
+    const response = await axios.get(`http://localhost:3001/profile`);
     return dispatch({
       type: GET_USER,
       payload: response.data,
     });
   };
-}; */
+};
+export function postUser(payload) {
+  return async function () {
+    const response = await axios.post(
+      'http://localhost:3001/profile',
+      payload
+    );
+    return response;
+  };
+}
 
 export function postProd(payload) {
   return async function () {
@@ -55,7 +64,7 @@ export function postProd(payload) {
     );
     return response;
   };
-}
+};
 
 export function getDetails(id) {
   return async function (dispatch) {
