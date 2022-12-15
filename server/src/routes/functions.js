@@ -1,11 +1,11 @@
 const fetch = (...args) =>
-  import("node-fetch").then(({ default: fetch }) => fetch(...args));
-const { Categoria, Producto } = require("../db.js");
+  import('node-fetch').then(({ default: fetch }) => fetch(...args));
+const { Categoria, Producto } = require('../db.js');
 
 // Get categories FROM firebase and save then into DB
 const getCategories = async () => {
   const response = await fetch(
-    "https://supra-sports-default-rtdb.firebaseio.com/.json"
+    'https://supra-sports-default-rtdb.firebaseio.com/.json'
   );
   let commits = await response.json();
   let category = commits.Productos.map((e) => e.categoria);
@@ -34,14 +34,13 @@ const getDataBaseProducts = async () => {
   const allProductsDB = await Producto.findAll({
     include: {
       model: Categoria,
-      attributes: ["nombre"],
+      attributes: ['nombre'],
       through: { attributes: [] },
     },
   });
-
   allProductsDB.forEach((e) => {
     let newArr = e.dataValues.categoria.map((e) => e.nombre);
-    e.dataValues.categoria = newArr.join(", ");
+    e.dataValues.categoria = newArr.join(', ');
   });
   return allProductsDB;
 };

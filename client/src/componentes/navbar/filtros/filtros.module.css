@@ -10,12 +10,6 @@
 }
 
 .select {
-  /* margin: 10px;
-  padding: 5px 10px;
-  background-color: black;
-  color: white;
-  font-weight: bold;
-  border-radius: 5px; */
   --bg: #000;
   --hover-bg: #ffffff;
   --hover-text: #000;

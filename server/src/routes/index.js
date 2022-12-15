@@ -4,25 +4,15 @@ const { getCategories } = require("./functions");
 // Ejemplo: const authRouter = require('./auth.js');
 const productRouter = require("./productRouter.js");
 const userRouter = require("./productRouter.js");
+const customerQARouter = require("./customerQARouter");
+const adminQARouter = require("./adminQARouter");
 
 const router = Router();
 
-const PaymentController = require("../Controllers/PaymentsController");
-const PaymentService = require("../Services/PaymentsService");
-
-const PaymentInstance = new PaymentController(new PaymentService());
-
-router.post("/payment", (req, res, next) => {
-  PaymentInstance.getPaymentLink(req, res);
-});
-
-// router.get("/subscription", (req, res, next) => {
-//   // debería ser post si realmente se fuera a usar
-//   PaymentInstance.getSubscriptionLink(req, res);
-// });
-
 router.use("/products", productRouter);
 router.use("/user", userRouter);
+router.use("/customerQA", customerQARouter);
+router.use("/adminQA", adminQARouter);
 
 router.get("/category", async (req, res) => {
   try {

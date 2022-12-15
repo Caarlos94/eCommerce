@@ -17,11 +17,6 @@ module.exports = (sequelize) => {
       answer: {
         type: DataTypes.STRING,
       },
-      wasAnswered: {
-        type: DataTypes.BOOLEAN,
-        alowNull: false,
-        defaultValue: false,
-      },
     },
     { timestamps: false }
   );
