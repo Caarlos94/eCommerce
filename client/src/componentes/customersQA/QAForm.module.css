@@ -1,6 +1,11 @@
 .form-container {
   display: flex;
   flex-direction: column;
+  margin-bottom: 5rem;
+}
+
+.form-container input {
+  border-radius: 5px;
 }
 
 .form-label {

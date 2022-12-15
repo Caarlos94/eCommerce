@@ -22,13 +22,17 @@ const UnansweredQuestion = ({ question }) => {
   };
 
   return !question.answer && !didSubmit ? (
-    <div>
-      <div>
-        <p>Nombre del producto: {question.productName}</p>
+    <div className={classes["admin-question"]}>
+      <div className={classes["nombre-imagen"]}>
+        <p>{question.productName}</p>
         <img src={question.productUrl} alt="nombre del producto" />
       </div>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="respuesta">Pregunta: {question.question}</label>
+        <label className={classes.label} htmlFor="respuesta">
+          <p>Pregunta: </p>
+          {question.question}
+        </label>
+        <br />
         <input
           autoComplete="off"
           onChange={handleChange}
