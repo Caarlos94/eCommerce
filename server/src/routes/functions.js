@@ -1,6 +1,6 @@
 const fetch = (...args) =>
   import('node-fetch').then(({ default: fetch }) => fetch(...args));
-const { Categoria, Producto } = require('../db.js');
+const { Categoria, Producto, Cliente } = require('../db.js');
 
 // Get categories FROM firebase and save then into DB
 const getCategories = async () => {
@@ -18,35 +18,56 @@ const getCategories = async () => {
 };
 
 // Get products FROM firebase and save then into DB
-const getProducts = async () => {
+const getProductsFireBase = async () => {
   let response = await fetch(
     `https://supra-sports-default-rtdb.firebaseio.com/.json`
   );
   let commits = await response.json();
-  // commits.Productos.forEach(async (e) => {
-  //     await Producto.findOrCreate({where: { nombre:e.nombre, URL: e.URL, color: e.color, marca: e.marca, talla: e.talla, precio: e.precio }})
-  // })
+    commits.Productos.forEach(async (e) => {
+      let [instance, created] = await Producto.findOrCreate({where: { nombre:e.nombre }, 
+        defaults: {
+          URL: e.URL,
+          color: e.color,
+          marca: e.marca,
+          talla: e.talla,
+          precio: e.precio,
+          stock: e.stock,
+        }
+      })
+      const DatabaseCategory = await Categoria.findOne({
+        where: { nombre: e.categoria },
+      });
+
+      // await instance.addCategoria(DatabaseCategory);
+  })
   return commits;
 };
 
 // Get Created Products from DB
 const getDataBaseProducts = async () => {
-  const allProductsDB = await Producto.findAll({
-    include: {
-      model: Categoria,
-      attributes: ['nombre'],
-      through: { attributes: [] },
-    },
-  });
-  allProductsDB.forEach((e) => {
-    let newArr = e.dataValues.categoria.map((e) => e.nombre);
-    e.dataValues.categoria = newArr.join(', ');
-  });
+ 
+  // const DatabaseCategory = await Categoria.findAll({
+  //   where: { nombre: categoria },
+  // });
+  // await newProduct.addCategoria(DatabaseCategory);
+  
+  const allProductsDB = await Producto.findAll();
   return allProductsDB;
+};
+ 
+// Get clients from DB
+const getDataBaseClient = async () => {
+  const allClientDB = await Cliente.findAll();
+  // allProductsDB.forEach((e) => {
+  //   let newArr = e.dataValues.categoria.map((e) => e.nombre);
+  //   e.dataValues.categoria = newArr.join(', ');
+  // });
+  return allClientDB;
 };
 
 module.exports = {
-  getProducts,
+  getProductsFireBase,
   getCategories,
   getDataBaseProducts,
+  getDataBaseClient,
 };
