@@ -45,7 +45,7 @@ export function getCategorys() {
       .then((response) => response.json())
       .then((data) => dispatch({ type: GET_CATEGORYS, payload: data }));
   };
-}
+};
 
 export function getUserInfo() {
   return function (dispatch) {

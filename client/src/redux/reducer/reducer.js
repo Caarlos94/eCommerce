@@ -24,11 +24,12 @@ const initialState = {
   users: [],
   cart: [],
   categorys: [],
-  marca: 'todas',
-  talla: 'todas',
-  categoria: 'todas',
+  marca: "todas",
+  talla: "todas",
+  categoria: "todas",
   precio: [0, 0],
   error: false,
+  page: 1,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -70,7 +71,6 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case GET_DETAILS:
-      console.log(action.payload);
       return {
         ...state,
         details: action.payload,
@@ -82,7 +82,7 @@ const rootReducer = (state = initialState, action) => {
         details: [],
       };
 
-    case 'POST_PROD':
+    case "POST_PROD":
       return {
         ...state,
         products: action.payload,
@@ -165,7 +165,7 @@ const rootReducer = (state = initialState, action) => {
         productsFilter = [...arr];
       }
 
-      let setError = '';
+      let setError = "";
 
       if (productsFilter.length === 0) {
         setError = true;
@@ -230,7 +230,7 @@ const rootReducer = (state = initialState, action) => {
       //     marca: action.payload
       //   }
       // }
-      let setError = '';
+      let setError = "";
 
       if (productsFilter.length === 0) {
         setError = true;
@@ -296,7 +296,7 @@ const rootReducer = (state = initialState, action) => {
       //     talla: action.payload
       //   }
       // }
-      let setError = '';
+      let setError = "";
 
       if (productsFilter.length === 0) {
         setError = true;
@@ -353,7 +353,7 @@ const rootReducer = (state = initialState, action) => {
       //     precio: [...action.payload]
       //   }
       // }
-      let setError = '';
+      let setError = "";
 
       if (arr.length === 0) {
         setError = true;
