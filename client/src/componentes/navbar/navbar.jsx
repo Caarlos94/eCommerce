@@ -34,6 +34,7 @@ const Navbar = ({ setPages }) => {
         <div className={style.searchBar}>
           <SearchBar setPages={setPages} />
         </div>
+
         <div className={style.btns}>
           {isAuthenticated ? (
             <div className={style.profileMenu}>

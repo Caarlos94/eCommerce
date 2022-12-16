@@ -8,12 +8,13 @@ import {
   addToCart,
 } from '../../redux/actions/actions.js';
 /* import Navbar from '../navbar/navbar'; */
-import { NavLink, useParams } from 'react-router-dom';
-import SearchBar from '../navbar/searchBar/searchBar';
-import back from '../../img/back.png';
-import heart from '../../img/heart-regular.svg';
-import user from '../../img/user.svg';
-import shopping from '../../img/shopping.png';
+import { NavLink, useParams } from "react-router-dom";
+import SearchBar from "../navbar/searchBar/searchBar";
+import back from "../../img/back.png";
+import heart from "../../img/heart-regular.svg";
+import user from "../../img/user.svg";
+import shopping from "../../img/shopping.png";
+import QASection from "../customersQA/QASection"; // La sección de QA del producto. Debe ir en este componente. Falta posicionarlo bien, dar estilos etc
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const Details = () => {
       <div className={s.detailHeader}>
         <div className={s.black}></div>
         <div className={s.white}>
-          <NavLink to="/" style={{ textDecoration: 'none' }}>
+          <NavLink to="/" style={{ textDecoration: "none" }}>
             <div className={s.backHome}>
               <img src={back} alt=""></img>
               Atrás
@@ -64,14 +65,16 @@ const Details = () => {
 
       {/* <Navbar /> */}
       {details.length ? (
-        <div className={s.detailCont}>
-          <div className={s.imgCont}>
-            <div className={s.img11}>
-              {/* <img src={details[0].URL} alt="img"></img> */}
-              <div
-                className={s.img111}
-                style={{ backgroundImage: `url(${details[0].URL})` }}
-              ></div>
+        <div className={s["parent-container"]}>
+          <div className={s.detailCont}>
+            <div className={s.imgCont}>
+              <div className={s.img11}>
+                {/* <img src={details[0].URL} alt="img"></img> */}
+                <div
+                  className={s.img111}
+                  style={{ backgroundImage: `url(${details[0].URL})` }}
+                ></div>
+              </div>
             </div>
           </div>
           <div className={s.textCont}>
@@ -92,6 +95,7 @@ const Details = () => {
               </div>
             </div>
           </div>
+          <QASection productId={id} />
         </div>
       ) : (
         <div className={s.spinner}>

@@ -17,8 +17,8 @@ const Home = () => {
     dispatch(getProducts());
   }, [dispatch]);
 
-  const [order, setOrder] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [, setOrder] = useState("");
+  const [currentPage, setCurrentPage] = useState(1); // DEBERIA SER UN REDUCER
   const productsPerPage = 9;
   const lastIndex = currentPage * productsPerPage; // 1 * 8 = 8
   const firstIndex = lastIndex - productsPerPage; // 8 - 8 = 0
@@ -77,7 +77,8 @@ const Home = () => {
           </select>
 
           <div>
-            <div /* className="container d-flex justify-content-center h-100 align-items-center" */>
+            <div /* className="container d-flex justify-content-center h-100 align-items-center" */
+            >
               <div className={s.section}>
                 {currentProducts.map((card) => (
                   <div key={card.id}>
@@ -99,9 +100,9 @@ const Home = () => {
         </div>
       ) : (
         <div className={s.notFound}>
-          <h1 >Estamos buscando lo que necesitas!</h1>
+          <h1>Estamos buscando lo que necesitas!</h1>
           <h2>En caso de no cargar te recomendamos refrescar la página...</h2>
-          <img src={messiNotFound} alt='img'></img>
+          <img src={messiNotFound} alt="img"></img>
         </div>
       )}
       <Paginado

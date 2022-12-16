@@ -1,17 +1,20 @@
-const { Router } = require('express');
-const { getCategories } = require('./functions')
+const { Router } = require("express");
+const { getCategories } = require("./functions");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
-const productRouter = require('./productRouter.js');
-const userRouter = require('./userRouter.js');
 
-
+const mercadopago = require("mercadopago");
+const productRouter = require("./productRouter.js");
+const userRouter = require("./userRouter.js");
+const customerQARouter = require("./customerQARouter");
+const adminQARouter = require("./adminQARouter");
 
 const router = Router();
 
-router.use('/products', productRouter);
-router.use('/users', userRouter);
-const mercadopago = require("mercadopago");
+router.use("/products", productRouter);
+router.use("/users", userRouter);
+router.use("/customerQA", customerQARouter);
+router.use("/adminQA", adminQARouter);
 
 mercadopago.configure({
   access_token: "APP_USR-8763313892706046-121400-b6b39cc901e4f87d36ca35efbd37f52c-1263181426",
@@ -55,12 +58,12 @@ router.get("/redirect", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    let categoria = await getCategories()
-    res.status(200).json(categoria)
+    let categoria = await getCategories();
+    res.status(200).json(categoria);
   } catch (error) {
-    res.status(400).send(error.message)
+    res.status(400).send(error.message);
   }
-})
+});
 
 
 module.exports = router;

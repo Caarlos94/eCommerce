@@ -45,7 +45,17 @@ export function getCategorys() {
       .then((response) => response.json())
       .then((data) => dispatch({ type: GET_CATEGORYS, payload: data }));
   };
-}
+};
+
+/* export function getUserInfo() {
+  return async function (dispatch) {
+    const response = await axios.get(`http://localhost:3001/user/`);
+    return dispatch({
+      type: GET_USER,
+      payload: response.data,
+    });
+  };
+}; */
 
 export function getUserInfo() {
   return function (dispatch) {
