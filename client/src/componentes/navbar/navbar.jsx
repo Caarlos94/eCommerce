@@ -19,14 +19,6 @@ const Navbar = ({ setPages }) => {
 
   const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0();
 
-  const handlerProfile = () => {
-    isAuthenticated
-      ? alert(`
-        ${user.name}, 
-        ${user.email}`)
-      : alert('no ha iniciado sesión todavía');
-  };
-
   return (
     <div className={style.div}>
       <div className={style.black}></div>

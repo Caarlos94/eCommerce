@@ -58,10 +58,16 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case GET_USER:
+      console.log(action.payload);
       return {
         ...state,
         users: action.payload
       }
+    case 'POST_USER':
+      return {
+        ...state,
+        users: action.payload,
+      };
 
     case GET_DETAILS:
       console.log(action.payload);
@@ -111,16 +117,16 @@ const rootReducer = (state = initialState, action) => {
       const arrPrecio =
         action.payload === 'asc'
           ? state.productsHome.sort((a, b) => {
-              //compara dos valores, en este caso los dos precios
-              if (parseInt(a.precio) > parseInt(b.precio)) return 1; //los va posicionando a la derecha
-              if (parseInt(a.precio) < parseInt(b.precio)) return -1; //o a la izquierda
-              return 0; //o si son iguales los deja así
-            })
+            //compara dos valores, en este caso los dos precios
+            if (parseInt(a.precio) > parseInt(b.precio)) return 1; //los va posicionando a la derecha
+            if (parseInt(a.precio) < parseInt(b.precio)) return -1; //o a la izquierda
+            return 0; //o si son iguales los deja así
+          })
           : state.productsHome.sort((a, b) => {
-              if (parseInt(a.precio) > parseInt(b.precio)) return -1;
-              if (parseInt(a.precio) < parseInt(b.precio)) return 1;
-              return 0;
-            });
+            if (parseInt(a.precio) > parseInt(b.precio)) return -1;
+            if (parseInt(a.precio) < parseInt(b.precio)) return 1;
+            return 0;
+          });
       return {
         ...state,
         productsHome: [...arrPrecio],
@@ -373,15 +379,15 @@ const rootReducer = (state = initialState, action) => {
 
       return productInCart
         ? {
-            ...state,
-            cart: state.cart.map((c) =>
-              c.id === newProduct.id ? { ...c, cantidad: c.cantidad + 1 } : c
-            ),
-          }
+          ...state,
+          cart: state.cart.map((c) =>
+            c.id === newProduct.id ? { ...c, cantidad: c.cantidad + 1 } : c
+          ),
+        }
         : {
-            ...state,
-            cart: [...state.cart, { ...newProduct, cantidad: 1 }],
-          };
+          ...state,
+          cart: [...state.cart, { ...newProduct, cantidad: 1 }],
+        };
 
     case REMOVE_ONE_FROM_CART:
       let productToDelete = state.cart.find(
@@ -390,15 +396,15 @@ const rootReducer = (state = initialState, action) => {
       console.log(productToDelete);
       return productToDelete.cantidad > 1
         ? {
-            ...state,
-            cart: state.cart.map((c) =>
-              c.id === action.payload ? { ...c, cantidad: c.cantidad - 1 } : c
-            ),
-          }
+          ...state,
+          cart: state.cart.map((c) =>
+            c.id === action.payload ? { ...c, cantidad: c.cantidad - 1 } : c
+          ),
+        }
         : {
-            ...state,
-            cart: state.cart.filter((c) => c.id !== action.payload),
-          };
+          ...state,
+          cart: state.cart.filter((c) => c.id !== action.payload),
+        };
     case REMOVE_ALL_FROM_CART:
       return {
         ...state,

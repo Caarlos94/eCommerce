@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const { Cliente } = require('../db');
+const { Cliente } = require('../db.js');
 const { getDataBaseClient } = require('./functions')
 
 const userRouter = Router()

@@ -63,13 +63,4 @@ router.get("/", async (req, res) => {
 })
 
 
-
-router.use('/products', productRouter);
-router.use('/user', userRouter);
-
-// Configurar los routers
-// Ejemplo: router.use('/auth', authRouter);
-
-
-
 module.exports = router;

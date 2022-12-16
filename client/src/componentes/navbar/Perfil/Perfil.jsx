@@ -1,30 +1,30 @@
-import React, { /* useEffect, useState  */} from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { NavLink } from "react-router-dom";
 import style from './Perfil.module.css'
 import back from '../../../img/back.png';
-import { /* useDispatch, */ useSelector } from "react-redux";
-/* import { getUserInfo, postUser, searchXcategoria } from "../../../redux/actions/actions"; */
+import {useDispatch, useSelector } from "react-redux";
+import { getUserInfo, postUser} from "../../../redux/actions/actions";
 import Card from "../../Card/Card";
 
 const Perfil = () => {
   const { user, isAuthenticated } = useAuth0();
-  /* const dispatch = useDispatch();
-  const users = useSelector((state) => state.users) */
+  const dispatch = useDispatch();
+  /* const users = useSelector((state) => state.users) */
   const allProducts = useSelector((state) => state.productsHome);
 
-  /* const [input, setInput] = useState({
-    nickname: user.name,
+  const [input, setInput] = useState({
+    nickname: user.nickname,
     mail: user.email,
-    password: '',
+    /* password: '', */
     picture: user.picture,
     direction: '',
     cel: '',
     cp: '',
     purchase_history: '',
-  }); */
+  }); 
 
-  /* useEffect(() => {
+  useEffect(() => {
     dispatch(getUserInfo())
   }, [dispatch])
 
@@ -33,26 +33,26 @@ const Perfil = () => {
       ...input,
       [e.target.name]: e.target.value,
     });
-  }; */
+  };
 
 
-  /* const handlerSubmit = (e) => {
+  const handlerSubmit = (e) => {
     e.preventDefault();
     console.log(input);
     dispatch(postUser(input));
     setTimeout(() => dispatch(getUserInfo()), 100);
     alert('Información guardada con éxito!');
     setInput({
-      nickname: user.name,
+      nickname: user.nickname,
       mail: user.email,
-      password: '',
+      /* password: '', */
       picture: user.picture,
       direction: '',
       cel: '',
       cp: '',
       purchase_history: '',
     });
-  }; */
+  };
 
   return (
     <div>
@@ -79,32 +79,32 @@ const Perfil = () => {
             </div >
 
             <div className={style.inputs}>
-              <form /* onSubmit={(e) => handlerSubmit(e)} */>
+              <form onSubmit={(e) => handlerSubmit(e)}>
                 <div className={style.info}>
                   <h5>Direccion: </h5>
                   <input
                     type="text"
-                    name="direcc"
-                    /* value={input.direction} */
-                    /* onChange={(e) => handlerChange(e)} */></input>
+                    name="direction"
+                    value={input.direction}
+                    onChange={(e) => handlerChange(e)}></input>
                 </div>
 
                 <div className={style.info}>
                   <h5>Celular: </h5>
                   <input
                     type="number"
-                    name="celular"
-                    /* value={input.cel} */
-                    /* onChange={(e) => handlerChange(e)} */></input>
+                    name="cel"
+                    value={input.cel}
+                    onChange={(e) => handlerChange(e)}></input>
                 </div>
 
                 <div className={style.info}>
                   <h5>Código Postal: </h5>
                   <input
                     type="number"
-                    name="CP"
-                    /* value={input.cp} */
-                    /* onChange={(e) => handlerChange(e)} */></input>
+                    name="cp"
+                    value={input.cp}
+                    onChange={(e) => handlerChange(e)}></input>
                 </div>
 
                 <div className={style.guardarInfo}>

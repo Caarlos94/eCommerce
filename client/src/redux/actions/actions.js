@@ -48,8 +48,8 @@ export function getCategorys() {
 }
 
 export function getUserInfo() {
-  return async function (dispatch) {
-    const response = await axios.get(`http://localhost:3001/profile`);
+  return function (dispatch) {
+    const response = axios.get(`http://localhost:3001/users`);
     return dispatch({
       type: GET_USER,
       payload: response.data,
@@ -59,7 +59,7 @@ export function getUserInfo() {
 export function postUser(payload) {
   return async function () {
     const response = await axios.post(
-      'http://localhost:3001/profile',
+      'http://localhost:3001/users',
       payload
     );
     return response;
