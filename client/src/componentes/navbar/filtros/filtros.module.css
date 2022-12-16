@@ -6,9 +6,6 @@
   width: 100%;
 }
 
-.allFilters {
-}
-
 .select {
   --bg: #000;
   --hover-bg: #ffffff;
@@ -39,9 +36,6 @@
   width: 200px;
   border-radius: 5px;
   padding: 2px 5px;
-}
-
-.clear {
 }
 
 .clear button {
