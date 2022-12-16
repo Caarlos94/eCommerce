@@ -18,7 +18,7 @@ const Home = () => {
   }, [dispatch]);
 
   const [, setOrder] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1); // DEBERIA SER UN REDUCER
   const productsPerPage = 9;
   const lastIndex = currentPage * productsPerPage; // 1 * 8 = 8
   const firstIndex = lastIndex - productsPerPage; // 8 - 8 = 0

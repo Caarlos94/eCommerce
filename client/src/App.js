@@ -3,7 +3,6 @@ import ProductCreate from "./componentes/ProductCreate/ProductCreate";
 import Home from "./componentes/home/home.jsx";
 import Details from "./componentes/details/details";
 import { Route } from "react-router-dom";
-import AdminQA from "./componentes/adminQA/AdminQA";
 
 function App() {
   return (

@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
-import SearchBar from './searchBar/searchBar.jsx';
-import Filtros from './filtros/filtros.jsx';
+import React, { useEffect } from "react";
+import SearchBar from "./searchBar/searchBar.jsx";
+import Filtros from "./filtros/filtros.jsx";
 /* import Perfil from './Perfil/Perfil.jsx'; */
-import style from './navbar.module.css';
-import { NavLink } from 'react-router-dom';
-import heart from '../../img/heart-regular.svg';
-import usuario from '../../img/user.svg';
-import shopping from '../../img/shopping.png';
-import { useDispatch } from 'react-redux';
-import { getProducts } from '../../redux/actions/actions.js';
+import style from "./navbar.module.css";
+import { NavLink } from "react-router-dom";
+import heart from "../../img/heart-regular.svg";
+import usuario from "../../img/user.svg";
+import shopping from "../../img/shopping.png";
+import { useDispatch } from "react-redux";
+import { getProducts } from "../../redux/actions/actions.js";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = ({ setPages }) => {
@@ -18,14 +18,15 @@ const Navbar = ({ setPages }) => {
     dispatch(getProducts);
   }, [dispatch]);
 
-  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0()
+  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0();
 
   const handlerProfile = () => {
-    isAuthenticated ? alert(`
+    isAuthenticated
+      ? alert(`
         ${user.name}, 
-        ${user.email}`
-    ) : alert('no ha iniciado sesión todavía')
-  }
+        ${user.email}`)
+      : alert("no ha iniciado sesión todavía");
+  };
 
   return (
     <div className={style.div}>
@@ -55,15 +56,19 @@ const Navbar = ({ setPages }) => {
           <div className={style.btn}>
             <img src={shopping} alt=""></img>
           </div>
-          {isAuthenticated ?
+          {isAuthenticated ? (
             <div>
-              <button onClick={() => logout()} className={style.btn}>Cerrar Sesión</button>
+              <button onClick={() => logout()} className={style.btn}>
+                Cerrar Sesión
+              </button>
             </div>
-            :
+          ) : (
             <div>
-              <button onClick={() => loginWithRedirect()} className={style.btn}>Iniciar Sesión</button>
+              <button onClick={() => loginWithRedirect()} className={style.btn}>
+                Iniciar Sesión
+              </button>
             </div>
-          }
+          )}
         </div>
       </div>
     </div>

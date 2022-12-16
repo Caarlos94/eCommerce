@@ -24,6 +24,7 @@ const initialState = {
   categoria: "todas",
   precio: [0, 0],
   error: false,
+  page: 1,
 };
 
 const rootReducer = (state = initialState, action) => {
