@@ -31,6 +31,23 @@ const Carrito = () => {
     dispatch(clearCart());
   };
 
+  const handleBuy = () => {
+    fetch("http://localhost:3001/pagosMeli", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({items: cart}),
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        if (data.error) console.log(data); // manejar caso de error
+        window.open(data, "_self");
+        /* console.log(data); */
+      });
+
+  };
+
   return (
     <div className={s.cont}>
       <div className={s.detailHeader}>
@@ -68,7 +85,7 @@ const Carrito = () => {
         <div className={s.total}>
           <p>Total:</p>
         </div>
-        <button className={s.pagar}>Pagar ahora</button>
+        <button className={s.pagar} onClick={() => handleBuy()}>Pagar ahora</button>
         {cart ? (
           cart.map((c) => (
             <CartProduct

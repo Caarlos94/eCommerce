@@ -7,7 +7,6 @@ import {
   limpiarState,
   addToCart,
 } from '../../redux/actions/actions.js';
-/* import Navbar from '../navbar/navbar'; */
 import { NavLink, useParams } from "react-router-dom";
 import SearchBar from "../navbar/searchBar/searchBar";
 import back from "../../img/back.png";
@@ -15,6 +14,7 @@ import heart from "../../img/heart-regular.svg";
 import user from "../../img/user.svg";
 import shopping from "../../img/shopping.png";
 import QASection from "../customersQA/QASection"; // La sección de QA del producto. Debe ir en este componente. Falta posicionarlo bien, dar estilos etc
+import AdminQA from '../adminQA/AdminQA';
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -30,6 +30,7 @@ const Details = () => {
 
   const handleSubmit = (id) => {
     dispatch(addToCart(id));
+    console.log(details);
     alert('Añadido con éxito al carrito');
   };
 
@@ -76,26 +77,25 @@ const Details = () => {
                 ></div>
               </div>
             </div>
-          </div>
-          <div className={s.textCont}>
-            <div className={s.productDesc}>
-              <h2>{details[0].nombre.toUpperCase()}</h2>
-              <h3>${details[0].precio} U$D</h3>
-              <h5>Marca: {details[0].marca}</h5>
-              <h5>Color: {details[0].color}</h5>
-              <h5>Talla: {details[0].talla.toUpperCase()}</h5>
-              <h6>Stock: {details[0].stock}</h6>
-            </div>
-            <div className={s.botones}>
-              <button onClick={() => handleSubmit(id)}>
-                AÑADIR AL CARRITO
-              </button>
-              <div className={s.fav}>
-                <img src={heart} alt=""></img>
+            <div className={s.textCont}>
+              <div className={s.productDesc}>
+                <h2>{details[0].nombre.toUpperCase()}</h2>
+                <h3>${details[0].precio} U$D</h3>
+                <h5>Marca: {details[0].marca}</h5>
+                <h5>Color: {details[0].color}</h5>
+                <h5>Talla: {details[0].talla.toUpperCase()}</h5>
+                <h6>Stock: {details[0].stock}</h6>
+              </div>
+              <div className={s.botones}>
+                <button onClick={() => handleSubmit(id)}>AÑADIR AL CARRITO</button>
+                <div className={s.fav}>
+                  <img src={heart} alt=""></img>
+                </div>
               </div>
             </div>
           </div>
           <QASection productId={id} />
+          <AdminQA></AdminQA>
         </div>
       ) : (
         <div className={s.spinner}>

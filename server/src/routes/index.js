@@ -20,26 +20,32 @@ mercadopago.configure({
   access_token: "APP_USR-8763313892706046-121400-b6b39cc901e4f87d36ca35efbd37f52c-1263181426",
 });
 
-router.get("/pagosMeli", async (req, res) => {
+router.post("/pagosMeli", async (req, res) => {
+  let items = req.body.items;
+
+  let itemsArr = [];
+  items.forEach(item => itemsArr.push({
+    id: item.id,
+    title: item.nombre,
+    currency_id: "ARS",
+    picture_url: item.URL,
+    quantity: 1,
+    unit_price: parseInt(item.precio),
+  }))
   let preference = {
-    items: [
-      {
-        title: "Mi producto",
-        unit_price: 100,
-        quantity: 1,
-      },
-    ],
+    items: itemsArr,
     back_urls: {
       success: "http://localhost:3001/redirect",
       failure: "http://localhost:3001/redirect",
       pending: "http://localhost:3001/redirect"
-  }
+    }
   };
-  
+
   mercadopago.preferences.create(preference)
     .then(function (response) {
-     console.log(response.body);
-     res.redirect(response.body.init_point)
+      console.log(response.body);
+      /* res.redirect(response.body.init_point) */
+      res.json(response.body.init_point)
     })
     .catch(function (error) {
       console.log(error);
@@ -64,6 +70,15 @@ router.get("/", async (req, res) => {
     res.status(400).send(error.message);
   }
 });
+
+router.get("/category", async (req, res) => {
+  try {
+    let categoria = await getCategories()
+    res.status(200).json(categoria)
+  } catch (error) {
+    res.status(400).send(error.message)
+  }
+})
 
 
 module.exports = router;
