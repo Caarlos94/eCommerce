@@ -8,7 +8,7 @@ import usuario from '../../img/user.svg';
 import shopping from '../../img/shopping.png';
 import { useDispatch } from 'react-redux';
 import { getProducts } from '../../redux/actions/actions.js';
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Navbar = ({ setPages }) => {
   const dispatch = useDispatch();
@@ -17,7 +17,15 @@ const Navbar = ({ setPages }) => {
     dispatch(getProducts);
   }, [dispatch]);
 
-  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0()
+  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0();
+
+  const handlerProfile = () => {
+    isAuthenticated
+      ? alert(`
+        ${user.name}, 
+        ${user.email}`)
+      : alert('no ha iniciado sesión todavía');
+  };
 
   return (
     <div className={style.div}>
@@ -55,9 +63,24 @@ const Navbar = ({ setPages }) => {
           <div className={style.btn}>
             <img src={heart} alt=""></img>
           </div>
-          <div className={style.btn}>
-            <img src={shopping} alt=""></img>
-          </div>
+          <NavLink to="/cart" className={style.carro}>
+            <div className={style.btn}>
+              <img src={shopping} alt=""></img>
+            </div>
+          </NavLink>
+          {isAuthenticated ? (
+            <div>
+              <button onClick={() => logout()} className={style.btn}>
+                Cerrar Sesión
+              </button>
+            </div>
+          ) : (
+            <div>
+              <button onClick={() => loginWithRedirect()} className={style.btn}>
+                Iniciar Sesión
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div >

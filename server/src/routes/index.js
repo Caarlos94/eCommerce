@@ -3,13 +3,13 @@ const { getCategories } = require('./functions')
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const productRouter = require('./productRouter.js');
-const userRouter = require('./productRouter.js');
+const userRouter = require('./userRouter.js');
 
 
 const router = Router();
 
 router.use('/products', productRouter);
-router.use('/user', userRouter);
+router.use('/users', userRouter);
 
 router.get("/category", async (req, res) => {
   try {

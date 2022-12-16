@@ -2,7 +2,11 @@ import React from 'react';
 import s from './details.module.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDetails, limpiarState } from '../../redux/actions/actions.js';
+import {
+  getDetails,
+  limpiarState,
+  addToCart,
+} from '../../redux/actions/actions.js';
 /* import Navbar from '../navbar/navbar'; */
 import { NavLink, useParams } from 'react-router-dom';
 import SearchBar from '../navbar/searchBar/searchBar';
@@ -22,6 +26,11 @@ const Details = () => {
   }, [dispatch, id]);
 
   const details = useSelector((state) => state.details);
+
+  const handleSubmit = (id) => {
+    dispatch(addToCart(id));
+    alert('Añadido con éxito al carrito');
+  };
 
   return (
     <div>
@@ -44,9 +53,11 @@ const Details = () => {
             <div className={s.btn}>
               <img src={heart} alt=""></img>
             </div>
-            <div className={s.btn}>
-              <img src={shopping} alt=""></img>
-            </div>
+            <NavLink to="/cart" className={s.carro}>
+              <div className={s.btn}>
+                <img src={shopping} alt=""></img>
+              </div>
+            </NavLink>
           </div>
         </div>
       </div>
@@ -73,7 +84,9 @@ const Details = () => {
               <h6>Stock: {details[0].stock}</h6>
             </div>
             <div className={s.botones}>
-              <button>AÑADIR AL CARRITO</button>
+              <button onClick={() => handleSubmit(id)}>
+                AÑADIR AL CARRITO
+              </button>
               <div className={s.fav}>
                 <img src={heart} alt=""></img>
               </div>

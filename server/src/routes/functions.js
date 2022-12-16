@@ -45,8 +45,14 @@ const getDataBaseProducts = async () => {
   return allProductsDB;
 };
 
+const getDataBaseClient = async () => {
+  const allClientsDB = await Cliente.findAll();
+  return allClientsDB;
+};
+
 module.exports = {
   getProducts,
   getCategories,
   getDataBaseProducts,
+  getDataBaseClient
 };
