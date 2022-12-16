@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { /* useEffect, useState  */} from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { NavLink } from "react-router-dom";
 import style from './Perfil.module.css'
 import back from '../../../img/back.png';
-import { useDispatch, useSelector } from "react-redux";
-import { getUserInfo, postUser, searchXcategoria } from "../../../redux/actions/actions";
+import { /* useDispatch, */ useSelector } from "react-redux";
+/* import { getUserInfo, postUser, searchXcategoria } from "../../../redux/actions/actions"; */
 import Card from "../../Card/Card";
 
 const Perfil = () => {
