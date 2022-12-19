@@ -21,6 +21,7 @@ const initialState = {
   marca: 'todas',
   talla: 'todas',
   categoria: 'todas',
+  order: 'ninguno',
   precio: [0, 0],
   error: false,
 };
@@ -92,33 +93,50 @@ const rootReducer = (state = initialState, action) => {
     }
 
     case ORDER_PRECIO:
-      const arrPrecio = action.payload === 'asc'
-        ? state.productsHome.sort((a, b) => { //compara dos valores, en este caso los dos pesos
-          if (parseInt(a.precio) > parseInt(b.precio)) return 1; //los va posicionando a la derecha
-          if (parseInt(a.precio) < parseInt(b.precio)) return -1;//o a la izquierda
-          return 0;//o si son iguales los deja así
-        })
-        : state.productsHome.sort((a, b) => {
-          if (parseInt(a.precio) > parseInt(b.precio)) return -1;
-          if (parseInt(a.precio) < parseInt(b.precio)) return 1;
-          return 0;
-        })
+      
+      let products = state.productsHome
+      if(action.payload === 'asc'){
+        products = products.sort((a,b) => {
+          //el valor A va antes que el B ya que B es mayor(negativo significa que el valor A va antes que B)
+          if(parseInt(a.precio) < parseInt(b.precio))return -1
+           //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
+          if(parseInt(a.precio) > parseInt(b.precio))return 1
+          return 0
+          }
+        )         
+      }
+      if(action.payload === 'desc'){
+        products = products.sort((a,b) => {
+          //el valor A va antes que el B ya que B es mayor(negativo significa que el valor A va antes que B)
+          if(parseInt(a.precio) > parseInt(b.precio))return -1
+           //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
+          if(parseInt(a.precio) < parseInt(b.precio))return 1
+          return 0
+          }
+        )         
+      }
+
       return {
         ...state,
-        products: [...arrPrecio],
+        products: [...products],
+        order: action.payload
       };
 
     case SEARCHxCATEGORIA: {
+
+      let arr = [...state.products]
       let productsFilter = [];
+
+
       if (action.payload === 'todas') {
-        let arr = [...state.products]
+        // let arr = [...state.products]
         if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
         if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
         if (state.marca !== 'todas') arr = arr.filter(Element => Element.marca.includes(state.marca));
         productsFilter = [...arr]
       }
       else {
-        let arr = [...state.products]
+        // let arr = [...state.products]
         arr = arr.filter(Element => Element.categoria.includes(action.payload));
         if (state.precio[1] !== 0) arr = arr.filter(Element => state.precio[0] <= parseInt(Element.precio) && state.precio[1] >= parseInt(Element.precio))
         if (state.talla !== 'todas') arr = arr.filter(Element => Element.talla.includes(state.talla));
@@ -133,6 +151,24 @@ const rootReducer = (state = initialState, action) => {
       } else {
         setError = false
       }
+
+      if(state.order === 'asc'){
+        productsFilter = productsFilter.sort((a,b) => {
+          if(parseInt(a.precio) < parseInt(b.precio))return -1
+          if(parseInt(a.precio) > parseInt(b.precio))return 1
+          return 0
+          })
+   
+      }else{
+        productsFilter = productsFilter.sort((a,b) => {
+          if(parseInt(a.precio) > parseInt(b.precio))return -1
+          if(parseInt(a.precio) < parseInt(b.precio))return 1
+          return 0
+          })
+          console.log(productsFilter);
+      }
+
+      
 
 
       return {
@@ -162,18 +198,6 @@ const rootReducer = (state = initialState, action) => {
         productsFilter = [...arr]
       }
 
-      // if (productsFilter.length === 0) {
-      //   return {
-      //     ...state,
-      //     error: true
-      //   }
-      // } else {
-      //   return {
-      //     ...state,
-      //     productsHome: [...productsFilter],
-      //     marca: action.payload
-      //   }
-      // }
       let setError = '';
 
       if (productsFilter.length === 0) {
@@ -182,6 +206,12 @@ const rootReducer = (state = initialState, action) => {
         setError = false
       }
 
+      if(state.order === 'asc'){
+
+      }
+      if(state.order === 'desc'){
+
+      }
 
       return {
         ...state,
@@ -210,24 +240,19 @@ const rootReducer = (state = initialState, action) => {
         productsFilter = [...arr]
       }
 
-      // if (productsFilter.length === 0) {
-      //   return {
-      //     ...state,
-      //     error: true
-      //   }
-      // } else {
-      //   return {
-      //     ...state,
-      //     productsHome: [...productsFilter],
-      //     talla: action.payload
-      //   }
-      // }
       let setError = '';
 
       if (productsFilter.length === 0) {
         setError = true
       } else {
         setError = false
+      }
+
+      if(state.order === 'asc'){
+
+      }
+      if(state.order === 'desc'){
+ 
       }
 
 
@@ -256,18 +281,7 @@ const rootReducer = (state = initialState, action) => {
         if (state.categoria !== 'todas') arr = arr.filter(Element => Element.categoria.includes(state.categoria))
       }
 
-      // if (arr.length === 0) {
-      //   return {
-      //     ...state,
-      //     error: true
-      //   }
-      // } else {
-      //   return {
-      //     ...state,
-      //     productsHome: [...arr],
-      //     precio: [...action.payload]
-      //   }
-      // }
+
       let setError = '';
 
       if (arr.length === 0) {

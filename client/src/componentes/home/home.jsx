@@ -6,7 +6,8 @@ import Navbar from '../navbar/navbar.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import Paginado from '../Paginate/Paginate.jsx';
 import Card from '../Card/Card.js';
-import messiNotFound from '../../img/messiNotFound.gif'
+import messiNotFound from '../../img/messiNotFound.gif';
+import Carrusell from './carrusel/carrusel.jsx';
 
 
 const Home = () => {
@@ -40,13 +41,13 @@ const Home = () => {
   return (
     <div>
       <Navbar setPages={setPages} />
-      <div className={s.hero}>
-        <div className={s.textoHero}>
+      <div className={s.hero}> 
+         <div className={s.textoHero}>
           <h1>Supra Sports</h1>
           <button>Ver coleccion</button>
         </div>
         <div className={s.imgHero}>
-          <div className={s.messi}>
+           <div className={s.messi}>
             <div className={s.img1}></div>
             <div className={s.img11}></div>
           </div>
@@ -54,8 +55,10 @@ const Home = () => {
             <div className={s.img2}></div>
             <div className={s.img3}></div>
           </div>
-        </div>
-      </div>
+        </div> 
+       </div> 
+      <Carrusell></Carrusell>
+
       {allProducts.length > 0
         ? <div>
           <Paginado
