@@ -9,29 +9,42 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoIncrement: true
     },
-    username: {
+    nickname: { // 🎇
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
-    mail: {
+    mail: {  // 🎇
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
-    password: {
+    password: { // ?????
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      /* unique: true, */
     },
-    picture: {
+    picture: {  // 🎇
       type: DataTypes.STRING,
     },
-    direction: {
-      type: DataTypes.STRING
+    direction: {  // POST
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    cel: {  // POST
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    cp: {  // POST
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     purchase_history: {  //PENDIENTE
       type: DataTypes.STRING
     }
+    // admin: {
+    //   type: DataTypes.BOOLEAN,
+    //   default: false
+    // }
   }, { timestamps: false });
-};
+}; 

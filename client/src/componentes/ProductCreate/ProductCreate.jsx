@@ -8,7 +8,7 @@ import {
   postProd,
 } from '../../redux/actions/actions';
 import style from './ProductCreate.module.css';
-import SearchBar from '../navbar/searchBar/searchBar';
+/* import SearchBar from '../navbar/searchBar/searchBar'; */
 import back from '../../img/back.png';
 import heart from '../../img/heart-regular.svg';
 import user from '../../img/user.svg';
@@ -135,9 +135,9 @@ export default function ProdCreate() {
               Atrás
             </div>
           </NavLink>
-          <div className={style.search}>
+          {/* <div className={style.search}>
             <SearchBar />
-          </div>
+          </div> */}
           <div className={style.btns}>
             <div className={style.btn}>
               <img src={user} alt="user"></img>
