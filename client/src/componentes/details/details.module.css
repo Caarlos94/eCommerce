@@ -44,6 +44,10 @@
   width: 35px;
 }
 
+.carro .btn img {
+  width: 35px;
+}
+
 .search {
   width: 300px;
   position: absolute;
@@ -71,6 +75,12 @@
   width: 100%;
   height: 85vh;
   display: flex;
+  flex-direction: row;
+}
+
+.parent-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .imgCont {
@@ -86,7 +96,6 @@
 .img11 {
   width: 100%;
   height: 70%;
-  border: 1px solid blue;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,7 +109,6 @@
 .img111 {
   width: 50%;
   height: 90%;
-  border: 1px solid green;
   background-position: center;
   background-size: cover;
 }
@@ -108,18 +116,15 @@
 .img23 {
   width: 100%;
   height: 30%;
-  border: 1px solid green;
   display: flex;
 }
 
 .img2 {
   width: 50%;
-  border: 1px solid brown;
 }
 
 .img3 {
   width: 50%;
-  border: 1px solid brown;
 }
 
 .textCont {
@@ -163,7 +168,7 @@
 }
 
 .textCont button::before {
-  content: 'AÑADIR AL CARRITO';
+  content: "AÑADIR AL CARRITO";
   /*Button's value/text-content */
   position: absolute;
   top: -14%;

@@ -33,7 +33,10 @@ module.exports = (sequelize) => {
     marca: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    stock: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
-
   }, { timestamps: false });
 };

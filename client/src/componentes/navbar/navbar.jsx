@@ -2,20 +2,22 @@ import React, { useEffect } from 'react';
 import SearchBar from './searchBar/searchBar.jsx';
 import Filtros from './filtros/filtros.jsx';
 import style from './navbar.module.css';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
-import user from '../../img/user.svg';
+import usuario from '../../img/user.svg';
 import shopping from '../../img/shopping.png';
 import { useDispatch } from 'react-redux';
 import { getProducts } from '../../redux/actions/actions.js';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Navbar = ({ setPages }) => {
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getProducts);
   }, [dispatch]);
+
+  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0();
 
   return (
     <div className={style.div}>
@@ -27,24 +29,54 @@ const Navbar = ({ setPages }) => {
           </NavLink>
         </div>
         <div className={style.filtros}>
-          <Filtros />
+          <Filtros setPages={setPages} />
         </div>
         <div className={style.searchBar}>
           <SearchBar setPages={setPages} />
         </div>
+
         <div className={style.btns}>
-          <div className={style.btn}>
-            <img src={user} alt=""></img>
-          </div>
+          {isAuthenticated ? (
+            <div className={style.profileMenu}>
+              <details>
+                <summary>Hola {user.given_name}!</summary>
+                <div className={style.desplegable}>
+                  <div>
+                    <Link to="/profile" style={{ textDecoration: 'none' }} className={style.button}>Perfil</Link>
+                  </div>
+                  <div>
+                    <button onClick={() => logout()} className={style.button}>Cerrar sesión</button>
+                  </div>
+                </div>
+              </details>
+            </div>
+          ) : (
+            <button onClick={() => loginWithRedirect()} className={style.btn}> <img src={usuario} alt=""></img> </button>
+          )}
           <div className={style.btn}>
             <img src={heart} alt=""></img>
           </div>
-          <div className={style.btn}>
-            <img src={shopping} alt=""></img>
-          </div>
+          <NavLink to="/cart" className={style.carro}>
+            <div className={style.btn}>
+              <img src={shopping} alt=""></img>
+            </div>
+          </NavLink>
+          {isAuthenticated ? (
+            <div>
+              <button onClick={() => logout()} className={style.btn}>
+                Cerrar Sesión
+              </button>
+            </div>
+          ) : (
+            <div>
+              <button onClick={() => loginWithRedirect()} className={style.btn}>
+                Iniciar Sesión
+              </button>
+            </div>
+          )}
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

@@ -12,8 +12,36 @@
   align-items: center;
 }
 
+.select {
+  --bg: #000;
+  --hover-bg: #ffffff;
+  --hover-text: #000;
+  color: #fff;
+  border: 1px solid var(--bg);
+  border-radius: 4px;
+  padding: 5px 10px;
+  margin: 10px;
+  font-weight: bold;
+  background: var(--bg);
+  transition: 0.2s;
+}
+
+.select:hover {
+  color: var(--hover-text);
+  transform: translate(-0.25rem, -0.25rem);
+  background: var(--hover-bg);
+  box-shadow: 0.25rem 0.25rem var(--bg);
+}
+
+.section {
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 400px 400px 400px;
+  grid-template-rows: auto;
+}
+
 .notFound {
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -154,4 +182,10 @@
   color: white;
   font-weight: bold;
   border-radius: 5px;
+}
+
+.divCarrusel{
+  border: 1px solid black;
+  height: 250px;
+  width: 35%;
 }

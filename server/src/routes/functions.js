@@ -1,6 +1,6 @@
 const fetch = (...args) =>
   import('node-fetch').then(({ default: fetch }) => fetch(...args));
-const { Categoria, Producto } = require('../db.js');
+const { Categoria, Producto, Cliente } = require('../db.js');
 
 // Get categories FROM firebase and save then into DB
 const getCategories = async () => {
@@ -45,8 +45,14 @@ const getDataBaseProducts = async () => {
   return allProductsDB;
 };
 
+const getDataBaseClient = async () => {
+  const allClientDB = await Cliente.findAll();
+  return allClientDB;
+};
+
 module.exports = {
   getProducts,
   getCategories,
   getDataBaseProducts,
+  getDataBaseClient
 };

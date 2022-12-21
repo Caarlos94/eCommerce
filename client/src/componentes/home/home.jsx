@@ -7,42 +7,45 @@ import { useDispatch, useSelector } from 'react-redux';
 import Paginado from '../Paginate/Paginate.jsx';
 import Card from '../Card/Card.js';
 import messiNotFound from '../../img/messiNotFound.gif';
-import Carrusell from './carrusel/carrusel.jsx';
+// import Carrusell from './carrusel/carrusel.jsx';
 
 
 const Home = () => {
   const dispatch = useDispatch();
-  /* const error = useSelector((state) => state.error); */
   const allProducts = useSelector((state) => state.productsHome);
-
 
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
 
-  const [order, setOrder] = useState('');
-  const [page, setPages] = useState(1); // CREAMOS UN ESTADO PARA MANEJAR EL PAGINADO
-  const productsPerPage = 8
-  const lastIndex = page * productsPerPage // 1 * 8 = 8
-  const firstIndex = lastIndex - productsPerPage   // 8 - 8 = 0
-  const currentPage = allProducts.slice(firstIndex, lastIndex);
+  const [, setOrder] = useState("");
+  const [currentPage, setCurrentPage] = useState(1); // DEBERIA SER UN REDUCER
+  const productsPerPage = 9;
+  const lastIndex = currentPage * productsPerPage; // 1 * 8 = 8
+  const firstIndex = lastIndex - productsPerPage; // 8 - 8 = 0
+  const currentProducts = allProducts.slice(firstIndex, lastIndex);
 
-  const fnPaginado = (page) => {   // FUNCIÓN PARA MODIFICAR EL ESTADO LOCAL PAGE
-    setPages(page);
+  const fnPaginado = (page) => {
+    // FUNCIÓN PARA MODIFICAR EL ESTADO LOCAL PAGE
+    setCurrentPage(page);
   };
+
+  const paginatePrev = (prevPage) => setCurrentPage(prevPage);
+
+  const paginateNext = (nextPage) => setCurrentPage(nextPage);
 
   const handlerOrderPrecio = (e) => {
     e.preventDefault();
     dispatch(orderPrecio(e.target.value));
-    setPages(1); //cuando hago el ordenamiento seteo para que arranque en la prim página
-    setOrder(`Ordenado ${e.target.value}`)//cuando seteo esta página, me modifica el estado local y lo modifica
+    setCurrentPage(1); //cuando hago el ordenamiento seteo para que arranque en la prim página
+    setOrder(`Ordenado ${e.target.value}`); //cuando seteo esta página, me modifica el estado local y lo modifica
   };
 
   return (
     <div>
-      <Navbar setPages={setPages} />
-      <div className={s.hero}> 
-         <div className={s.textoHero}>
+      <Navbar setPages={setCurrentPage} />
+      <div className={s.hero}>
+        <div className={s.textoHero}>
           <h1>Supra Sports</h1>
           <button>Ver coleccion</button>
         </div>
@@ -55,31 +58,34 @@ const Home = () => {
             <div className={s.img2}></div>
             <div className={s.img3}></div>
           </div>
-        </div> 
-       </div> 
-      <Carrusell></Carrusell>
+        </div>
+      </div>
 
-      {allProducts.length > 0
-        ? <div>
-          <Paginado
-            currentPage={currentPage}
-            key={allProducts.id}
-            productos={allProducts.length}
-            productsPerPage={productsPerPage}
-            fnPaginado={fnPaginado}>
-          </Paginado>
+      <Paginado
+        productsPerPage={productsPerPage} // pupsPerPage
+        totalProducts={allProducts.length} // totalPups
+        paginate={fnPaginado} //paginate
+        paginatePrev={paginatePrev}
+        currentPage={currentPage}
+        paginateNext={paginateNext}
+        key={allProducts.id}
+      ></Paginado>
 
-          <select onChange={e => handlerOrderPrecio(e)} className={s.b}>
+
+      {allProducts.length > 0 ? (
+        <div>
+          <select onChange={(e) => handlerOrderPrecio(e)} className={s.select}>
             <option hidden>Ordenar por Precio</option>
             <option value="asc">Menor a Mayor</option>
             <option value="desc">Mayor a Menor</option>
           </select>
 
           <div>
-            <div className="container d-flex justify-content-center h-100 align-items-center">
-              <div className="row">
-                {currentPage.map((card) => (
-                  <div className="col-md-4" key={card.id}>
+            <div /* className="container d-flex justify-content-center h-100 align-items-center" */
+            >
+              <div className={s.section}>
+                {currentProducts.map((card) => (
+                  <div key={card.id}>
                     <Card
                       nombre={card.nombre}
                       URL={card.URL}
@@ -96,13 +102,23 @@ const Home = () => {
             </div>
           </div>
         </div>
-        :
+      ) : (
         <div className={s.notFound}>
-          <h1 >No se encontraron coincidencias!</h1>
-          <img src={messiNotFound} alt='img'></img>
+          <h1>Estamos buscando lo que necesitas!</h1>
+          <h2>En caso de no cargar te recomendamos refrescar la página...</h2>
+          <img src={messiNotFound} alt="img"></img>
         </div>
-      }
-    </div >
+      )}
+      <Paginado
+        productsPerPage={productsPerPage} // pupsPerPage
+        totalProducts={allProducts.length} // totalPups
+        paginate={fnPaginado} //paginate
+        paginatePrev={paginatePrev}
+        currentPage={currentPage}
+        paginateNext={paginateNext}
+        key={allProducts.id}
+      ></Paginado>
+    </div>
   );
 };
 
