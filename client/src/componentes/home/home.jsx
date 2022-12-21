@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { getProducts, orderPrecio } from "../../redux/actions/actions.js";
+import { getCategorys, getProducts, orderPrecio } from "../../redux/actions/actions.js";
 import s from "./home.module.css";
 import Navbar from "../navbar/navbar.jsx";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +14,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getProducts());
+    dispatch(getCategorys());
   }, [dispatch]);
 
   const [, setOrder] = useState("");
