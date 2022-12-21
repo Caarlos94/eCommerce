@@ -17,7 +17,7 @@ productRouter.get('/:id', async (req, res) => {
   const { id } = req.params;
 
   let prods = await getDataBaseProducts();
-  let getProduct = await getProducts();
+  let getProduct = await getProductsFireBase();
   
   const productos = await getProduct.Productos.concat(prods);
   console.log(productos);
