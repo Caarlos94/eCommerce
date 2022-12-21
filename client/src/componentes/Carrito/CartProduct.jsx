@@ -3,6 +3,7 @@ import s from './CartProduct.module.css';
 
 const CartProduct = ({
   handleDelete,
+  handleAdd,
   nombre,
   talla,
   precio,
@@ -24,7 +25,8 @@ const CartProduct = ({
         </p>
       </div>
       <div className={s.btns}>
-        <button onClick={() => handleDelete(id)}>Eliminar uno</button>
+        <button onClick={() => handleDelete(id)}>-1</button>
+        <button onClick={() => handleAdd(id)}>+1</button>
         <button onClick={() => handleDelete(id, true)}>Eliminar todos</button>
       </div>
     </div>

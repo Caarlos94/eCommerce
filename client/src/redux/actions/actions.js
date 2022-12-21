@@ -13,9 +13,8 @@ export const EMPTY_ERROR = 'EMPTY_ERROR';
 export const ORDER_PRECIO = 'ORDER_PRECIO';
 export const GET_USER = 'GET_USER';
 export const POST_PROD = 'POST_PROD';
-
-
 export const ADD_TO_CART = 'ADD_TO_CART';
+export const ADD_ONE_TO_CART = 'ADD_ONE_TO_CART';
 export const REMOVE_ONE_FROM_CART = 'REMOVE_ONE_FROM_CART';
 export const REMOVE_ALL_FROM_CART = 'REMOVE_ALL_FROM_CART';
 export const CLEAR_CART = 'CLEAR_CART';
@@ -48,7 +47,7 @@ export function getCategorys() {
       .then((response) => response.json())
       .then((data) => dispatch({ type: GET_CATEGORYS, payload: data }));
   };
-};
+}
 
 export function getUserInfo() {
   return function (dispatch) {
@@ -58,13 +57,10 @@ export function getUserInfo() {
       payload: response.data,
     });
   };
-};
+}
 export function postUser(payload) {
   return async function () {
-    const response = await axios.post(
-      'http://localhost:3001/users',
-      payload
-    );
+    const response = await axios.post('http://localhost:3001/users', payload);
     return response;
   };
 }
@@ -77,7 +73,7 @@ export function postProd(payload) {
     );
     return response;
   };
-};
+}
 
 export function getDetails(id) {
   return async function (dispatch) {
@@ -145,6 +141,12 @@ export const searchXcategoria = (categoria) => {
 export function addToCart(id) {
   return {
     type: ADD_TO_CART,
+    payload: id,
+  };
+}
+export function addOneToCart(id) {
+  return {
+    type: ADD_ONE_TO_CART,
     payload: id,
   };
 }
