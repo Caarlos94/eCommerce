@@ -24,37 +24,45 @@ const getProductsFireBase = async () => {
   );
   let commits = await response.json();
     commits.Productos.forEach(async (e) => {
-      let [instance, created] = await Producto.findOrCreate({where: { nombre:e.nombre }, 
+      const [instance, created] = await Producto.findOrCreate({where: { nombre:e.nombre }, 
         defaults: {
-          URL: e.URL,
+          // URL: e.URL,
           color: e.color,
           marca: e.marca,
           talla: e.talla,
-          precio: e.precio,
-          stock: e.stock,
-        }
+          precio: e.precio, 
+          stock: e.stock,    
+        } 
       })
       const DatabaseCategory = await Categoria.findOne({
-        where: { nombre: e.categoria },
+        where: { nombre: e.categoria },  
       });
-
-      // await instance.addCategoria(DatabaseCategory);
+      await instance.addCategoria(DatabaseCategory)
   })
-  return commits;
 };
-
-// Get Created Products from DB
-const getDataBaseProducts = async () => {
  
-  // const DatabaseCategory = await Categoria.findAll({
-  //   where: { nombre: categoria },
-  // });
-  // await newProduct.addCategoria(DatabaseCategory);
+// Get Created Products from DB     
+const getDataBaseProducts = async () => {   
   
-  const allProductsDB = await Producto.findAll();
+  //setTimeout(async() => {await getProductsFireBase()}, 100);
+
+  await getProductsFireBase()
+   
+  const allProductsDB = await Producto.findAll({
+    include: {
+      model: Categoria,
+      attributes: ["nombre"],
+      through: { attributes: [] },
+    },
+  });
+
+  allProductsDB.forEach(async (e) => {
+    let newArr = e.dataValues.categoria.map((e) => e.nombre);
+    e.dataValues.categoria = newArr.join(", ");
+  });
   return allProductsDB;
 };
- 
+
 // Get clients from DB
 const getDataBaseClient = async () => {
   const allClientDB = await Cliente.findAll();

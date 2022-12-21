@@ -11,6 +11,7 @@ export const LIMPIAR_SATE = 'LIMPIAR_SATE';
 export const SEARCHxCATEGORIA = 'SEARCHxCATEGORIA';
 export const EMPTY_ERROR = 'EMPTY_ERROR';
 export const ORDER_PRECIO = 'ORDER_PRECIO';
+export const IMPORT_USER = 'IMPORT_USER';
 
 export const getProducts = () => {
   return async function (dispatch) {
@@ -33,6 +34,13 @@ export function getCategorys() {
     fetch('http://localhost:3001/category')
       .then((response) => response.json())
       .then((data) => dispatch({ type: GET_CATEGORYS, payload: data }));
+  };
+}
+
+export function importUser(user) {
+  return async function () {
+    const response = await axios.post('http://localhost:3001/users', user)
+    return response
   };
 }
 
@@ -65,6 +73,7 @@ export function limpiarState(id) {
     type: LIMPIAR_SATE,
   };
 }
+
 export function orderPrecio(payload) {
   return {
     type: ORDER_PRECIO,

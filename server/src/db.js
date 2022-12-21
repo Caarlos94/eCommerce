@@ -10,8 +10,17 @@ const sequelize = new Sequelize(
   {
     logging: false, // set to console.log to see the raw SQL queries
     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-  }
+  } 
 );
+// const sequelize = new Sequelize(
+//   `mongodb+srv://suprasports:${DB_PASSWORD}@cluster0.mzlztgd.mongodb.net/?retryWrites=true&w=majority`,
+//   // `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/ecommerce`,
+//   {
+//     logging: false, // set to console.log to see the raw SQL queries
+//     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+//   }
+// );
+
 const basename = path.basename(__filename);
 
 const modelDefiners = [];

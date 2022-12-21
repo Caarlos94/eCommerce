@@ -12,11 +12,11 @@ module.exports = (sequelize) => {
     },
     nickname: { // 🎇
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
     email: {  // 🎇
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
       unique: true,
     },
     email_Verified: {  // 🎇
@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
     },
     password: { // ?????
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
       unique: true,
     },
     picture: {  // 🎇
@@ -33,22 +33,22 @@ module.exports = (sequelize) => {
     },
     direction: {  // POST
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
     cel: {  // POST
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
     cp: {  // POST
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
     purchase_history: {  //PENDIENTE
       type: DataTypes.STRING
+    },
+    admin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
-    // admin: {
-    //   type: DataTypes.BOOLEAN,
-    //   default: false
-    // }
   }, { timestamps: false });
 };

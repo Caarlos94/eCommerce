@@ -9,9 +9,9 @@ userRouter.post("/", async (req, res) => {
         // const { product } = req.body 
         const newUser = await Cliente.create(data)
         // const DatabaseCategory = await Categoria.findAll({ where: { nombre: categoria } })
-        //await newProduct.addCategoria(DatabaseCategory)
-        res.status(200).json(newUser)
-    } catch (error) {
+        // await newProduct.addCategoria(DatabaseCategory)
+        res.status(200).json(newUser) 
+    } catch (error) {  
         res.status(400).json(error.message)
     }
 })

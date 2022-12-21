@@ -4,10 +4,10 @@ import Filtros from './filtros/filtros.jsx';
 import style from './navbar.module.css';
 import { NavLink } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
-import user from '../../img/user.svg';
+import usuario from '../../img/user.svg';
 import shopping from '../../img/shopping.png';
 import { useDispatch } from 'react-redux';
-import { getProducts } from '../../redux/actions/actions.js';
+import { getProducts, importUser } from '../../redux/actions/actions.js';
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from 'react-router-dom';
 
@@ -18,17 +18,9 @@ const Navbar = ({ setPages }) => {
     dispatch(getProducts);
   }, [dispatch]);
 
-
- const Manejador = (e) => {
-    if(e.target.value === "Profile"){
-      
-    }
-    if(e.target.value === "Exit"){
-      logout()
-    }
-  }
-
-  const { loginWithRedirect, isAuthenticated, logout } = useAuth0()
+  const { user, loginWithRedirect, isAuthenticated, logout } = useAuth0()
+  
+  isAuthenticated && dispatch(importUser(user))
 
   return (
     <div className={style.div}>
@@ -54,7 +46,8 @@ const Navbar = ({ setPages }) => {
             <Link to = "/profile"> Profile</Link>
             <button onClick={() => logout()}></button>
             </details> */}
-
+          
+          {console.log(user)}
           {
             isAuthenticated ? (
               // <select onChange={(e)=> Manejador(e)}>
@@ -70,16 +63,16 @@ const Navbar = ({ setPages }) => {
               <button onClick={() => logout()}>Salir</button>
               </details>
               ) : (
-              <button onClick={() => loginWithRedirect()} className={style.btn}> <img src={user} alt=""></img> </button>
+              <button onClick={() => loginWithRedirect()} className={style.btn}> <img src={usuario} alt=""></img> </button>
             )
           }
 
-          {/* <div className={style.btn}>
+          <div className={style.btn}>
             <img src={heart} alt=""></img>
           </div>
           <div className={style.btn}>
             <img src={shopping} alt=""></img>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>

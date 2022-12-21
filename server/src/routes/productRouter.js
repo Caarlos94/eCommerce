@@ -5,7 +5,7 @@ const { Categoria, Producto } = require('../db.js');
 
 productRouter.get('/', async (req, res) => {
   try {
-    let p = await getProductsFireBase();
+    await getProductsFireBase()
     let productos = await getDataBaseProducts();
     res.status(200).json(productos);
   } catch (error) {

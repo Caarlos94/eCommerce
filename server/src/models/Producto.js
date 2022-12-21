@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
     },
     URL: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
     precio: {
       type: DataTypes.STRING,
