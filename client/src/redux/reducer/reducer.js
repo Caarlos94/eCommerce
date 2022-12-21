@@ -86,7 +86,7 @@ const rootReducer = (state = initialState, action) => {
         details: [],
       };
 
-    case "POST_PROD":
+    case POST_PROD:
       return {
         ...state,
         products: action.payload,

@@ -183,3 +183,9 @@
   font-weight: bold;
   border-radius: 5px;
 }
+
+.divCarrusel{
+  border: 1px solid black;
+  height: 250px;
+  width: 35%;
+}

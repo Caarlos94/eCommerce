@@ -8,6 +8,8 @@ import Paginado from "../Paginate/Paginate.jsx";
 import Card from "../Card/Card.js";
 import messiNotFound from "../../img/messiNotFound.gif";
 
+
+
 const Home = () => {
   const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.productsHome);
@@ -58,6 +60,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+
       <Paginado
         productsPerPage={productsPerPage} // pupsPerPage
         totalProducts={allProducts.length} // totalPups
@@ -67,6 +70,8 @@ const Home = () => {
         paginateNext={paginateNext}
         key={allProducts.id}
       ></Paginado>
+
+
       {allProducts.length > 0 ? (
         <div>
           <select onChange={(e) => handlerOrderPrecio(e)} className={s.select}>
