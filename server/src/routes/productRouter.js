@@ -3,6 +3,7 @@ const productRouter = Router();
 const { getDataBaseProducts, getProductsFireBase } = require('./functions');
 const { Categoria, Producto } = require('../db.js');
 
+
 productRouter.get('/', async (req, res) => {
   try {
     await getProductsFireBase()
@@ -17,13 +18,13 @@ productRouter.get('/:id', async (req, res) => {
   const { id } = req.params;
 
   let prods = await getDataBaseProducts();
-  let getProduct = await getProductsFireBase();
+  /* let getProduct = await getProductsFireBase();
   
-  const productos = await getProduct.Productos.concat(prods);
-  console.log(productos);
+  const productos = await getProduct.Productos.concat(prods); */
+  console.log(prods);
   try {
     if (id) {
-      let result = await productos.filter((p) => p.id == id);
+      let result = await prods.filter((p) => p.id == id);
       if (result.length) {
         let prod = result.map((r) => {
           return {

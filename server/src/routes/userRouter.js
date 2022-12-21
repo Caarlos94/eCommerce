@@ -16,6 +16,20 @@ userRouter.post("/", async (req, res) => {
     }
 })
 
+/* userRouter.put("/", async(req, res) => {
+    const { direction } = req.body
+    const { value } = req.query
+    try {
+        const newCliente = await Cliente.update(
+            {[direction]: value},
+            {where:{[direction]:null}}
+        )
+        res.status(404).send(newCliente)
+    } catch (error) {
+        res.status(404).send(error.message)
+    }
+}) */
+
 userRouter.get('/', async (req, res) => {
     try {
       let clientesDB = await getDataBaseClient();

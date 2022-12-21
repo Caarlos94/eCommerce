@@ -41,7 +41,7 @@ const Navbar = ({ setPages }) => {
           {isAuthenticated ? (
             <div className={style.profileMenu}>
               <details>
-                <summary>Hola {user.given_name}!</summary>
+                <summary>Hola {user.nickname}!</summary>
                 <div className={style.desplegable}>
                   <div>
                     <Link to="/profile" style={{ textDecoration: 'none' }} className={style.button}>Perfil</Link>
@@ -63,19 +63,6 @@ const Navbar = ({ setPages }) => {
               <img src={shopping} alt=""></img>
             </div>
           </NavLink>
-          {isAuthenticated ? (
-            <div>
-              <button onClick={() => logout()} className={style.btn}>
-                Cerrar Sesión
-              </button>
-            </div>
-          ) : (
-            <div>
-              <button onClick={() => loginWithRedirect()} className={style.btn}>
-                Iniciar Sesión
-              </button>
-            </div>
-          )}
         </div>
       </div>
     </div >

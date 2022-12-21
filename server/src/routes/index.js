@@ -3,13 +3,13 @@ const { getCategories } = require("./functions");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
-const mercadopago = require("mercadopago");
 const productRouter = require("./productRouter.js");
 const userRouter = require("./userRouter.js");
 const customerQARouter = require("./customerQARouter");
 const adminQARouter = require("./adminQARouter");
 
 const router = Router();
+const mercadopago = require("mercadopago");
 
 router.use("/products", productRouter);
 router.use("/users", userRouter);
@@ -80,5 +80,12 @@ router.get("/category", async (req, res) => {
   }
 })
 
+
+
+router.use('/products', productRouter);
+router.use('/user', userRouter);
+
+// Configurar los routers
+// Ejemplo: router.use('/auth', authRouter);
 
 module.exports = router;
