@@ -16,6 +16,7 @@ export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_ONE_FROM_CART = 'REMOVE_ONE_FROM_CART';
 export const REMOVE_ALL_FROM_CART = 'REMOVE_ALL_FROM_CART';
 export const CLEAR_CART = 'CLEAR_CART';
+export const IMPORT_USER = 'IMPORT_USER';
 
 export const getProducts = () => {
   return async function (dispatch) {
@@ -66,6 +67,13 @@ export function postUser(payload) {
   };
 }
 
+export function importUser(user) {
+  return async function () {
+    const response = await axios.post('http://localhost:3001/users', user)
+    return response
+  };
+}
+
 export function postProd(payload) {
   return async function () {
     const response = await axios.post(
@@ -91,6 +99,7 @@ export function limpiarState(id) {
     type: LIMPIAR_SATE,
   };
 }
+
 export function orderPrecio(payload) {
   return {
     type: ORDER_PRECIO,

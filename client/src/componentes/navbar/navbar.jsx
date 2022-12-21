@@ -7,8 +7,8 @@ import heart from '../../img/heart-regular.svg';
 import usuario from '../../img/user.svg';
 import shopping from '../../img/shopping.png';
 import { useDispatch } from 'react-redux';
-import { getProducts } from '../../redux/actions/actions.js';
-import { useAuth0 } from '@auth0/auth0-react';
+import { getProducts, importUser } from '../../redux/actions/actions.js';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = ({ setPages }) => {
   const dispatch = useDispatch();
@@ -17,7 +17,9 @@ const Navbar = ({ setPages }) => {
     dispatch(getProducts);
   }, [dispatch]);
 
-  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0();
+  const { user, loginWithRedirect, isAuthenticated, logout } = useAuth0()
+  
+  isAuthenticated && dispatch(importUser(user))
 
   return (
     <div className={style.div}>

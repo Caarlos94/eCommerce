@@ -35,11 +35,8 @@ const initialState = {
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCTS: {
-      console.log(action.payload);
-      if (
-        state.products.length === 0 ||
-        action.payload[1] === 'volver a cargar los productos'
-      ) {
+      //console.log(action.payload);
+      if (state.products.length === 0 || action.payload[1] === 'volver a cargar los productos') {
         return {
           ...state,
           products: [...action.payload[0]],
