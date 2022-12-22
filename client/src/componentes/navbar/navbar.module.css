@@ -9,6 +9,17 @@
   z-index: 1000;
 }
 
+.btn h6 {
+  color: rgb(255, 255, 255);
+  border: solid rgba(0, 0, 0, 0.678) 0.1px;
+  width: 500px;
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+}
+
 .profileMenu summary {
   padding: 0px 5px;
   /* width: 80px; */
@@ -69,6 +80,29 @@
   top: 50%;
   transform: skewX(30deg) translate(-150%, -50%);
   transition: all 0.5s;
+}
+
+.qa {
+  width: 100px;
+}
+
+.btnQA {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 15px;
+  border-radius: 5px;
+}
+
+.btnQA img {
+  width: 50px;
+}
+
+.btnQA:nth-child(3) img {
+  width: 35px;
 }
 
 .profileMenu summary:hover {

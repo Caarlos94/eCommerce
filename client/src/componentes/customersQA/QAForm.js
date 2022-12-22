@@ -36,6 +36,7 @@ const QAForm = (props) => {
         <input
           className={classes["form-input"]}
           autoComplete="off"
+          placeholder="Ej: Hay stock disponible?"
           onChange={handleChange}
           name="pregunta"
           type="text"
@@ -52,7 +53,7 @@ const QAForm = (props) => {
     </div>
   ) : (
     <div className={classes["form-container"]}>
-      <p className={classes["pregunta-enviada"]}>La pregunta fue enviada!</p>
+      <p className={classes["pregunta-enviada"]}>La pregunta fue enviada! Podrá verla apenas sea respondida...</p>
       <button className={classes["submit-button"]} onClick={handleClick}>
         Hacer otra pregunta
       </button>

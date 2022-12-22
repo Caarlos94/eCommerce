@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, NavLink } from 'react-router-dom';
+import { useHistory, NavLink, Link } from 'react-router-dom';
 import {
   getCategorys,
   getProducts,
@@ -10,9 +10,8 @@ import {
 import style from './ProductCreate.module.css';
 /* import SearchBar from '../navbar/searchBar/searchBar'; */
 import back from '../../img/back.png';
-import heart from '../../img/heart-regular.svg';
-import user from '../../img/user.svg';
-import shopping from '../../img/shopping.png';
+import usuario from '../../img/user.svg';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const validate = (input, prods) => {
   let errors = {};
@@ -61,6 +60,8 @@ export default function ProdCreate() {
   const dispatch = useDispatch();
   const prods = useSelector((state) => state.products);
   const categs = useSelector((state) => state.categorys);
+
+  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0()
 
   const history = useHistory();
   const [errors, setErrors] = useState({});
@@ -135,19 +136,24 @@ export default function ProdCreate() {
               Atrás
             </div>
           </NavLink>
-          {/* <div className={style.search}>
-            <SearchBar />
-          </div> */}
           <div className={style.btns}>
-            <div className={style.btn}>
-              <img src={user} alt="user"></img>
-            </div>
-            <div className={style.btn}>
-              <img src={heart} alt="fav"></img>
-            </div>
-            <div className={style.btn}>
-              <img src={shopping} alt="carrito"></img>
-            </div>
+            {isAuthenticated ? (
+              <div className={style.profileMenu}>
+                <details>
+                  <summary>Hola {user.nickname}!</summary>
+                  <div className={style.desplegable}>
+                    <div>
+                      <Link to="/profile" style={{ textDecoration: 'none' }} className={style.button}>Perfil</Link>
+                    </div>
+                    <div>
+                      <button onClick={() => logout()} className={style.button}>Cerrar sesión</button>
+                    </div>
+                  </div>
+                </details>
+              </div>
+            ) : (
+              <button onClick={() => loginWithRedirect()} className={style.btn}> <img src={usuario} alt=""></img> </button>
+            )}
           </div>
         </div>
       </div>

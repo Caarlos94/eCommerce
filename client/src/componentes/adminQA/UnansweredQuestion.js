@@ -19,6 +19,7 @@ const UnansweredQuestion = ({ question }) => {
       body: JSON.stringify({ questionId: question.questionId, answer }),
     });
     setDidSubmit(true);
+    alert("Respuesta enviada con éxito! Se reflejará en el detalle del producto al actualizar la página...")
   };
 
   return !question.answer && !didSubmit ? (
@@ -29,22 +30,23 @@ const UnansweredQuestion = ({ question }) => {
       </div>
       <form onSubmit={handleSubmit}>
         <label className={classes.label} htmlFor="respuesta">
-          <p>Pregunta: </p>
+          {/* <p>Pregunta: </p> */}
           {question.question}
         </label>
         <br />
         <input
           autoComplete="off"
           onChange={handleChange}
+          placeholder="Ej: Sí, tenemos stock!"
           name="respuesta"
           type="text"
           value={answer}
         />
-        <button disabled={!answer.length} type="submit">
+        <button disabled={!answer.length} type="submit"  >
           Enviar respuesta
         </button>
       </form>
-    </div>
+    </div >
   ) : (
     ""
   );

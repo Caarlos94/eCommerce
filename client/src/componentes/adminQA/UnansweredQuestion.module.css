@@ -10,7 +10,7 @@ img {
   margin-bottom: 3rem;
   font-weight: bold;
   border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 4px 5px 0 rgba(0, 0, 0, 0.2);
   padding: 1rem;
   min-width: 30%;
 }

@@ -3,11 +3,12 @@ import s from './Carrito.module.css';
 import SearchBar from '../navbar/searchBar/searchBar';
 import back from '../../img/back.png';
 import heart from '../../img/heart-regular.svg';
-import user from '../../img/user.svg';
-import shopping from '../../img/shopping.png';
-import { NavLink } from 'react-router-dom';
+import usuario from '../../img/user.svg';
+/* import shopping from '../../img/shopping.png'; */
+import { NavLink, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import CartProduct from './CartProduct';
+import { useAuth0 } from '@auth0/auth0-react';
 import {
   clearCart,
   removeAllFromCart,
@@ -19,6 +20,8 @@ const Carrito = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 
+
+  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0()
   const handleDelete = (id, all = false) => {
     console.log(id, all);
     if (all) {
@@ -67,17 +70,31 @@ const Carrito = () => {
             <SearchBar />
           </div>
           <div className={s.btns}>
-            <div className={s.btn}>
-              <img src={user} alt=""></img>
-            </div>
+            {isAuthenticated ? (
+              <div className={s.profileMenu}>
+                <details>
+                  <summary>Hola {user.nickname}!</summary>
+                  <div className={s.desplegable}>
+                    <div>
+                      <Link to="/profile" style={{ textDecoration: 'none' }} className={s.button}>Perfil</Link>
+                    </div>
+                    <div>
+                      <button onClick={() => logout()} className={s.button}>Cerrar sesión</button>
+                    </div>
+                  </div>
+                </details>
+              </div>
+            ) : (
+              <button onClick={() => loginWithRedirect()} className={s.btn}> <img src={usuario} alt=""></img> </button>
+            )}
             <div className={s.btn}>
               <img src={heart} alt=""></img>
             </div>
-            <NavLink to="/cart" className={s.carro}>
+            {/* <NavLink to="/cart" className={s.carro}>
               <div className={s.btn}>
                 <img src={shopping} alt=""></img>
               </div>
-            </NavLink>
+            </NavLink> */}
           </div>
         </div>
       </div>
