@@ -67,11 +67,23 @@ export function postUser(payload) {
   };
 }
 
-export function importUser(user) {
-  return async function () {
-    const response = await axios.post('http://localhost:3001/users', user)
-    return response
-  };
+// export function importUser(user) {
+//   return async function () {
+//     const response = await axios.post('http://localhost:3001/users', user)
+//     return response
+//   };
+// }
+
+export const importUser = (user) => {
+  return function (){
+      fetch('http://localhost:3001/users', {
+          method:"POST",
+          headers:{
+              "Content-Type":"application/json",
+          },
+          body: JSON.stringify(user),
+      })
+  }
 }
 
 export function postProd(payload) {

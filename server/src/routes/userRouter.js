@@ -11,15 +11,15 @@ userRouter.post("/", async (req, res) => {
         // const DatabaseCategory = await Categoria.findAll({ where: { nombre: categoria } })
         // await newProduct.addCategoria(DatabaseCategory)
         res.status(200).json(newUser) 
-    } catch (error) {  
+    } catch (error) {     
         res.status(400).json(error.message)
     }
-})
+}) 
 
 userRouter.get('/', async (req, res) => {
     try {
       let clientesDB = await getDataBaseClient();
-      res.status(200).json(clientesDB);
+      res.status(200).json(clientesDB); 
     } catch (error) {
       res.status(400).send(error.message);
     }
