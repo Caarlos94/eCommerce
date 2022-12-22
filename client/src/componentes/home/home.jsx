@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { getProducts, orderPrecio } from "../../redux/actions/actions.js";
+import { getCategorys, getProducts, orderPrecio } from "../../redux/actions/actions.js";
 import s from "./home.module.css";
 import Navbar from "../navbar/navbar.jsx";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,15 +10,15 @@ import messiNotFound from "../../img/messiNotFound.gif";
 
 const Home = () => {
   const dispatch = useDispatch();
-  /* const error = useSelector((state) => state.error); */
   const allProducts = useSelector((state) => state.productsHome);
 
   useEffect(() => {
     dispatch(getProducts());
+    dispatch(getCategorys());
   }, [dispatch]);
 
-  const [order, setOrder] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [, setOrder] = useState("");
+  const [currentPage, setCurrentPage] = useState(1); // DEBERIA SER UN REDUCER
   const productsPerPage = 9;
   const lastIndex = currentPage * productsPerPage; // 1 * 8 = 8
   const firstIndex = lastIndex - productsPerPage; // 8 - 8 = 0
@@ -77,7 +77,8 @@ const Home = () => {
           </select>
 
           <div>
-            <div /* className="container d-flex justify-content-center h-100 align-items-center" */>
+            <div /* className="container d-flex justify-content-center h-100 align-items-center" */
+            >
               <div className={s.section}>
                 {currentProducts.map((card) => (
                   <div key={card.id}>
@@ -99,9 +100,9 @@ const Home = () => {
         </div>
       ) : (
         <div className={s.notFound}>
-          <h1 >Estamos buscando lo que necesitas!</h1>
+          <h1>Estamos buscando lo que necesitas!</h1>
           <h2>En caso de no cargar te recomendamos refrescar la página...</h2>
-          <img src={messiNotFound} alt='img'></img>
+          <img src={messiNotFound} alt="img"></img>
         </div>
       )}
       <Paginado

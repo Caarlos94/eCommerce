@@ -1,0 +1,15 @@
+.questions-container {
+  background-color: #edeff0;
+  border-radius: 8px;
+  width: 30rem;
+  padding: 1rem;
+  margin: 1rem;
+  padding-left: 2rem;
+}
+
+.question {
+  font-weight: bold;
+}
+/* 
+.answer {
+} */

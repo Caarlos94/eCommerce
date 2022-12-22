@@ -1,13 +1,14 @@
 const { Router } = require('express');
 const productRouter = Router();
-const { getDataBaseProducts, getProducts, getAllProds } = require('./functions');
+const { getDataBaseProducts, getProductsFireBase } = require('./functions');
 const { Categoria, Producto } = require('../db.js');
+
 
 productRouter.get('/', async (req, res) => {
   try {
+    await getProductsFireBase()
     let productos = await getDataBaseProducts();
-    let getProduct = await getProducts();
-    res.status(200).json(getProduct.Productos.concat(productos));
+    res.status(200).json(productos);
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -17,13 +18,13 @@ productRouter.get('/:id', async (req, res) => {
   const { id } = req.params;
 
   let prods = await getDataBaseProducts();
-  let getProduct = await getProducts();
+  /* let getProduct = await getProductsFireBase();
   
-  const productos = await getProduct.Productos.concat(prods);
-  console.log(productos);
+  const productos = await getProduct.Productos.concat(prods); */
+  console.log(prods);
   try {
     if (id) {
-      let result = await productos.filter((p) => p.id == id);
+      let result = await prods.filter((p) => p.id == id);
       if (result.length) {
         let prod = result.map((r) => {
           return {
@@ -50,7 +51,7 @@ productRouter.get('/:id', async (req, res) => {
 
 productRouter.post('/', async (req, res) => {
   try {
-    const data = req.body;
+    const data = req.body; 
     const { categoria } = req.body;
     const newProduct = await Producto.create(data);
     const DatabaseCategory = await Categoria.findAll({
@@ -59,7 +60,7 @@ productRouter.post('/', async (req, res) => {
     await newProduct.addCategoria(DatabaseCategory);
     res.status(200).json(newProduct);
   } catch (error) {
-    res.status(400).json(error.message);
+    res.status(400).json(error.message); 
   }
 });
 

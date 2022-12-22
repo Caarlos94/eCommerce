@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
 import SearchBar from './searchBar/searchBar.jsx';
 import Filtros from './filtros/filtros.jsx';
-/* import Perfil from './Perfil/Perfil.jsx'; */
 import style from './navbar.module.css';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
 import usuario from '../../img/user.svg';
 import shopping from '../../img/shopping.png';
 import { useDispatch } from 'react-redux';
-import { getProducts } from '../../redux/actions/actions.js';
-import { useAuth0 } from '@auth0/auth0-react';
+import { getProducts, importUser } from '../../redux/actions/actions.js';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = ({ setPages }) => {
   const dispatch = useDispatch();
@@ -18,15 +17,9 @@ const Navbar = ({ setPages }) => {
     dispatch(getProducts);
   }, [dispatch]);
 
-  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0();
-
-  const handlerProfile = () => {
-    isAuthenticated
-      ? alert(`
-        ${user.name}, 
-        ${user.email}`)
-      : alert('no ha iniciado sesión todavía');
-  };
+  const { user, loginWithRedirect, isAuthenticated, logout } = useAuth0()
+  
+  isAuthenticated && dispatch(importUser(user))
 
   return (
     <div className={style.div}>
@@ -45,11 +38,23 @@ const Navbar = ({ setPages }) => {
         </div>
 
         <div className={style.btns}>
-          <button onClick={handlerProfile} className={style.btn}>
-            <img src={usuario} alt=""></img>
-            {isAuthenticated && console.log(user)}
-          </button>
-
+          {isAuthenticated ? (
+            <div className={style.profileMenu}>
+              <details>
+                <summary>Hola {user.nickname}!</summary>
+                <div className={style.desplegable}>
+                  <div>
+                    <Link to="/profile" style={{ textDecoration: 'none' }} className={style.button}>Perfil</Link>
+                  </div>
+                  <div>
+                    <button onClick={() => logout()} className={style.button}>Cerrar sesión</button>
+                  </div>
+                </div>
+              </details>
+            </div>
+          ) : (
+            <button onClick={() => loginWithRedirect()} className={style.btn}> <img src={usuario} alt=""></img> </button>
+          )}
           <div className={style.btn}>
             <img src={heart} alt=""></img>
           </div>
@@ -58,22 +63,9 @@ const Navbar = ({ setPages }) => {
               <img src={shopping} alt=""></img>
             </div>
           </NavLink>
-          {isAuthenticated ? (
-            <div>
-              <button onClick={() => logout()} className={style.btn}>
-                Cerrar Sesión
-              </button>
-            </div>
-          ) : (
-            <div>
-              <button onClick={() => loginWithRedirect()} className={style.btn}>
-                Iniciar Sesión
-              </button>
-            </div>
-          )}
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

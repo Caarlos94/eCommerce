@@ -12,6 +12,7 @@ import {
   ORDER_PRECIO,
   GET_USER,
   ADD_TO_CART,
+  ADD_ONE_TO_CART,
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
@@ -21,24 +22,23 @@ const initialState = {
   products: [],
   productsHome: [],
   details: [],
+  users: [],
   cart: [],
-  user: [],
   categorys: [],
+  categoria: 'todas',
+  ordenamiento: 'ninguno',
   marca: 'todas',
   talla: 'todas',
-  categoria: 'todas',
   precio: [0, 0],
   error: false,
+  page: 1,
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCTS: {
-      console.log(action.payload);
-      if (
-        state.products.length === 0 ||
-        action.payload[1] === 'volver a cargar los productos'
-      ) {
+      //console.log(action.payload);
+      if (state.products.length === 0 || action.payload[1] === 'volver a cargar los productos') {
         return {
           ...state,
           products: [...action.payload[0]],
@@ -51,6 +51,7 @@ const rootReducer = (state = initialState, action) => {
         productsHome: [...state.productsHome],
       };
     }
+
     case GET_CATEGORYS:
       return {
         ...state,
@@ -58,13 +59,18 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case GET_USER:
+      console.log(action.payload);
       return {
         ...state,
-        user: action.payload,
+        users: action.payload,
+      };
+    case 'POST_USER':
+      return {
+        ...state,
+        users: action.payload,
       };
 
     case GET_DETAILS:
-      console.log(action.payload);
       return {
         ...state,
         details: action.payload,
@@ -124,6 +130,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         productsHome: [...arrPrecio],
+        ordenamiento: action.payload,
       };
 
     case SEARCHxCATEGORIA: {
@@ -165,6 +172,27 @@ const rootReducer = (state = initialState, action) => {
         setError = true;
       } else {
         setError = false;
+      }
+
+      if (state.ordenamiento === 'asc') {
+        productsFilter = productsFilter.sort((a, b) => {
+          //el valor A va antes que el B ya que A es menor(negativo significa que el valor A va antes que B)
+          if (parseInt(a.precio) > parseInt(b.precio)) return 1;
+          //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
+          if (parseInt(a.precio) < parseInt(b.precio)) return -1;
+          //deja todo igual
+          return 0;
+        });
+      }
+      if (state.ordenamiento === 'desc') {
+        productsFilter = productsFilter.sort((a, b) => {
+          //el valor B va antes que el A ya que B es mayor(positivo significa que el valor B va antes que A)
+          if (parseInt(a.precio) < parseInt(b.precio)) return 1;
+          //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
+          if (parseInt(a.precio) > parseInt(b.precio)) return -1;
+          //deja todo igual
+          return 0;
+        });
       }
 
       return {
@@ -212,24 +240,33 @@ const rootReducer = (state = initialState, action) => {
         productsFilter = [...arr];
       }
 
-      // if (productsFilter.length === 0) {
-      //   return {
-      //     ...state,
-      //     error: true
-      //   }
-      // } else {
-      //   return {
-      //     ...state,
-      //     productsHome: [...productsFilter],
-      //     marca: action.payload
-      //   }
-      // }
       let setError = '';
 
       if (productsFilter.length === 0) {
         setError = true;
       } else {
         setError = false;
+      }
+
+      if (state.ordenamiento === 'asc') {
+        productsFilter = productsFilter.sort((a, b) => {
+          //el valor A va antes que el B ya que A es menor(negativo significa que el valor A va antes que B)
+          if (parseInt(a.precio) > parseInt(b.precio)) return 1;
+          //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
+          if (parseInt(a.precio) < parseInt(b.precio)) return -1;
+          //deja todo igual
+          return 0;
+        });
+      }
+      if (state.ordenamiento === 'desc') {
+        productsFilter = productsFilter.sort((a, b) => {
+          //el valor B va antes que el A ya que B es mayor(positivo significa que el valor B va antes que A)
+          if (parseInt(a.precio) < parseInt(b.precio)) return 1;
+          //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
+          if (parseInt(a.precio) > parseInt(b.precio)) return -1;
+          //deja todo igual
+          return 0;
+        });
       }
 
       return {
@@ -278,24 +315,33 @@ const rootReducer = (state = initialState, action) => {
         productsFilter = [...arr];
       }
 
-      // if (productsFilter.length === 0) {
-      //   return {
-      //     ...state,
-      //     error: true
-      //   }
-      // } else {
-      //   return {
-      //     ...state,
-      //     productsHome: [...productsFilter],
-      //     talla: action.payload
-      //   }
-      // }
       let setError = '';
 
       if (productsFilter.length === 0) {
         setError = true;
       } else {
         setError = false;
+      }
+
+      if (state.ordenamiento === 'asc') {
+        productsFilter = productsFilter.sort((a, b) => {
+          //el valor A va antes que el B ya que A es menor(negativo significa que el valor A va antes que B)
+          if (parseInt(a.precio) > parseInt(b.precio)) return 1;
+          //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
+          if (parseInt(a.precio) < parseInt(b.precio)) return -1;
+          //deja todo igual
+          return 0;
+        });
+      }
+      if (state.ordenamiento === 'desc') {
+        productsFilter = productsFilter.sort((a, b) => {
+          //el valor B va antes que el A ya que B es mayor(positivo significa que el valor B va antes que A)
+          if (parseInt(a.precio) < parseInt(b.precio)) return 1;
+          //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
+          if (parseInt(a.precio) > parseInt(b.precio)) return -1;
+          //deja todo igual
+          return 0;
+        });
       }
 
       return {
@@ -335,24 +381,33 @@ const rootReducer = (state = initialState, action) => {
           );
       }
 
-      // if (arr.length === 0) {
-      //   return {
-      //     ...state,
-      //     error: true
-      //   }
-      // } else {
-      //   return {
-      //     ...state,
-      //     productsHome: [...arr],
-      //     precio: [...action.payload]
-      //   }
-      // }
       let setError = '';
 
       if (arr.length === 0) {
         setError = true;
       } else {
         setError = false;
+      }
+
+      if (state.ordenamiento === 'asc') {
+        arr = arr.sort((a, b) => {
+          //el valor A va antes que el B ya que A es menor(negativo significa que el valor A va antes que B)
+          if (parseInt(a.precio) > parseInt(b.precio)) return 1;
+          //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
+          if (parseInt(a.precio) < parseInt(b.precio)) return -1;
+          //deja todo igual
+          return 0;
+        });
+      }
+      if (state.ordenamiento === 'desc') {
+        arr = arr.sort((a, b) => {
+          //el valor B va antes que el A ya que B es mayor(positivo significa que el valor B va antes que A)
+          if (parseInt(a.precio) < parseInt(b.precio)) return 1;
+          //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
+          if (parseInt(a.precio) > parseInt(b.precio)) return -1;
+          //deja todo igual
+          return 0;
+        });
       }
 
       return {
@@ -393,6 +448,21 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             cart: state.cart.map((c) =>
               c.id === action.payload ? { ...c, cantidad: c.cantidad - 1 } : c
+            ),
+          }
+        : {
+            ...state,
+            cart: state.cart.filter((c) => c.id !== action.payload),
+          };
+    case ADD_ONE_TO_CART:
+      let productToAdd = state.cart.find(
+        (product) => product.id === action.payload
+      );
+      return productToAdd.cantidad >= 1
+        ? {
+            ...state,
+            cart: state.cart.map((c) =>
+              c.id === action.payload ? { ...c, cantidad: c.cantidad + 1 } : c
             ),
           }
         : {
