@@ -18,7 +18,7 @@ const CartProduct = ({
       ></div>
       <div className={s.info}>
         <h2>{nombre}</h2>
-        <p>{talla}</p>
+        <p>Talle: {talla}</p>
         <p>
           ${precio} x {cantidad} = ${precio * cantidad}
         </p>

@@ -81,6 +81,9 @@ const Carrito = () => {
         ) : (
           <p>No tienes productos en tu carrito</p>
         )}
+        <div>
+          Total compra:
+        </div>
       </div>
     </div>
   );
