@@ -8,7 +8,8 @@ import usuario from '../../img/user.svg';
 import shopping from '../../img/shopping.png';
 import { useDispatch } from 'react-redux';
 import { getProducts, importUser } from '../../redux/actions/actions.js';
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from '@auth0/auth0-react';
+import Burger from '../navbar/BurgerMenu/Burger.jsx';
 
 const Navbar = ({ setPages }) => {
   const dispatch = useDispatch();
@@ -17,14 +18,17 @@ const Navbar = ({ setPages }) => {
     dispatch(getProducts);
   }, [dispatch]);
 
-  const { user, loginWithRedirect, isAuthenticated, logout } = useAuth0()
-  
-  isAuthenticated && dispatch(importUser(user))
+  const { user, loginWithRedirect, isAuthenticated, logout } = useAuth0();
+
+  isAuthenticated && dispatch(importUser(user));
 
   return (
     <div className={style.div}>
       <div className={style.black}></div>
       <div className={style.white}>
+        <div className={style.burger}>
+          <Burger />
+        </div>
         <div className={style.publicar}>
           <NavLink to="/product">
             <button>Publicar un producto!</button>
@@ -44,16 +48,27 @@ const Navbar = ({ setPages }) => {
                 <summary>Hola {user.nickname}!</summary>
                 <div className={style.desplegable}>
                   <div>
-                    <Link to="/profile" style={{ textDecoration: 'none' }} className={style.button}>Perfil</Link>
+                    <Link
+                      to="/profile"
+                      style={{ textDecoration: 'none' }}
+                      className={style.button}
+                    >
+                      Perfil
+                    </Link>
                   </div>
                   <div>
-                    <button onClick={() => logout()} className={style.button}>Cerrar sesión</button>
+                    <button onClick={() => logout()} className={style.button}>
+                      Cerrar sesión
+                    </button>
                   </div>
                 </div>
               </details>
             </div>
           ) : (
-            <button onClick={() => loginWithRedirect()} className={style.btn}> <img src={usuario} alt=""></img> </button>
+            <button onClick={() => loginWithRedirect()} className={style.btn}>
+              {' '}
+              <img src={usuario} alt=""></img>{' '}
+            </button>
           )}
           <div className={style.btn}>
             <img src={heart} alt=""></img>
@@ -65,7 +80,7 @@ const Navbar = ({ setPages }) => {
           </NavLink>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

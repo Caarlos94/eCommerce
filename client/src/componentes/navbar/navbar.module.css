@@ -57,7 +57,7 @@
 }
 
 .button:hover {
-  color: #2c96cf
+  color: #2c96cf;
 }
 
 .profileMenu summary:before {
@@ -85,7 +85,6 @@
 .profileMenu summary:active {
   transform: scale(0.9);
 }
-
 
 .black {
   width: 100%;
@@ -167,4 +166,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.burger {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .burger {
+    display: flex;
+    align-items: center;
+  }
+
+  .publicar {
+    position: absolute;
+    top: 80%;
+  }
+
+  .filtros {
+    position: absolute;
+    top: -700px;
+    left: -2000px;
+  }
 }
