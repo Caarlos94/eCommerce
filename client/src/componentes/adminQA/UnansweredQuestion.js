@@ -1,5 +1,6 @@
 import { useState } from "react";
 import classes from "./UnansweredQuestion.module.css";
+import {NavLink} from 'react-router-dom'
 
 const UnansweredQuestion = ({ question }) => {
   const [answer, setAnswer] = useState("");
@@ -25,8 +26,10 @@ const UnansweredQuestion = ({ question }) => {
   return !question.answer && !didSubmit ? (
     <div className={classes["admin-question"]}>
       <div className={classes["nombre-imagen"]}>
-        <p>{question.productName}</p>
-        <img src={question.productUrl} alt="nombre del producto" />
+        <NavLink to= {`details/${question.productId}`}>
+          <p>{question.productName}</p>
+          <img src={question.productUrl} alt="nombre del producto" />
+        </NavLink>
       </div>
       <form onSubmit={handleSubmit}>
         <label className={classes.label} htmlFor="respuesta">

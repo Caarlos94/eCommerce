@@ -7,6 +7,7 @@ import Carrito from './componentes/Carrito/Carrito';
 import Answers from './componentes/Answers/Answers';
 /* import QASection from './componentes/customersQA/QASection'; */
 import { Route } from 'react-router-dom';
+import About from './componentes/About/About';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/profile" component={Perfil} />
       <Route path="/cart" component={Carrito} />
       <Route path="/answers" component={Answers} />
+      <Route path="/about" component={About} />
       {/* <Route path="/QASection" component={QASection} /> */}
     </div>
   );

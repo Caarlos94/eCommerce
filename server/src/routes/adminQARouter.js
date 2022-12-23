@@ -13,9 +13,9 @@ adminQARouter.get("/", async (req, res) => {
       questionId: q.id,
       question: q.question,
       answer: q.answer,
-      productId: q["Producto.id"],
-      productName: q["Producto.nombre"],
-      productUrl: q["Producto.URL"],
+      productId: q["producto.id"],
+      productName: q["producto.nombre"],
+      productUrl: q["producto.URL"],
     }));
 
     res.status(200).json(questionsArr);

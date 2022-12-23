@@ -18,7 +18,7 @@ export default function Answers() {
                     <NavLink to="/" style={{ textDecoration: 'none' }}>
                         <div className={s.backHome}>
                             <img src={back} alt=""></img>
-                            Atrás
+                            Inicio
                         </div>
                     </NavLink>
                     <div className={s.btns}>

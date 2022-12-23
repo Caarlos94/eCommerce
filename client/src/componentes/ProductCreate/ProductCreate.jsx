@@ -133,7 +133,7 @@ export default function ProdCreate() {
           <NavLink to="/" style={{ textDecoration: 'none' }}>
             <div className={style.backHome}>
               <img src={back} alt=""></img>
-              Atrás
+              Inicio
             </div>
           </NavLink>
           <div className={style.btns}>
@@ -162,7 +162,7 @@ export default function ProdCreate() {
         <div className={style.forms}>
           <form onSubmit={(e) => handlerSubmit(e)}>
 
-            <div className={style.inputs}>
+            <div className={style.inputI}>
               <label>Nombre: </label>
               <input
                 type="text"
@@ -173,7 +173,7 @@ export default function ProdCreate() {
               {errors.nombre && <p className={style.errors}>{errors.nombre}</p>}
             </div>
 
-            <div className={style.inputs}>
+            <div className={style.inputI}>
               <label>Imagen: </label>
               <input
                 type="text"
@@ -181,10 +181,15 @@ export default function ProdCreate() {
                 name="URL"
                 onChange={(e) => handlerChange(e)}
               ></input>
-              {errors.URL && <p className={style.errors}>{errors.URL}</p>}
+              {errors.URL
+                ? <p className={style.errors}>{errors.URL}</p>
+                : input.URL
+                  ? <img src={input.URL} alt='img'></img>
+                  : ""
+              }
             </div>
 
-            <div className={style.inputs}>
+            <div className={style.inputI}>
               <label>Precio </label>
               <input
                 type="number"
@@ -195,7 +200,7 @@ export default function ProdCreate() {
               {errors.precio && <p className={style.errors}>{errors.precio}</p>}
             </div>
 
-            <div className={style.inputs}>
+            <div className={style.inputI}>
               <label>Color: </label>
               <input
                 type="text"
@@ -207,7 +212,7 @@ export default function ProdCreate() {
               {errors.color && <p className={style.errors}>{errors.color}</p>}
             </div>
 
-            <div className={style.inputs}>
+            <div className={style.inputI}>
               <label>Talla: </label>
               <input
                 type="text"
@@ -218,7 +223,7 @@ export default function ProdCreate() {
               {errors.talla && <p className={style.errors}>{errors.talla}</p>}
             </div>
 
-            <div className={style.inputs}>
+            <div className={style.inputI}>
               <label>Marca: </label>
               <input
                 type="text"
@@ -229,7 +234,7 @@ export default function ProdCreate() {
               {errors.marca && <p className={style.errors}>{errors.marca}</p>}
             </div>
 
-            <div className={style.inputs}>
+            <div className={style.inputI}>
               <label>Stock: </label>
               <input
                 type="number"

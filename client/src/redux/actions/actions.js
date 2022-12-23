@@ -59,12 +59,13 @@ export function getUserInfo() {
     });
   };
 }
-export function postUser(payload) {
+
+/* export function postUser(payload) {
   return async function () {
     const response = await axios.post('http://localhost:3001/users', payload);
     return response;
   };
-}
+} */
 
 /* export function importUser(user) {
   return async function () {

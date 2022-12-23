@@ -17,6 +17,7 @@ img {
 
 .nombre-imagen {
   /* border: 3px solid blue; */
+  background-color: rgba(114, 114, 114, 0.021);
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
