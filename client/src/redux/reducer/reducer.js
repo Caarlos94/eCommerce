@@ -11,12 +11,12 @@ import {
   EMPTY_ERROR,
   ORDER_PRECIO,
   GET_USER,
-  POST_PROD,
   ADD_TO_CART,
+  ADD_ONE_TO_CART,
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
-  CLEAR_CART
-} from '../actions/actions.js'
+  CLEAR_CART,
+} from '../actions/actions.js';
 
 const initialState = {
   products: [],
@@ -27,8 +27,8 @@ const initialState = {
   categorys: [],
   categoria: 'todas',
   ordenamiento: 'ninguno',
-  marca: "todas",
-  talla: "todas",
+  marca: 'todas',
+  talla: 'todas',
   precio: [0, 0],
   error: false,
   page: 1,
@@ -36,13 +36,9 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-
     case GET_PRODUCTS: {
-      console.log(action.payload);
-      if (
-        state.products.length === 0 ||
-        action.payload[1] === 'volver a cargar los productos'
-      ) {
+      //console.log(action.payload);
+      if (state.products.length === 0 || action.payload[1] === 'volver a cargar los productos') {
         return {
           ...state,
           products: [...action.payload[0]],
@@ -66,8 +62,8 @@ const rootReducer = (state = initialState, action) => {
       console.log(action.payload);
       return {
         ...state,
-        users: action.payload
-      }
+        users: action.payload,
+      };
     case 'POST_USER':
       return {
         ...state,
@@ -85,8 +81,9 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         details: [],
       };
+      
 
-    case POST_PROD:
+    case 'POST_PROD':
       return {
         ...state,
         products: action.payload,
@@ -121,23 +118,22 @@ const rootReducer = (state = initialState, action) => {
       const arrPrecio =
         action.payload === 'asc'
           ? state.productsHome.sort((a, b) => {
-            //compara dos valores, en este caso los dos precios
-            if (parseInt(a.precio) > parseInt(b.precio)) return 1; //los va posicionando a la derecha
-            if (parseInt(a.precio) < parseInt(b.precio)) return -1; //o a la izquierda
-            return 0; //o si son iguales los deja así
-          })
+              //compara dos valores, en este caso los dos precios
+              if (parseInt(a.precio) > parseInt(b.precio)) return 1; //los va posicionando a la derecha
+              if (parseInt(a.precio) < parseInt(b.precio)) return -1; //o a la izquierda
+              return 0; //o si son iguales los deja así
+            })
           : state.productsHome.sort((a, b) => {
-            if (parseInt(a.precio) > parseInt(b.precio)) return -1;
-            if (parseInt(a.precio) < parseInt(b.precio)) return 1;
-            return 0;
-          });
+              if (parseInt(a.precio) > parseInt(b.precio)) return -1;
+              if (parseInt(a.precio) < parseInt(b.precio)) return 1;
+              return 0;
+            });
       return {
         ...state,
         productsHome: [...arrPrecio],
-        ordenamiento: action.payload
+        ordenamiento: action.payload,
       };
 
-      
     case SEARCHxCATEGORIA: {
       let productsFilter = [];
       if (action.payload === 'todas') {
@@ -171,7 +167,7 @@ const rootReducer = (state = initialState, action) => {
         productsFilter = [...arr];
       }
 
-      let setError = "";
+      let setError = '';
 
       if (productsFilter.length === 0) {
         setError = true;
@@ -179,26 +175,25 @@ const rootReducer = (state = initialState, action) => {
         setError = false;
       }
 
-      
-      if(state.ordenamiento === 'asc'){
-        productsFilter = productsFilter.sort((a,b) => {
+      if (state.ordenamiento === 'asc') {
+        productsFilter = productsFilter.sort((a, b) => {
           //el valor A va antes que el B ya que A es menor(negativo significa que el valor A va antes que B)
-          if(parseInt(a.precio) > parseInt(b.precio))return 1         
-           //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
-          if(parseInt(a.precio) < parseInt(b.precio))return -1   
+          if (parseInt(a.precio) > parseInt(b.precio)) return 1;
+          //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
+          if (parseInt(a.precio) < parseInt(b.precio)) return -1;
           //deja todo igual
-          return 0   
-          })
+          return 0;
+        });
       }
-      if(state.ordenamiento === 'desc'){
-        productsFilter = productsFilter.sort((a,b) => {
+      if (state.ordenamiento === 'desc') {
+        productsFilter = productsFilter.sort((a, b) => {
           //el valor B va antes que el A ya que B es mayor(positivo significa que el valor B va antes que A)
-          if(parseInt(a.precio) < parseInt(b.precio))return 1         
-           //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
-          if(parseInt(a.precio) > parseInt(b.precio))return -1   
+          if (parseInt(a.precio) < parseInt(b.precio)) return 1;
+          //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
+          if (parseInt(a.precio) > parseInt(b.precio)) return -1;
           //deja todo igual
-          return 0   
-          })
+          return 0;
+        });
       }
 
       return {
@@ -246,7 +241,6 @@ const rootReducer = (state = initialState, action) => {
         productsFilter = [...arr];
       }
 
-
       let setError = '';
 
       if (productsFilter.length === 0) {
@@ -255,27 +249,26 @@ const rootReducer = (state = initialState, action) => {
         setError = false;
       }
 
-      if(state.ordenamiento === 'asc'){
-        productsFilter = productsFilter.sort((a,b) => {
+      if (state.ordenamiento === 'asc') {
+        productsFilter = productsFilter.sort((a, b) => {
           //el valor A va antes que el B ya que A es menor(negativo significa que el valor A va antes que B)
-          if(parseInt(a.precio) > parseInt(b.precio))return 1         
-           //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
-          if(parseInt(a.precio) < parseInt(b.precio))return -1   
+          if (parseInt(a.precio) > parseInt(b.precio)) return 1;
+          //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
+          if (parseInt(a.precio) < parseInt(b.precio)) return -1;
           //deja todo igual
-          return 0   
-          })
+          return 0;
+        });
       }
-      if(state.ordenamiento === 'desc'){
-        productsFilter = productsFilter.sort((a,b) => {
+      if (state.ordenamiento === 'desc') {
+        productsFilter = productsFilter.sort((a, b) => {
           //el valor B va antes que el A ya que B es mayor(positivo significa que el valor B va antes que A)
-          if(parseInt(a.precio) < parseInt(b.precio))return 1         
-           //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
-          if(parseInt(a.precio) > parseInt(b.precio))return -1   
+          if (parseInt(a.precio) < parseInt(b.precio)) return 1;
+          //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
+          if (parseInt(a.precio) > parseInt(b.precio)) return -1;
           //deja todo igual
-          return 0   
-          })
+          return 0;
+        });
       }
-
 
       return {
         ...state,
@@ -331,27 +324,26 @@ const rootReducer = (state = initialState, action) => {
         setError = false;
       }
 
-      if(state.ordenamiento === 'asc'){
-        productsFilter = productsFilter.sort((a,b) => {
+      if (state.ordenamiento === 'asc') {
+        productsFilter = productsFilter.sort((a, b) => {
           //el valor A va antes que el B ya que A es menor(negativo significa que el valor A va antes que B)
-          if(parseInt(a.precio) > parseInt(b.precio))return 1         
-           //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
-          if(parseInt(a.precio) < parseInt(b.precio))return -1   
+          if (parseInt(a.precio) > parseInt(b.precio)) return 1;
+          //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
+          if (parseInt(a.precio) < parseInt(b.precio)) return -1;
           //deja todo igual
-          return 0   
-          })
+          return 0;
+        });
       }
-      if(state.ordenamiento === 'desc'){
-        productsFilter = productsFilter.sort((a,b) => {
+      if (state.ordenamiento === 'desc') {
+        productsFilter = productsFilter.sort((a, b) => {
           //el valor B va antes que el A ya que B es mayor(positivo significa que el valor B va antes que A)
-          if(parseInt(a.precio) < parseInt(b.precio))return 1         
-           //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
-          if(parseInt(a.precio) > parseInt(b.precio))return -1   
+          if (parseInt(a.precio) < parseInt(b.precio)) return 1;
+          //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
+          if (parseInt(a.precio) > parseInt(b.precio)) return -1;
           //deja todo igual
-          return 0   
-          })
+          return 0;
+        });
       }
-
 
       return {
         ...state,
@@ -398,27 +390,26 @@ const rootReducer = (state = initialState, action) => {
         setError = false;
       }
 
-      if(state.ordenamiento === 'asc'){
-        arr = arr.sort((a,b) => {
+      if (state.ordenamiento === 'asc') {
+        arr = arr.sort((a, b) => {
           //el valor A va antes que el B ya que A es menor(negativo significa que el valor A va antes que B)
-          if(parseInt(a.precio) > parseInt(b.precio))return 1         
-           //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
-          if(parseInt(a.precio) < parseInt(b.precio))return -1   
+          if (parseInt(a.precio) > parseInt(b.precio)) return 1;
+          //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
+          if (parseInt(a.precio) < parseInt(b.precio)) return -1;
           //deja todo igual
-          return 0   
-          })
+          return 0;
+        });
       }
-      if(state.ordenamiento === 'desc'){
-        arr = arr.sort((a,b) => {
+      if (state.ordenamiento === 'desc') {
+        arr = arr.sort((a, b) => {
           //el valor B va antes que el A ya que B es mayor(positivo significa que el valor B va antes que A)
-          if(parseInt(a.precio) < parseInt(b.precio))return 1         
-           //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
-          if(parseInt(a.precio) > parseInt(b.precio))return -1   
+          if (parseInt(a.precio) < parseInt(b.precio)) return 1;
+          //el valor B va antes que el A ya que A es mayor(positivo significa que el valor B va antes que A)
+          if (parseInt(a.precio) > parseInt(b.precio)) return -1;
           //deja todo igual
-          return 0   
-          })
+          return 0;
+        });
       }
-
 
       return {
         ...state,
@@ -438,15 +429,15 @@ const rootReducer = (state = initialState, action) => {
 
       return productInCart
         ? {
-          ...state,
-          cart: state.cart.map((c) =>
-            c.id === newProduct.id ? { ...c, cantidad: c.cantidad + 1 } : c
-          ),
-        }
+            ...state,
+            cart: state.cart.map((c) =>
+              c.id === newProduct.id ? { ...c, cantidad: c.cantidad + 1 } : c
+            ),
+          }
         : {
-          ...state,
-          cart: [...state.cart, { ...newProduct, cantidad: 1 }],
-        };
+            ...state,
+            cart: [...state.cart, { ...newProduct, cantidad: 1 }],
+          };
 
     case REMOVE_ONE_FROM_CART:
       let productToDelete = state.cart.find(
@@ -455,15 +446,30 @@ const rootReducer = (state = initialState, action) => {
       console.log(productToDelete);
       return productToDelete.cantidad > 1
         ? {
-          ...state,
-          cart: state.cart.map((c) =>
-            c.id === action.payload ? { ...c, cantidad: c.cantidad - 1 } : c
-          ),
-        }
+            ...state,
+            cart: state.cart.map((c) =>
+              c.id === action.payload ? { ...c, cantidad: c.cantidad - 1 } : c
+            ),
+          }
         : {
-          ...state,
-          cart: state.cart.filter((c) => c.id !== action.payload),
-        };
+            ...state,
+            cart: state.cart.filter((c) => c.id !== action.payload),
+          };
+    case ADD_ONE_TO_CART:
+      let productToAdd = state.cart.find(
+        (product) => product.id === action.payload
+      );
+      return productToAdd.cantidad >= 1
+        ? {
+            ...state,
+            cart: state.cart.map((c) =>
+              c.id === action.payload ? { ...c, cantidad: c.cantidad + 1 } : c
+            ),
+          }
+        : {
+            ...state,
+            cart: state.cart.filter((c) => c.id !== action.payload),
+          };
     case REMOVE_ALL_FROM_CART:
       return {
         ...state,
