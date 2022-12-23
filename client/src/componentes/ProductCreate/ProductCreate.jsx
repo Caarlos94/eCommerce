@@ -1,61 +1,70 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, NavLink } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, NavLink } from "react-router-dom";
 import {
   getCategorys,
   getProducts,
   getProducts2,
   postProd,
-} from '../../redux/actions/actions';
-import style from './ProductCreate.module.css';
-import SearchBar from '../navbar/searchBar/searchBar';
-import back from '../../img/back.png';
-import heart from '../../img/heart-regular.svg';
-import user from '../../img/user.svg';
-import shopping from '../../img/shopping.png';
+} from "../../redux/actions/actions";
+import style from "./ProductCreate.module.css";
+/* import SearchBar from '../navbar/searchBar/searchBar'; */
+import back from "../../img/back.png";
+import heart from "../../img/heart-regular.svg";
+import user from "../../img/user.svg";
+import shopping from "../../img/shopping.png";
 
 const validate = (input, prods) => {
   let errors = {};
   if (input.nombre) {
-    if (!(/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/).test(input.nombre)) {
-      errors.nombre = 'Este dato es incorrecto... Es obligatorio, no se permiten caracteres especiales o números.'
+    if (!/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(input.nombre)) {
+      errors.nombre =
+        "Este dato es incorrecto... Es obligatorio, no se permiten caracteres especiales o números.";
     }
-    if (prods.some(e => e.nombre.toUpperCase() === input.nombre.toUpperCase())) {
-      errors.nombre = 'Este producto ya existe!'
+    if (
+      prods.some((e) => e.nombre.toUpperCase() === input.nombre.toUpperCase())
+    ) {
+      errors.nombre = "Este producto ya existe!";
     }
   }
   if (input.URL) {
-    if (!(/(https?:\/\/.*\.(?:png|jpg|jpeg))/i).test(input.URL)) {
-      errors.URL = 'Este dato es obligatorio, solo permite imágenes de tipo .jpg/.png/.jpeg'
+    if (!/(https?:\/\/.*\.(?:png|jpg|jpeg))/i.test(input.URL)) {
+      errors.URL =
+        "Este dato es obligatorio, solo permite imágenes de tipo .jpg/.png/.jpeg";
     }
   }
   if (input.precio) {
     if (input.precio < 1) {
-      errors.precio = 'Este dato es obligatorio, solo permite números mayores a uno.'
+      errors.precio =
+        "Este dato es obligatorio, solo permite números mayores a uno.";
     }
   }
   if (input.color) {
-    if (!(/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/).test(input.color)) {
-      errors.color = 'Este dato es obligatorio, no se permiten caracteres especiales, números o espacios.'
+    if (!/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(input.color)) {
+      errors.color =
+        "Este dato es obligatorio, no se permiten caracteres especiales, números o espacios.";
     }
   }
   if (input.talla) {
-    if (!(/^[A-Za-z0-9\s]+$/).test(input.talla)) {
-      errors.talla = 'Este dato es obligatorio, no se permiten caracteres especiales.'
+    if (!/^[A-Za-z0-9\s]+$/.test(input.talla)) {
+      errors.talla =
+        "Este dato es obligatorio, no se permiten caracteres especiales.";
     }
   }
   if (input.marca) {
-    if (!(/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/).test(input.marca)) {
-      errors.marca = 'Este dato es obligatorio, no se permiten caracteres especiales o números.'
+    if (!/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(input.marca)) {
+      errors.marca =
+        "Este dato es obligatorio, no se permiten caracteres especiales o números.";
     }
   }
   if (input.stock) {
-    if (input.stock < 0 || !(/^[0-9]+$/).test(input.stock)) {
-      errors.stock = 'Este dato es obligatorio, solo permite números entero y mayor o igual 0.'
+    if (input.stock < 0 || !/^[0-9]+$/.test(input.stock)) {
+      errors.stock =
+        "Este dato es obligatorio, solo permite números entero y mayor o igual 0.";
     }
   }
   return errors;
-}
+};
 
 export default function ProdCreate() {
   const dispatch = useDispatch();
@@ -65,14 +74,14 @@ export default function ProdCreate() {
   const history = useHistory();
   const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
-    nombre: '',
-    URL: '',
-    precio: '',
-    color: '',
-    talla: '',
-    marca: '',
-    categoria: '',
-    stock: '',
+    nombre: "",
+    URL: "",
+    precio: "",
+    color: "",
+    talla: "",
+    marca: "",
+    categoria: "",
+    stock: "",
   });
 
   useEffect(() => {
@@ -110,18 +119,18 @@ export default function ProdCreate() {
     console.log(input);
     dispatch(postProd(input));
     setTimeout(() => dispatch(getProducts2()), 100);
-    alert('Producto publicado con éxito! Se te redirigirá al inicio...');
+    alert("Producto publicado con éxito! Se te redirigirá al inicio...");
     setInput({
-      nombre: '',
-      URL: '',
-      precio: '',
-      color: '',
-      talla: '',
-      marca: '',
-      categoria: '',
-      stock: '',
+      nombre: "",
+      URL: "",
+      precio: "",
+      color: "",
+      talla: "",
+      marca: "",
+      categoria: "",
+      stock: "",
     });
-    history.push('/'); //me manda al home
+    history.push("/"); //me manda al home
   };
 
   return (
@@ -129,15 +138,15 @@ export default function ProdCreate() {
       <div className={style.createHeader}>
         <div className={style.black}></div>
         <div className={style.white}>
-          <NavLink to="/" style={{ textDecoration: 'none' }}>
+          <NavLink to="/" style={{ textDecoration: "none" }}>
             <div className={style.backHome}>
               <img src={back} alt=""></img>
               Atrás
             </div>
           </NavLink>
-          <div className={style.search}>
+          {/* <div className={style.search}>
             <SearchBar />
-          </div>
+          </div> */}
           <div className={style.btns}>
             <div className={style.btn}>
               <img src={user} alt="user"></img>
@@ -155,7 +164,6 @@ export default function ProdCreate() {
         <h1>Crear Producto</h1>
         <div className={style.forms}>
           <form onSubmit={(e) => handlerSubmit(e)}>
-
             <div className={style.inputs}>
               <label>Nombre: </label>
               <input

@@ -1,8 +1,11 @@
 const { Router } = require("express");
 const adminQARouter = Router();
 const { Producto, Pregunta } = require("../db");
+const { validateAdmin } = require("./middleware/validateAdmin");
+const { validateAccessToken } = require("./middleware/validateAccessToken");
+const { errorHandler } = require("./middleware/error.middleware");
 
-adminQARouter.get("/", async (req, res) => {
+adminQARouter.get("/", validateAccessToken, validateAdmin, async (req, res) => {
   try {
     const allQuestions = await Pregunta.findAll({
       raw: true,
@@ -13,9 +16,9 @@ adminQARouter.get("/", async (req, res) => {
       questionId: q.id,
       question: q.question,
       answer: q.answer,
-      productId: q["Producto.id"],
-      productName: q["Producto.nombre"],
-      productUrl: q["Producto.URL"],
+      productId: q["producto.id"],
+      productName: q["producto.nombre"],
+      productUrl: q["producto.URL"],
     }));
 
     res.status(200).json(questionsArr);
@@ -26,7 +29,7 @@ adminQARouter.get("/", async (req, res) => {
   }
 });
 
-adminQARouter.put("/", async (req, res) => {
+adminQARouter.put("/", validateAccessToken, validateAdmin, async (req, res) => {
   try {
     const { questionId, answer } = req.body;
 
@@ -41,5 +44,7 @@ adminQARouter.put("/", async (req, res) => {
     res.status(400).json({ error: true, msg: error.message });
   }
 });
+
+adminQARouter.use(errorHandler);
 
 module.exports = adminQARouter;
