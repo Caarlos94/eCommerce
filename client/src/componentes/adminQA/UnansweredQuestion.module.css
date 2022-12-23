@@ -16,7 +16,7 @@ img {
 }
 
 .nombre-imagen {
-  /* border: 3px solid blue; */
+  border: 3px solid blue;
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
@@ -61,4 +61,12 @@ img {
 .admin-question input {
   padding: 0.25rem;
   padding-left: 1rem;
+}
+
+.div1{
+  border: 3px solid green;
+}
+
+.div1{
+  border: 3px solid red;
 }
