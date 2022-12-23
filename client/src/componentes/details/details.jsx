@@ -7,13 +7,13 @@ import {
   limpiarState,
   addToCart,
 } from '../../redux/actions/actions.js';
-import { NavLink, useParams } from "react-router-dom";
-import SearchBar from "../navbar/searchBar/searchBar";
-import back from "../../img/back.png";
-import heart from "../../img/heart-regular.svg";
-import user from "../../img/user.svg";
-import shopping from "../../img/shopping.png";
-import QASection from "../customersQA/QASection"; // La sección de QA del producto. Debe ir en este componente. Falta posicionarlo bien, dar estilos etc
+import { NavLink, useParams } from 'react-router-dom';
+import SearchBar from '../navbar/searchBar/searchBar';
+import back from '../../img/back.png';
+import heart from '../../img/heart-regular.svg';
+import user from '../../img/user.svg';
+import shopping from '../../img/shopping.png';
+import QASection from '../customersQA/QASection'; // La sección de QA del producto. Debe ir en este componente. Falta posicionarlo bien, dar estilos etc
 import AdminQA from '../adminQA/AdminQA';
 
 const Details = () => {
@@ -39,7 +39,7 @@ const Details = () => {
       <div className={s.detailHeader}>
         <div className={s.black}></div>
         <div className={s.white}>
-          <NavLink to="/" style={{ textDecoration: "none" }}>
+          <NavLink to="/" style={{ textDecoration: 'none' }}>
             <div className={s.backHome}>
               <img src={back} alt=""></img>
               Atrás
@@ -66,7 +66,7 @@ const Details = () => {
 
       {/* <Navbar /> */}
       {details.length ? (
-        <div className={s["parent-container"]}>
+        <div className={s['parent-container']}>
           <div className={s.detailCont}>
             <div className={s.imgCont}>
               <div className={s.img11}>
@@ -84,10 +84,12 @@ const Details = () => {
                 <h5>Marca: {details[0].marca}</h5>
                 <h5>Color: {details[0].color}</h5>
                 <h5>Talla: {details[0].talla.toUpperCase()}</h5>
-                <h6>Stock: {details[0].stock}</h6>
+                <h5>Stock: {details[0].stock}</h5>
               </div>
               <div className={s.botones}>
-                <button onClick={() => handleSubmit(id)}>AÑADIR AL CARRITO</button>
+                <button onClick={() => handleSubmit(id)}>
+                  AÑADIR AL CARRITO
+                </button>
                 <div className={s.fav}>
                   <img src={heart} alt=""></img>
                 </div>

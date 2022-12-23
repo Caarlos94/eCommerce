@@ -14,6 +14,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getProducts());
+    dispatch(getCategorys());
   }, [dispatch]);
 
   const [, setOrder] = useState("");

@@ -8,8 +8,8 @@ import heart from '../../img/heart-regular.svg';
 import usuario from '../../img/user.svg';
 import shopping from '../../img/shopping.png';
 import { useDispatch } from 'react-redux';
-import { getProducts } from '../../redux/actions/actions.js';
-import { useAuth0 } from '@auth0/auth0-react';
+import { getProducts, importUser } from '../../redux/actions/actions.js';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = ({ setPages }) => {
   const dispatch = useDispatch();
@@ -18,8 +18,9 @@ const Navbar = ({ setPages }) => {
     dispatch(getProducts);
   }, [dispatch]);
 
-  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0();
-  const [isOpen, SetOpen] = useState(false)
+  const { user, loginWithRedirect, isAuthenticated, logout } = useAuth0()
+  
+  isAuthenticated && dispatch(importUser(user))
 
   return (
     <div className={style.div}>
@@ -56,7 +57,7 @@ const Navbar = ({ setPages }) => {
           {isAuthenticated ? (
             <div className={style.profileMenu}>
               <details>
-                <summary>Hola {user.given_name}!</summary>
+                <summary>Hola {user.nickname}!</summary>
                 <div className={style.desplegable}>
                   <div>
                     <Link to="/profile" style={{ textDecoration: 'none' }} className={style.button}>Perfil</Link>
@@ -78,8 +79,7 @@ const Navbar = ({ setPages }) => {
               <img src={shopping} alt=""></img>
             </div>
           </NavLink>
-        
-        </div>  
+        </div>
       </div>
 
     </div >
