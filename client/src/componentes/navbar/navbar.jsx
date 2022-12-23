@@ -19,7 +19,7 @@ const Navbar = ({ setPages }) => {
   }, [dispatch]);
 
   const { user, loginWithRedirect, isAuthenticated, logout } = useAuth0()
-  
+  const [isOpen , SetOpen] = useState(false)
   isAuthenticated && dispatch(importUser(user))
 
   return (
