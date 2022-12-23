@@ -1,5 +1,7 @@
+/* contenedor de todo el navbar */
+
 .div {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   height: 120px;
   width: 100%;
   display: flex;
@@ -9,6 +11,58 @@
   z-index: 1000;
 }
 
+/* parte negra superior del navbar */
+
+.black {
+  width: 100%;
+  height: 30%;
+  background-color: black;
+}
+
+
+.publicar button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #171717;
+  color: #fff;
+  font-weight: bold;
+  transition: all 0.4s;
+}
+
+.publicar button:hover {
+  border-radius: 5px;
+  transform: translateY(-10px);
+  box-shadow: 0 7px 0 -2px #f85959, 0 15px 0 -4px #39a2db,
+    0 16px 10px -3px #39a2db;
+}
+
+.publicar button:active {
+  transition: all 0.2s;
+  transform: translateY(-5px);
+  box-shadow: 0 2px 0 -2px #f85959, 0 8px 0 -4px #39a2db,
+    0 12px 10px -3px #39a2db;
+}
+
+.searchBar {
+  width: 300px;
+  display: flex;
+  align-items: center;
+  height: 30px;
+}
+
+.filtros {
+  width: 750px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Hamburguesa{
+  display: none;
+}
+
+
+
 .profileMenu summary {
 
   width: 200px;
@@ -16,6 +70,7 @@
   border: solid 1px black;
   border-top: solid 2px black;
 }
+
 
 .profileMenu summary {
   padding: 0px 5px;
@@ -82,30 +137,16 @@
   box-shadow: 0 2px 0 2px #3594ee;
 }
 
-.profileMenu summary:hover :before {
+ .profileMenu summary:hover :before {
   transform: skewX(30deg) translate(150%, -50%);
   transition-delay: 0.1s;
 }
 
 .profileMenu summary:active {
   transform: scale(0.9);
-}
+} 
 
 
-.black {
-  width: 100%;
-  height: 30%;
-  background-color: black;
-}
-
-.white {
-  width: 100%;
-  height: 70%;
-  background-color: white;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
 
 .btns {
   width: 150px;
@@ -129,47 +170,86 @@
   width: 25px;
 }
 
-.btn:nth-child(3) img {
+ .btn:nth-child(3) img {
+  width: 35px;
+} 
+
+ .carro .btn img {
   width: 35px;
 }
+ 
 
-.carro .btn img {
-  width: 35px;
-}
 
-.publicar button {
-  padding: 5px 10px;
-  border-radius: 5px;
-  background-color: #171717;
-  color: #fff;
-  font-weight: bold;
-  transition: all 0.4s;
-}
+ 
+@media (max-width: 768px){
 
-.publicar button:hover {
-  border-radius: 5px;
-  transform: translateY(-10px);
-  box-shadow: 0 7px 0 -2px #f85959, 0 15px 0 -4px #39a2db,
-    0 16px 10px -3px #39a2db;
-}
+  .black {
+    width: 100%;
+    height: 70%;
+    background-color: black;
+  }
 
-.publicar button:active {
-  transition: all 0.2s;
-  transform: translateY(-5px);
-  box-shadow: 0 2px 0 -2px #f85959, 0 8px 0 -4px #39a2db,
-    0 12px 10px -3px #39a2db;
-}
+  .filtros {
+    width: 100px;
+    display: flex; 
+    flex-direction: column;
+    position: relative;
+    top: 30px;
+    right: 33.5%;
+    margin-left: 40px;
+  }
 
-.searchBar {
-  width: 300px;
-  display: flex;
-  align-items: center;
-  height: 30px;
-}
+  .searchBar {
+    width: 300px;
+    position: relative;
+    top: -380px;
+    right: 10%;
+    display: flex; 
+    flex-direction: column;
+    margin-left: 99px;
+  }
 
-.filtros {
-  width: 750px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  .publicar button {
+    position: relative;
+    top: 50px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #171717;
+    color: #fff;
+    font-weight: bold;
+    transition: all 0.4s;
+  }
+  .Hamburguesa{
+   display: flex !important;
+   flex-direction: column;
+   margin: 5px;
+   position: relative; 
+   left: 90%;
+   top: 27px; 
+   cursor: pointer;
+   width: 30px;
+  }
+
+  .Hamburguesa span{
+   width: 30px;
+   height: 4px;
+   background-color:white;
+   margin-bottom: 5px; 
+   border-radius: 2px;
+   transform-origin:5px 0px;
+   transition: all 0.2s linear; 
+    
+  }
+    
+  .btns {
+    position: absolute;
+    top: -60px;
+    margin-right: 17%;
+    width: 150px;
+    height: 50px;
+    display: flex;
+    right: 1%;
+    filter: invert(100%);
+  }
+
 }

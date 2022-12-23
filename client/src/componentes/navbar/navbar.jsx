@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect , useState } from 'react';
 import SearchBar from './searchBar/searchBar.jsx';
 import Filtros from './filtros/filtros.jsx';
 import style from './navbar.module.css';
+import './navbarr.css'
 import { Link, NavLink } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
 import usuario from '../../img/user.svg';
@@ -18,24 +19,40 @@ const Navbar = ({ setPages }) => {
   }, [dispatch]);
 
   const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0();
+  const [isOpen, SetOpen] = useState(false)
 
   return (
     <div className={style.div}>
-      <div className={style.black}></div>
-      <div className={style.white}>
-        <div className={style.publicar}>
+      
+      <div className={style.black}>
+
+        
+
+        <div  className={style.Hamburguesa}  onClick={() => SetOpen(!isOpen)}>
+          <span className='span'></span>
+          <span className='span'></span>
+          <span className='span'></span>
+        </div>
+
+        
+      </div>
+        <div className={`white ${isOpen && 'open'}`}  >
+        
+         <div className={style.publicar}>
           <NavLink to="/product">
             <button>Publicar un producto!</button>
           </NavLink>
-        </div>
-        <div className={style.filtros}>
+         </div>
+         <div className={style.filtros}>
           <Filtros setPages={setPages} />
-        </div>
-        <div className={style.searchBar}>
+         </div>
+         <div className={style.searchBar}>
           <SearchBar setPages={setPages} />
         </div>
+        
+   
 
-        <div className={style.btns}>
+          <div className={style.btns}>
           {isAuthenticated ? (
             <div className={style.profileMenu}>
               <details>
@@ -61,21 +78,10 @@ const Navbar = ({ setPages }) => {
               <img src={shopping} alt=""></img>
             </div>
           </NavLink>
-          {isAuthenticated ? (
-            <div>
-              <button onClick={() => logout()} className={style.btn}>
-                Cerrar Sesión
-              </button>
-            </div>
-          ) : (
-            <div>
-              <button onClick={() => loginWithRedirect()} className={style.btn}>
-                Iniciar Sesión
-              </button>
-            </div>
-          )}
-        </div>
+        
+        </div>  
       </div>
+
     </div >
   );
 };

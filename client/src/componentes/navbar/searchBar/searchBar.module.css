@@ -34,12 +34,13 @@
   color: rgb(12, 12, 12);
   background-color: white;
   border-radius: 0 3px 3px 0;
-  /* position: relative; */
+  position: relative; 
   display: flex;
   align-items: center;
   justify-content: center;
   right: 0;
   position: absolute;
+  top: -2px;
   background-color: #eceff1;
 }
 

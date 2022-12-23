@@ -1,12 +1,6 @@
 
-.img{
-    border: 1px solid black;
-    width: 52%;
-    height: 250px;
-    position: relative;
-    left: 20%;
-    margin: 10px;
-   
+/* .img{
+width: 100%;
 }
 
 .next{
@@ -14,4 +8,4 @@ position: relative;
 top: -300px;
 width: 40%;
 opacity: 1;
-}
+} */

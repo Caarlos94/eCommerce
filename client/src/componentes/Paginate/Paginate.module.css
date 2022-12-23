@@ -6,13 +6,6 @@
   justify-content: center;
 }
 
-.paginadoBotonContainer {
-  width: 400px;
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 20px;
-}
-
 .numberList {
   background: rgb(0, 0, 0);
   padding: 10px 20px;
@@ -70,5 +63,33 @@
 @media (prefers-reduced-motion: reduce) {
   .btn-donate {
     transition: linear;
+  }
+}
+
+
+@media (max-width: 768px){
+
+  .paginadoContainer {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .numberList {
+    background: rgb(0, 0, 0);
+    padding: 5px 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 700;
+    color: white;
+    margin-left: 10px;
+  
+  }
+
+  .current{
+    padding: 5px 10px;
   }
 }
