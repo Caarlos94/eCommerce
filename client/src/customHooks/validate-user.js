@@ -24,3 +24,6 @@ export const useValidateUser = () => {
 
   return [isAuthenticated, isAdmin, accessToken];
 };
+
+// isAuthenticated PERMITE VERIFICAR SI EL USUARIO INICIO SESION
+// isAdmin PERMITE VERIFICAR SI EL USUARIO DEBE TENER ACCESO A RECURSOS DEL ADMIN

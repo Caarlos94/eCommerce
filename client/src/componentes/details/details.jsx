@@ -97,7 +97,6 @@ const Details = () => {
             </div>
           </div>
           <QASection productId={id} />
-          <AdminQA />
         </div>
       ) : (
         <div className={s.spinner}>
