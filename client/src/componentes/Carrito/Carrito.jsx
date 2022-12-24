@@ -70,9 +70,11 @@ const Carrito = () => {
             <div className={s.btn}>
               <img src={user} alt=""></img>
             </div>
-            <div className={s.btn}>
-              <img src={heart} alt=""></img>
-            </div>
+            <NavLink to="/favorites">
+              <div className={s.btn}>
+                <img src={heart} alt=""></img>
+              </div>
+            </NavLink>
             <NavLink to="/cart" className={s.carro}>
               <div className={s.btn}>
                 <img src={shopping} alt=""></img>
@@ -109,6 +111,14 @@ const Carrito = () => {
         ) : (
           <p>No tienes productos en tu carrito</p>
         )}
+      </div>
+      <div className={s.totalFinal}>
+        <div className={s.total2}>
+          <p>Total:</p>
+        </div>
+        <button className={s.pagar2} onClick={() => handleBuy()}>
+          Pagar ahora
+        </button>
       </div>
     </div>
   );

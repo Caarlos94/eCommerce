@@ -6,6 +6,7 @@ import {
   getDetails,
   limpiarState,
   addToCart,
+  addToFavorite,
 } from '../../redux/actions/actions.js';
 import { NavLink, useParams } from 'react-router-dom';
 import SearchBar from '../navbar/searchBar/searchBar';
@@ -34,6 +35,10 @@ const Details = () => {
     alert('Añadido con éxito al carrito');
   };
 
+  const handleAdd = (id) => {
+    dispatch(addToFavorite(id));
+  };
+
   return (
     <div>
       <div className={s.detailHeader}>
@@ -52,9 +57,11 @@ const Details = () => {
             <div className={s.btn}>
               <img src={user} alt=""></img>
             </div>
-            <div className={s.btn}>
-              <img src={heart} alt=""></img>
-            </div>
+            <NavLink to="/favorites">
+              <div className={s.btn}>
+                <img src={heart} alt=""></img>
+              </div>
+            </NavLink>
             <NavLink to="/cart" className={s.carro}>
               <div className={s.btn}>
                 <img src={shopping} alt=""></img>
@@ -90,14 +97,16 @@ const Details = () => {
                 <button onClick={() => handleSubmit(id)}>
                   AÑADIR AL CARRITO
                 </button>
-                <div className={s.fav}>
+                <div className={s.fav} onClick={() => handleAdd(id)}>
                   <img src={heart} alt=""></img>
                 </div>
               </div>
             </div>
           </div>
-          <QASection productId={id} />
-          <AdminQA></AdminQA>
+          <div className={s.qyaCont}>
+            <QASection productId={id} />
+            <AdminQA></AdminQA>
+          </div>
         </div>
       ) : (
         <div className={s.spinner}>

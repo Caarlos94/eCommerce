@@ -19,6 +19,8 @@ export const REMOVE_ONE_FROM_CART = 'REMOVE_ONE_FROM_CART';
 export const REMOVE_ALL_FROM_CART = 'REMOVE_ALL_FROM_CART';
 export const CLEAR_CART = 'CLEAR_CART';
 export const IMPORT_USER = 'IMPORT_USER';
+export const ADD_TO_FAVORITE = 'ADD_TO_FAVORITE';
+export const REMOVE_FROM_FAVORITE = 'REMOVE_FROM_FAVORITE';
 
 export const getProducts = () => {
   return async function (dispatch) {
@@ -76,13 +78,13 @@ export function postUser(payload) {
 export function importUser(user) {
   return function () {
     fetch('http://localhost:3001/users', {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(user),
-    })
-  }
+    });
+  };
 }
 
 export function postProd(payload) {
@@ -186,5 +188,17 @@ export function removeAllFromCart(id) {
 export function clearCart() {
   return {
     type: CLEAR_CART,
+  };
+}
+export function addToFavorite(id) {
+  return {
+    type: ADD_TO_FAVORITE,
+    payload: id,
+  };
+}
+export function removeFromFavorite(id) {
+  return {
+    type: REMOVE_FROM_FAVORITE,
+    payload: id,
   };
 }

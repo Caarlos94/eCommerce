@@ -10,13 +10,13 @@ const QAAnsweredQuestions = ({ productId }) => {
       .then((data) => data.json())
       .then((data) => setQuestions(data));
   }, [productId]);
-
+ console.log(questions);
   return (
     <div className={classes["questions-container"]}>
       <div className={classes["titulo-preguntas"]}>Última preguntas: </div>
-      {questions.map((q) => (
+      {/* {questions?.map((q) => (
         <QAAnsweredQuestion key={q.questionId} questionData={q} />
-      ))}
+      ))} */}
     </div>
   );
 };
