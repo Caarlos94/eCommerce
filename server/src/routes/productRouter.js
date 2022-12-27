@@ -21,7 +21,7 @@ productRouter.get('/:id', async (req, res) => {
   /* let getProduct = await getProductsFireBase();
   
   const productos = await getProduct.Productos.concat(prods); */
-  console.log(prods);
+  // console.log(prods);
   try {
     if (id) {
       let result = await prods.filter((p) => p.id == id);
@@ -75,18 +75,33 @@ productRouter.delete('/', async (req, res) => {
   }
 });
 
-productRouter.put('/:atributo', async (req, res) => {
-  const { atributo } = req.params;
-  const { value } = req.query;
-  try {
-    const newProduct = await Producto.update(
-      { [atributo]: value },
-      { where: { [atributo]: null } }
-    );
-    res.status(404).send(newProduct);
-  } catch (error) {
-    res.status(404).send(error.message);
-  }
-});
+// productRouter.put('/:stock', async (req, res) => {
+//   const { stock } = req.params;
+//   const { value } = req.query;
+//   try {
+
+//     const modifiedProduct = await Producto.update(
+//       // { [stock]: value },
+//       { [stock]: value },
+//       { where: { [stock]: 25 } } );
+
+//     res.status(200).send("Producto actualizado");
+//   } catch (error) {
+//     res.status(404).send(error.message);
+//   }
+// });
+
+// productRouter.put('/', async (req, res) => {
+//   try {
+
+//     const { id } = req.body;
+//     const product = await Producto.findByPk(id);
+//     product.dataValues.stock--
+
+//     res.status(200).json(product);
+//   } catch (error) {
+//     res.status(404).send(error.message);
+//   }
+// });
 
 module.exports = productRouter;

@@ -7,14 +7,15 @@ import {
   limpiarState,
   addToCart,
 } from '../../redux/actions/actions.js';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useParams, Link } from 'react-router-dom';
 import SearchBar from '../navbar/searchBar/searchBar';
 import back from '../../img/back.png';
 import heart from '../../img/heart-regular.svg';
-import user from '../../img/user.svg';
+import usuario from '../../img/user.svg';
 import shopping from '../../img/shopping.png';
 import QASection from '../customersQA/QASection'; // La sección de QA del producto. Debe ir en este componente. Falta posicionarlo bien, dar estilos etc
 import AdminQA from '../adminQA/AdminQA';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -27,10 +28,11 @@ const Details = () => {
   }, [dispatch, id]);
 
   const details = useSelector((state) => state.details);
+  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0()
 
   const handleSubmit = (id) => {
     dispatch(addToCart(id));
-    console.log(details);
+    // console.log(details);
     alert('Añadido con éxito al carrito');
   };
 
@@ -50,7 +52,23 @@ const Details = () => {
           </div>
           <div className={s.btns}>
             <div className={s.btn}>
-              <img src={user} alt=""></img>
+            {isAuthenticated ? (
+            <div>
+              <details>
+                <summary>Hola {user.nickname}!</summary>
+                <div>
+                  <div>
+                    <Link to="/profile" style={{ textDecoration: 'none' }}>Perfil</Link>
+                  </div>
+                  <div>
+                    <button onClick={() => logout()}>Cerrar sesión</button>
+                  </div>
+                </div>
+              </details>
+            </div>
+          ) : (
+            <button onClick={() => loginWithRedirect()} className={s.btn}> <img src={usuario}  alt=""></img> </button>
+          )}
             </div>
             <div className={s.btn}>
               <img src={heart} alt=""></img>
