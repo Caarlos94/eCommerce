@@ -15,6 +15,23 @@ img {
   min-width: 30%;
 }
 
+.nombre-imagen p {
+  transition: 0.2s;
+}
+
+.nombre-imagen p:hover {
+  font-size: 17px;
+}
+
+.nombre-imagen img {
+  width: 1000px;
+}
+
+.imgProd {
+  display: flex;
+  justify-content: center;
+}
+
 .nombre-imagen {
   /* border: 3px solid blue; */
   background-color: rgba(114, 114, 114, 0.021);
@@ -26,6 +43,7 @@ img {
 }
 
 .nombre-imagen p {
+  color: black;
   margin-bottom: 1.2rem;
 }
 
@@ -62,4 +80,12 @@ img {
 .admin-question input {
   padding: 0.25rem;
   padding-left: 1rem;
+}
+
+.div1 {
+  border: 3px solid green;
+}
+
+.div1 {
+  border: 3px solid red;
 }
