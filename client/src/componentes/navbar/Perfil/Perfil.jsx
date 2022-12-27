@@ -71,7 +71,7 @@ const Perfil = () => {
           <NavLink to="/" style={{ textDecoration: 'none' }}>
             <div className={style.backHome}>
               <img src={back} alt=""></img>
-              Atrás
+              Inicio
             </div>
           </NavLink>
         </div>
@@ -91,6 +91,12 @@ const Perfil = () => {
               <h4>Email verificado: {user.email_verified === true
                 ? 'Si'
                 : 'No, verificar por favor.'}</h4>
+            </div >
+
+            <div className={style.info}>
+              <h4>Rol: {user.admin === true
+                ? 'Administrador'
+                : 'Usuario'}</h4>
             </div >
 
             {/* <div className={style.inputs}>

@@ -3,14 +3,13 @@ import style from './filtros.module.css';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-
 import {
   searchXmarca,
   searchXprecio,
   searchXtalla,
   searchXcategoria,
   /* emptyError, */
-  getProducts2
+  getProducts2,
 } from '../../../redux/actions/actions.js';
 
 const Filtros = () => {
@@ -32,18 +31,24 @@ const Filtros = () => {
 
   const fn4 = (el) => {
     dispatch(searchXtalla(el.target.value));
-
   };
-
-
 
   const handlerClickAllProds = () => {
     dispatch(getProducts2())
+    returnDefault()
   }
+
+  const returnDefault = () => {
+    document.getElementById('fn').value = 'Categorias'
+    document.getElementById('fn2').value = 'Marca'
+    document.getElementById('fn3').value = 'Precio'
+    document.getElementById('fn4').value = 'Talla'
+  }
+
   return (
     <div className={style.div}>
       <div className={style.allFilters}>
-        <select onChange={(e) => fn(e)} className={style.select}>
+        <select onChange={(e) => fn(e)} className={style.select} id='fn'>
           <option className='option1' hidden >Categorias</option>
           <option value="todas">Todas</option>
           <option value="Camperas">Camperas</option>
@@ -54,9 +59,9 @@ const Filtros = () => {
         </select>
 
 
-        <select onChange={(e) => fn2(e)} className={style.select}>
+        <select onChange={(e) => fn2(e)} className={style.select} id='fn2'>
           <option hidden>Marca</option>
-          <option value="todas">todas</option>
+          <option value="todas">Todas</option>
           <option value="Adidas">Adidas</option>
           <option value="Nike">Nike</option>
           <option value="Puma">Puma</option>
@@ -64,7 +69,7 @@ const Filtros = () => {
           <option value="Le Coq Sportif">Le Coq Sportif</option>
         </select>
 
-        <select onChange={(e) => fn3(e)} className={style.select}>
+        <select onChange={(e) => fn3(e)} className={style.select} id='fn3'>
           <option className='option3' hidden>Precio</option>
           <option value={[0, 0]}>Todos</option>
           <option value={[10, 15]}>10 a 15 usd$</option>
@@ -73,7 +78,7 @@ const Filtros = () => {
           <option value={[25, 30]}>25 a 30 usd$</option>
         </select>
 
-        <select onChange={(e) => fn4(e)} className={style.select}>
+        <select onChange={(e) => fn4(e)} className={style.select} id='fn4'>
           <option className='option4' hidden>Talla</option>
           <option value="todas">Todas</option>
           <option value="S">S</option>
@@ -85,7 +90,9 @@ const Filtros = () => {
       </div>
       <div className={style.clear}>
         <NavLink to="/">
-          <button onClick={(e) => handlerClickAllProds(e)}>Todos los Productos</button>
+          <button onClick={(e) => handlerClickAllProds(e)}>
+            Todos los Productos
+          </button>
         </NavLink>
       </div>
 
