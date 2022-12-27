@@ -3,14 +3,13 @@ import style from './filtros.module.css';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-
 import {
   searchXmarca,
   searchXprecio,
   searchXtalla,
   searchXcategoria,
   /* emptyError, */
-  getProducts2
+  getProducts2,
 } from '../../../redux/actions/actions.js';
 
 const Filtros = () => {
@@ -32,7 +31,6 @@ const Filtros = () => {
 
   const fn4 = (el) => {
     dispatch(searchXtalla(el.target.value));
-
   };
 
   const handlerClickAllProds = () => {
@@ -63,7 +61,7 @@ const Filtros = () => {
 
         <select onChange={(e) => fn2(e)} className={style.select} id='fn2'>
           <option hidden>Marca</option>
-          <option value="todas">todas</option>
+          <option value="todas">Todas</option>
           <option value="Adidas">Adidas</option>
           <option value="Nike">Nike</option>
           <option value="Puma">Puma</option>
@@ -92,7 +90,9 @@ const Filtros = () => {
       </div>
       <div className={style.clear}>
         <NavLink to="/">
-          <button onClick={(e) => handlerClickAllProds(e)}>Todos los Productos</button>
+          <button onClick={(e) => handlerClickAllProds(e)}>
+            Todos los Productos
+          </button>
         </NavLink>
       </div>
 

@@ -94,9 +94,14 @@ const Carrito = () => {
         ) : (
           <p>No tienes productos en tu carrito</p>
         )}
-        <div>
-          Total compra:
+      </div>
+      <div className={s.totalFinal}>
+        <div className={s.total2}>
+          <p>Total:</p>
         </div>
+        <button className={s.pagar2} onClick={() => handleBuy()}>
+          Pagar ahora
+        </button>
       </div>
     </div>
   );

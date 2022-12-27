@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchBar from './searchBar/searchBar.jsx';
 import Filtros from './filtros/filtros.jsx';
 import style from './navbar.module.css';
+import './navbarr.css';
 import { Link, NavLink } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
 import usuario from '../../img/user.svg';
@@ -11,7 +12,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProducts, importUser } from '../../redux/actions/actions.js';
 import { useAuth0 } from "@auth0/auth0-react";
 import jwt_decode from "jwt-decode";
-import { useState } from "react";
 
 const Navbar = ({ setPages }) => {
   const dispatch = useDispatch();
@@ -46,13 +46,19 @@ const Navbar = ({ setPages }) => {
     checkForAdminRole();
   }, [isAuthenticated, getAccessTokenSilently]);
 
+  const [isOpen, SetOpen] = useState(false);
   isAuthenticated && dispatch(importUser(user));
 
   return (
     <div className={style.div}>
-      <div className={style.black}></div>
-      <div className={style.white}>
-
+      <div className={style.black}>
+        <div className={style.Hamburguesa} onClick={() => SetOpen(!isOpen)}>
+          <span className="span"></span>
+          <span className="span"></span>
+          <span className="span"></span>
+        </div>
+      </div>
+      <div className={`white ${isOpen && 'open'}`}>
         <div className={style.filtros}>
           <Filtros setPages={setPages} />
         </div>
@@ -106,10 +112,6 @@ const Navbar = ({ setPages }) => {
             </div>
           ) : (
             <>
-              <div className={style.btn}>
-                <img src={heart} alt=""></img>
-              </div>
-
               {carrito.length > 0 ? (
                 <NavLink to="/cart" className={style.carro} style={{ textDecoration: 'none' }}>
                   <div className={style.btn}>
@@ -124,11 +126,16 @@ const Navbar = ({ setPages }) => {
                   </div>
                 </NavLink>
               )}
+              <NavLink to="/favorites">
+                <div className={style.btn}>
+                  <img src={heart} alt=""></img>
+                </div>
+              </NavLink>
             </>
           )}
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 
