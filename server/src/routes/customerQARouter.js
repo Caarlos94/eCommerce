@@ -8,8 +8,6 @@ customerQARouter.post("/", async (req, res) => {
 
     const product = await Producto.findByPk(productId);
 
-    console.log(product.productId);
-
     const question = await Pregunta.create({ question: newQuestion });
 
     question.setProducto(product);

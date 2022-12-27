@@ -82,13 +82,13 @@
   transition: all 0.5s;
 }
 
-.qa {
-  width: 100px;
+.admin{
+  display: flex;
 }
 
 .btnQA {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 55px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -98,7 +98,7 @@
 }
 
 .btnQA img {
-  width: 50px;
+  width: 80px;
 }
 
 .btnQA:nth-child(3) img {
@@ -141,6 +141,7 @@
   height: 50px;
   display: flex;
   right: 1%;
+  padding-right: 400px;
 }
 
 .btn {
@@ -166,10 +167,20 @@
   width: 35px;
 }
 
+.adminBut {
+  display: flex;
+}
+
+
 .publicar button {
+  display: flex;
+  align-items: center;
   padding: 5px 10px;
+  margin-left: 25px;
   border-radius: 5px;
   background-color: #171717;
+  width: 150px;
+  height: 55px;
   color: #fff;
   font-weight: bold;
   transition: all 0.4s;

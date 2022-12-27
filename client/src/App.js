@@ -8,18 +8,20 @@ import Answers from './componentes/Answers/Answers';
 /* import QASection from './componentes/customersQA/QASection'; */
 import { Route } from 'react-router-dom';
 import About from './componentes/About/About';
+import { ProtectedRoute } from "./componentes/ProtectedRoute";
 
 function App() {
   return (
     <div>
       <Route exact path="/" component={Home} />
       <Route path="/product" component={ProductCreate} />
+
       <Route path="/details/:id" component={Details} />
-      <Route path="/profile" component={Perfil} />
       <Route path="/cart" component={Carrito} />
       <Route path="/answers" component={Answers} />
       <Route path="/about" component={About} />
       {/* <Route path="/QASection" component={QASection} /> */}
+      <Route path="/profile" component={Perfil} />
     </div>
   );
 }

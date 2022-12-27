@@ -16,6 +16,7 @@ import shopping from '../../img/shopping.png';
 import QASection from '../customersQA/QASection'; // La sección de QA del producto. Debe ir en este componente. Falta posicionarlo bien, dar estilos etc
 import { useAuth0 } from '@auth0/auth0-react';
 import answers from '../../img/answ.png'
+import Navbar from '../navbar/navbar';
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -35,12 +36,13 @@ const Details = () => {
   const handleSubmit = (id) => {
     dispatch(addToCart(id));
     console.log(details);
-    alert('Añadido con éxito al carrito');
+    alert("Añadido con éxito al carrito");
   };
 
   return (
     <div>
-      <div className={s.detailHeader}>
+    <Navbar />
+      {/* <div className={s.detailHeader}>
         <div className={s.black}></div>
         <div className={s.white}>
           <NavLink to="/" style={{ textDecoration: 'none' }}>
@@ -96,10 +98,9 @@ const Details = () => {
             </NavLink>
 
           </div>
-        </div>
-      </div>
+        </div> 
+      </div>*/}
 
-      {/* <Navbar /> */}
       {details.length ? (
         <div className={s['parent-container']}>
           <div className={s.detailCont}>
