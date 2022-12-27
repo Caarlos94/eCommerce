@@ -20,6 +20,10 @@ mercadopago.configure({
   access_token: "TEST-8763313892706046-121400-1f81130c8eea6eec0631d629769666b3-1263181426",
 });
 
+
+let obj = {}
+
+
 router.post("/pagosMeli", async (req, res) => {
   let items = req.body.items;
 
@@ -35,16 +39,16 @@ router.post("/pagosMeli", async (req, res) => {
   let preference = {
     items: itemsArr,
     back_urls: {
-      success: "http://localhost:3001/redirect",
-      failure: "http://localhost:3001/redirect",
-      pending: "http://localhost:3001/redirect"
-    }
+      success: "http://localhost:3001/redirect"
+    },
+  
   };
+
+  obj = items
 
   mercadopago.preferences.create(preference)
     .then(function (response) {
-      console.log(response.body);
-      /* res.redirect(response.body.init_point) */
+
       res.json(response.body.init_point)
     })
     .catch(function (error) {
@@ -53,13 +57,23 @@ router.post("/pagosMeli", async (req, res) => {
 })
 
 
-router.get("/redirect", async (req, res) => {
-  try {
-    res.redirect('http://localhost:3000')
-  } catch (error) {
-    res.status(400).send(error.message)
-  }
+router.get("/redirect", async (req, res) => { 
+
+    const { status } = req.query
+   try {
+    
+   console.log(status);
+   console.log(obj);
+
+   res.redirect('http://localhost:3000')
+   } catch (error) {
+    console.log('err');
+   }
+
+
+ 
 })
+
 
 
 router.get("/", async (req, res) => {

@@ -21,7 +21,6 @@ productRouter.get('/:id', async (req, res) => {
   /* let getProduct = await getProductsFireBase();
   
   const productos = await getProduct.Productos.concat(prods); */
-  console.log(prods);
   try {
     if (id) {
       let result = await prods.filter((p) => p.id == id);

@@ -64,7 +64,7 @@
   transition: all 0.4s;
   position: absolute;
   left: 3%;
-  top: 7%;
+  top: 130px;
 }
 
 .backHome:hover {
@@ -280,4 +280,55 @@
   100% {
     transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
   }
+}
+
+
+
+
+/* ////////diseño responsive///////// */
+@media (max-width: 768px){
+  
+
+  .search {
+    width: 200px;
+    position: absolute;
+    right: 37%;
+    top: 65px;
+  }
+
+  .img111 {
+    width: 100%;
+    height: 70%;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    top: -110px;
+    left: 26%;
+    border: 1px solid black;
+  }
+
+  .productDesc{
+
+    position: relative;
+    top: 400px;
+    right: 99%;
+    width: 250%;
+  }
+
+  .btns{
+    border: 1px solid black;
+    width: 25%;
+  }
+  .botones{
+    width: 200%;
+    position: relative;
+    top: 320px;
+    right: 112%;
+  }
+
+  .QA{
+    position: relative;
+    top: 300px;
+  }
+ 
 }

@@ -13,6 +13,7 @@ import back from '../../img/back.png';
 import heart from '../../img/heart-regular.svg';
 import user from '../../img/user.svg';
 import shopping from '../../img/shopping.png';
+import Navbar from '../navbar/navbar.jsx';
 import QASection from '../customersQA/QASection'; // La sección de QA del producto. Debe ir en este componente. Falta posicionarlo bien, dar estilos etc
 import AdminQA from '../adminQA/AdminQA';
 
@@ -30,14 +31,21 @@ const Details = () => {
 
   const handleSubmit = (id) => {
     dispatch(addToCart(id));
-    console.log(details);
     alert('Añadido con éxito al carrito');
   };
 
   return (
     <div>
       <div className={s.detailHeader}>
-        <div className={s.black}></div>
+        <Navbar></Navbar>
+
+        <NavLink to="/" style={{ textDecoration: 'none' }}>
+          <div className={s.backHome}>
+              <img src={back} alt=""></img>
+              Atrás
+          </div>
+        </NavLink>
+        {/* <div className={s.black}></div>
         <div className={s.white}>
           <NavLink to="/" style={{ textDecoration: 'none' }}>
             <div className={s.backHome}>
@@ -61,16 +69,14 @@ const Details = () => {
               </div>
             </NavLink>
           </div>
-        </div>
+        </div> */}
       </div>
 
-      {/* <Navbar /> */}
       {details.length ? (
         <div className={s['parent-container']}>
           <div className={s.detailCont}>
             <div className={s.imgCont}>
               <div className={s.img11}>
-                {/* <img src={details[0].URL} alt="img"></img> */}
                 <div
                   className={s.img111}
                   style={{ backgroundImage: `url(${details[0].URL})` }}
@@ -79,7 +85,7 @@ const Details = () => {
             </div>
             <div className={s.textCont}>
               <div className={s.productDesc}>
-                <h2>{details[0].nombre.toUpperCase()}</h2>
+                <h2 className={s.h2}>{details[0].nombre.toUpperCase()}</h2>
                 <h3>${details[0].precio} U$D</h3>
                 <h5>Marca: {details[0].marca}</h5>
                 <h5>Color: {details[0].color}</h5>
@@ -96,8 +102,10 @@ const Details = () => {
               </div>
             </div>
           </div>
+          <div className={s.QA}>
           <QASection productId={id} />
           <AdminQA></AdminQA>
+          </div>
         </div>
       ) : (
         <div className={s.spinner}>

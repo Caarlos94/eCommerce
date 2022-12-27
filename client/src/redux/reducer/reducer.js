@@ -136,7 +136,7 @@ const rootReducer = (state = initialState, action) => {
 
     case SEARCHxCATEGORIA: {
 
-      let arr = [...state.products]
+      //  let arr = [...state.products]
       let productsFilter = [];
 
 

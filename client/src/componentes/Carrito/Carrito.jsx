@@ -37,6 +37,7 @@ const Carrito = () => {
   };
 
   const handleBuy = () => {
+  
     fetch('http://localhost:3001/pagosMeli', {
       method: 'POST',
       headers: {
@@ -49,8 +50,22 @@ const Carrito = () => {
         if (data.error) console.log(data); // manejar caso de error
         window.open(data, '_self');
         /* console.log(data); */
-      });
+      });   
+      // handleStock()
   };
+
+
+  // const handleStock = () => {
+  
+  //   fetch('http://localhost:3001/redirect', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ items: cart }),
+  //   })
+     
+  // };
 
   return (
     <div className={s.cont}>
@@ -83,7 +98,7 @@ const Carrito = () => {
       </div>
       <div className={s.cartCont}>
         <h1>Carrito</h1>
-        <button onClick={() => handleClear()} className={s.limpiar}>
+        <button onClick={() => handleClear() } className={s.limpiar}>
           Limpiar
         </button>
         <div className={s.total}>
