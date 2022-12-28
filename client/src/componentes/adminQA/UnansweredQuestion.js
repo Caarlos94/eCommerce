@@ -1,5 +1,6 @@
 import { useState } from "react";
 import classes from "./UnansweredQuestion.module.css";
+import { NavLink } from 'react-router-dom'
 
 const UnansweredQuestion = ({ question, accessToken }) => {
   const [answer, setAnswer] = useState("");
@@ -28,6 +29,7 @@ const UnansweredQuestion = ({ question, accessToken }) => {
         }
       });
     setDidSubmit(true);
+    alert("Respuesta enviada con éxito! Se reflejará en el detalle del producto al actualizar la página...")
   };
 
   // {
@@ -42,27 +44,32 @@ const UnansweredQuestion = ({ question, accessToken }) => {
   return !question.answer && !didSubmit ? (
     <div className={classes["admin-question"]}>
       <div className={classes["nombre-imagen"]}>
-        <p>{question.productName}</p>
-        <img src={question.productUrl} alt="nombre del producto" />
-      </div>
+        <NavLink to={`details/${question.productId}`} style={{ textDecoration: 'none' }}>
+          <p >{question.productName}</p>
+          <div className={classes["imgProd"]} >
+            <img src={question.productUrl} alt="nombre del producto" />
+          </div>
+        </NavLink>
+      </div >
       <form onSubmit={handleSubmit}>
         <label className={classes.label} htmlFor="respuesta">
-          <p>Pregunta: </p>
+          {/* <p>Pregunta: </p> */}
           {question.question}
         </label>
         <br />
         <input
           autoComplete="off"
           onChange={handleChange}
+          placeholder="Ej: Sí, tenemos stock!"
           name="respuesta"
           type="text"
           value={answer}
         />
-        <button disabled={!answer.length} type="submit">
+        <button disabled={!answer.length} type="submit"  >
           Enviar respuesta
         </button>
       </form>
-    </div>
+    </div >
   ) : (
     ""
   );

@@ -7,6 +7,7 @@ const productRouter = require("./productRouter.js");
 const userRouter = require("./userRouter.js");
 const customerQARouter = require("./customerQARouter");
 const adminQARouter = require("./adminQARouter");
+const compraRouter = require("./compraRouter");
 
 const router = Router();
 const mercadopago = require("mercadopago");
@@ -18,10 +19,12 @@ router.use("/products", productRouter);
 router.use("/users", userRouter);
 router.use("/customerQA", customerQARouter);
 router.use("/adminQA", adminQARouter);
+router.use("/compras", compraRouter);
 
 mercadopago.configure({
   access_token:
     "APP_USR-8763313892706046-121400-b6b39cc901e4f87d36ca35efbd37f52c-1263181426",
+  /* access_token: "TEST-8763313892706046-121400-1f81130c8eea6eec0631d629769666b3-1263181426", PREGUNTAR ALEJANDRO*/
 });
 
 router.post("/pagosMeli", async (req, res) => {

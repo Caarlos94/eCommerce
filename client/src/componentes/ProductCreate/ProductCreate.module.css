@@ -53,12 +53,6 @@
   width: 35px;
 }
 
-.search {
-  width: 300px;
-  position: absolute;
-  right: 15%;
-}
-
 .backHome {
   border: 1px solid black;
   display: flex;
@@ -76,9 +70,81 @@
   filter: invert(100%);
 }
 
+.profileMenu summary {
+  padding: 0px 5px;
+  /* width: 80px; */
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  background-color: #ffffff;
+  font-weight: bolder;
+  box-shadow: 0 2px 0 2px #000;
+  border-radius: 5px;
+  border: solid 1px black;
+  border-top: solid 2px black;
+}
+
+.desplegable {
+  border: 1px solid black;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.desplegable div {
+  border: 1px solid black;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 4px 10px;
+  background-color: #171717;
+}
+
+.button {
+  background: none;
+  border: 0;
+  cursor: default;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
+  color: #fff;
+}
+
+.button:hover {
+  color: #2c96cf
+}
+
+.profileMenu summary:before {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 120%;
+  background-color: #ff6700;
+  top: 50%;
+  transform: skewX(30deg) translate(-150%, -50%);
+  transition: all 0.5s;
+}
+
+.profileMenu summary:hover {
+  background-color: #000000;
+  color: #fff;
+  box-shadow: 0 2px 0 2px #3594ee;
+}
+
+.profileMenu summary:hover :before {
+  transform: skewX(30deg) translate(150%, -50%);
+  transition-delay: 0.1s;
+}
+
+.profileMenu summary:active {
+  transform: scale(0.9);
+}
+
 .createCont {
   background-color: #edeff0;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -98,10 +164,45 @@
   align-items: center;
 }
 
+.inputI {
+  margin-top: 40px;
+  width: 400px;
+  position: relative;
+  padding-bottom: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.inputI img {
+  position: absolute;
+  right: 0;
+}
+
+
+.inputI p {
+  position: absolute;
+  right: 0;
+  top: 25px;
+  width: 100%;
+}
+
+.inputI input {
+  position: absolute;
+  right: 100px;
+}
+
+.inputI label {
+  font-weight: bold;
+  margin-right: 30px;
+}
+
 .inputs {
-  margin-top: 20px;
+  margin-top: 40px;
   width: 300px;
   position: relative;
+  padding-bottom: 40px;
+  display: flex;
+  align-items: center;
 }
 
 .inputs input {

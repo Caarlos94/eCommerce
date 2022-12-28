@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, NavLink } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, NavLink, Link } from 'react-router-dom';
 import {
   getCategorys,
   getProducts,
   getProducts2,
   postProd,
-} from "../../redux/actions/actions";
-import style from "./ProductCreate.module.css";
+} from '../../redux/actions/actions';
+import style from './ProductCreate.module.css';
 /* import SearchBar from '../navbar/searchBar/searchBar'; */
-import back from "../../img/back.png";
-import heart from "../../img/heart-regular.svg";
-import user from "../../img/user.svg";
-import shopping from "../../img/shopping.png";
+import back from '../../img/back.png';
+import usuario from '../../img/user.svg';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const validate = (input, prods) => {
   let errors = {};
@@ -70,6 +69,8 @@ export default function ProdCreate() {
   const dispatch = useDispatch();
   const prods = useSelector((state) => state.products);
   const categs = useSelector((state) => state.categorys);
+
+  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0()
 
   const history = useHistory();
   const [errors, setErrors] = useState({});
@@ -141,22 +142,27 @@ export default function ProdCreate() {
           <NavLink to="/" style={{ textDecoration: "none" }}>
             <div className={style.backHome}>
               <img src={back} alt=""></img>
-              Atrás
+              Inicio
             </div>
           </NavLink>
-          {/* <div className={style.search}>
-            <SearchBar />
-          </div> */}
           <div className={style.btns}>
-            <div className={style.btn}>
-              <img src={user} alt="user"></img>
-            </div>
-            <div className={style.btn}>
-              <img src={heart} alt="fav"></img>
-            </div>
-            <div className={style.btn}>
-              <img src={shopping} alt="carrito"></img>
-            </div>
+            {isAuthenticated ? (
+              <div className={style.profileMenu}>
+                <details>
+                  <summary>Hola {user.nickname}!</summary>
+                  <div className={style.desplegable}>
+                    <div>
+                      <Link to="/profile" style={{ textDecoration: 'none' }} className={style.button}>Perfil</Link>
+                    </div>
+                    <div>
+                      <button onClick={() => logout()} className={style.button}>Cerrar sesión</button>
+                    </div>
+                  </div>
+                </details>
+              </div>
+            ) : (
+              <button onClick={() => loginWithRedirect()} className={style.btn}> <img src={usuario} alt=""></img> </button>
+            )}
           </div>
         </div>
       </div>
@@ -164,7 +170,8 @@ export default function ProdCreate() {
         <h1>Crear Producto</h1>
         <div className={style.forms}>
           <form onSubmit={(e) => handlerSubmit(e)}>
-            <div className={style.inputs}>
+
+            <div className={style.inputI}>
               <label>Nombre: </label>
               <input
                 type="text"
@@ -175,7 +182,7 @@ export default function ProdCreate() {
               {errors.nombre && <p className={style.errors}>{errors.nombre}</p>}
             </div>
 
-            <div className={style.inputs}>
+            <div className={style.inputI}>
               <label>Imagen: </label>
               <input
                 type="text"
@@ -183,10 +190,15 @@ export default function ProdCreate() {
                 name="URL"
                 onChange={(e) => handlerChange(e)}
               ></input>
-              {errors.URL && <p className={style.errors}>{errors.URL}</p>}
+              {errors.URL
+                ? <p className={style.errors}>{errors.URL}</p>
+                : input.URL
+                  ? <img src={input.URL} alt='img'></img>
+                  : ""
+              }
             </div>
 
-            <div className={style.inputs}>
+            <div className={style.inputI}>
               <label>Precio </label>
               <input
                 type="number"
@@ -197,7 +209,7 @@ export default function ProdCreate() {
               {errors.precio && <p className={style.errors}>{errors.precio}</p>}
             </div>
 
-            <div className={style.inputs}>
+            <div className={style.inputI}>
               <label>Color: </label>
               <input
                 type="text"
@@ -209,7 +221,7 @@ export default function ProdCreate() {
               {errors.color && <p className={style.errors}>{errors.color}</p>}
             </div>
 
-            <div className={style.inputs}>
+            <div className={style.inputI}>
               <label>Talla: </label>
               <input
                 type="text"
@@ -220,7 +232,7 @@ export default function ProdCreate() {
               {errors.talla && <p className={style.errors}>{errors.talla}</p>}
             </div>
 
-            <div className={style.inputs}>
+            <div className={style.inputI}>
               <label>Marca: </label>
               <input
                 type="text"
@@ -231,7 +243,7 @@ export default function ProdCreate() {
               {errors.marca && <p className={style.errors}>{errors.marca}</p>}
             </div>
 
-            <div className={style.inputs}>
+            <div className={style.inputI}>
               <label>Stock: </label>
               <input
                 type="number"
