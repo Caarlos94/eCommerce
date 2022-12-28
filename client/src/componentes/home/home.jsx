@@ -83,7 +83,7 @@ const Home = () => {
           <div>
             
               <div className={s.section}>
-                {currentProducts.map((card) => (
+                {currentProducts.map((card) => parseInt(card.stock) > 0 && (
                   <div key={card.id}>
                     <Card
                       nombre={card.nombre}

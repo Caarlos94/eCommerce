@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const { Producto } = require('../db.js');
 
 const productRouter = require("./productRouter.js");
 const userRouter = require("./userRouter.js");

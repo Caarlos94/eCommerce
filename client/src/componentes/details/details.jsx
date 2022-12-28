@@ -82,7 +82,10 @@ const Details = () => {
                 <h5>Marca: {details[0].marca}</h5>
                 <h5>Color: {details[0].color}</h5>
                 <h5>Talla: {details[0].talla.toUpperCase()}</h5>
-                <h5>Stock: {details[0].stock}</h5>
+                {details[0].stock > 0
+                  ? (<h5>Stock: {details[0].stock}</h5>)
+                  : (<h5>Producto no disponible! Stock agotado momentáneamente...</h5>)
+                }
               </div>
               {!isAdmin && (
                 <div className={s.botones}>
@@ -98,7 +101,6 @@ const Details = () => {
           </div>
           <div className={s.qyaCont}>
             <QASection productId={id} />
-            {/* <AdminQA></AdminQA> */}
           </div>
         </div>
       ) : (
