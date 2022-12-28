@@ -11,13 +11,15 @@ const QAAnsweredQuestions = ({ productId }) => {
       .then((data) => setQuestions(data));
   }, [productId]);
 
-  return (
+  return questions.length ? (
     <div className={classes["questions-container"]}>
-      <div className={classes["titulo-preguntas"]}>Última preguntas: </div>
+      <div className={classes["titulo-preguntas"]}>Últimas preguntas: </div>
       {questions.map((q) => (
         <QAAnsweredQuestion key={q.questionId} questionData={q} />
       ))}
     </div>
+  ) : (
+    ""
   );
 };
 
