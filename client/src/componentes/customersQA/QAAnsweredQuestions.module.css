@@ -11,3 +11,18 @@
   margin-bottom: 1.5rem;
   padding-left: 1rem;
 }
+
+@media (max-width: 768px) {
+  .questions-container {
+    position: absolute;
+
+    width: 95%;
+    height: 50%;
+    top: 0;
+  }
+
+  .titulo-preguntas {
+    position: absolute;
+    top: 10px;
+  }
+}

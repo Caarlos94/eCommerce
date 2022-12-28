@@ -12,14 +12,19 @@ const adminQARouter = require("./adminQARouter");
 
 const router = Router();
 const mercadopago = require("mercadopago");
-  
+const express = require("express");
+
+router.use(express.json());
+
 router.use("/products", productRouter);
 router.use("/users", userRouter);
 router.use("/customerQA", customerQARouter);
 router.use("/adminQA", adminQARouter);
 
 mercadopago.configure({
-  access_token: "APP_USR-8763313892706046-121400-b6b39cc901e4f87d36ca35efbd37f52c-1263181426",
+  access_token:
+    "APP_USR-8763313892706046-121400-b6b39cc901e4f87d36ca35efbd37f52c-1263181426",
+  /* access_token: "TEST-8763313892706046-121400-1f81130c8eea6eec0631d629769666b3-1263181426", PREGUNTAR ALEJANDRO*/
 });
 
 let obj = {}
@@ -58,7 +63,7 @@ router.post("/pagosMeli", async (req, res) => {
     .catch(function (error) {
       console.log(error);
     });
-})
+}) 
 
 
 router.get("/redirect", async (req, res) => {
@@ -66,15 +71,28 @@ router.get("/redirect", async (req, res) => {
     
     if(status === "approved"){
 
-    obj.forEach(async producto => {
+      
+      obj.forEach(async producto => {
 
-      let rest = producto.stock - producto.cantidad
+        let productStock = await Producto.findByPk(producto.id)
+        let stock = productStock.stock
+        console.log("El stock traido de la base de datos es " + stock);
+        
+      let rest = stock - producto.cantidad
+      console.log("***********************************************");
+      console.log("producto comprado: " + producto.nombre);
+      console.log("stock actual: " + producto.stock);
+      console.log("productos comprados: " + producto.cantidad);
+      console.log("stock restante: " + rest);
+      console.log("***********************************************");
+
+      
         const modifiedProduct = await Producto.update(
           { stock: rest },
           { where: { id: producto.id } } );
   
-        console.log(modifiedProduct);
-    })
+          // console.log(modifiedProduct);
+        })
 
       try {
         res.redirect('http://localhost:3000')
