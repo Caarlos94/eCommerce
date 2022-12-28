@@ -12,25 +12,27 @@ import {
   getProducts2,
 } from '../../../redux/actions/actions.js';
 
-const Filtros = () => {
+const Filtros = ({ setPages }) => {
   const dispatch = useDispatch();
 
   const fn = (el) => {
     dispatch(searchXcategoria(el.target.value));
-    // setPages(1);
+    setPages(1);
   };
 
   const fn2 = (el) => {
     dispatch(searchXmarca(el.target.value));
-    // setPages(1);
+    setPages(1);
   };
 
   const fn3 = (el) => {
     dispatch(searchXprecio(el.target.value));
+    setPages(1);
   };
 
   const fn4 = (el) => {
     dispatch(searchXtalla(el.target.value));
+    setPages(1);
   };
 
   const handlerClickAllProds = () => {

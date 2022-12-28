@@ -75,11 +75,11 @@ productRouter.delete("/", async (req, res) => {
   }
 });
 
-productRouter.put("/:atributo", async (req, res) => {
-  const { atributo } = req.params;
-  const { value } = req.query;
+/* productRouter.put("/", async (req, res) => {
+  const data = req.body;
+
   try {
-    const newProduct = await Producto.update(
+    const editedProduct = await Producto.update(
       { [atributo]: value },
       { where: { [atributo]: null } }
     );
@@ -87,6 +87,6 @@ productRouter.put("/:atributo", async (req, res) => {
   } catch (error) {
     res.status(404).send(error.message);
   }
-});
+}); */
 
 module.exports = productRouter;

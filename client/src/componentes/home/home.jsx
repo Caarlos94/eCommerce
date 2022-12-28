@@ -36,8 +36,8 @@ const Home = () => {
 
   const handlerOrderPrecio = (e) => {
     e.preventDefault();
+    setCurrentPage(1);
     dispatch(orderPrecio(e.target.value));
-    setCurrentPage(1); //cuando hago el ordenamiento seteo para que arranque en la prim página
     setOrder(`Ordenado ${e.target.value}`); //cuando seteo esta página, me modifica el estado local y lo modifica
   };
 

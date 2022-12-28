@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import SearchBar from './searchBar/searchBar.jsx';
-import Filtros from './filtros/filtros.jsx';
 import style from './navbar.module.css';
 import './navbarr.css';
 import { Link, NavLink } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
 import usuario from '../../img/user.svg';
+import back from '../../img/back.png';
 import shopping from '../../img/shopping.png';
 import answers from '../../img/answ.png'
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +13,7 @@ import { getProducts, importUser } from '../../redux/actions/actions.js';
 import { useAuth0 } from "@auth0/auth0-react";
 import jwt_decode from "jwt-decode";
 
-const Navbar = ({ setPages }) => {
+const Navbar2 = ({ setPages }) => {
   const dispatch = useDispatch();
   const carrito = useSelector((state) => state.cart)
 
@@ -60,10 +60,12 @@ const Navbar = ({ setPages }) => {
       </div>
 
       <div className={`white ${isOpen && 'open'}`}>
-
-        <div className={style.filtros}>
-          <Filtros setPages={setPages} />
-        </div>
+        <NavLink to="/" style={{ textDecoration: "none" }}>
+          <div className={style.backHome}>
+            <img src={back} alt="" ></img>
+            Atrás
+          </div>
+        </NavLink>
 
         <div className={style.searchBar}>
           <SearchBar setPages={setPages} />
@@ -143,4 +145,4 @@ const Navbar = ({ setPages }) => {
   );
 };
 
-export default Navbar;
+export default Navbar2;

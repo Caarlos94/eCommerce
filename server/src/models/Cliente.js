@@ -46,9 +46,5 @@ module.exports = (sequelize) => {
     purchase_history: {  //PENDIENTE
       type: DataTypes.STRING
     },
-    admin: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    }
   }, { timestamps: false });
 }; 

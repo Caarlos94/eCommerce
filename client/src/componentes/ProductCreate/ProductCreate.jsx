@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, NavLink, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {
   getCategorys,
   getProducts,
@@ -8,10 +8,7 @@ import {
   postProd,
 } from '../../redux/actions/actions';
 import style from './ProductCreate.module.css';
-/* import SearchBar from '../navbar/searchBar/searchBar'; */
-import back from '../../img/back.png';
-import usuario from '../../img/user.svg';
-import { useAuth0 } from '@auth0/auth0-react';
+import Navbar2 from '../navbar/navBar2';
 
 const validate = (input, prods) => {
   let errors = {};
@@ -69,8 +66,6 @@ export default function ProdCreate() {
   const dispatch = useDispatch();
   const prods = useSelector((state) => state.products);
   const categs = useSelector((state) => state.categorys);
-
-  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0()
 
   const history = useHistory();
   const [errors, setErrors] = useState({});
@@ -136,36 +131,7 @@ export default function ProdCreate() {
 
   return (
     <div>
-      <div className={style.createHeader}>
-        <div className={style.black}></div>
-        <div className={style.white}>
-          <NavLink to="/" style={{ textDecoration: "none" }}>
-            <div className={style.backHome}>
-              <img src={back} alt=""></img>
-              Inicio
-            </div>
-          </NavLink>
-          <div className={style.btns}>
-            {isAuthenticated ? (
-              <div className={style.profileMenu}>
-                <details>
-                  <summary>Hola {user.nickname}!</summary>
-                  <div className={style.desplegable}>
-                    <div>
-                      <Link to="/profile" style={{ textDecoration: 'none' }} className={style.button}>Perfil</Link>
-                    </div>
-                    <div>
-                      <button onClick={() => logout()} className={style.button}>Cerrar sesión</button>
-                    </div>
-                  </div>
-                </details>
-              </div>
-            ) : (
-              <button onClick={() => loginWithRedirect()} className={style.btn}> <img src={usuario} alt=""></img> </button>
-            )}
-          </div>
-        </div>
-      </div>
+      <Navbar2 />
       <div className={style.createCont}>
         <h1>Crear Producto</h1>
         <div className={style.forms}>
@@ -258,8 +224,8 @@ export default function ProdCreate() {
               <label>Categoría: </label>
               <select onChange={(e) => handlerSelectCateg(e)}>
                 {categs.map((c) => (
-                  <option value={c} key={categs.indexOf(c)}>
-                    {c}
+                  <option value={c.nombre} key={c.id}>
+                    {c.nombre}
                   </option>
                 ))}
               </select>

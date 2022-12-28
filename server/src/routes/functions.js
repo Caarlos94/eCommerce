@@ -14,7 +14,10 @@ const getCategories = async () => {
   result.forEach(async (e) => {
     Categoria.findOrCreate({ where: { nombre: e } });
   });
-  return result;
+
+  const allCategoriesDB = await Categoria.findAll();
+
+  return allCategoriesDB;
 };
 
 // Get products FROM firebase and save then into DB

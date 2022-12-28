@@ -1,11 +1,5 @@
 import React from 'react';
 import s from './Carrito.module.css';
-import SearchBar from '../navbar/searchBar/searchBar';
-import back from '../../img/back.png';
-import heart from '../../img/heart-regular.svg';
-import usuario from '../../img/user.svg';
-/* import shopping from '../../img/shopping.png'; */
-import { NavLink, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import CartProduct from './CartProduct';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -15,14 +9,14 @@ import {
   removeOneFromCart,
   addOneToCart,
 } from '../../redux/actions/actions';
-import Navbar from '../navbar/navbar';
+import Navbar2 from '../navbar/navBar2';
 
 const Carrito = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 
 
-  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0()
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
   const handleDelete = (id, all = false) => {
     console.log(id, all);
     if (all) {
@@ -65,7 +59,7 @@ const Carrito = () => {
 
   return (
     <div className={s.cont}>
-      <Navbar />
+      <Navbar2 />
       <div className={s.cartCont}>
         <h1>Carrito</h1>
         <button onClick={() => handleClear()} className={s.limpiar}>
