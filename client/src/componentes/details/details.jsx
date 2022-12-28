@@ -1,12 +1,13 @@
 import React from 'react';
 import s from './details.module.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getDetails,
   limpiarState,
   addToCart,
   addToFavorite,
+  removeFromFavorite,
 } from '../../redux/actions/actions.js';
 import { Link, NavLink, useParams } from 'react-router-dom';
 import SearchBar from '../navbar/searchBar/searchBar';
@@ -16,12 +17,12 @@ import usuario from '../../img/user.svg';
 import shopping from '../../img/shopping.png';
 import QASection from '../customersQA/QASection'; // La sección de QA del producto. Debe ir en este componente. Falta posicionarlo bien, dar estilos etc
 import { useAuth0 } from '@auth0/auth0-react';
-import answers from '../../img/answ.png'
+import answers from '../../img/answ.png';
 import Navbar from '../navbar/navbar';
 
 const Details = () => {
   const dispatch = useDispatch();
-  const carrito = useSelector((state) => state.cart)
+  const carrito = useSelector((state) => state.cart);
 
   let { id } = useParams();
 
@@ -30,17 +31,19 @@ const Details = () => {
     dispatch(getDetails(id));
   }, [dispatch, id]);
 
-  const details = useSelector((state) => state.details);
-  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0()
+  const [isAdd, setIsAdd] = useState(false);
 
+  const details = useSelector((state) => state.details);
+  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0();
 
   const handleSubmit = (id) => {
     dispatch(addToCart(id));
     console.log(details);
-    alert("Añadido con éxito al carrito");
+    alert('Añadido con éxito al carrito');
   };
 
   const handleAdd = (id) => {
+    setIsAdd((prev) => !prev);
     dispatch(addToFavorite(id));
   };
 
@@ -131,7 +134,11 @@ const Details = () => {
                 <button onClick={() => handleSubmit(id)}>
                   AÑADIR AL CARRITO
                 </button>
-                <div className={s.fav} onClick={() => handleAdd(id)}>
+                {/* <div className={s.fav} onClick={() => handleAdd(id)}> */}
+                <div
+                  className={isAdd ? s.current : s.fav}
+                  onClick={() => handleAdd(id)}
+                >
                   <img src={heart} alt=""></img>
                 </div>
               </div>

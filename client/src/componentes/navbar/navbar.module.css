@@ -64,12 +64,15 @@
 .btn h6 {
   color: rgb(255, 255, 255);
   border: solid rgba(0, 0, 0, 0.678) 0.1px;
-  width: 500px;
+  width: 22px;
+  height: 22px;
   background-color: red;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 100%;
+  position: absolute;
+  left: -27%;
 }
 
 .profileMenu summary {
@@ -134,7 +137,7 @@
   transition: all 0.5s;
 }
 
-.admin{
+.admin {
   display: flex;
 }
 
@@ -206,6 +209,7 @@
   border-radius: 5px;
   border: 0;
   background-color: white;
+  position: relative;
 }
 
 .btn img {
@@ -253,7 +257,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    top: 30px;
+    top: 90px;
     right: 33.5%;
     margin-left: 40px;
   }
@@ -268,22 +272,30 @@
     margin-left: 99px;
   }
 
+  .admin {
+    width: 200px;
+    border-radius: 10px;
+    margin-left: 50px;
+  }
+
   .publicar button {
-    position: relative;
-    top: 50px;
+    position: absolute;
+    top: 145px;
+    right: 220px;
     padding: 5px 10px;
     border-radius: 5px;
     background-color: #171717;
     color: #fff;
     font-weight: bold;
     transition: all 0.4s;
+    filter: invert(100%);
   }
   .Hamburguesa {
     display: flex !important;
     flex-direction: column;
     margin: 5px;
     position: relative;
-    left: 90%;
+    left: 5%;
     top: 27px;
     cursor: pointer;
     width: 30px;
@@ -303,10 +315,10 @@
     position: absolute;
     top: -65px;
     margin-right: 17%;
-    width: 150px;
+    width: 40%;
     height: 50px;
     display: flex;
-    right: 7%;
+    left: 25%;
     filter: invert(100%);
   }
 }

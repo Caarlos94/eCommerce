@@ -20,12 +20,12 @@
   transition: 0.2s;
 }
 
-/* .select:hover {
+.select:hover {
   color: var(--hover-text);
   transform: translate(-0.25rem, -0.25rem);
   background: var(--hover-bg);
   box-shadow: 0.25rem 0.25rem var(--bg);
-} */
+}
 
 .select:active {
   transform: translate(0);

@@ -492,6 +492,7 @@ const rootReducer = (state = initialState, action) => {
         (product) => product.id === newFavorite.id
       );
 
+      console.log(state.details);
       return productInFavorite
         ? { ...state }
         : {
