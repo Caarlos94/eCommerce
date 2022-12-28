@@ -16,11 +16,14 @@ import {
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
+  ADD_TO_FAVORITE,
+  REMOVE_FROM_FAVORITE,
 } from '../actions/actions.js';
 
 const initialState = {
   products: [],
   productsHome: [],
+  favorites: [],
   details: [],
   users: [],
   cart: [],
@@ -38,7 +41,10 @@ const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCTS: {
       //console.log(action.payload);
-      if (state.products.length === 0 || action.payload[1] === 'volver a cargar los productos') {
+      if (
+        state.products.length === 0 ||
+        action.payload[1] === 'volver a cargar los productos'
+      ) {
         return {
           ...state,
           products: [...action.payload[0]],
@@ -81,7 +87,6 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         details: [],
       };
-      
 
     case 'POST_PROD':
       return {
@@ -135,10 +140,8 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case SEARCHxCATEGORIA: {
-
-      //  let arr = [...state.products]
+      let arr = [...state.products];
       let productsFilter = [];
-
 
       if (action.payload === 'todas') {
         let arr = [...state.products];
@@ -481,6 +484,31 @@ const rootReducer = (state = initialState, action) => {
       };
     case CLEAR_CART:
       return initialState;
+    case ADD_TO_FAVORITE:
+      let newFavorite = state.details.find(
+        (product) => product.id === action.payload
+      );
+      let productInFavorite = state.favorites.find(
+        (product) => product.id === newFavorite.id
+      );
+
+      return productInFavorite
+        ? { ...state }
+        : {
+            ...state,
+            favorites: [...state.favorites, newFavorite],
+          };
+    case REMOVE_FROM_FAVORITE:
+      let productToRemove = state.favorites.find(
+        (product) => product.id === action.payload
+      );
+      return {
+        ...state,
+        favorites: state.favorites.filter(
+          (product) => product.id !== productToRemove.id
+        ),
+      };
+
     default:
       return { ...state };
   }

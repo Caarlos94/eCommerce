@@ -1,20 +1,20 @@
-.divaHome{
+.divaHome {
   width: 100%;
-
 }
 .hero {
   width: 100%;
   height: 85vh;
-  background-image: linear-gradient(0deg,
+  background-image: linear-gradient(
+      0deg,
       rgba(0, 0, 0, 0.3),
-      rgba(0, 0, 0, 0.3)),
+      rgba(0, 0, 0, 0.3)
+    ),
     url('../../img/stadium.jpg');
   background-position: bottom;
   background-size: cover;
   position: relative;
   display: flex;
   align-items: center;
-
 }
 
 .section {
@@ -22,7 +22,6 @@
   display: grid;
   grid-template-columns: 400px 400px 400px;
   grid-template-rows: auto;
-
 }
 
 .notFound {
@@ -30,7 +29,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
 }
 
 .textoHero {
@@ -38,7 +36,6 @@
   height: 600px;
   position: absolute;
   left: 80px;
-
 }
 
 .imgHero {
@@ -48,17 +45,14 @@
   right: 80px;
   z-index: 100;
   display: flex;
-
 }
 
 .messi {
   width: 60%;
-
 }
 
 .extras {
   width: 40%;
-
 }
 
 .img1 {
@@ -124,6 +118,32 @@
   border: 1px solid black;
 }
 
+.select {
+  --bg: #000;
+  --hover-bg: #ffffff;
+  --hover-text: #000;
+  color: #fff;
+  border: 1px solid var(--bg);
+  border-radius: 4px;
+  padding: 5px 10px;
+  margin: 10px;
+  font-weight: bold;
+  background: var(--bg);
+  transition: 0.2s;
+}
+
+.select:hover {
+  color: var(--hover-text);
+  transform: translate(-0.25rem, -0.25rem);
+  background: var(--hover-bg);
+  box-shadow: 0.25rem 0.25rem var(--bg);
+}
+
+.select:active {
+  transform: translate(0);
+  box-shadow: none;
+}
+
 .textoHero button {
   padding: 10px;
   width: 200px;
@@ -154,7 +174,6 @@
   transition: 0.15s ease-in-out;
   font-weight: bold;
   border: 1px solid black;
-
 }
 
 .textoHero button:hover::before {
@@ -169,11 +188,9 @@
   color: white;
   font-weight: bold;
   border-radius: 5px;
-
 }
 
-@media (max-width: 768px){
-
+@media (max-width: 768px) {
   .imgHero {
     width: 80%;
     height: 40%;
@@ -182,23 +199,20 @@
     top: 330px;
     z-index: 100;
     display: flex;
-
   }
 
   .hero h1 {
     font-size: 50px;
     color: #ffffff;
     text-shadow: 3px 3px 0 #222, 5px 5px 0 #000000b5, 5px 5px 5px #f2f2f2;
- 
   }
-  
-  .textoHero{
+
+  .textoHero {
     position: absolute;
     left: 9%;
     top: 50px;
     width: 300px;
     height: 200px;
- 
   }
 
   .section {
@@ -206,14 +220,11 @@
     display: grid;
     grid-template-columns: 160px 160px;
     grid-template-rows: auto;
-    grid-gap:20px;
-
+    grid-gap: 20px;
   }
 
-  .hero{
+  .hero {
     position: relative;
     top: -22px;
- 
   }
-
 }

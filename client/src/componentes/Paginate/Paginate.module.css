@@ -36,10 +36,12 @@
   font-weight: 500;
   transition: 0.8s;
   background-size: 280% auto;
-  background-image: linear-gradient(325deg,
-      var(--btn-bg-2) 0%,
-      var(--btn-bg-1) 55%,
-      var(--btn-bg-2) 90%);
+  background-image: linear-gradient(
+    325deg,
+    var(--btn-bg-2) 0%,
+    var(--btn-bg-1) 55%,
+    var(--btn-bg-2) 90%
+  );
   border: none;
   border-radius: var(--radii);
   color: var(--btn-bg-color);
@@ -66,9 +68,7 @@
   }
 }
 
-
-@media (max-width: 768px){
-
+@media (max-width: 768px) {
   .paginadoContainer {
     margin-bottom: 15px;
     margin-top: 15px;
@@ -79,17 +79,16 @@
 
   .numberList {
     background: rgb(0, 0, 0);
-    padding: 5px 10px;
+    padding: 5px 13px;
     border: none;
     border-radius: 10px;
     font-size: 17px;
     font-weight: 700;
     color: white;
     margin-left: 10px;
-  
   }
 
-  .current{
-    padding: 5px 10px;
+  .current {
+    padding: 5px 13px;
   }
 }

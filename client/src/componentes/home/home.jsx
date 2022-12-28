@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import { getProducts, orderPrecio , getCategorys } from '../../redux/actions/actions.js';
-import s from './home.module.css';
-import Navbar from '../navbar/navbar.jsx';
-import { useDispatch, useSelector } from 'react-redux';
-import Paginado from '../Paginate/Paginate.jsx';
-import Card from '../Card/Card.js';
-import messiNotFound from '../../img/messiNotFound.gif';
+import React, { useState } from "react";
+import { useEffect } from "react";
+import { getCategorys, getProducts, orderPrecio } from "../../redux/actions/actions.js";
+import s from "./home.module.css";
+import Navbar from "../navbar/navbar.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import Paginado from "../Paginate/Paginate.jsx";
+import Card from "../Card/Card.js";
+import messiNotFound from "../../img/messiNotFound.gif";
+import Footer from '../Footer/Footer'
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -115,6 +116,8 @@ const Home = () => {
         paginateNext={paginateNext}
         key={allProducts.id}
       ></Paginado>
+
+      <Footer />
     </div>
   );
 };

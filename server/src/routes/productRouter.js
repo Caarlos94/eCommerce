@@ -1,4 +1,4 @@
-const { Router } = require('express');
+const { Router } = require("express");
 const productRouter = Router();
 const { getDataBaseProducts, getProductsFireBase } = require('./functions');
 const { Categoria, Producto } = require('../db.js');
@@ -14,7 +14,7 @@ productRouter.get('/', async (req, res) => {
   }
 });
 
-productRouter.get('/:id', async (req, res) => {
+productRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   let prods = await getDataBaseProducts();
@@ -40,7 +40,7 @@ productRouter.get('/:id', async (req, res) => {
         });
         res.status(200).json(prod);
       } else {
-        res.status(400).json('No se encontro un producto con ese ID');
+        res.status(400).json("No se encontro un producto con ese ID");
       }
     }
   } catch (error) {
@@ -48,7 +48,7 @@ productRouter.get('/:id', async (req, res) => {
   }
 });
 
-productRouter.post('/', async (req, res) => {
+productRouter.post("/", async (req, res) => {
   try {
     const data = req.body; 
     const { categoria } = req.body;
@@ -63,7 +63,7 @@ productRouter.post('/', async (req, res) => {
   }
 });
 
-productRouter.delete('/', async (req, res) => {
+productRouter.delete("/", async (req, res) => {
   try {
     const { id } = req.body;
     const product = await Producto.findByPk(id);
@@ -74,7 +74,7 @@ productRouter.delete('/', async (req, res) => {
   }
 });
 
-productRouter.put('/:atributo', async (req, res) => {
+productRouter.put("/:atributo", async (req, res) => {
   const { atributo } = req.params;
   const { value } = req.query;
   try {
