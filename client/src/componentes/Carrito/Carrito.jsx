@@ -54,19 +54,6 @@ const Carrito = () => {
       // handleStock()
   };
 
-
-  // const handleStock = () => {
-  
-  //   fetch('http://localhost:3001/redirect', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ items: cart }),
-  //   })
-     
-  // };
-
   return (
     <div className={s.cont}>
       <div className={s.detailHeader}>
