@@ -22,12 +22,20 @@ const Carrito = () => {
     if (all) {
       dispatch(removeAllFromCart(id));
     } else {
+      let producto = cart.find(producto => producto.id === id)
+      producto.stock++
+    if(id === cart.id) cart[0].stock++
       dispatch(removeOneFromCart(id));
-    }
-  };
-
+    } 
+  }; 
+ 
   const handleAdd = (id) => {
-    dispatch(addOneToCart(id));
+    let producto = cart.find(producto => producto.id === id)
+    producto.stock--
+    if(producto.stock <= 0) { 
+    } else {
+      dispatch(addOneToCart(id));
+    }
   };
 
   const handleClear = () => {
@@ -78,6 +86,7 @@ const Carrito = () => {
               id={c.id}
               nombre={c.nombre}
               talla={c.talla}
+              stock={c.stock}
               precio={c.precio}
               cantidad={c.cantidad}
               URL={c.URL}

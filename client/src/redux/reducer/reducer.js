@@ -443,7 +443,7 @@ const rootReducer = (state = initialState, action) => {
       let productToDelete = state.cart.find(
         (product) => product.id === action.payload
       );
-      console.log(productToDelete);
+      //console.log(productToDelete);
       return productToDelete.cantidad > 1
         ? {
           ...state,

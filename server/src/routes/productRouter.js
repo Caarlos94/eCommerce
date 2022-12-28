@@ -11,7 +11,7 @@ productRouter.get('/', async (req, res) => {
     res.status(200).json(productos);
   } catch (error) {
     res.status(400).send(error.message);
-  }
+  } 
 });
 
 productRouter.get("/:id", async (req, res) => {
@@ -21,7 +21,7 @@ productRouter.get("/:id", async (req, res) => {
   /* let getProduct = await getProductsFireBase();
   
   const productos = await getProduct.Productos.concat(prods); */
-  console.log(prods);
+  // console.log(prods);
   try {
     if (id) {
       let result = await prods.filter((p) => p.id == id);
