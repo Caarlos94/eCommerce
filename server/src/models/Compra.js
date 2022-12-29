@@ -17,14 +17,14 @@ module.exports = (sequelize) => {
         defaultValue: false,
       },
 
-      fecha: {
-        type: DataTypes.DATE,
-      },
-
       localizador: {
         type: DataTypes.STRING,
       },
     },
-    { timestamps: false }
+    {
+      timestamps: true,
+      createdAt: "fecha",
+      updatedAt: false,
+    }
   );
 };
