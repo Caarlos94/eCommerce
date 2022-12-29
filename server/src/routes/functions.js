@@ -14,7 +14,11 @@ const getCategories = async () => {
   result.forEach(async (e) => {
     Categoria.findOrCreate({ where: { nombre: e } });
   });
-  return result;
+
+  const allCategoriesDB = await Categoria.findAll();
+  const allCat = allCategoriesDB.map(obj => obj.nombre)
+
+  return allCat;
 };
 
 // Get products FROM firebase and save then into DB
@@ -41,13 +45,9 @@ const getProductsFireBase = async () => {
   })
 };
  
-// Get Created Products from DB     
-const getDataBaseProducts = async () => {   
-  
-  //setTimeout(async() => {await getProductsFireBase()}, 100);
-
+// Get Created Products from DB
+const getDataBaseProducts = async () => {
   await getProductsFireBase()
-   
   const allProductsDB = await Producto.findAll({
     include: {
       model: Categoria,

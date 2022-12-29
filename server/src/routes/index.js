@@ -55,7 +55,6 @@ router.post("/pagosMeli", async (req, res) => {
 
   mercadopago.preferences.create(preference)
     .then(function (response) {
-      
       // console.log(response.body);
       /* res.redirect(response.body.init_point) */
       res.json(response.body.init_point)
@@ -76,42 +75,18 @@ router.get("/redirect", async (req, res) => {
 
         let productStock = await Producto.findByPk(producto.id)
         let stock = productStock.stock
-        console.log("El stock traido de la base de datos es " + stock);
-        
-      let rest = stock - producto.cantidad
-      console.log("***********************************************");
-      console.log("producto comprado: " + producto.nombre);
-      console.log("stock actual: " + producto.stock);
-      console.log("productos comprados: " + producto.cantidad);
-      console.log("stock restante: " + rest);
-      console.log("***********************************************");
-
-      
         const modifiedProduct = await Producto.update(
           { stock: rest },
-          { where: { id: producto.id } } );
-  
-          // console.log(modifiedProduct);
+          { where: { id: producto.id } } );  
         })
 
       try {
         res.redirect('http://localhost:3000')
-
       } catch (error) { 
         res.status(400).send(error.message)
       }
   }
 })
-
-
-router.get("/", async (req, res) => {
-  try {
-    let categoria = await getCategories();
-    res.status(200).json(categoria);
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-});
 
 router.get("/category", async (req, res) => {
   try {
@@ -122,10 +97,15 @@ router.get("/category", async (req, res) => {
   }
 })
 
-
-
-router.use('/products', productRouter);
-router.use('/user', userRouter);
+router.post("/category", async(req, res) => {
+  try {
+    const categoria = req.body
+    const newCategory = await Categoria.create(categoria)
+    res.status(200).json(newCategory)
+  } catch (error) {
+    res.status(400).send(error.message)
+  }
+})
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);

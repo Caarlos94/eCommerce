@@ -36,7 +36,7 @@ const Details = () => {
 
   const handleSubmit = (id) => {
     dispatch(addToCart(id));
-    console.log(details);
+    //console.log(details);
     alert("Añadido con éxito al carrito");
   };
 
