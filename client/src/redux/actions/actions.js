@@ -91,6 +91,16 @@ export function postProd(payload) {
   };
 }
 
+export function postCategory(payload) {
+  return async function () {
+    const response = await axios.post(
+      'http://localhost:3001/category',
+      payload
+    );
+    return response;
+  };
+}
+
 export function getDetails(id) {
   return async function (dispatch) {
     const response = await axios.get(`http://localhost:3001/products/${id}`);

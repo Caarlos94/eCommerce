@@ -6,6 +6,7 @@ import {
   getProducts,
   getProducts2,
   postProd,
+  postCategory
 } from '../../redux/actions/actions';
 import style from './ProductCreate.module.css';
 import Navbar2 from '../navbar/navBar2';
@@ -114,6 +115,7 @@ export default function ProdCreate() {
     e.preventDefault();
     console.log(input);
     dispatch(postProd(input));
+    dispatch(postCategory(input));
     setTimeout(() => dispatch(getProducts2()), 100);
     alert("Producto publicado con éxito! Se te redirigirá al inicio...");
     setInput({
@@ -222,13 +224,23 @@ export default function ProdCreate() {
 
             <div className={style.category}>
               <label>Categoría: </label>
+              <input
+                type="text"
+                value={input.categoria}
+                name="categoria"
+                onChange={(e) => handlerChange(e)}
+              ></input>
+
               <select onChange={(e) => handlerSelectCateg(e)}>
+                <option hidden >Seleccione una...</option>
                 {categs.map((c) => (
                   <option value={c.nombre} key={c.id}>
                     {c.nombre}
                   </option>
                 ))}
               </select>
+
+
             </div>
 
             <div className={style.publicar}>

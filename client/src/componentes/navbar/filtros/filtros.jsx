@@ -49,7 +49,6 @@ const Filtros = ({ setPages }) => {
 
   return (
     <div className={style.div}>
-      <div className={style.allFilters}>
         <select onChange={(e) => fn(e)} className={style.select} id='fn'>
           <option className='option1' hidden >Categorias</option>
           <option value="todas">Todas</option>
@@ -89,7 +88,7 @@ const Filtros = ({ setPages }) => {
           <option value="XL">XL</option>
           <option value="XXL">XXL</option>
         </select>
-      </div>
+        
       <div className={style.clear}>
         <NavLink to="/">
           <button onClick={(e) => handlerClickAllProds(e)}>

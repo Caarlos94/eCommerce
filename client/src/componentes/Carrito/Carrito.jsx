@@ -24,15 +24,15 @@ const Carrito = () => {
     } else {
       let producto = cart.find(producto => producto.id === id)
       producto.stock++
-    if(id === cart.id) cart[0].stock++
+      if (id === cart.id) cart[0].stock++
       dispatch(removeOneFromCart(id));
-    } 
-  }; 
- 
+    }
+  };
+
   const handleAdd = (id) => {
     let producto = cart.find(producto => producto.id === id)
     producto.stock--
-    if(producto.stock <= 0) { 
+    if (producto.stock <= 0) {
     } else {
       dispatch(addOneToCart(id));
     }
@@ -50,20 +50,22 @@ const Carrito = () => {
 
     if (!cart.length) return; // manejar mejor la respuesta al intentar comprar con un carrito vacio?
 
-    fetch("http://localhost:3001/pagosMeli", {
-      method: "POST",
+    fetch('http://localhost:3001/pagosMeli', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ items: cart }),
     })
       .then((data) => data.json())
       .then((data) => {
         if (data.error) console.log(data); // manejar caso de error
-        window.open(data, "_self");
+        window.open(data, '_self');
         /* console.log(data); */
       });
   };
+  let totalProd = 0;
+  cart.map(prod => totalProd += prod.cantidad * prod.precio);
 
   return (
     <div className={s.cont}>
@@ -74,39 +76,41 @@ const Carrito = () => {
           Limpiar
         </button>
         <div className={s.total}>
-          <p>Total:</p>
+          <p>Total: ${totalProd}</p>
         </div>
         <button className={s.pagar} onClick={() => handleBuy()}>
           Pagar ahora
         </button>
-        {cart ? (
-          cart.map((c) => (
-            <CartProduct
-              key={c.id}
-              id={c.id}
-              nombre={c.nombre}
-              talla={c.talla}
-              stock={c.stock}
-              precio={c.precio}
-              cantidad={c.cantidad}
-              URL={c.URL}
-              handleDelete={handleDelete}
-              handleAdd={handleAdd}
-            />
-          ))
-        ) : (
-          <p>No tienes productos en tu carrito</p>
-        )}
-      </div>
+        {
+          cart ? (
+            cart.map((c) => (
+              <CartProduct
+                key={c.id}
+                id={c.id}
+                nombre={c.nombre}
+                talla={c.talla}
+                stock={c.stock}
+                precio={c.precio}
+                cantidad={c.cantidad}
+                URL={c.URL}
+                handleDelete={handleDelete}
+                handleAdd={handleAdd}
+              />
+            ))
+          ) : (
+            <p>No tienes productos en tu carrito</p>
+          )
+        }
+      </div >
       <div className={s.totalFinal}>
         <div className={s.total2}>
-          <p>Total:</p>
+          <p>Total: ${totalProd}</p>
         </div>
         <button className={s.pagar2} onClick={() => handleBuy()}>
           Pagar ahora
         </button>
       </div>
-    </div>
+    </div >
   );
 };
 

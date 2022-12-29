@@ -89,6 +89,12 @@ const rootReducer = (state = initialState, action) => {
         products: action.payload,
       };
 
+    case 'POST_CATEGORY':
+      return {
+        ...state,
+        categorys: action.payload,
+      };
+
     case SEARCHxNAME: {
       const productsFilter = state.products.filter((Element) =>
         Element.nombre.toLowerCase().includes(action.payload.toLowerCase())
@@ -485,6 +491,7 @@ const rootReducer = (state = initialState, action) => {
         (product) => product.id === newFavorite.id
       );
 
+      console.log(state.details);
       return productInFavorite
         ? { ...state }
         : {

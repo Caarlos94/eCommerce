@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import s from './details.module.css';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getDetails,
   limpiarState,
   addToCart,
   addToFavorite,
+  removeFromFavorite,
 } from '../../redux/actions/actions.js';
 import { useParams } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
@@ -47,15 +47,17 @@ const Details = () => {
     };
     checkForAdminRole();
   }, [isAuthenticated, getAccessTokenSilently]);
+  const [isAdd, setIsAdd] = useState(false);
 
 
   const handleSubmit = (id) => {
     dispatch(addToCart(id));
     console.log(details);
-    alert("Añadido con éxito al carrito");
+    alert('Añadido con éxito al carrito');
   };
 
   const handleAdd = (id) => {
+    setIsAdd((prev) => !prev);
     dispatch(addToFavorite(id));
   };
 
@@ -92,7 +94,11 @@ const Details = () => {
                   <button disabled={details[0].stock === 0} onClick={() => handleSubmit(id)}>
                     AÑADIR AL CARRITO
                   </button>
-                  <div className={s.fav} onClick={() => handleAdd(id)}>
+                  {/* <div className={s.fav} onClick={() => handleAdd(id)}> */}
+                  <div
+                    className={isAdd ? s.current : s.fav}
+                    onClick={() => handleAdd(id)}
+                  >
                     <img src={heart} alt=""></img>
                   </div>
                 </div>

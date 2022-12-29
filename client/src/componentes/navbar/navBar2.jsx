@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import SearchBar from './searchBar/searchBar.jsx';
-import style from './navbar.module.css';
-import './navbarr.css';
+import style from './navBar2.module.css';
+import './navBar2.css';
 import { Link, NavLink } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
 import usuario from '../../img/user.svg';
@@ -59,7 +59,7 @@ const Navbar2 = ({ setPages }) => {
         </div>
       </div>
 
-      <div className={`white ${isOpen && 'open'}`}>
+      <div className={`white2 ${isOpen && 'open'}`}>
         <NavLink to="/" style={{ textDecoration: "none" }}>
           <div className={style.backHome}>
             <img src={back} alt="" ></img>
