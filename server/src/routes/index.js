@@ -1,5 +1,7 @@
 const { Router } = require("express");
 const { getCategories } = require("./functions");
+const { Categoria, Producto } = require('../db.js');
+
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -25,22 +27,23 @@ mercadopago.configure({
   /* access_token: "TEST-8763313892706046-121400-1f81130c8eea6eec0631d629769666b3-1263181426", PREGUNTAR ALEJANDRO*/
 });
 
-
 let obj = {}
-
 
 router.post("/pagosMeli", async (req, res) => {
   let items = req.body.items;
-
+   obj = items
   let itemsArr = [];
+  if(items[0].stock > 0) {
   items.forEach(item => itemsArr.push({
     id: item.id,
     title: item.nombre,
     currency_id: "ARS",
     picture_url: item.URL,
-    quantity: 1,
+    quantity: items[0].cantidad,
     unit_price: parseInt(item.precio),
   }))
+}
+
   let preference = {
     items: itemsArr,
     back_urls: {
@@ -53,30 +56,52 @@ router.post("/pagosMeli", async (req, res) => {
 
   mercadopago.preferences.create(preference)
     .then(function (response) {
-
+      
+      // console.log(response.body);
+      /* res.redirect(response.body.init_point) */
       res.json(response.body.init_point)
     })
     .catch(function (error) {
       console.log(error);
     });
-})
+}) 
 
 
-router.get("/redirect", async (req, res) => { 
-
-    const { status } = req.query
-   try {
+router.get("/redirect", async (req, res) => {
+    let { status } = req.query
     
-   console.log(status);
-   console.log(obj);
+    if(status === "approved"){
 
-   res.redirect('http://localhost:3000')
-   } catch (error) {
-    console.log('err');
-   }
+      
+      obj.forEach(async producto => {
 
+        let productStock = await Producto.findByPk(producto.id)
+        let stock = productStock.stock
+        console.log("El stock traido de la base de datos es " + stock);
+        
+      let rest = stock - producto.cantidad
+      console.log("***********************************************");
+      console.log("producto comprado: " + producto.nombre);
+      console.log("stock actual: " + producto.stock);
+      console.log("productos comprados: " + producto.cantidad);
+      console.log("stock restante: " + rest);
+      console.log("***********************************************");
 
- 
+      
+        const modifiedProduct = await Producto.update(
+          { stock: rest },
+          { where: { id: producto.id } } );
+  
+          // console.log(modifiedProduct);
+        })
+
+      try {
+        res.redirect('http://localhost:3000')
+
+      } catch (error) { 
+        res.status(400).send(error.message)
+      }
+  }
 })
 
 

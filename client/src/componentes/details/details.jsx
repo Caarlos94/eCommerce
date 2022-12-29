@@ -127,7 +127,7 @@ const Details = () => {
                 <h5>Stock: {details[0].stock}</h5>
               </div>
               <div className={s.botones}>
-                <button onClick={() => handleSubmit(id)}>
+                <button disabled={details[0].stock === 0} onClick={() => handleSubmit(id)}>
                   AÑADIR AL CARRITO
                 </button>
                 <div className={s.fav} onClick={() => handleAdd(id)}>
