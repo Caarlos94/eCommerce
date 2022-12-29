@@ -3,25 +3,28 @@ import UnansweredQuestion from "./UnansweredQuestion";
 import classes from "./AdminQA.module.css";
 import { useValidateUser } from "../../customHooks/validate-user";
 
-// De momento no se encuentra renderizado en ninguna parte. Importar a un componente renderizado para probarlo
-
 const AdminQA = () => {
   const [questions, setQuestions] = useState([]);
 
   const [, /*isAuthenticated*/ isAdmin, accessToken] = useValidateUser();
 
-  console.log(accessToken);
-
   useEffect(() => {
-    fetch("http://localhost:3001/adminQA", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-      .then((data) => data.json())
-      .then((data) => setQuestions(data));
+    accessToken &&
+      fetch("http://localhost:3001/adminQA", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+        .then((data) => data.json())
+        .then((data) => setQuestions(data))
+        .catch((error) => {
+          if (error.error) {
+            alert(error.message);
+            return;
+          }
+        });
   }, [accessToken]);
 
   return isAdmin ? (

@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import SearchBar from './searchBar/searchBar.jsx';
-import Filtros from './filtros/filtros.jsx';
-import style from './navbar.module.css';
-import './navbarr.css';
-import { Link, NavLink } from 'react-router-dom';
-import heart from '../../img/heart-regular.svg';
-import usuario from '../../img/user.svg';
-import shopping from '../../img/shopping.png';
-import answers from '../../img/answ.png'
-import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, importUser } from '../../redux/actions/actions.js';
+import React, { useEffect, useState } from "react";
+import SearchBar from "./searchBar/searchBar.jsx";
+import Filtros from "./filtros/filtros.jsx";
+import style from "./navbar.module.css";
+import "./navbarr.css";
+import { Link, NavLink } from "react-router-dom";
+import heart from "../../img/heart-regular.svg";
+import usuario from "../../img/user.svg";
+import shopping from "../../img/shopping.png";
+import answers from "../../img/answ.png";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts, importUser } from "../../redux/actions/actions.js";
 import { useAuth0 } from "@auth0/auth0-react";
 import jwt_decode from "jwt-decode";
 
 const Navbar = ({ setPages }) => {
   const dispatch = useDispatch();
-  const carrito = useSelector((state) => state.cart)
+  const carrito = useSelector((state) => state.cart);
 
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -58,7 +58,7 @@ const Navbar = ({ setPages }) => {
           <span className="span"></span>
         </div>
       </div>
-      <div className={`white ${isOpen && 'open'}`}>
+      <div className={`white ${isOpen && "open"}`}>
         <div className={style.filtros}>
           <Filtros setPages={setPages} />
         </div>
@@ -98,7 +98,7 @@ const Navbar = ({ setPages }) => {
           {isAdmin ? (
             <div className={style.admin}>
               <div className={style.publicar}>
-                <NavLink to="/product" style={{ textDecoration: 'none' }}>
+                <NavLink to="/product" style={{ textDecoration: "none" }}>
                   <button>Publicar un producto!</button>
                 </NavLink>
               </div>
@@ -113,14 +113,18 @@ const Navbar = ({ setPages }) => {
           ) : (
             <>
               {carrito.length > 0 ? (
-                <NavLink to="/cart" className={style.carro} style={{ textDecoration: 'none' }}>
+                <NavLink
+                  to="/cart"
+                  className={style.carro}
+                  style={{ textDecoration: "none" }}
+                >
                   <div className={style.btn}>
                     <h6>{carrito.length}</h6>
                     <img src={shopping} alt=""></img>
                   </div>
                 </NavLink>
               ) : (
-                <NavLink to="/cart" className={style.carro} >
+                <NavLink to="/cart" className={style.carro}>
                   <div className={style.btn}>
                     <img src={shopping} alt=""></img>
                   </div>
