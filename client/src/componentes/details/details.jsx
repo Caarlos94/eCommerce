@@ -14,7 +14,6 @@ import back from '../../img/back.png';
 import heart from '../../img/heart-regular.svg';
 import usuario from '../../img/user.svg';
 import shopping from '../../img/shopping.png';
-import Navbar from '../navbar/navbar.jsx';
 import QASection from '../customersQA/QASection'; // La sección de QA del producto. Debe ir en este componente. Falta posicionarlo bien, dar estilos etc
 import { useAuth0 } from '@auth0/auth0-react';
 import answers from '../../img/answ.png'
