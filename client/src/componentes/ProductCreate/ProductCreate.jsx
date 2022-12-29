@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, NavLink } from 'react-router-dom';
+import { useHistory, NavLink, Link } from 'react-router-dom';
 import {
   getCategorys,
   getProducts,
@@ -10,69 +10,79 @@ import {
 import style from './ProductCreate.module.css';
 /* import SearchBar from '../navbar/searchBar/searchBar'; */
 import back from '../../img/back.png';
-import heart from '../../img/heart-regular.svg';
-import user from '../../img/user.svg';
-import shopping from '../../img/shopping.png';
+import usuario from '../../img/user.svg';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const validate = (input, prods) => {
   let errors = {};
   if (input.nombre) {
-    if (!(/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/).test(input.nombre)) {
-      errors.nombre = 'Este dato es incorrecto... Es obligatorio, no se permiten caracteres especiales o números.'
+    if (!/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(input.nombre)) {
+      errors.nombre =
+        "Este dato es incorrecto... Es obligatorio, no se permiten caracteres especiales o números.";
     }
-    if (prods.some(e => e.nombre.toUpperCase() === input.nombre.toUpperCase())) {
-      errors.nombre = 'Este producto ya existe!'
+    if (
+      prods.some((e) => e.nombre.toUpperCase() === input.nombre.toUpperCase())
+    ) {
+      errors.nombre = "Este producto ya existe!";
     }
   }
   if (input.URL) {
-    if (!(/(https?:\/\/.*\.(?:png|jpg|jpeg))/i).test(input.URL)) {
-      errors.URL = 'Este dato es obligatorio, solo permite imágenes de tipo .jpg/.png/.jpeg'
+    if (!/(https?:\/\/.*\.(?:png|jpg|jpeg))/i.test(input.URL)) {
+      errors.URL =
+        "Este dato es obligatorio, solo permite imágenes de tipo .jpg/.png/.jpeg";
     }
   }
   if (input.precio) {
     if (input.precio < 1) {
-      errors.precio = 'Este dato es obligatorio, solo permite números mayores a uno.'
+      errors.precio =
+        "Este dato es obligatorio, solo permite números mayores a uno.";
     }
   }
   if (input.color) {
-    if (!(/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/).test(input.color)) {
-      errors.color = 'Este dato es obligatorio, no se permiten caracteres especiales, números o espacios.'
+    if (!/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(input.color)) {
+      errors.color =
+        "Este dato es obligatorio, no se permiten caracteres especiales, números o espacios.";
     }
   }
   if (input.talla) {
-    if (!(/^[A-Za-z0-9\s]+$/).test(input.talla)) {
-      errors.talla = 'Este dato es obligatorio, no se permiten caracteres especiales.'
+    if (!/^[A-Za-z0-9\s]+$/.test(input.talla)) {
+      errors.talla =
+        "Este dato es obligatorio, no se permiten caracteres especiales.";
     }
   }
   if (input.marca) {
-    if (!(/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/).test(input.marca)) {
-      errors.marca = 'Este dato es obligatorio, no se permiten caracteres especiales o números.'
+    if (!/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(input.marca)) {
+      errors.marca =
+        "Este dato es obligatorio, no se permiten caracteres especiales o números.";
     }
   }
   if (input.stock) {
-    if (input.stock < 0 || !(/^[0-9]+$/).test(input.stock)) {
-      errors.stock = 'Este dato es obligatorio, solo permite números entero y mayor o igual 0.'
+    if (input.stock < 0 || !/^[0-9]+$/.test(input.stock)) {
+      errors.stock =
+        "Este dato es obligatorio, solo permite números entero y mayor o igual 0.";
     }
   }
   return errors;
-}
+};
 
 export default function ProdCreate() {
   const dispatch = useDispatch();
   const prods = useSelector((state) => state.products);
   const categs = useSelector((state) => state.categorys);
 
+  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0()
+
   const history = useHistory();
   const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
-    nombre: '',
-    URL: '',
-    precio: '',
-    color: '',
-    talla: '',
-    marca: '',
-    categoria: '',
-    stock: '',
+    nombre: "",
+    URL: "",
+    precio: "",
+    color: "",
+    talla: "",
+    marca: "",
+    categoria: "",
+    stock: "",
   });
 
   useEffect(() => {
@@ -110,18 +120,18 @@ export default function ProdCreate() {
     console.log(input);
     dispatch(postProd(input));
     setTimeout(() => dispatch(getProducts2()), 100);
-    alert('Producto publicado con éxito! Se te redirigirá al inicio...');
+    alert("Producto publicado con éxito! Se te redirigirá al inicio...");
     setInput({
-      nombre: '',
-      URL: '',
-      precio: '',
-      color: '',
-      talla: '',
-      marca: '',
-      categoria: '',
-      stock: '',
+      nombre: "",
+      URL: "",
+      precio: "",
+      color: "",
+      talla: "",
+      marca: "",
+      categoria: "",
+      stock: "",
     });
-    history.push('/'); //me manda al home
+    history.push("/"); //me manda al home
   };
 
   return (
@@ -129,25 +139,30 @@ export default function ProdCreate() {
       <div className={style.createHeader}>
         <div className={style.black}></div>
         <div className={style.white}>
-          <NavLink to="/" style={{ textDecoration: 'none' }}>
+          <NavLink to="/" style={{ textDecoration: "none" }}>
             <div className={style.backHome}>
               <img src={back} alt=""></img>
-              Atrás
+              Inicio
             </div>
           </NavLink>
-          {/* <div className={style.search}>
-            <SearchBar />
-          </div> */}
           <div className={style.btns}>
-            <div className={style.btn}>
-              <img src={user} alt="user"></img>
-            </div>
-            <div className={style.btn}>
-              <img src={heart} alt="fav"></img>
-            </div>
-            <div className={style.btn}>
-              <img src={shopping} alt="carrito"></img>
-            </div>
+            {isAuthenticated ? (
+              <div className={style.profileMenu}>
+                <details>
+                  <summary>Hola {user.nickname}!</summary>
+                  <div className={style.desplegable}>
+                    <div>
+                      <Link to="/profile" style={{ textDecoration: 'none' }} className={style.button}>Perfil</Link>
+                    </div>
+                    <div>
+                      <button onClick={() => logout()} className={style.button}>Cerrar sesión</button>
+                    </div>
+                  </div>
+                </details>
+              </div>
+            ) : (
+              <button onClick={() => loginWithRedirect()} className={style.btn}> <img src={usuario} alt=""></img> </button>
+            )}
           </div>
         </div>
       </div>
@@ -156,7 +171,7 @@ export default function ProdCreate() {
         <div className={style.forms}>
           <form onSubmit={(e) => handlerSubmit(e)}>
 
-            <div className={style.inputs}>
+            <div className={style.inputI}>
               <label>Nombre: </label>
               <input
                 type="text"
@@ -167,7 +182,7 @@ export default function ProdCreate() {
               {errors.nombre && <p className={style.errors}>{errors.nombre}</p>}
             </div>
 
-            <div className={style.inputs}>
+            <div className={style.inputI}>
               <label>Imagen: </label>
               <input
                 type="text"
@@ -175,10 +190,15 @@ export default function ProdCreate() {
                 name="URL"
                 onChange={(e) => handlerChange(e)}
               ></input>
-              {errors.URL && <p className={style.errors}>{errors.URL}</p>}
+              {errors.URL
+                ? <p className={style.errors}>{errors.URL}</p>
+                : input.URL
+                  ? <img src={input.URL} alt='img'></img>
+                  : ""
+              }
             </div>
 
-            <div className={style.inputs}>
+            <div className={style.inputI}>
               <label>Precio </label>
               <input
                 type="number"
@@ -189,7 +209,7 @@ export default function ProdCreate() {
               {errors.precio && <p className={style.errors}>{errors.precio}</p>}
             </div>
 
-            <div className={style.inputs}>
+            <div className={style.inputI}>
               <label>Color: </label>
               <input
                 type="text"
@@ -201,7 +221,7 @@ export default function ProdCreate() {
               {errors.color && <p className={style.errors}>{errors.color}</p>}
             </div>
 
-            <div className={style.inputs}>
+            <div className={style.inputI}>
               <label>Talla: </label>
               <input
                 type="text"
@@ -212,7 +232,7 @@ export default function ProdCreate() {
               {errors.talla && <p className={style.errors}>{errors.talla}</p>}
             </div>
 
-            <div className={style.inputs}>
+            <div className={style.inputI}>
               <label>Marca: </label>
               <input
                 type="text"
@@ -223,7 +243,7 @@ export default function ProdCreate() {
               {errors.marca && <p className={style.errors}>{errors.marca}</p>}
             </div>
 
-            <div className={style.inputs}>
+            <div className={style.inputI}>
               <label>Stock: </label>
               <input
                 type="number"

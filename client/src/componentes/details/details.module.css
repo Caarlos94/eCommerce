@@ -10,6 +10,17 @@
   background-color: black;
 }
 
+.btn h6 {
+  color: rgb(255, 255, 255);
+  border: solid rgba(0, 0, 0, 0.678) 0.1px;
+  width: 500px;
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+}
+
 .white {
   width: 100%;
   height: 70%;
@@ -52,6 +63,98 @@
   width: 300px;
   position: absolute;
   right: 15%;
+  display: none;
+}
+
+.profileMenu summary {
+  padding: 0px 5px;
+  /* width: 80px; */
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  background-color: #ffffff;
+  font-weight: bolder;
+  box-shadow: 0 2px 0 2px #000;
+  border-radius: 5px;
+  border: solid 1px black;
+  border-top: solid 2px black;
+}
+
+.desplegable {
+  border: 1px solid black;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.desplegable div {
+  border: 1px solid black;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 4px 10px;
+  background-color: #171717;
+}
+
+.button {
+  background: none;
+  border: 0;
+  cursor: default;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
+  color: #fff;
+}
+
+.button:hover {
+  color: #2c96cf
+}
+
+.profileMenu summary:before {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 120%;
+  background-color: #ff6700;
+  top: 50%;
+  transform: skewX(30deg) translate(-150%, -50%);
+  transition: all 0.5s;
+}
+
+.profileMenu summary:hover {
+  background-color: #000000;
+  color: #fff;
+  box-shadow: 0 2px 0 2px #3594ee;
+}
+
+.btnQA {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 15px;
+  border-radius: 5px;
+}
+
+.btnQA img {
+  width: 50px;
+}
+
+.btnQA:nth-child(3) img {
+  width: 35px;
+}
+
+.profileMenu summary:hover :before {
+  transform: skewX(30deg) translate(150%, -50%);
+  transition-delay: 0.1s;
+}
+
+.profileMenu summary:active {
+  transform: scale(0.9);
 }
 
 .backHome {
@@ -168,7 +271,7 @@
 }
 
 .textCont button::before {
-  content: "AÑADIR AL CARRITO";
+  content: 'AÑADIR AL CARRITO';
   /*Button's value/text-content */
   position: absolute;
   top: -14%;
@@ -187,6 +290,10 @@
 .textCont button:hover::before {
   top: 0;
   left: 0;
+}
+
+.textCont h3 {
+  font-weight: bold;
 }
 
 .productDesc {
@@ -222,6 +329,12 @@
   width: 25px;
 }
 
+.qyaCont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .spinner {
   width: 200px;
   height: 200px;
@@ -232,7 +345,7 @@
   top: 45%;
 }
 
-.spinner > div {
+.spinner>div {
   background-color: rgba(0, 77, 255, 0.2);
   height: 100%;
   position: absolute;
@@ -279,5 +392,61 @@
 
   100% {
     transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .detailCont {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .imgCont {
+    height: 400px;
+  }
+
+  .img1 {
+    width: 60%;
+  }
+
+  .img111 {
+    width: 80%;
+  }
+
+  .textCont {
+    width: 100%;
+    height: 50%;
+    position: relative;
+  }
+
+  .textCont h2 {
+    font-size: 28px;
+    width: 80%;
+  }
+
+  .textCont h3 {
+    font-weight: bold;
+  }
+
+  .textCont h5 {
+    font-size: 18px;
+  }
+
+  .productDesc {
+    margin-left: 15%;
+    position: absolute;
+    top: 10px;
+  }
+
+  .botones {
+    width: 90%;
+    position: absolute;
+    bottom: 10%;
+  }
+
+  .spinner {
+    width: 150px;
+    height: 150px;
+    left: 35%;
   }
 }

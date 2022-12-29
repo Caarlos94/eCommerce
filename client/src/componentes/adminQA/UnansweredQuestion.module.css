@@ -10,13 +10,31 @@ img {
   margin-bottom: 3rem;
   font-weight: bold;
   border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 4px 5px 0 rgba(0, 0, 0, 0.2);
   padding: 1rem;
   min-width: 30%;
 }
 
+.nombre-imagen p {
+  transition: 0.2s;
+}
+
+.nombre-imagen p:hover {
+  font-size: 17px;
+}
+
+.nombre-imagen img {
+  width: 1000px;
+}
+
+.imgProd {
+  display: flex;
+  justify-content: center;
+}
+
 .nombre-imagen {
   /* border: 3px solid blue; */
+  background-color: rgba(114, 114, 114, 0.021);
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
@@ -25,6 +43,7 @@ img {
 }
 
 .nombre-imagen p {
+  color: black;
   margin-bottom: 1.2rem;
 }
 
@@ -61,4 +80,12 @@ img {
 .admin-question input {
   padding: 0.25rem;
   padding-left: 1rem;
+}
+
+.div1 {
+  border: 3px solid green;
+}
+
+.div1 {
+  border: 3px solid red;
 }

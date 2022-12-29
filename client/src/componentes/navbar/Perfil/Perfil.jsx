@@ -1,28 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { NavLink } from "react-router-dom";
 import style from './Perfil.module.css'
 import back from '../../../img/back.png';
-import {useDispatch, useSelector } from "react-redux";
-import { getUserInfo, postUser} from "../../../redux/actions/actions";
+import { useDispatch, useSelector } from "react-redux";
+//import { getUserInfo, importUser, postUser } from "../../../redux/actions/actions";
 import Card from "../../Card/Card";
+import { getProducts } from "../../../redux/actions/actions";
 
 const Perfil = () => {
   const { user, isAuthenticated } = useAuth0();
   const dispatch = useDispatch();
-  /* const users = useSelector((state) => state.users) */
+
+
   const allProducts = useSelector((state) => state.productsHome);
 
+  useEffect(() => {
+    dispatch(getProducts())
+  }, [dispatch])
+
+  /*   
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.users)
   const [input, setInput] = useState({
     nickname: user.nickname,
     mail: user.email,
-    /* password: '', */
+    password: '',
     picture: user.picture,
-    direction: '',
+     direction: '',
     cel: '',
-    cp: '',
+    cp: '', 
     purchase_history: '',
-  }); 
+  });
 
   useEffect(() => {
     dispatch(getUserInfo())
@@ -33,26 +42,26 @@ const Perfil = () => {
       ...input,
       [e.target.name]: e.target.value,
     });
-  };
+  }; */
 
 
-  const handlerSubmit = (e) => {
-    e.preventDefault();
-    console.log(input);
-    dispatch(postUser(input));
-    setTimeout(() => dispatch(getUserInfo()), 100);
-    alert('Información guardada con éxito!');
-    setInput({
-      nickname: user.nickname,
-      mail: user.email,
-      /* password: '', */
-      picture: user.picture,
-      direction: '',
-      cel: '',
-      cp: '',
-      purchase_history: '',
-    });
-  };
+  /*   const handlerSubmit = (e) => {
+      e.preventDefault();
+      console.log(input);
+      dispatch(importUser(input));
+      setTimeout(() => dispatch(getUserInfo()), 100);
+      alert('Información guardada con éxito!');
+      setInput({
+        nickname: user.nickname,
+        mail: user.email,
+        password: '',
+        picture: user.picture,
+        direction: '',
+        cel: '',
+        cp: '', 
+        purchase_history: '',
+      });
+    }; */
 
   return (
     <div>
@@ -62,7 +71,7 @@ const Perfil = () => {
           <NavLink to="/" style={{ textDecoration: 'none' }}>
             <div className={style.backHome}>
               <img src={back} alt=""></img>
-              Atrás
+              Inicio
             </div>
           </NavLink>
         </div>
@@ -78,7 +87,19 @@ const Perfil = () => {
               <h4>Correo: {user.email}</h4>
             </div >
 
-            <div className={style.inputs}>
+            <div className={style.info}>
+              <h4>Email verificado: {user.email_verified === true
+                ? 'Si'
+                : 'No, verificar por favor.'}</h4>
+            </div >
+
+            <div className={style.info}>
+              <h4>Rol: {user.admin === true
+                ? 'Administrador'
+                : 'Usuario'}</h4>
+            </div >
+
+            {/* <div className={style.inputs}>
               <form onSubmit={(e) => handlerSubmit(e)}>
                 <div className={style.info}>
                   <h5>Direccion: </h5>
@@ -113,15 +134,15 @@ const Perfil = () => {
                   </button>
                 </div>
               </form>
-            </div>
-
+            </div> */}
           </div>
         )}
       </div>
+
       <div className={style.relacionados}>
         <h4>Productos recomendados para vos!</h4>
         <div className={style.section}>
-          { allProducts.map((card) => card.categoria === 'Camperas' && (
+          {allProducts.map((card) => card.categoria === 'Camperas' && (
             <div key={card.id}>
               <Card
                 nombre={card.nombre}
