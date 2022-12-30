@@ -34,18 +34,21 @@ const Filtros = () => {
     dispatch(searchXtalla(el.target.value));
 
   };
-
-  const handlerClickAllProds = () => {
-    dispatch(getProducts2())
-    returnDefault()
-  }
-
+  
   const returnDefault = () => {
     document.getElementById('fn').value = 'Categorias'
     document.getElementById('fn2').value = 'Marca'
     document.getElementById('fn3').value = 'Precio'
     document.getElementById('fn4').value = 'Talla'
   }
+
+
+  const handlerClickAllProds = () => {
+    dispatch(getProducts2())
+    returnDefault()
+  }
+
+
 
   return (
     <div className={style.div}>

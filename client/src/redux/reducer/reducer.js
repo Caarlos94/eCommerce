@@ -43,6 +43,11 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           products: [...action.payload[0]],
           productsHome: [...action.payload[0]],
+          categoria: 'todas',
+          ordenamiento: 'ninguno',
+          marca: 'todas',
+          talla: 'todas',
+          precio: [0, 0],
         };
       }
       return {
