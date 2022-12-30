@@ -47,10 +47,51 @@ compraRouter.post("/", async (req, res) => {
   } catch (error) {
     res.status(400).json(error.message);
   }
+});
 
-  // encontrar el cliente
-  // crear orden de compra con el cliente
-  // agregar producto
+compraRouter.get("/adminPurchases/", async (req, res) => {
+  try {
+    const purchases = await Compra.findAll({ include: [Producto, Cliente] });
+
+    const mappedPurchases = [];
+
+    purchases.forEach((purchase) => {
+      const mappedProducts = [];
+
+      purchase.productos.forEach((producto) =>
+        mappedProducts.push({
+          productoId: producto.id,
+          nombre: producto.nombre,
+          url: producto.URL,
+          precio: producto.precio,
+          color: producto.color,
+          talla: producto.talla,
+          marca: producto.marca,
+          stock: producto.stock,
+          cantidad: producto.Compra_Producto.cantidad,
+        })
+      );
+
+      mappedPurchases.push({
+        purchaseId: purchase.id,
+        enviado: purchase.enviado,
+        localizador: purchase.localizador,
+        fecha: purchase.fecha,
+        cliente: {
+          clienteId: purchase.cliente.id,
+          nickname: purchase.cliente.nickname,
+          email: purchase.cliente.email,
+          address: purchase.cliente.direction,
+          cel: purchase.cliente.cel,
+          zipCode: purchase.cliente.cp,
+        },
+        productos: mappedProducts,
+      });
+    });
+    return res.status(200).json(mappedPurchases);
+  } catch (error) {
+    res.status(400).json({ error: true, msg: error.message });
+  }
 });
 
 module.exports = compraRouter;
