@@ -51,12 +51,17 @@ compraRouter.post("/", async (req, res) => {
 
 compraRouter.get("/adminPurchases/", async (req, res) => {
   try {
-    const purchases = await Compra.findAll({ include: [Producto, Cliente] });
+    const { order, enviado } = req.query; // aceptar query para traer en orden ASC o DESC, también enviado false o true. TODOS LOS QUERIES VIENEN COMO STRING
 
-    const mappedPurchases = [];
+    const purchases = await Compra.findAll({
+      order: [["fecha", order || "DESC"]],
+      include: [Producto, Cliente],
+    });
+
+    let mappedPurchases = [];
 
     purchases.forEach((purchase) => {
-      const mappedProducts = [];
+      let mappedProducts = [];
 
       purchase.productos.forEach((producto) =>
         mappedProducts.push({
@@ -88,6 +93,19 @@ compraRouter.get("/adminPurchases/", async (req, res) => {
         productos: mappedProducts,
       });
     });
+
+    if (enviado === "false") {
+      mappedPurchases = mappedPurchases.filter(
+        (purchase) => purchase.enviado === false
+      );
+    }
+
+    if (enviado === "true") {
+      mappedPurchases = mappedPurchases.filter(
+        (purchase) => purchase.enviado === true
+      );
+    }
+
     return res.status(200).json(mappedPurchases);
   } catch (error) {
     res.status(400).json({ error: true, msg: error.message });
