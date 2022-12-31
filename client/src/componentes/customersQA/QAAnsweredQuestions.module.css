@@ -15,9 +15,8 @@
 @media (max-width: 768px) {
   .questions-container {
     position: absolute;
-
     width: 95%;
-    height: 50%;
+    height: 40%;
     top: 0;
   }
 

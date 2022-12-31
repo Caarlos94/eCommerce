@@ -9,20 +9,21 @@ import Answers from './componentes/Answers/Answers';
 import Favorites from './componentes/Favorites/Favorites';
 import { Route } from 'react-router-dom';
 import About from './componentes/About/About';
+import modifCateg from './componentes/modifCateg/modifCateg';
 import { ProtectedRoute } from "./componentes/ProtectedRoute";
 
 function App() {
   return (
     <div className="divPadre">
       <Route exact path="/" component={Home} />
-      <Route path="/product" component={ProductCreate} />
+      <ProtectedRoute path="/product" component={ProductCreate} />
 
       <Route path="/details/:id" component={Details} />
       <Route path="/cart" component={Carrito} />
-      <Route path="/answers" component={Answers} />
+      <ProtectedRoute path="/answers" component={Answers} />
       <Route path="/about" component={About} />
-      {/* <Route path="/QASection" component={QASection} /> */}
-      <Route path="/profile" component={Perfil} />
+      <Route path="/modifCateg" component={modifCateg} />
+      <ProtectedRoute path="/profile" component={Perfil} />
       <Route exact path="/favorites" component={Favorites} />
     </div>
   );

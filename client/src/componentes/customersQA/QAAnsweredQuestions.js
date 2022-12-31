@@ -14,9 +14,9 @@ const QAAnsweredQuestions = ({ productId }) => {
   return (
     <div className={classes["questions-container"]}>
       <div className={classes["titulo-preguntas"]}>Última preguntas: </div>
-      {/* {questions?.map((q) => (
+      {questions?.map((q) => (
         <QAAnsweredQuestion key={q.questionId} questionData={q} />
-      ))} */}
+      ))}
     </div>
   );
 };
