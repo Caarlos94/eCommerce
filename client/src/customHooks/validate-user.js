@@ -4,14 +4,16 @@ import jwt_decode from "jwt-decode";
 
 export const useValidateUser = () => {
   const [isAdmin, setIsAdmin] = useState(false);
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
   const [accessToken, setAccessToken] = useState("");
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
     const checkForAdminRole = async () => {
       if (isAuthenticated) {
         const accessToken = await getAccessTokenSilently();
         let decoded = jwt_decode(accessToken);
+        setUserId(decoded.sub);
 
         if (decoded.permissions.includes("read:admin")) {
           setIsAdmin(true);
@@ -22,7 +24,7 @@ export const useValidateUser = () => {
     checkForAdminRole();
   }, [isAuthenticated, getAccessTokenSilently]);
 
-  return [isAuthenticated, isAdmin, accessToken];
+  return [isAuthenticated, isAdmin, accessToken, userId];
 };
 
 // isAuthenticated PERMITE VERIFICAR SI EL USUARIO INICIO SESION
