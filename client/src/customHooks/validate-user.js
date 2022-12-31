@@ -4,7 +4,7 @@ import jwt_decode from "jwt-decode";
 
 export const useValidateUser = () => {
   const [isAdmin, setIsAdmin] = useState(false);
-  const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [accessToken, setAccessToken] = useState("");
   const [userId, setUserId] = useState("");
 

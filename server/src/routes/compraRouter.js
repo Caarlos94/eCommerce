@@ -120,6 +120,30 @@ compraRouter.get(
   }
 );
 
+compraRouter.put(
+  "/adminSales/:purchaseId",
+  validateAccessToken,
+  validateAdmin,
+  async (req, res) => {
+    try {
+      const { purchaseId } = req.params;
+      const { trackingNumber } = req.body;
+
+      const purchase = await Compra.findOne(
+        { where: { id: purchaseId } },
+        { raw: true }
+      );
+      purchase.enviado = true;
+      purchase.localizador = trackingNumber;
+      purchase.save();
+
+      return res.status(200).json("El cliente ha sido notificado.");
+    } catch (error) {
+      return res.status(400).json({ error: true, msg: error.message });
+    }
+  }
+);
+
 compraRouter.use(errorHandler);
 
 module.exports = compraRouter;

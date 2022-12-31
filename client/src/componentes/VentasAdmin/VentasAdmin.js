@@ -60,7 +60,13 @@ const VentasAdmin = () => {
           </div>
 
           {data && !data.error && data.length
-            ? data.map((el) => <VentaCard key={el.purchaseId} data={el} />)
+            ? data.map((el) => (
+                <VentaCard
+                  accessToken={accessToken}
+                  key={el.purchaseId}
+                  data={el}
+                />
+              ))
             : ""}
         </div>
       ) : (

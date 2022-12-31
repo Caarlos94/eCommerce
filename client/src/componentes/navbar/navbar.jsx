@@ -31,6 +31,8 @@ const Navbar = ({ setPages }) => {
     getAccessTokenSilently,
   } = useAuth0();
 
+  console.log(user);
+
   useEffect(() => {
     const checkForAdminRole = async () => {
       if (isAuthenticated) {
