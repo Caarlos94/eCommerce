@@ -24,15 +24,21 @@ categoryRouter.post('/', async (req, res) => {
     }
 });
 
-categoryRouter.delete("/", async (req, res) => {
+categoryRouter.delete("/:nombre", async (req, res) => {
     try {
-      const { id } = req.body;
-      const category = await Categoria.findByPk(id);
-      await category.destroy();
-      res.status(200).json(category);
+        let { nombre } = req.params;
+        console.log(nombre);
+        const category = await Categoria.findOne({
+            where: {
+                nombre
+            },
+        });
+        console.log(category);
+        await category.destroy();
+        res.status(200).json(category);
     } catch (error) {
-      res.status(404).send(error.message);
+        res.status(404).send(error.message);
     }
-  });
+});
 
 module.exports = categoryRouter;

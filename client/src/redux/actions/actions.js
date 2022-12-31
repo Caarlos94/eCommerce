@@ -62,13 +62,6 @@ export function getUserInfo() {
   };
 }
 
-/* export function importUser(user) {
-  return async function () {
-    const response = await axios.post('http://localhost:3001/users', user)
-    return response
-  };
-} */
-
 export function importUser(user) {
   return function () {
     fetch('http://localhost:3001/users', {
@@ -100,6 +93,29 @@ export function postCategory(payload) {
     return response;
   };
 }
+
+export function deleteCategory(nombre) {
+  return async function () {
+    await axios.delete(`http://localhost:3001/category/${nombre}`);
+    /* return dispatch({
+      type: 'DELETE_CATEGORY',
+      payload: response.data,
+      body: nombre,
+    }) */
+  }
+}
+
+/* export function deleteCategory(nombre) {
+  return function () {
+    fetch('http://localhost:3001/category', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain',
+      },
+      body: nombre,
+    });
+  };
+} */
 
 export function getDetails(id) {
   return async function (dispatch) {

@@ -3,6 +3,7 @@ const fetch = (...args) =>
 const { Categoria, Producto, Cliente } = require('../db.js');
 
 // Get categories FROM firebase and save then into DB
+
 const getCategories = async () => {
   const response = await fetch(
     'https://supra-sports-default-rtdb.firebaseio.com/.json'
