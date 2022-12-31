@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Card from "../../Card/Card";
 import { getProducts } from "../../../redux/actions/actions";
 import Navbar2 from "../navBar2";
+import Footer from "../../Footer/Footer";
 
 const Perfil = () => {
   const dispatch = useDispatch();
@@ -66,6 +67,7 @@ const Perfil = () => {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

@@ -18,7 +18,7 @@ const Carrito = () => {
 
   const { isAuthenticated, loginWithRedirect } = useAuth0()
   const handleDelete = (id, all = false) => {
-    console.log(id, all);
+    //console.log(id, all);
     if (all) {
       dispatch(removeAllFromCart(id));
     } else {
@@ -32,8 +32,7 @@ const Carrito = () => {
   const handleAdd = (id) => {
     let producto = cart.find(producto => producto.id === id)
     producto.stock--
-    if (producto.stock <= 0) {
-    } else {
+    if(producto.stock > 0) { 
       dispatch(addOneToCart(id));
     }
   };

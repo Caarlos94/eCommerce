@@ -23,13 +23,7 @@ const Navbar = ({ setPages }) => {
     dispatch(getProducts);
   }, [dispatch]);
 
-  const {
-    user,
-    loginWithRedirect,
-    isAuthenticated,
-    logout,
-    getAccessTokenSilently,
-  } = useAuth0();
+  const { user, loginWithRedirect, isAuthenticated, logout, getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
     const checkForAdminRole = async () => {
@@ -47,7 +41,10 @@ const Navbar = ({ setPages }) => {
   }, [isAuthenticated, getAccessTokenSilently]);
 
   const [isOpen, SetOpen] = useState(false);
-  isAuthenticated && dispatch(importUser(user));
+
+  user && dispatch(importUser(user));
+
+  // {console.log(user)}
 
   return (
     <div className={style.div}>

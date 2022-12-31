@@ -9,6 +9,7 @@ import Answers from './componentes/Answers/Answers';
 import Favorites from './componentes/Favorites/Favorites';
 import { Route } from 'react-router-dom';
 import About from './componentes/About/About';
+import modifCateg from './componentes/modifCateg/modifCateg';
 import { ProtectedRoute } from "./componentes/ProtectedRoute";
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
       <Route path="/cart" component={Carrito} />
       <ProtectedRoute path="/answers" component={Answers} />
       <Route path="/about" component={About} />
-      {/* <Route path="/QASection" component={QASection} /> */}
+      <Route path="/modifCateg" component={modifCateg} />
       <ProtectedRoute path="/profile" component={Perfil} />
       <Route exact path="/favorites" component={Favorites} />
     </div>

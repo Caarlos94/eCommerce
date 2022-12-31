@@ -63,7 +63,7 @@ const Navbar2 = ({ setPages }) => {
         <NavLink to="/" style={{ textDecoration: "none" }}>
           <div className={style.backHome}>
             <img src={back} alt="" ></img>
-            Atrás
+            Inicio
           </div>
         </NavLink>
 

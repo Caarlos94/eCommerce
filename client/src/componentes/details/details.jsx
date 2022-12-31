@@ -14,6 +14,7 @@ import QASection from '../customersQA/QASection'; // La sección de QA del produ
 import { useAuth0 } from "@auth0/auth0-react";
 import jwt_decode from "jwt-decode";
 import Navbar2 from '../navbar/navBar2';
+import Footer from '../Footer/Footer';
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -52,8 +53,8 @@ const Details = () => {
 
   const handleSubmit = (id) => {
     dispatch(addToCart(id));
-    console.log(details);
-    alert('Añadido con éxito al carrito');
+    //console.log(details);
+    alert("Añadido con éxito al carrito");
   };
 
   const handleAdd = (id) => {
@@ -108,6 +109,7 @@ const Details = () => {
           <div className={s.qyaCont}>
             <QASection productId={id} />
           </div>
+          <Footer />
         </div>
       ) : (
         <div className={s.spinner}>
@@ -119,6 +121,7 @@ const Details = () => {
           <div></div>
         </div>
       )}
+      
     </div>
   );
 };
