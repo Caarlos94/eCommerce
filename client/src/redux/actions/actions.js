@@ -97,11 +97,6 @@ export function postCategory(payload) {
 export function deleteCategory(nombre) {
   return async function () {
     await axios.delete(`http://localhost:3001/category/${nombre}`);
-    /* return dispatch({
-      type: 'DELETE_CATEGORY',
-      payload: response.data,
-      body: nombre,
-    }) */
   }
 }
 
