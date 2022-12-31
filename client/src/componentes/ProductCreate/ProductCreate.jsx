@@ -238,7 +238,7 @@ export default function ProdCreate() {
                 to="/modifCateg"
                 style={{ textDecoration: "none" }}
                 className={style.button}
-              >Administrar categorías</Link>
+              >Administrar Categorías</Link>
             </div>
 
 

@@ -45,8 +45,8 @@ export const getProducts2 = () => {
 };
 
 export function getCategorys() {
-  return function (dispatch) {
-    fetch('http://localhost:3001/category')
+  return async function (dispatch) {
+    await fetch('http://localhost:3001/category')
       .then((response) => response.json())
       .then((data) => dispatch({ type: GET_CATEGORYS, payload: data }));
   };
@@ -96,21 +96,9 @@ export function postCategory(payload) {
 
 export function deleteCategory(nombre) {
   return async function () {
-    await axios.delete(`http://localhost:3001/category/${nombre}`);
+   await axios.delete(`http://localhost:3001/category/${nombre}`);
   }
 }
-
-/* export function deleteCategory(nombre) {
-  return function () {
-    fetch('http://localhost:3001/category', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/plain',
-      },
-      body: nombre,
-    });
-  };
-} */
 
 export function getDetails(id) {
   return async function (dispatch) {

@@ -4,7 +4,6 @@ import { getCategorys, postCategory, deleteCategory } from '../../redux/actions/
 import Navbar2 from '../navbar/navBar2'
 import Footer from '../Footer/Footer'
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 const validate = (input, categs) => {
     let errors = {};
@@ -25,9 +24,8 @@ const validate = (input, categs) => {
 export default function ModifCateg() {
     const dispatch = useDispatch()
     const categs = useSelector((state) => state.categorys);
-    const history = useHistory();
 
-    const [input, setInput] = useState("");
+    const [input, setInput] = useState({ nombre: "" });
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
@@ -52,23 +50,25 @@ export default function ModifCateg() {
     };
 
     const handleDelete = (e) => {
+        e.preventDefault();
         dispatch(deleteCategory(e.target.value));
-        console.log(e.target.value);
-        /* history.push("/modifCateg"); */
+        console.log(e.target.value + ' ELIMINADO');
+        dispatch(getCategorys())
+            .then(dispatch(getCategorys()));
     }
 
     const handlerSubmit = (e) => {
         e.preventDefault();
-        console.log(input);
-        dispatch(postCategory(input));
-        setTimeout(() => dispatch(getCategorys()), 100);
-        setInput("");
-        history.push("/modifCateg");
+        console.log(input.nombre + ' CREADO');
+        dispatch(postCategory(input))
+            .then(dispatch(getCategorys()));
+        setInput({
+            nombre: "",
+        })
     };
 
     return (
         <div>
-            {console.log(categs)}
             <Navbar2 />
             <div className={style.modifCategCont}>
                 <h1>Categorías</h1>
@@ -84,7 +84,7 @@ export default function ModifCateg() {
                         {errors.nombre && <p className={style.errors}>{errors.nombre}</p>}
                     </div>
                     <div className={style.publicar}>
-                        <button>
+                        <button type="submit">
                             Crear Categoría
                         </button>
                     </div>
