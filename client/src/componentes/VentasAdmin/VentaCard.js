@@ -19,6 +19,7 @@ const VentaCard = ({ data, accessToken }) => {
     error: false,
     msg: "",
   });
+  const [didFocus, setDidFocus] = useState(false);
 
   const handleClick = () => {
     setSent((prevState) => ({ ...prevState, didClick: !prevState.didClick }));
@@ -26,6 +27,7 @@ const VentaCard = ({ data, accessToken }) => {
 
   const handleChange = (e) => {
     setInterval(() => {
+      setDidFocus(true);
       e.target.value.length < 8
         ? setTrackingError({
             error: true,
@@ -95,7 +97,7 @@ const VentaCard = ({ data, accessToken }) => {
             ""
           )}{" "}
           {sent.didNotify && !sent.didClick ? (
-            <button onClick={handleClick}>Modificar envío</button>
+            <button onClick={handleClick}>Modificar localizador</button>
           ) : (
             ""
           )}
@@ -111,7 +113,7 @@ const VentaCard = ({ data, accessToken }) => {
                   type="text"
                   value={sent.trackingNumber}
                 ></input>
-                <button disabled={trackingError.error && true} type="form">
+                <button disabled={trackingError.error || !didFocus} type="form">
                   Enviar
                 </button>
               </form>
