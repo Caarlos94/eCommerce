@@ -7,6 +7,7 @@ import Carrito from "./componentes/Carrito/Carrito";
 import Answers from "./componentes/Answers/Answers";
 /* import QASection from './componentes/customersQA/QASection'; */
 import Favorites from "./componentes/Favorites/Favorites";
+import VentasAdmin from "./componentes/VentasAdmin/VentasAdmin";
 import { Route } from "react-router-dom";
 import About from "./componentes/About/About";
 import { ProtectedRoute } from "./componentes/ProtectedRoute";
@@ -23,6 +24,7 @@ function App() {
       <Route path="/about" component={About} />
       <Route path="/profile" component={Perfil} />
       <Route exact path="/favorites" component={Favorites} />
+      <ProtectedRoute path="/sales" component={VentasAdmin} />
     </div>
   );
 }

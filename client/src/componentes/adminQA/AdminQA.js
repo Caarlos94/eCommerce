@@ -5,6 +5,7 @@ import { useValidateUser } from "../../customHooks/validate-user";
 
 const AdminQA = () => {
   const [questions, setQuestions] = useState([]);
+  const [error, setError] = useState({});
 
   const [, /*isAuthenticated*/ isAdmin, accessToken] = useValidateUser();
 
@@ -18,33 +19,36 @@ const AdminQA = () => {
         },
       })
         .then((data) => data.json())
-        .then((data) => setQuestions(data))
-        .catch((error) => {
-          if (error.error) {
-            alert(error.message);
-            return;
-          }
+        .then((data) => {
+          if (data.error) return setError(data);
+
+          setQuestions(data);
         });
   }, [accessToken]);
 
-  return isAdmin ? (
-    <div className={classes["admin-questions"]}>
-      {/* <p>Is admin: {isAdmin ? "true" : "false"}</p> */}
-      <h1>Preguntas por responder:</h1>
-      {questions.length ? (
-        questions.map((q) => (
-          <UnansweredQuestion
-            key={q.questionId}
-            question={q}
-            accessToken={accessToken}
-          />
-        ))
+  return (
+    <>
+      {isAdmin ? (
+        <div className={classes["admin-questions"]}>
+          {/* <p>Is admin: {isAdmin ? "true" : "false"}</p> */}
+          <h1>Preguntas por responder:</h1>
+          {questions.length ? (
+            questions.map((q) => (
+              <UnansweredQuestion
+                key={q.questionId}
+                question={q}
+                accessToken={accessToken}
+              />
+            ))
+          ) : (
+            <p>De momento, no hay preguntas.</p>
+          )}
+        </div>
       ) : (
-        <p>De momento, no hay preguntas.</p>
+        ""
       )}
-    </div>
-  ) : (
-    <p>Sección sólo disponible para admins</p>
+      {error.error ? <p>{error.msg}</p> : ""}
+    </>
   );
 };
 

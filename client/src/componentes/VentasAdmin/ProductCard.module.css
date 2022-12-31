@@ -1,0 +1,4 @@
+.product-card {
+  border: solid green 3px;
+  display: flex;
+}
