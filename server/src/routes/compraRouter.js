@@ -6,7 +6,7 @@ const { validateAccessToken } = require("./middleware/validateAccessToken");
 const { errorHandler } = require("./middleware/error.middleware");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
-const { EMAIL_PASSWORD } = process.env;
+const { EMAIL_PASSWORD, EMAIL_HOST, EMAIL_PORT, EMAIL_USER } = process.env;
 
 // Ejemplo de req.body:
 // {
@@ -143,11 +143,11 @@ compraRouter.put(
       purchase.save();
 
       let transporter = nodemailer.createTransport({
-        host: "smtp-mail.outlook.com",
-        port: 587,
+        host: EMAIL_HOST,
+        port: EMAIL_PORT,
         secure: false, // true for 465, false for other ports
         auth: {
-          user: "suprasportspf@outlook.com",
+          user: EMAIL_USER,
           pass: EMAIL_PASSWORD, //EMAIL_PASSWORD=Suprasports
         },
       });
