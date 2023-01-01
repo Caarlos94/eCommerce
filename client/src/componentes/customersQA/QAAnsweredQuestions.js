@@ -4,22 +4,19 @@ import classes from "./QAAnsweredQuestions.module.css";
 
 const QAAnsweredQuestions = ({ productId }) => {
   const [questions, setQuestions] = useState([]);
-  const mountedRef = useRef(true);
 
   useEffect(() => {
-    if (!mountedRef.current) {
-      return null;
-    }
+    let isSubscribed = true;
+
     fetch(`http://localhost:3001/customerQA/${productId}`)
       .then((data) => data.json())
       .then((data) => {
-        setQuestions(data);
+        if (isSubscribed) setQuestions(data);
       });
 
-    return () => {
-      mountedRef.current = false;
-    };
+    return () => (isSubscribed = false);
   }, [productId]);
+
   return (
     <div className={classes["questions-container"]}>
       <div className={classes["titulo-preguntas"]}>Última preguntas: </div>
