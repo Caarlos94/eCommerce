@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import QAAnsweredQuestion from "./QAAnsweredQuestion";
 import classes from "./QAAnsweredQuestions.module.css";
 
@@ -19,7 +19,7 @@ const QAAnsweredQuestions = ({ productId }) => {
 
   return (
     <div className={classes["questions-container"]}>
-      <div className={classes["titulo-preguntas"]}>Última preguntas: </div>
+      <div className={classes["titulo-preguntas"]}>Últimas preguntas: </div>
       {questions?.map((q) => (
         <QAAnsweredQuestion key={q.questionId} questionData={q} />
       ))}
