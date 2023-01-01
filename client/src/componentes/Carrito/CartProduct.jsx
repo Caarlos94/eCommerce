@@ -10,12 +10,8 @@ const CartProduct = ({
   cantidad,
   URL,
   id,
-  total,
-  setTotal,
+  stock,
 }) => {
-  {
-    setTotal = precio * cantidad;
-  }
   return (
     <div className={s.item}>
       <div
@@ -24,9 +20,10 @@ const CartProduct = ({
       ></div>
       <div className={s.info}>
         <h2>{nombre}</h2>
-        <p>Talle: {talla}</p>
+        <h5>Stock: {--stock}</h5>
+        <p>{talla}</p>
         <p>
-          ${precio} x {cantidad} = ${setTotal}
+          ${precio} x {cantidad} = ${precio * cantidad}
         </p>
       </div>
       <div className={s.btns}>

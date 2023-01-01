@@ -21,14 +21,14 @@ const getCategories = async () => {
 const getProductsFireBase = async () => {
   let response = await fetch(
     `https://supra-sports-default-rtdb.firebaseio.com/.json`
-  );
+  ); 
   let commits = await response.json();
     commits.Productos.forEach(async (e) => {
       const [instance, created] = await Producto.findOrCreate({where: { nombre:e.nombre }, 
         defaults: {
           URL: e.URL,
           color: e.color,
-          marca: e.marca,
+          marca: e.marca, 
           talla: e.talla,
           precio: e.precio, 
           stock: e.stock,    

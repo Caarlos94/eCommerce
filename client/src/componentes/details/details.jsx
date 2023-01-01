@@ -19,7 +19,7 @@ import QASection from '../customersQA/QASection'; // La sección de QA del produ
 import { useAuth0 } from '@auth0/auth0-react';
 import answers from '../../img/answ.png';
 import Navbar from '../navbar/navbar';
-import Reviews from '../Ratings/Reviews';
+import Reviews from '../Reviews/Reviews';
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -132,7 +132,10 @@ const Details = () => {
                 <h5>Stock: {details[0].stock}</h5>
               </div>
               <div className={s.botones}>
-                <button onClick={() => handleSubmit(id)}>
+                <button
+                  disabled={details[0].stock === 0}
+                  onClick={() => handleSubmit(id)}
+                >
                   AÑADIR AL CARRITO
                 </button>
                 {/* <div className={s.fav} onClick={() => handleAdd(id)}> */}
