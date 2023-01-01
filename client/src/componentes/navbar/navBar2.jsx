@@ -114,6 +114,11 @@ const Navbar2 = ({ setPages }) => {
                   </div>
                 </NavLink>
               </div>
+              <div className={style.publicar}>
+                <NavLink to="/sales" style={{ textDecoration: "none" }}>
+                  <button>Historial de Ventas</button>
+                </NavLink>
+              </div>
             </div>
           ) : (
             <>

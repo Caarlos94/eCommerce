@@ -1,323 +1,321 @@
 /* contenedor de todo el navbar */
 
 .div {
-    /* border: 1px solid black; */
-    height: 120px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    position: sticky;
-    align-items: center;
-    top: 0;
-    z-index: 1000;
-    border-bottom: 0.5px solid black;
-  }
-  
-  .publicar button {
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-color: #171717;
-    color: #fff;
-    font-weight: bold;
-    transition: all 0.4s;
-  }
-  
-  .publicar button:hover {
-    border-radius: 5px;
-    transform: translateY(-10px);
-    box-shadow: 0 7px 0 -2px #f85959, 0 15px 0 -4px #39a2db,
-      0 16px 10px -3px #39a2db;
-  }
-  
-  .publicar button:active {
-    transition: all 0.2s;
-    transform: translateY(-5px);
-    box-shadow: 0 2px 0 -2px #f85959, 0 8px 0 -4px #39a2db,
-      0 12px 10px -3px #39a2db;
-  }
-  
-  .searchBar {
-    width: 300px;
-    display: flex;
-    align-items: center;
-    height: 30px;
-  }
-  
-  .Hamburguesa {
-    display: none;
-  }
-  
-  .btn h6 {
-    color: rgb(255, 255, 255);
-    border: solid rgba(0, 0, 0, 0.678) 0.1px;
-    width: 22px;
-    height: 22px;
-    background-color: red;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 100%;
+  /* border: 1px solid black; */
+  height: 120px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  align-items: center;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 0.5px solid black;
+}
+
+.searchBar {
+  width: 300px;
+  display: flex;
+  align-items: center;
+  height: 30px;
+}
+
+.Hamburguesa {
+  display: none;
+}
+
+.btn h6 {
+  color: rgb(255, 255, 255);
+  border: solid rgba(0, 0, 0, 0.678) 0.1px;
+  width: 22px;
+  height: 22px;
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  position: absolute;
+  left: -27%;
+}
+
+.profileMenu summary {
+  padding: 0px 5px;
+  /* width: 80px; */
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  background-color: #ffffff;
+  font-weight: bolder;
+  box-shadow: 0 2px 0 2px #000;
+  border-radius: 5px;
+  border: solid 1px black;
+  border-top: solid 2px black;
+}
+
+.desplegable {
+  border: 1px solid black;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.desplegable div {
+  border: 1px solid black;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 4px 10px;
+  background-color: #171717;
+}
+
+.link {
+  text-decoration: none;
+  color: #fff;
+}
+
+.button {
+  background: none;
+  border: 0;
+  cursor: default;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
+  color: #fff;
+}
+
+.button:hover {
+  color: #2c96cf;
+}
+
+.profileMenu summary:before {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 120%;
+  background-color: #ff6700;
+  top: 50%;
+  transform: skewX(30deg) translate(-150%, -50%);
+  transition: all 0.5s;
+}
+
+.admin {
+  display: flex;
+}
+
+.btnQA {
+  width: 60px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  /* margin-left: 15px; */
+  border-radius: 5px;
+  transition: all 0.4s;
+}
+
+.btnQA:hover{
+  padding-bottom: 10px;
+}
+
+.btnQA img {
+  width: 80px;
+}
+
+.btnQA:nth-child(3) img {
+  width: 35px;
+}
+
+.profileMenu summary:hover {
+  background-color: #000000;
+  color: #fff;
+  box-shadow: 0 2px 0 2px #3594ee;
+}
+
+.profileMenu summary:hover :before {
+  transform: skewX(30deg) translate(150%, -50%);
+  transition-delay: 0.1s;
+}
+
+.profileMenu summary:active {
+  transform: scale(0.9);
+}
+
+.black {
+  width: 100%;
+  height: 30%;
+  background-color: black;
+}
+
+.white2 {
+  width: 100%;
+  height: 70%;
+  background-color: white;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.btns {
+  width: 150px;
+  height: 50px;
+  display: flex;
+  right: 1%;
+}
+
+.backHome {
+  border: 1px solid black;
+  display: flex;
+  padding: 5px;
+  color: black;
+  background-color: white;
+  font-weight: bold;
+  transition: all 0.4s;
+  justify-content: center;
+  align-items: center;
+}
+
+.backHome:hover {
+  filter: invert(100%);
+}
+
+.btn {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 15px;
+  border-radius: 5px;
+  border: 0;
+  background-color: white;
+  position: relative;
+}
+
+.btn img {
+  width: 25px;
+}
+
+.btn:nth-child(3) img {
+  width: 35px;
+}
+
+.carro .btn img {
+  width: 35px;
+}
+
+.adminBut {
+  display: flex;
+}
+
+.publicar button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 5px;
+  background-color: #000000;
+  width: 135px;
+  height: 55px;
+  color: #fff;
+  font-weight: bold;
+  transition: all 0.4s;
+}
+
+.publicar button:hover {
+  border-radius: 5px;
+  transform: translateY(-10px);
+  box-shadow: 0 7px 0 -2px #f85959, 0 15px 0 -4px #39a2db,
+    0 16px 10px -3px #39a2db;
+}
+
+.publicar button:active {
+  transition: all 0.2s;
+  transform: translateY(-5px);
+  box-shadow: 0 2px 0 -2px #f85959, 0 8px 0 -4px #39a2db,
+    0 12px 10px -3px #39a2db;
+}
+
+@media (max-width: 768px) {
+  .backHome {
     position: absolute;
-    left: -27%;
+    left: 5%;
+    top: 55%;
   }
-  
-  .profileMenu summary {
-    padding: 0px 5px;
-    /* width: 80px; */
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s;
-    background-color: #ffffff;
-    font-weight: bolder;
-    box-shadow: 0 2px 0 2px #000;
-    border-radius: 5px;
-    border: solid 1px black;
-    border-top: solid 2px black;
-  }
-  
-  .desplegable {
-    border: 1px solid black;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .desplegable div {
-    border: 1px solid black;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 4px 10px;
-    background-color: #171717;
-  }
-  
-  .link {
-    text-decoration: none;
-    color: #fff;
-  }
-  
-  .button {
-    background: none;
-    border: 0;
-    cursor: default;
-    font: inherit;
-    line-height: normal;
-    overflow: visible;
-    padding: 0;
-    color: #fff;
-  }
-  
-  .button:hover {
-    color: #2c96cf;
-  }
-  
-  .profileMenu summary:before {
-    content: '';
-    position: absolute;
-    width: 100px;
-    height: 120%;
-    background-color: #ff6700;
-    top: 50%;
-    transform: skewX(30deg) translate(-150%, -50%);
-    transition: all 0.5s;
-  }
-  
-  .admin {
-    display: flex;
-  }
-  
-  .btnQA {
-    width: 60px;
-    height: 55px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    margin-left: 15px;
-    border-radius: 5px;
-  }
-  
-  .btnQA img {
-    width: 80px;
-  }
-  
-  .btnQA:nth-child(3) img {
-    width: 35px;
-  }
-  
-  .profileMenu summary:hover {
-    background-color: #000000;
-    color: #fff;
-    box-shadow: 0 2px 0 2px #3594ee;
-  }
-  
-  .profileMenu summary:hover :before {
-    transform: skewX(30deg) translate(150%, -50%);
-    transition-delay: 0.1s;
-  }
-  
-  .profileMenu summary:active {
-    transform: scale(0.9);
-  }
-  
+
   .black {
     width: 100%;
-    height: 30%;
+    height: 70%;
     background-color: black;
   }
-  
-  .white2 {
-    width: 100%;
-    height: 70%;
-    background-color: white;
+
+  .div {
+    border-bottom: transparent;
+  }
+
+  .searchBar {
+    width: 300px;
+    position: absolute;
+    top: 10%;
+    right: 15%;
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    flex-direction: column;
+    margin-left: 99px;
   }
-  
-  .btns {
-    width: 150px;
-    height: 50px;
-    display: flex;
-    right: 1%;
+
+  .admin {
+    width: 200px;
+    border-radius: 10px;
+    margin-left: 50px;
   }
-  
-  .backHome {
-    border: 1px solid black;
-    display: flex;
-    padding: 5px;
-    color: black;
-    background-color: white;
-    font-weight: bold;
-    transition: all 0.4s;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .backHome:hover {
-    filter: invert(100%);
-  }
-  
-  .btn {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    margin-left: 15px;
-    border-radius: 5px;
-    border: 0;
-    background-color: white;
-    position: relative;
-  }
-  
-  .btn img {
-    width: 25px;
-  }
-  
-  .btn:nth-child(3) img {
-    width: 35px;
-  }
-  
-  .carro .btn img {
-    width: 35px;
-  }
-  
-  .adminBut {
-    display: flex;
-  }
-  
+
   .publicar button {
-    display: flex;
-    align-items: center;
+    position: absolute;
+    top: 250%;
+    right: -75%;
     padding: 5px 10px;
-    margin-left: 25px;
     border-radius: 5px;
     background-color: #171717;
-    width: 150px;
-    height: 55px;
     color: #fff;
     font-weight: bold;
     transition: all 0.4s;
+    filter: invert(100%);
   }
-  
-  @media (max-width: 768px) {
-    .backHome {
-      position: absolute;
-      left: 5%;
-      top: 55%;
-    }
-  
-    .black {
-      width: 100%;
-      height: 70%;
-      background-color: black;
-    }
-  
-    .div {
-      border-bottom: transparent;
-    }
-  
-    .searchBar {
-      width: 300px;
-      position: absolute;
-      top: 10%;
-      right: 15%;
-      display: flex;
-      flex-direction: column;
-      margin-left: 99px;
-    }
-  
-    .admin {
-      width: 200px;
-      border-radius: 10px;
-      margin-left: 50px;
-    }
-  
-    .publicar button {
-      position: absolute;
-      top: 250%;
-      right: -75%;
-      padding: 5px 10px;
-      border-radius: 5px;
-      background-color: #171717;
-      color: #fff;
-      font-weight: bold;
-      transition: all 0.4s;
-      filter: invert(100%);
-    }
-  
-    .Hamburguesa {
-      display: flex !important;
-      flex-direction: column;
-      margin: 5px;
-      position: relative;
-      left: 5%;
-      top: 27px;
-      cursor: pointer;
-      width: 30px;
-    }
-  
-    .Hamburguesa span {
-      width: 30px;
-      height: 4px;
-      background-color: white;
-      margin-bottom: 5px;
-      border-radius: 2px;
-      transform-origin: 5px 0px;
-      transition: all 0.2s linear;
-    }
-  
-    .btns {
-      position: absolute;
-      top: -65px;
-      margin-right: 17%;
-      width: 40%;
-      height: 50px;
-      display: flex;
-      left: 25%;
-      filter: invert(100%);
-    }
+
+  .Hamburguesa {
+    display: flex !important;
+    flex-direction: column;
+    margin: 5px;
+    position: relative;
+    left: 5%;
+    top: 27px;
+    cursor: pointer;
+    width: 30px;
   }
+
+  .Hamburguesa span {
+    width: 30px;
+    height: 4px;
+    background-color: white;
+    margin-bottom: 5px;
+    border-radius: 2px;
+    transform-origin: 5px 0px;
+    transition: all 0.2s linear;
+  }
+
+  .btns {
+    position: absolute;
+    top: -65px;
+    margin-right: 17%;
+    width: 40%;
+    height: 50px;
+    display: flex;
+    left: 25%;
+    filter: invert(100%);
+  }
+}

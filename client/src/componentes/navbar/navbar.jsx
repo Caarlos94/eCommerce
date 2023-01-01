@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import SearchBar from './searchBar/searchBar.jsx';
-import Filtros from './filtros/filtros.jsx';
-import style from './navbar.module.css';
-import './navbarr.css';
-import { Link, NavLink } from 'react-router-dom';
-import heart from '../../img/heart-regular.svg';
-import usuario from '../../img/user.svg';
-import shopping from '../../img/shopping.png';
-import answers from '../../img/answ.png'
-import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, importUser } from '../../redux/actions/actions.js';
+import React, { useEffect, useState } from "react";
+import SearchBar from "./searchBar/searchBar.jsx";
+import Filtros from "./filtros/filtros.jsx";
+import style from "./navbar.module.css";
+import "./navbarr.css";
+import { Link, NavLink } from "react-router-dom";
+import heart from "../../img/heart-regular.svg";
+import usuario from "../../img/user.svg";
+import shopping from "../../img/shopping.png";
+import answers from "../../img/answ.png";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts, importUser } from "../../redux/actions/actions.js";
 import { useAuth0 } from "@auth0/auth0-react";
 import jwt_decode from "jwt-decode";
 
@@ -24,8 +24,6 @@ const Navbar = ({ setPages }) => {
   }, [dispatch]);
 
   const { user, loginWithRedirect, isAuthenticated, logout, getAccessTokenSilently } = useAuth0();
-
-  console.log(user);
 
   useEffect(() => {
     const checkForAdminRole = async () => {
@@ -57,9 +55,7 @@ const Navbar = ({ setPages }) => {
           <span className="span"></span>
         </div>
       </div>
-
-      <div className={`white ${isOpen && 'open'}`}>
-
+      <div className={`white ${isOpen && "open"}`}>
         <div className={style.filtros}>
           <Filtros setPages={setPages} />
         </div>
@@ -100,8 +96,8 @@ const Navbar = ({ setPages }) => {
           {isAdmin ? (
             <div className={style.admin}>
               <div className={style.publicar}>
-                <NavLink to="/product" style={{ textDecoration: 'none' }}>
-                  <button>Publicar un producto!</button>
+                <NavLink to="/product" style={{ textDecoration: "none" }}>
+                  <button>Publicar un Producto!</button>
                 </NavLink>
               </div>
               <div className={style.qa}>
@@ -109,6 +105,11 @@ const Navbar = ({ setPages }) => {
                   <div className={style.btnQA}>
                     <img src={answers} alt=""></img>
                   </div>
+                </NavLink>
+              </div>
+              <div className={style.publicar}>
+                <NavLink to="/sales" style={{ textDecoration: "none" }}>
+                  <button>Historial de Ventas</button>
                 </NavLink>
               </div>
             </div>

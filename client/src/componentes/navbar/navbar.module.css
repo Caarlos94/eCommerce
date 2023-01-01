@@ -13,29 +13,6 @@
   border-bottom: 0.5px solid black;
 }
 
-.publicar button {
-  padding: 5px 10px;
-  border-radius: 5px;
-  background-color: black;
-  color: #fff;
-  font-weight: bold;
-  transition: all 0.4s;
-}
-
-.publicar button:hover {
-  border-radius: 5px;
-  transform: translateY(-10px);
-  box-shadow: 0 7px 0 -2px #f85959, 0 15px 0 -4px #39a2db,
-    0 16px 10px -3px #39a2db;
-}
-
-.publicar button:active {
-  transition: all 0.2s;
-  transform: translateY(-5px);
-  box-shadow: 0 2px 0 -2px #f85959, 0 8px 0 -4px #39a2db,
-    0 12px 10px -3px #39a2db;
-}
-
 .searchBar {
   width: 300px;
   display: flex;
@@ -141,8 +118,13 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  margin-left: 15px;
+  /* margin-left: 15px; */
   border-radius: 5px;
+  transition: all 0.4s;
+}
+
+.btnQA:hover {
+  padding-bottom: 10px;
 }
 
 .btnQA img {
@@ -188,6 +170,7 @@
   height: 50px;
   display: flex;
   right: 1%;
+  padding-right: 400px;
 }
 
 .backHome {
@@ -241,14 +224,29 @@
   align-items: center;
   justify-content: center;
   padding: 5px 10px;
-  margin-left: 25px;
+  margin-left: 20px;
+  margin-right: 20px;
   border-radius: 5px;
   background-color: #000000;
-  width: 150px;
+  width: 135px;
   height: 55px;
   color: #fff;
   font-weight: bold;
   transition: all 0.4s;
+}
+
+.publicar button:hover {
+  border-radius: 5px;
+  transform: translateY(-10px);
+  box-shadow: 0 7px 0 -2px #f85959, 0 15px 0 -4px #39a2db,
+    0 16px 10px -3px #39a2db;
+}
+
+.publicar button:active {
+  transition: all 0.2s;
+  transform: translateY(-5px);
+  box-shadow: 0 2px 0 -2px #f85959, 0 8px 0 -4px #39a2db,
+    0 12px 10px -3px #39a2db;
 }
 
 @media (max-width: 768px) {

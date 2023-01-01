@@ -27,7 +27,6 @@ const Filtros = ({ setPages }) => {
 
   const fn3 = (el) => {
     dispatch(searchXprecio(el.target.value));
-    setPages(1);
   };
 
   const fn4 = (el) => {

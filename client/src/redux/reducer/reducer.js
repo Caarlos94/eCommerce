@@ -146,7 +146,9 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case SEARCHxCATEGORIA: {
+      let arr = [...state.products];
       let productsFilter = [];
+
       if (action.payload === 'todas') {
         let arr = [...state.products];
         if (state.precio[1] !== 0)
@@ -496,13 +498,12 @@ const rootReducer = (state = initialState, action) => {
         (product) => product.id === newFavorite.id
       );
 
-      console.log(state.details);
       return productInFavorite
         ? { ...state }
         : {
-          ...state,
-          favorites: [...state.favorites, newFavorite],
-        };
+            ...state,
+            favorites: [...state.favorites, newFavorite],
+          };
     case REMOVE_FROM_FAVORITE:
       let productToRemove = state.favorites.find(
         (product) => product.id === action.payload

@@ -6,6 +6,7 @@ const userRouter = require("./userRouter.js");
 const customerQARouter = require("./customerQARouter");
 const adminQARouter = require("./adminQARouter");
 const categoryRouter = require("./categoryRouter")
+const compraRouter = require("./compraRouter");
 
 const router = Router();
 const mercadopago = require("mercadopago");
@@ -20,6 +21,7 @@ router.use("/customerQA", customerQARouter);
 router.use("/adminQA", adminQARouter);
 router.use("/category", categoryRouter)
 
+router.use("/compras", compraRouter);
 
 mercadopago.configure({
   access_token:
@@ -65,27 +67,12 @@ router.post("/pagosMeli", async (req, res) => {
 
 
 router.get("/redirect", async (req, res) => {
-    let { status } = req.query
-    
-    if(status === "approved"){
-
-      
-      obj.forEach(async producto => {
-
-        let productStock = await Producto.findByPk(producto.id)
-        let stock = productStock.stock
-        const modifiedProduct = await Producto.update(
-          { stock: rest },
-          { where: { id: producto.id } } );  
-        })
-
-      try {
-        res.redirect('http://localhost:3000')
-      } catch (error) { 
-        res.status(400).send(error.message)
-      }
+  try {
+    res.redirect("http://localhost:3000");
+  } catch (error) {
+    res.status(400).send(error.message);
   }
-})
+});
 
 
 /* router.get("/", async (req, res) => {

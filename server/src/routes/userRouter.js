@@ -1,7 +1,7 @@
-const { Router } = require('express')
-const { Cliente } = require('../db.js');
-const { getDataBaseClient } = require("./functions")
-const userRouter = Router()
+const { Router } = require("express");
+const { Cliente } = require("../db.js");
+const { getDataBaseClient } = require("./functions");
+const userRouter = Router();
 
 userRouter.post("/", async (req, res) => {
     try {

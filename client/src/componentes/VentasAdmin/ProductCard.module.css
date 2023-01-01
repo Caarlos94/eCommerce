@@ -1,0 +1,32 @@
+.product-card {
+  /* border: solid green 3px; */
+  display: flex;
+  flex-direction: column;
+  margin: 0.2rem;
+  padding: 0.5rem;
+  width: 15rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  align-items: center;
+}
+
+.product-info-container {
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  /* border: solid purple 3px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.product-card p {
+  padding: 0;
+  margin: 0;
+  word-wrap: break-word;
+}
+
+.bold-text {
+  font-weight: bold;
+}

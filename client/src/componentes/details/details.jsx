@@ -18,6 +18,7 @@ import Footer from '../Footer/Footer';
 
 const Details = () => {
   const dispatch = useDispatch();
+  const carrito = useSelector((state) => state.cart)
 
   let { id } = useParams();
 
