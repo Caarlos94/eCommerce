@@ -7,12 +7,12 @@ const QAAnsweredQuestions = ({ productId }) => {
   const mountedRef = useRef(true);
 
   useEffect(() => {
+    if (!mountedRef.current) {
+      return null;
+    }
     fetch(`http://localhost:3001/customerQA/${productId}`)
       .then((data) => data.json())
       .then((data) => {
-        if (!mountedRef.current) {
-          return null;
-        }
         setQuestions(data);
       });
 
