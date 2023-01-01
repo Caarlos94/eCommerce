@@ -142,14 +142,13 @@ compraRouter.put(
       purchase.localizador = trackingNumber;
       purchase.save();
 
-      // create reusable transporter object using the default SMTP transport
       let transporter = nodemailer.createTransport({
         host: "smtp-mail.outlook.com",
         port: 587,
         secure: false, // true for 465, false for other ports
         auth: {
-          user: "suprasportspf@outlook.com", // generated ethereal user
-          pass: EMAIL_PASSWORD, // generated ethereal password
+          user: "suprasportspf@outlook.com",
+          pass: EMAIL_PASSWORD, //EMAIL_PASSWORD=Suprasports
         },
       });
 
@@ -173,34 +172,6 @@ compraRouter.put(
     }
   }
 );
-
-compraRouter.get("/adminSales/sendEmail", async (req, res) => {
-  // create reusable transporter object using the default SMTP transport
-  let transporter = nodemailer.createTransport({
-    host: "smtp-mail.outlook.com",
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: "suprasportspf@outlook.com",
-      pass: EMAIL_PASSWORD, // EMAIL_PASSWORD=Suprasports
-    },
-  });
-
-  const mailOptions = {
-    from: "suprasportspf@outlook.com",
-    to: "mederocc@gmail.com",
-    subject: "Sending Email using Node.js",
-    text: "That was easy?",
-  };
-
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
-    }
-  });
-});
 
 compraRouter.use(errorHandler);
 
