@@ -5,9 +5,8 @@ import Details from "./componentes/details/details";
 import Perfil from "./componentes/navbar/Perfil/Perfil";
 import Carrito from "./componentes/Carrito/Carrito";
 import Answers from "./componentes/Answers/Answers";
-/* import QASection from './componentes/customersQA/QASection'; */
-import Favorites from "./componentes/Favorites/Favorites";
 import VentasAdmin from "./componentes/VentasAdmin/VentasAdmin";
+import Favorites from "./componentes/Favorites/Favorites";
 import { Route } from "react-router-dom";
 import About from "./componentes/About/About";
 import { ProtectedRoute } from "./componentes/ProtectedRoute";

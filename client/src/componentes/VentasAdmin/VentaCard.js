@@ -53,7 +53,10 @@ const VentaCard = ({ data, accessToken }) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
       },
-      body: JSON.stringify({ trackingNumber: sent.trackingNumber }),
+      body: JSON.stringify({
+        trackingNumber: sent.trackingNumber,
+        clienteEmail: cliente.email,
+      }),
     })
       .then((data) => data.json())
       .then((data) => {

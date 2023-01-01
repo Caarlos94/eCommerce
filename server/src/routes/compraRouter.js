@@ -4,6 +4,9 @@ const { Producto, Cliente, Compra } = require("../db");
 const { validateAdmin } = require("./middleware/validateAdmin");
 const { validateAccessToken } = require("./middleware/validateAccessToken");
 const { errorHandler } = require("./middleware/error.middleware");
+const nodemailer = require("nodemailer");
+require("dotenv").config();
+const { EMAIL_PASSWORD } = process.env;
 
 // Ejemplo de req.body:
 // {
@@ -127,7 +130,9 @@ compraRouter.put(
   async (req, res) => {
     try {
       const { purchaseId } = req.params;
-      const { trackingNumber } = req.body;
+      const { trackingNumber, clienteEmail } = req.body;
+
+      console.log(clienteEmail);
 
       const purchase = await Compra.findOne(
         { where: { id: purchaseId } },
@@ -137,12 +142,65 @@ compraRouter.put(
       purchase.localizador = trackingNumber;
       purchase.save();
 
-      return res.status(200).json("El cliente ha sido notificado.");
+      // create reusable transporter object using the default SMTP transport
+      let transporter = nodemailer.createTransport({
+        host: "smtp-mail.outlook.com",
+        port: 587,
+        secure: false, // true for 465, false for other ports
+        auth: {
+          user: "suprasportspf@outlook.com", // generated ethereal user
+          pass: EMAIL_PASSWORD, // generated ethereal password
+        },
+      });
+
+      const mailOptions = {
+        from: "suprasportspf@outlook.com",
+        to: clienteEmail,
+        subject: "Confirmación de envío ",
+        text: `Localizador: ${trackingNumber}`,
+      };
+
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          throw new Error(error);
+        } else {
+          console.log("Email sent: " + info.response);
+          return res.status(200).json("El cliente ha sido notificado");
+        }
+      });
     } catch (error) {
       return res.status(400).json({ error: true, msg: error.message });
     }
   }
 );
+
+compraRouter.get("/adminSales/sendEmail", async (req, res) => {
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    host: "smtp-mail.outlook.com",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: "suprasportspf@outlook.com", // generated ethereal user
+      pass: EMAIL_PASSWORD, // generated ethereal password
+    },
+  });
+
+  const mailOptions = {
+    from: "suprasportspf@outlook.com",
+    to: "mederocc@gmail.com",
+    subject: "Sending Email using Node.js",
+    text: "That was easy?",
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+});
 
 compraRouter.use(errorHandler);
 
