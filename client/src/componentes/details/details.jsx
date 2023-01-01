@@ -19,6 +19,7 @@ import QASection from '../customersQA/QASection'; // La sección de QA del produ
 import { useAuth0 } from '@auth0/auth0-react';
 import answers from '../../img/answ.png';
 import Navbar from '../navbar/navbar';
+import Reviews from '../Ratings/Reviews';
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -159,6 +160,9 @@ const Details = () => {
           <div></div>
         </div>
       )}
+      <div className={s.valoraciones}>
+        <Reviews />
+      </div>
     </div>
   );
 };
