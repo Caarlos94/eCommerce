@@ -38,8 +38,8 @@ const VentasAdmin = () => {
     <>
       {error.error && <p>{error.msg}</p>}
       {isAdmin ? (
-        <div>
-          <h1>Registro de ventas</h1>
+        <div className={classes["registro-parent-container"]}>
+          <h1 className={classes.registro}>Registro de ventas</h1>
 
           <div className={classes["filters-container"]}>
             <div className={classes.order}>
@@ -58,16 +58,17 @@ const VentasAdmin = () => {
               </select>
             </div>
           </div>
-
-          {data && !data.error && data.length
-            ? data.map((el) => (
-                <VentaCard
-                  accessToken={accessToken}
-                  key={el.purchaseId}
-                  data={el}
-                />
-              ))
-            : ""}
+          <div className={classes["ventas-cards"]}>
+            {data && !data.error && data.length
+              ? data.map((el) => (
+                  <VentaCard
+                    accessToken={accessToken}
+                    key={el.purchaseId}
+                    data={el}
+                  />
+                ))
+              : ""}
+          </div>
         </div>
       ) : (
         ""

@@ -32,17 +32,19 @@ const AdminQA = () => {
         <div className={classes["admin-questions"]}>
           {/* <p>Is admin: {isAdmin ? "true" : "false"}</p> */}
           <h1>Preguntas por responder:</h1>
-          {questions.length ? (
-            questions.map((q) => (
-              <UnansweredQuestion
-                key={q.questionId}
-                question={q}
-                accessToken={accessToken}
-              />
-            ))
-          ) : (
-            <p>De momento, no hay preguntas.</p>
-          )}
+          <div className={classes["question-cards"]}>
+            {questions.length ? (
+              questions.map((q) => (
+                <UnansweredQuestion
+                  key={q.questionId}
+                  question={q}
+                  accessToken={accessToken}
+                />
+              ))
+            ) : (
+              <p>De momento, no hay preguntas.</p>
+            )}
+          </div>
         </div>
       ) : (
         ""

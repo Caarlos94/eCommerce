@@ -1,0 +1,52 @@
+.registro-parent-container {
+  margin: 3rem;
+  margin-left: 6rem;
+  margin-right: 6rem;
+  margin-bottom: 7rem;
+}
+
+.registro {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+
+.ventas-cards {
+  margin-top: 3rem;
+  justify-content: center;
+  align-items: flex-start;
+  display: flex;
+  margin-left: 0;
+  margin-right: 0;
+  flex-wrap: wrap;
+  flex-direction: column;
+  /* border: solid red 3px; */
+  padding: 0;
+}
+
+.filters-container select {
+  --bg: #000;
+  --hover-bg: #ffffff;
+  --hover-text: #000;
+  color: #fff;
+  border: 1px solid var(--bg);
+  border-radius: 4px;
+  padding: 5px 10px;
+  margin: 10px;
+  font-weight: bold;
+  background: var(--bg);
+  transition: 0.2s;
+}
+
+.select:active {
+  transform: translate(0);
+  box-shadow: none;
+}
+
+.order {
+  font-weight: bold;
+}
+
+.sent {
+  font-weight: bold;
+}

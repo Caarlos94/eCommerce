@@ -1,5 +1,69 @@
 .container {
-  border: solid blue 3px;
+  /* border: solid blue 3px; */
   display: flex;
   flex-wrap: nowrap;
+  margin-bottom: 1.3rem;
+  min-width: 70%;
+  max-width: 70%;
+  justify-content: space-between;
+  border-radius: 0.5rem;
+  box-shadow: 4px 4px 5px 0 rgba(0, 0, 0, 0.2);
+  background-color: #edeff0;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+.left-side-container {
+  margin: 1rem;
+  width: 80%;
+}
+.right-side-container {
+  margin: 1rem;
+  margin-left: 4rem;
+  margin-right: 4rem;
+  width: 50%;
+}
+
+.mark-sent-container button {
+  --bg: #000;
+  --hover-bg: #ffffff;
+  --hover-text: #000;
+  color: #fff;
+  border: 1px solid var(--bg);
+  border-radius: 4px;
+  padding: 5px 10px;
+  margin: 10px;
+  margin-left: 0;
+  margin-top: 1rem;
+  font-weight: bold;
+  background: var(--bg);
+  transition: 0.2s;
+}
+
+.mark-sent-container button:hover {
+  color: var(--hover-text);
+  transform: translate(-0.25rem, -0.25rem);
+  background: var(--hover-bg);
+  box-shadow: 0.25rem 0.25rem var(--bg);
+}
+
+.mark-sent-container button:active {
+  transform: translate(0);
+  box-shadow: none;
+}
+
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+form label {
+  margin-right: 1rem;
+}
+
+.feedback {
+  margin-top: 1rem;
 }

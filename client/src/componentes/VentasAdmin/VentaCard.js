@@ -26,18 +26,16 @@ const VentaCard = ({ data, accessToken }) => {
   };
 
   const handleChange = (e) => {
-    setInterval(() => {
-      setDidFocus(true);
-      e.target.value.length < 8
-        ? setTrackingError({
-            error: true,
-            msg: "El localizador debe tener más de 8 digitos",
-          })
-        : setTrackingError({
-            error: false,
-            msg: "",
-          });
-    }, 1000);
+    setDidFocus(true);
+    e.target.value.length < 8
+      ? setTrackingError({
+          error: true,
+          msg: "El localizador debe tener más de 8 digitos",
+        })
+      : setTrackingError({
+          error: false,
+          msg: "",
+        });
 
     setSent((prevState) => ({ ...prevState, trackingNumber: e.target.value }));
   };
@@ -73,7 +71,9 @@ const VentaCard = ({ data, accessToken }) => {
     <div className={classes.container}>
       <div className={classes["left-side-container"]}>
         <div className={classes["sent-date-container"]}>
-          <p>{sent.didNotify ? "Enviado" : "Por enviar"}</p>
+          <p className={classes["bold-text"]}>
+            {sent.didNotify ? "Enviado" : "Por enviar"}
+          </p>
           <p>Fecha de compra: {data.fecha}</p>
         </div>
         <div className={classes["products-container"]}>
@@ -84,7 +84,7 @@ const VentaCard = ({ data, accessToken }) => {
       </div>
       <div className={classes["right-side-container"]}>
         <div className={classes["client-container"]}>
-          <p>{cliente.nickname}</p>
+          <p className={classes["bold-text"]}>{cliente.nickname}</p>
           <p>Correo: {cliente.email || "null"}</p>
           <p>Teléfono: {cliente.cel || "null"}</p>
           <p>Dirección: {cliente.address || "null"}</p>
@@ -95,7 +95,7 @@ const VentaCard = ({ data, accessToken }) => {
             <button onClick={handleClick}>Notificar envío</button>
           ) : (
             ""
-          )}{" "}
+          )}
           {sent.didNotify && !sent.didClick ? (
             <button onClick={handleClick}>Modificar localizador</button>
           ) : (
@@ -105,7 +105,7 @@ const VentaCard = ({ data, accessToken }) => {
           {sent.didClick ? (
             <div>
               <form onSubmit={handleSentTrackingNo}>
-                <label htmlFor="trackingNo">Localizador </label>
+                <label htmlFor="trackingNo">Localizador: </label>
                 <input
                   onChange={handleChange}
                   autoComplete="off"
@@ -121,7 +121,11 @@ const VentaCard = ({ data, accessToken }) => {
           ) : (
             ""
           )}
-          {sent.didNotify ? <p>{sent.feedback}</p> : ""}
+          {sent.didNotify ? (
+            <p className={classes.feedback}>{sent.feedback}</p>
+          ) : (
+            ""
+          )}
           {trackingError.error ? <p>{trackingError.msg}</p> : ""}
         </div>
       </div>
