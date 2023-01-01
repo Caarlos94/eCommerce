@@ -33,11 +33,16 @@ const Home = () => {
 
   const paginateNext = (nextPage) => setCurrentPage(nextPage);
 
+  const returnDefault = () => {
+    document.getElementById('order').value = 'Ordenar por Precio'
+  }
+
   const handlerOrderPrecio = (e) => {
     e.preventDefault();
     dispatch(orderPrecio(e.target.value));
     setCurrentPage(1); //cuando hago el ordenamiento seteo para que arranque en la prim página
     setOrder(`Ordenado ${e.target.value}`); //cuando seteo esta página, me modifica el estado local y lo modifica
+    /* returnDefault() */
   };
 
   return (
@@ -70,11 +75,11 @@ const Home = () => {
       ></Paginado>
       {allProducts.length > 0 ? (
         <div>
-          <select onChange={(e) => handlerOrderPrecio(e)} className={s.select}>
+          {/* <select onChange={(e) => handlerOrderPrecio(e)} className={s.select} id='order'>
             <option hidden>Ordenar por Precio</option>
             <option value="asc">Menor a Mayor</option>
             <option value="desc">Mayor a Menor</option>
-          </select>
+          </select> */}
 
           <div>
             <div /* className="container d-flex justify-content-center h-100 align-items-center" */

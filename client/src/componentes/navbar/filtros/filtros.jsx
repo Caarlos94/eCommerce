@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import style from './filtros.module.css';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -10,11 +10,16 @@ import {
   searchXtalla,
   searchXcategoria,
   /* emptyError, */
-  getProducts2
+  getProducts2,
+  orderPrecio
 } from '../../../redux/actions/actions.js';
 
 const Filtros = () => {
   const dispatch = useDispatch();
+  const [, setOrder] = useState("");
+
+  const [currentPage, setCurrentPage] = useState(1); // DEBERIA SER UN REDUCER
+  
 
   const fn = (el) => {
     dispatch(searchXcategoria(el.target.value));
@@ -34,12 +39,21 @@ const Filtros = () => {
     dispatch(searchXtalla(el.target.value));
 
   };
+
+  const handlerOrderPrecio = (e) => {
+    e.preventDefault();
+    dispatch(orderPrecio(e.target.value));
+    setCurrentPage(1); //cuando hago el ordenamiento seteo para que arranque en la prim página
+    setOrder(`Ordenado ${e.target.value}`); //cuando seteo esta página, me modifica el estado local y lo modifica
+    /* returnDefault() */
+  };
   
   const returnDefault = () => {
     document.getElementById('fn').value = 'Categorias'
     document.getElementById('fn2').value = 'Marca'
     document.getElementById('fn3').value = 'Precio'
     document.getElementById('fn4').value = 'Talla'
+    document.getElementById('fn5').value = 'Ordenar por Precio'
   }
 
 
@@ -92,6 +106,12 @@ const Filtros = () => {
           <option value="XL">XL</option>
           <option value="XXL">XXL</option>
         </select>
+
+        <select onChange={(e) => handlerOrderPrecio(e)} className={style.select} id='fn5'>
+            <option hidden>Ordenar por Precio</option>
+            <option value="asc">Menor a Mayor</option>
+            <option value="desc">Mayor a Menor</option>
+          </select>
       </div>
       <div className={style.clear}>
         <NavLink to="/">
