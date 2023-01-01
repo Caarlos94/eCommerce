@@ -181,8 +181,8 @@ compraRouter.get("/adminSales/sendEmail", async (req, res) => {
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: "suprasportspf@outlook.com", // generated ethereal user
-      pass: EMAIL_PASSWORD, // generated ethereal password
+      user: "suprasportspf@outlook.com",
+      pass: EMAIL_PASSWORD, // EMAIL_PASSWORD=Suprasports
     },
   });
 
