@@ -16,6 +16,7 @@ import jwt_decode from "jwt-decode";
 const Navbar2 = ({ setPages }) => {
   const dispatch = useDispatch();
   const carrito = useSelector((state) => state.cart)
+  const favoritos = useSelector((state) => state.favorites)
 
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -123,7 +124,6 @@ const Navbar2 = ({ setPages }) => {
           ) : (
             <>
               {carrito.length > 0 ? (
-
                 <NavLink to="/cart" className={style.carro} style={{ textDecoration: 'none' }}>
                   <div className={style.btn}>
                     <h6>{carrito.length}</h6>
@@ -137,11 +137,21 @@ const Navbar2 = ({ setPages }) => {
                   </div>
                 </NavLink>
               )}
-              <NavLink to="/favorites">
-                <div className={style.btn}>
-                  <img src={heart} alt=""></img>
-                </div>
-              </NavLink>
+
+              {favoritos.length > 0 ? (
+                <NavLink to="/favorites">
+                  <div className={style.btn}>
+                    <h6>{favoritos.length}</h6>
+                    <img src={heart} alt=""></img>
+                  </div>
+                </NavLink>
+              ) : (
+                <NavLink to="/favorites">
+                  <div className={style.btn}>
+                    <img src={heart} alt=""></img>
+                  </div>
+                </NavLink>
+              )}
             </>
           )}
         </div>
