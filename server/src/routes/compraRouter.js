@@ -148,7 +148,7 @@ compraRouter.put(
         secure: false, // true for 465, false for other ports
         auth: {
           user: EMAIL_USER,
-          pass: EMAIL_PASSWORD, //EMAIL_PASSWORD=Suprasports
+          pass: EMAIL_PASSWORD,
         },
       });
 
