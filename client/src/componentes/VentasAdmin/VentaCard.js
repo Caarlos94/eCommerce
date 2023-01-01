@@ -45,7 +45,11 @@ const VentaCard = ({ data, accessToken }) => {
     if (sent.trackingNumber.length < 8) return;
     if (trackingError.error) return;
 
-    setSent((prevState) => ({ ...prevState, didNotify: true }));
+    setSent((prevState) => ({
+      ...prevState,
+      didNotify: true,
+      didClick: false,
+    }));
 
     fetch(`http://localhost:3001/compras/adminSales/${data.purchaseId}`, {
       method: "PUT",
@@ -65,7 +69,6 @@ const VentaCard = ({ data, accessToken }) => {
           ...prevState,
           feedback: data,
           trackingNumber: "",
-          didClick: false,
         }));
       });
   };
