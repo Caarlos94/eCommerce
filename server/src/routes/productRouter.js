@@ -75,40 +75,11 @@ productRouter.delete("/", async (req, res) => {
   }
 });
 
-// productRouter.put('/:stock', async (req, res) => {
-//   const { stock } = req.params;
-//   const { value } = req.query;
-//   try {
+/* productRouter.put("/", async (req, res) => {
+  const data = req.body;
 
-//     const modifiedProduct = await Producto.update(
-//       // { [stock]: value },
-//       { [stock]: value },
-//       { where: { [stock]: 25 } } );
-
-//     res.status(200).send("Producto actualizado");
-//   } catch (error) {
-//     res.status(404).send(error.message);
-//   }
-// });
-
-// productRouter.put('/', async (req, res) => {
-//   try {
-
-//     const { id } = req.body;
-//     const product = await Producto.findByPk(id);
-//     product.dataValues.stock--
-
-//     res.status(200).json(product);
-//   } catch (error) {
-//     res.status(404).send(error.message);
-//   }
-// });
-
-productRouter.put("/:atributo", async (req, res) => {
-  const { atributo } = req.params;
-  const { value } = req.query;
   try {
-    const newProduct = await Producto.update(
+    const editedProduct = await Producto.update(
       { [atributo]: value },
       { where: { [atributo]: null } }
     );
@@ -116,6 +87,6 @@ productRouter.put("/:atributo", async (req, res) => {
   } catch (error) {
     res.status(404).send(error.message);
   }
-});
+}); */
 
 module.exports = productRouter;

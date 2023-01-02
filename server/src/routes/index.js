@@ -1,18 +1,17 @@
 const { Router } = require("express");
-const { getCategories } = require("./functions");
-const { Categoria, Producto } = require('../db.js');
-
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
+const { Producto } = require('../db.js');
 
 const productRouter = require("./productRouter.js");
 const userRouter = require("./userRouter.js");
 const customerQARouter = require("./customerQARouter");
 const adminQARouter = require("./adminQARouter");
+const categoryRouter = require("./categoryRouter")
+const compraRouter = require("./compraRouter");
 
 const router = Router();
 const mercadopago = require("mercadopago");
 const express = require("express");
+
 
 router.use(express.json());
 
@@ -20,6 +19,9 @@ router.use("/products", productRouter);
 router.use("/users", userRouter);
 router.use("/customerQA", customerQARouter);
 router.use("/adminQA", adminQARouter);
+router.use("/category", categoryRouter)
+
+router.use("/compras", compraRouter);
 
 mercadopago.configure({
   access_token:
@@ -31,18 +33,18 @@ let obj = {}
 
 router.post("/pagosMeli", async (req, res) => {
   let items = req.body.items;
-   obj = items
+  obj = items
   let itemsArr = [];
-  if(items[0].stock > 0) {
-  items.forEach(item => itemsArr.push({
-    id: item.id,
-    title: item.nombre,
-    currency_id: "ARS",
-    picture_url: item.URL,
-    quantity: items[0].cantidad,
-    unit_price: parseInt(item.precio),
-  }))
-}
+  if (items[0].stock > 0) {
+    items.forEach(item => itemsArr.push({
+      id: item.id,
+      title: item.nombre,
+      currency_id: "ARS",
+      picture_url: item.URL,
+      quantity: items[0].cantidad,
+      unit_price: parseInt(item.precio),
+    }))
+  }
 
   let preference = {
     items: itemsArr,
@@ -56,7 +58,6 @@ router.post("/pagosMeli", async (req, res) => {
 
   mercadopago.preferences.create(preference)
     .then(function (response) {
-      
       // console.log(response.body);
       /* res.redirect(response.body.init_point) */
       res.json(response.body.init_point)
@@ -64,43 +65,29 @@ router.post("/pagosMeli", async (req, res) => {
     .catch(function (error) {
       console.log(error);
     });
-}) 
+})
 
 
 router.get("/redirect", async (req, res) => {
-    let { status } = req.query
-    
-    if(status === "approved"){
+  let { status } = req.query
 
-      
-      obj.forEach(async producto => {
+  if (status === "approved") {
+    obj.forEach(async producto => {
 
-        let productStock = await Producto.findByPk(producto.id)
-        let stock = productStock.stock
-        console.log("El stock traido de la base de datos es " + stock);
-        
-      let rest = stock - producto.cantidad
-      console.log("***********************************************");
-      console.log("producto comprado: " + producto.nombre);
-      console.log("stock actual: " + producto.stock);
-      console.log("productos comprados: " + producto.cantidad);
-      console.log("stock restante: " + rest);
-      console.log("***********************************************");
+      let productStock = await Producto.findByPk(producto.id)
+      let rest = productStock.stock - producto.cantidad
 
-      
-        const modifiedProduct = await Producto.update(
-          { stock: rest },
-          { where: { id: producto.id } } );
-  
-          // console.log(modifiedProduct);
-        })
+      const modifiedProduct = await Producto.update(
+        { stock: rest },
+        { where: { id: producto.id } });
 
-      try {
-        res.redirect('http://localhost:3000')
+    })
 
-      } catch (error) { 
-        res.status(400).send(error.message)
-      }
+    try {
+      res.redirect('http://localhost:3000')
+    } catch (error) {
+      res.status(400).send(error.message)
+    }
   }
 })
 

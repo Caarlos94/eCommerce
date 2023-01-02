@@ -46,8 +46,8 @@ export const getProducts2 = () => {
 };
 
 export function getCategorys() {
-  return function (dispatch) {
-    fetch('http://localhost:3001/category')
+  return async function (dispatch) {
+    await fetch('http://localhost:3001/category')
       .then((response) => response.json())
       .then((data) => dispatch({ type: GET_CATEGORYS, payload: data }));
   };
@@ -62,20 +62,6 @@ export function getUserInfo() {
     });
   };
 }
-
-/* export function postUser(payload) {
-  return async function () {
-    const response = await axios.post('http://localhost:3001/users', payload);
-    return response;
-  };
-} */
-
-/* export function importUser(user) {
-  return async function () {
-    const response = await axios.post('http://localhost:3001/users', user)
-    return response
-  };
-} */
 
 export function importUser(user) {
   return function () {
@@ -97,6 +83,22 @@ export function postProd(payload) {
     );
     return response;
   };
+}
+
+export function postCategory(payload) {
+  return async function () {
+    const response = await axios.post(
+      'http://localhost:3001/category',
+      payload
+    );
+    return response;
+  };
+}
+
+export function deleteCategory(nombre) {
+  return async function () {
+   await axios.delete(`http://localhost:3001/category/${nombre}`);
+  }
 }
 
 export function getDetails(id) {

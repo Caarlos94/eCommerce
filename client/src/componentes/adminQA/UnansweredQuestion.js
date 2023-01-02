@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom'
 const UnansweredQuestion = ({ question, accessToken }) => {
   const [answer, setAnswer] = useState("");
   const [didSubmit, setDidSubmit] = useState(false);
+  const [didDelete, setDidDelete] = useState(false);
 
   const handleChange = (e) => {
     setAnswer(e.target.value);
@@ -21,7 +22,12 @@ const UnansweredQuestion = ({ question, accessToken }) => {
       body: JSON.stringify({ questionId: question.questionId, answer }),
     })
       .then((data) => data.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        console.log(data);
+        setDidDelete(true);
+
+        alert(data);
+      })
       .catch((error) => {
         if (error.error) {
           console.log(error);
@@ -30,6 +36,26 @@ const UnansweredQuestion = ({ question, accessToken }) => {
       });
     setDidSubmit(true);
     alert("Respuesta enviada con éxito! Se reflejará en el detalle del producto al actualizar la página...")
+  };
+
+  const handleDelete = () => {
+    setDidDelete(true);
+
+    fetch(`http://localhost:3001/adminQA/${question.questionId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => console.log(data))
+      .catch((error) => {
+        if (error.error) {
+          alert(error.message);
+          return;
+        }
+      });
   };
 
   // {
@@ -41,16 +67,24 @@ const UnansweredQuestion = ({ question, accessToken }) => {
   //   },
   // }
 
-  return !question.answer && !didSubmit ? (
+  return !question.answer && !didSubmit && !didDelete ? (
     <div className={classes["admin-question"]}>
       <div className={classes["nombre-imagen"]}>
-        <NavLink to={`details/${question.productId}`} style={{ textDecoration: 'none' }}>
-          <p >{question.productName}</p>
-          <div className={classes["imgProd"]} >
-            <img src={question.productUrl} alt="nombre del producto" />
+        <div className={classes["name-delete-container"]}>
+          <NavLink
+            to={`details/${question.productId}`}
+            style={{ textDecoration: "none" }}
+          >
+            <p className={classes["card-name"]}>{question.productName}</p>
+          </NavLink>
+          <div>
+            <button onClick={handleDelete}>X</button>
           </div>
-        </NavLink>
-      </div >
+        </div>
+        <div className={classes["imgProd"]}>
+          <img src={question.productUrl} alt="nombre del producto" />
+        </div>
+      </div>
       <form onSubmit={handleSubmit}>
         <label className={classes.label} htmlFor="respuesta">
           {/* <p>Pregunta: </p> */}
