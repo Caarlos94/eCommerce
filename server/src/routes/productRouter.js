@@ -73,20 +73,25 @@ productRouter.delete("/", async (req, res) => {
   } catch (error) {
     res.status(404).send(error.message);
   }
-});
+}); 
 
-/* productRouter.put("/", async (req, res) => {
+productRouter.put("/", async (req, res) => {
   const data = req.body;
-
   try {
     const editedProduct = await Producto.update(
-      { [atributo]: value },
-      { where: { [atributo]: null } }
+      { nombre: data.nombre,
+        URL: data.URL,
+        precio: data.precio,
+        color: data.color,
+        talla: data.talla,
+        marca: data.marca,
+        stock: data.stock },
+      { where: { id:  data.id} } 
     );
-    res.status(404).send(newProduct);
+    res.status(200).send("el producto se modificó");
   } catch (error) {
     res.status(404).send(error.message);
   }
-}); */
+});
 
 module.exports = productRouter;

@@ -68,12 +68,13 @@ router.get("/redirect", async (req, res) => {
     let { status } = req.query
     
     if(status === "approved"){
-
-      
       obj.forEach(async producto => {
+        
+        let productStock = await Producto.findByPk(producto.id) 
+        console.log(productStock);
+        let rest = productStock.stock - producto.cantidad
+        console.log(rest);
 
-        let productStock = await Producto.findByPk(producto.id)
-        let stock = productStock.stock
         const modifiedProduct = await Producto.update(
           { stock: rest },
           { where: { id: producto.id } } );  

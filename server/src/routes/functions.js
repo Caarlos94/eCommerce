@@ -8,7 +8,7 @@ const getCategories = async () => {
   if(a.length === 0) {
     const response = await fetch( 'https://supra-sports-default-rtdb.firebaseio.com/.json' );
     let commits = await response.json();
-    
+     
     let category = commits.Productos.map((e) => e.categoria);
     const categoryArr = new Set(category);
     let result = [...categoryArr];
