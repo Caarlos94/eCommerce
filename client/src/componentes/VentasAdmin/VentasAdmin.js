@@ -59,15 +59,22 @@ const VentasAdmin = () => {
             </div>
           </div>
           <div className={classes["ventas-cards"]}>
-            {data && !data.error && data.length
-              ? data.map((el) => (
-                  <VentaCard
-                    accessToken={accessToken}
-                    key={el.purchaseId}
-                    data={el}
-                  />
-                ))
-              : ""}
+            {
+              data && !data.error && data.length
+                ? data.map((el) => (
+                    <VentaCard
+                      accessToken={accessToken}
+                      key={el.purchaseId}
+                      data={el}
+                    />
+                  ))
+                : ""
+              //(
+              //   <p className={classes["bold-text"]}>
+              //     Actualmente, no hay ventas registradas.
+              //   </p>
+              // )
+            }
           </div>
         </div>
       ) : (

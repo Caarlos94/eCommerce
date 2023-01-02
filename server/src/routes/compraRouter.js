@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const compraRouter = Router();
-const { Producto, Cliente, Compra } = require("../db");
+const { Producto, Cliente, Compra, Review } = require("../db");
 const { validateAdmin } = require("./middleware/validateAdmin");
 const { validateAccessToken } = require("./middleware/validateAccessToken");
 const { errorHandler } = require("./middleware/error.middleware");
@@ -172,6 +172,84 @@ compraRouter.put(
     }
   }
 );
+
+compraRouter.get("/review-match", async (req, res) => {
+  // verifica si el cliente ya dejó un review para un producto especifico.
+  // De ser así, el product card de historial de compras no debería mostrar opción para dejar un review
+  try {
+    const { productoId, clienteId } = req.query;
+    const review = await Review.findOne(
+      { where: { productoId, clienteId } },
+      { raw: true }
+    );
+
+    return res.status(200).json(review);
+  } catch (error) {
+    return res.status(400).json({ error: true, msg: error.message });
+  }
+});
+
+compraRouter.post("/review", async (req, res) => {
+  try {
+    const { comment, rating, productoId, clienteId } = req.body;
+
+    //Podría agregarse verificación de que el cliente si haya hecho la compra sobre la que va a opinar
+    //La ruta post solo está disponible a través del product card de purchase history,
+    //por lo que no es factible que un cliente pueda opinar sobre productos que no compró
+
+    const match = await Review.findOne(
+      { where: { productoId, clienteId } },
+      { raw: true }
+    );
+
+    if (match) throw new Error("El cliente ya opinó sobre este producto");
+
+    const cliente = await Cliente.findOne({
+      where: {
+        id: clienteId,
+      },
+    });
+
+    const producto = await Producto.findOne({
+      where: {
+        id: productoId,
+      },
+    });
+
+    if (!cliente) {
+      throw new Error("El cliente no se encuentra en la base de datos");
+    }
+
+    if (!producto) {
+      throw new Error("El producto no se encuentra en la base de datos");
+    }
+
+    const review = await Review.create({ comment, rating }, { raw: true });
+
+    review.clienteId = clienteId;
+    review.productoId = productoId;
+
+    review.save();
+
+    res.status(200).json("La opinión ha sido enviada.");
+  } catch (error) {
+    res.status(404).json({ error: true, msg: error.message });
+  }
+});
+
+compraRouter.get("/reviews/:productoId", async (req, res) => {
+  try {
+    const { productoId } = req.params;
+    const reviews = await Review.findAll(
+      { where: { productoId } },
+      { raw: true }
+    );
+
+    return res.status(200).json(reviews);
+  } catch (error) {
+    return res.status(400).json({ error: true, msg: error.message });
+  }
+});
 
 compraRouter.use(errorHandler);
 

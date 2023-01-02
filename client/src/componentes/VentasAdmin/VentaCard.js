@@ -132,7 +132,11 @@ const VentaCard = ({ data, accessToken }) => {
           ) : (
             ""
           )}
-          {trackingError.error ? <p>{trackingError.msg}</p> : ""}
+          {trackingError.error && sent.trackingNumber.length ? (
+            <p>{trackingError.msg}</p>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>
