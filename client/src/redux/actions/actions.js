@@ -44,6 +44,18 @@ export const getProducts2 = () => {
   };
 };
 
+export function updateProduct(data) {
+  return function () {
+    fetch('http://localhost:3001/products', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+  };
+}
+
 export function getCategorys() {
   return function (dispatch) {
     fetch('http://localhost:3001/category')
