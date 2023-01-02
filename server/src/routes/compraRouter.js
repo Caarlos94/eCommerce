@@ -51,7 +51,7 @@ compraRouter.post("/", async (req, res) => {
     });
     res.status(200).json("Compra creada");
   } catch (error) {
-    res.status(400).json(error.message);
+    res.status(400).json({ error: true, msg: error.message });
   }
 });
 

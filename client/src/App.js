@@ -7,6 +7,7 @@ import Carrito from "./componentes/Carrito/Carrito";
 import Answers from "./componentes/Answers/Answers";
 import VentasAdmin from "./componentes/VentasAdmin/VentasAdmin";
 import Favorites from "./componentes/Favorites/Favorites";
+import ReviewForm from "./componentes/ReviewForm/ReviewForm";
 import { Route } from "react-router-dom";
 import About from "./componentes/About/About";
 import { ProtectedRoute } from "./componentes/ProtectedRoute";
@@ -16,7 +17,6 @@ function App() {
     <div className="divPadre">
       <Route exact path="/" component={Home} />
       <Route path="/product" component={ProductCreate} />
-
       <Route path="/details/:id" component={Details} />
       <Route path="/cart" component={Carrito} />
       <ProtectedRoute path="/answers" component={Answers} />
@@ -24,6 +24,7 @@ function App() {
       <Route path="/profile" component={Perfil} />
       <Route exact path="/favorites" component={Favorites} />
       <ProtectedRoute path="/sales" component={VentasAdmin} />
+      <ProtectedRoute path="/review-form" args={""} component={ReviewForm} />
     </div>
   );
 }

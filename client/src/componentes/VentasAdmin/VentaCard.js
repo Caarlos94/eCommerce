@@ -84,7 +84,11 @@ const VentaCard = ({ data, accessToken }) => {
         </div>
         <div className={classes["products-container"]}>
           {data.productos.map((producto) => (
-            <ProductCard key={producto.productoId} data={producto} />
+            <ProductCard
+              key={producto.productoId}
+              data={producto}
+              clienteId={cliente.clienteId} // solo de prueba
+            />
           ))}
         </div>
       </div>

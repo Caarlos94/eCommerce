@@ -1,7 +1,8 @@
 import React from "react";
 import classes from "./ProductCard.module.css";
+import { Link } from "react-router-dom";
 
-const ProductCard = ({ data }) => {
+const ProductCard = ({ data, clienteId }) => {
   return (
     <div className={classes["product-card"]}>
       <div className={classes["img-container"]}>
@@ -14,6 +15,14 @@ const ProductCard = ({ data }) => {
         <p>Precio: ${data.precio}</p>
         <p>Cantidad: {data.cantidad}</p>
       </div>
+      <Link
+        to={{
+          pathname: "/review-form",
+          state: { clienteId, producto: data },
+        }}
+      >
+        <button>TEST add review button</button>
+      </Link>
     </div>
   );
 };
