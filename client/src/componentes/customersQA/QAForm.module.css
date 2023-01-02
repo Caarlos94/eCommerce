@@ -82,16 +82,22 @@
     position: absolute;
     right: 0;
     bottom: 3%;
+    top: 0;
   }
 
   .form-input {
     height: 35px;
-    width: 200px;
+    width: 220px;
+    position: absolute;
+    top: 55%;
+    left: 20%;
   }
 
   .submit-button {
     padding: 5px 15px;
     width: 220px;
-    height: 50px;
+    position: absolute;
+    top: 65%;
+    left: 20%;
   }
 }

@@ -45,6 +45,26 @@ adminQARouter.put("/", validateAccessToken, validateAdmin, async (req, res) => {
   }
 });
 
+adminQARouter.delete(
+  "/:id",
+  validateAccessToken,
+  validateAdmin,
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+      Pregunta.findByPk(id).then((pregunta) => {
+        if (!pregunta) {
+          throw new Error("Pregunta inexistente");
+        }
+        pregunta.destroy();
+      });
+      res.status(200).json("La pregunta fue eliminada");
+    } catch (error) {
+      res.status(400).json({ error: true, msg: error.message });
+    }
+  }
+);
+
 adminQARouter.use(errorHandler);
 
 module.exports = adminQARouter;

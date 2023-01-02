@@ -11,14 +11,20 @@
   z-index: 10;
 }
 
+.itemmm {
+  width: 30%;
+}
+
 .itemm {
   width: 100%;
   display: flex;
   justify-content: center;
+  position: relative;
 }
 
 .itemImg {
-  width: 20%;
+  border: 0.5px solid rgb(143, 143, 143);
+  width: 70%;
   height: 180px;
   margin-right: 20px;
   background-size: cover;
@@ -28,21 +34,23 @@
 
 .info {
   color: black;
+  position: absolute;
+  left: 23%;
 }
 
 .info p {
   font-weight: 500;
 }
 
-.item button {
+.itemm button {
   background-color: rgba(255, 62, 62, 0.966);
   color: white;
   border-radius: 5px;
   padding: 3px 10px;
   font-weight: bold;
   position: absolute;
-  right: 2%;
-  top: 7%;
+  right: 1%;
+  top: 5%;
   z-index: 100;
 }
 
@@ -52,6 +60,10 @@
     height: 150px;
     padding: 10px;
     position: relative;
+  }
+
+  .itemmm {
+    width: 80%;
   }
 
   .info h2 {

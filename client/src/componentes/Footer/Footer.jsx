@@ -13,12 +13,14 @@ export default function Footer() {
                 </NavLink>
 
                 <NavLink to='/' style={{ textDecoration: 'none' }}>
+                    <>Redes: </> 
                     <img src={instagram} alt="" />
                 </NavLink>
 
-                <NavLink to='/contact' style={{ textDecoration: 'none' }}>
-                    <h4>Contacto</h4>
-                </NavLink>
+                {/* <div className={style.contacto}>
+                    <h6>suprasportspf@gmail.com</h6>
+                    <h6>+54 3516853857</h6>
+                </div> */}
             </div>
         </div>
     )
