@@ -138,6 +138,7 @@ compraRouter.put(
         { where: { id: purchaseId } },
         { raw: true }
       );
+      
       purchase.enviado = true;
       purchase.localizador = trackingNumber;
       purchase.save();
@@ -156,7 +157,8 @@ compraRouter.put(
         from: "suprasportspf@outlook.com",
         to: clienteEmail,
         subject: "Confirmación de envío ",
-        text: `Localizador: ${trackingNumber}`,
+        text: `Ya ha sido confirmado el envío del producto, le enviamos el siguiente número Localizador para seguirlo: ${trackingNumber}. ${req.body}`,
+
       };
 
       transporter.sendMail(mailOptions, function (error, info) {

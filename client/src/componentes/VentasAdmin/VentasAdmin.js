@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useValidateUser } from "../../customHooks/validate-user";
 import classes from "./VentasAdmin.module.css";
 import VentaCard from "./VentaCard";
+import Navbar2 from '../navbar/navBar2'
+import Footer from '../Footer/Footer'
 
 const VentasAdmin = () => {
   const [, /*isAuthenticated*/ isAdmin, accessToken] = useValidateUser();
@@ -36,6 +38,7 @@ const VentasAdmin = () => {
   }, [accessToken, filters]);
   return (
     <>
+      <Navbar2 />
       {error.error && <p>{error.msg}</p>}
       {isAdmin ? (
         <div className={classes["registro-parent-container"]}>
@@ -61,18 +64,19 @@ const VentasAdmin = () => {
           <div className={classes["ventas-cards"]}>
             {data && !data.error && data.length
               ? data.map((el) => (
-                  <VentaCard
-                    accessToken={accessToken}
-                    key={el.purchaseId}
-                    data={el}
-                  />
-                ))
+                <VentaCard
+                  accessToken={accessToken}
+                  key={el.purchaseId}
+                  data={el}
+                />
+              ))
               : ""}
           </div>
         </div>
       ) : (
         ""
       )}
+      <Footer />
     </>
   );
 };
