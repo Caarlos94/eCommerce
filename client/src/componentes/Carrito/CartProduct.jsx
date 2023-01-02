@@ -28,8 +28,9 @@ const CartProduct = ({
       </div>
       <div className={s.btns}>
         <button onClick={() => handleDelete(id)}>-1</button>
-        <button onClick={() => handleAdd(id)}>+1</button>
-        <button onClick={() => handleDelete(id, true)}>Eliminar todos</button>
+        <button onClick={() => handleAdd(id)} disabled={stock <= 0}>
+          +1
+        </button>
       </div>
     </div>
   );

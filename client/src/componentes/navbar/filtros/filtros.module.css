@@ -2,7 +2,6 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-
   width: 100%;
 }
 
@@ -48,6 +47,7 @@
   font-weight: bolder;
   box-shadow: 0 2px 0 2px #000;
   font-size: 15px;
+  margin-left: 30px;
 }
 
 .clear button:before {
@@ -91,7 +91,7 @@
     background-color: #ecd448;
     font-weight: bolder;
     box-shadow: 0 2px 0 2px #000;
-    top: 10px;
-    right: -10%;
+    top: -280%;
+    right: -105%;
   }
 }

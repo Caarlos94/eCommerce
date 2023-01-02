@@ -1,12 +1,5 @@
 import React from 'react';
 import s from './Carrito.module.css';
-import SearchBar from '../navbar/searchBar/searchBar';
-import back from '../../img/back.png';
-import heart from '../../img/heart-regular.svg';
-import usuario from '../../img/user.svg';
-/* import shopping from '../../img/shopping.png'; */
-import { NavLink, Link } from 'react-router-dom';
-import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CartProduct from './CartProduct';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -16,31 +9,30 @@ import {
   removeOneFromCart,
   addOneToCart,
 } from '../../redux/actions/actions';
-import Navbar from '../navbar/navbar';
+import Navbar2 from '../navbar/navBar2';
 
 const Carrito = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const [total, setTotal] = useState(0);
 
-  const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0();
+
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
   const handleDelete = (id, all = false) => {
-    console.log(id, all);
+    //console.log(id, all);
     if (all) {
       dispatch(removeAllFromCart(id));
     } else {
       let producto = cart.find(producto => producto.id === id)
       producto.stock++
-    if(id === cart.id) cart[0].stock++
+      if (id === cart.id) cart[0].stock++
       dispatch(removeOneFromCart(id));
-    } 
-  }; 
- 
+    }
+  };
+
   const handleAdd = (id) => {
     let producto = cart.find(producto => producto.id === id)
     producto.stock--
-    if(producto.stock <= 0) { 
-    } else {
+    if(producto.stock > 0) { 
       dispatch(addOneToCart(id));
     }
   };
@@ -71,51 +63,53 @@ const Carrito = () => {
         /* console.log(data); */
       });
   };
+  let totalProd = 0;
+  cart.map(prod => totalProd += prod.cantidad * prod.precio);
 
   return (
     <div className={s.cont}>
-      <Navbar />
+      <Navbar2 />
       <div className={s.cartCont}>
         <h1>Carrito</h1>
         <button onClick={() => handleClear()} className={s.limpiar}>
           Limpiar
         </button>
         <div className={s.total}>
-          <p>Total: ${total}</p>
+          <p>Total: ${totalProd}</p>
         </div>
         <button className={s.pagar} onClick={() => handleBuy()}>
           Pagar ahora
         </button>
-        {cart ? (
-          cart.map((c) => (
-            <CartProduct
-              key={c.id}
-              id={c.id}
-              nombre={c.nombre}
-              talla={c.talla}
-              stock={c.stock}
-              precio={c.precio}
-              cantidad={c.cantidad}
-              URL={c.URL}
-              handleDelete={handleDelete}
-              handleAdd={handleAdd}
-              total={total}
-              setTotal={setTotal}
-            />
-          ))
-        ) : (
-          <p>No tienes productos en tu carrito</p>
-        )}
-      </div>
+        {
+          cart ? (
+            cart.map((c) => (
+              <CartProduct
+                key={c.id}
+                id={c.id}
+                nombre={c.nombre}
+                talla={c.talla}
+                stock={c.stock}
+                precio={c.precio}
+                cantidad={c.cantidad}
+                URL={c.URL}
+                handleDelete={handleDelete}
+                handleAdd={handleAdd}
+              />
+            ))
+          ) : (
+            <p>No tienes productos en tu carrito</p>
+          )
+        }
+      </div >
       <div className={s.totalFinal}>
         <div className={s.total2}>
-          <p>Total: ${total}</p>
+          <p>Total: ${totalProd}</p>
         </div>
         <button className={s.pagar2} onClick={() => handleBuy()}>
           Pagar ahora
         </button>
       </div>
-    </div>
+    </div >
   );
 };
 
