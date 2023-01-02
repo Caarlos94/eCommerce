@@ -44,6 +44,18 @@ export const getProducts2 = () => {
   };
 };
 
+export function updateProduct(data) {
+  return function () {
+    fetch('http://localhost:3001/products', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+  };
+}
+
 export function getCategorys() {
   return async function (dispatch) {
     await fetch('http://localhost:3001/category')
@@ -97,6 +109,12 @@ export function postCategory(payload) {
 export function deleteCategory(nombre) {
   return async function () {
    await axios.delete(`http://localhost:3001/category/${nombre}`);
+  }
+}
+
+export function deleteProd(id) {
+  return async function () {
+   await axios.delete(`http://localhost:3001/products/${id}`);
   }
 }
 

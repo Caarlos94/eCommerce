@@ -101,7 +101,6 @@
 
 .textCont button::before {
   content: 'AÑADIR AL CARRITO';
-  /*Button's value/text-content */
   position: absolute;
   top: -14%;
   left: 7%;
@@ -179,6 +178,27 @@
   flex-direction: column;
   align-items: center;
 }
+
+.btns{
+  display: flex;
+}
+
+.bs img{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 15px;
+  margin-left: 100px;
+  margin-right: 100px;
+  transform: translateY(-140%);
+  transition: all 0.4s;
+}
+
+.bs img:hover {
+  border-radius: 5px;
+  transform: translateY(-90px);
+}
+
 
 .spinner {
   width: 200px;

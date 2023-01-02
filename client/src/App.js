@@ -11,13 +11,14 @@ import { Route } from "react-router-dom";
 import About from "./componentes/About/About";
 import modifCateg from './componentes/modifCateg/modifCateg';
 import { ProtectedRoute } from "./componentes/ProtectedRoute";
+import UpdateProd from './componentes/UpdateProd/updateProd';
 
 function App() {
   return (
     <div className="divPadre">
       <Route exact path="/" component={Home} />
-      <Route path="/product" component={ProductCreate} />
-
+      <ProtectedRoute path="/product" component={ProductCreate} />
+      <ProtectedRoute path="/updateProd" component={UpdateProd} />
       <Route path="/details/:id" component={Details} />
       <Route path="/cart" component={Carrito} />
       <ProtectedRoute path="/answers" component={Answers} />

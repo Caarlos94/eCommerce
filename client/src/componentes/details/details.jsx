@@ -7,9 +7,12 @@ import {
   addToCart,
   addToFavorite,
   removeFromFavorite,
+  deleteProd,
 } from '../../redux/actions/actions.js';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams, useHistory } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
+import trash from '../../img/trash.png';
+import edit from '../../img/edit.png';
 import QASection from '../customersQA/QASection'; // La sección de QA del producto. Debe ir en este componente. Falta posicionarlo bien, dar estilos etc
 import { useAuth0 } from "@auth0/auth0-react";
 import jwt_decode from "jwt-decode";
@@ -19,6 +22,7 @@ import Footer from '../Footer/Footer';
 const Details = () => {
   const dispatch = useDispatch();
   const carrito = useSelector((state) => state.cart)
+  const history = useHistory();
 
   let { id } = useParams();
 
@@ -58,6 +62,13 @@ const Details = () => {
     alert("Añadido con éxito al carrito");
   };
 
+  const handleDelete = (e) => {
+    e.preventDefault();
+    dispatch(deleteProd(e.target.value));
+    console.log(e.target.value + ' ELIMINADO');
+    history.push("/");
+  }
+
   const handleAdd = (id) => {
     setIsAdd((prev) => !prev);
     dispatch(addToFavorite(id));
@@ -72,7 +83,6 @@ const Details = () => {
           <div className={s.detailCont}>
             <div className={s.imgCont}>
               <div className={s.img11}>
-                {/* <img src={details[0].URL} alt="img"></img> */}
                 <div
                   className={s.img111}
                   style={{ backgroundImage: `url(${details[0].URL})` }}
@@ -80,6 +90,7 @@ const Details = () => {
               </div>
             </div>
             <div className={s.textCont}>
+
               <div className={s.productDesc}>
                 <h2>{details[0].nombre.toUpperCase()}</h2>
                 <h3>${details[0].precio} U$D</h3>
@@ -91,7 +102,7 @@ const Details = () => {
                   : (<h5>Producto no disponible! Stock agotado momentáneamente...</h5>)
                 }
               </div>
-              {!isAdmin && (
+              {!isAdmin ? (
                 <div className={s.botones}>
                   <button disabled={details[0].stock === 0} onClick={() => handleSubmit(id)}>
                     AÑADIR AL CARRITO
@@ -102,6 +113,19 @@ const Details = () => {
                     onClick={() => handleAdd(id)}
                   >
                     <img src={heart} alt=""></img>
+                  </div>
+                </div>
+              ) : (
+                <div className={s.btns}>
+                  <div className={s.bs}>
+                    {/* <button onClick={(e) => handleDelete(e)}>
+                      <img src={trash} alt="" ></img>
+                    </button> */}
+                  </div>
+                  <div className={s.bs}>
+                    <NavLink to="/updateProd" style={{ textDecoration: "none" }}>
+                      <img src={edit} alt=""></img>
+                    </NavLink>
                   </div>
                 </div>
               )}
@@ -122,7 +146,7 @@ const Details = () => {
           <div></div>
         </div>
       )}
-      
+
     </div>
   );
 };

@@ -98,7 +98,7 @@ const Navbar = ({ setPages }) => {
             <div className={style.admin}>
               <div className={style.publicar}>
                 <NavLink to="/product" style={{ textDecoration: "none" }}>
-                  <button>Publicar un Producto!</button>
+                  <button>Publicar un Producto</button>
                 </NavLink>
               </div>
               <div className={style.qa}>
