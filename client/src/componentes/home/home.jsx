@@ -34,11 +34,16 @@ const Home = () => {
 
   const paginateNext = (nextPage) => setCurrentPage(nextPage);
 
+  const returnDefault = () => {
+    document.getElementById('order').value = 'Ordenar por Precio'
+  }
+
   const handlerOrderPrecio = (e) => {
     e.preventDefault();
     setCurrentPage(1);
     dispatch(orderPrecio(e.target.value));
     setOrder(`Ordenado ${e.target.value}`); //cuando seteo esta página, me modifica el estado local y lo modifica
+    /* returnDefault() */
   };
 
   return (
@@ -74,11 +79,11 @@ const Home = () => {
  
      {allProducts.length > 0 ? (
         <div>
-          <select onChange={(e) => handlerOrderPrecio(e)} className={s.select}>
+          {/* <select onChange={(e) => handlerOrderPrecio(e)} className={s.select} id='order'>
             <option hidden>Ordenar por Precio</option>
             <option value="asc">Menor a Mayor</option>
             <option value="desc">Mayor a Menor</option>
-          </select>
+          </select> */}
 
           <div>
             
