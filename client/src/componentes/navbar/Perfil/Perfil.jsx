@@ -1,81 +1,27 @@
 import React, { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { NavLink } from "react-router-dom";
 import style from './Perfil.module.css'
-import back from '../../../img/back.png';
 import { useDispatch, useSelector } from "react-redux";
 //import { getUserInfo, importUser, postUser } from "../../../redux/actions/actions";
 import Card from "../../Card/Card";
 import { getProducts } from "../../../redux/actions/actions";
+import Navbar2 from "../navBar2";
+import Footer from "../../Footer/Footer";
 
 const Perfil = () => {
-  const { user, isAuthenticated } = useAuth0();
   const dispatch = useDispatch();
 
-
   const allProducts = useSelector((state) => state.productsHome);
+  const { user, isAuthenticated, } = useAuth0();
 
   useEffect(() => {
     dispatch(getProducts())
   }, [dispatch])
 
-  /*   
-  const dispatch = useDispatch();
-  const users = useSelector((state) => state.users)
-  const [input, setInput] = useState({
-    nickname: user.nickname,
-    mail: user.email,
-    password: '',
-    picture: user.picture,
-     direction: '',
-    cel: '',
-    cp: '', 
-    purchase_history: '',
-  });
-
-  useEffect(() => {
-    dispatch(getUserInfo())
-  }, [dispatch])
-
-  const handlerChange = (e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-  }; */
-
-
-  /*   const handlerSubmit = (e) => {
-      e.preventDefault();
-      console.log(input);
-      dispatch(importUser(input));
-      setTimeout(() => dispatch(getUserInfo()), 100);
-      alert('Información guardada con éxito!');
-      setInput({
-        nickname: user.nickname,
-        mail: user.email,
-        password: '',
-        picture: user.picture,
-        direction: '',
-        cel: '',
-        cp: '', 
-        purchase_history: '',
-      });
-    }; */
-
   return (
     <div>
-      <div className={style.createHeader}>
-        <div className={style.black}></div>
-        <div className={style.white}>
-          <NavLink to="/" style={{ textDecoration: 'none' }}>
-            <div className={style.backHome}>
-              <img src={back} alt=""></img>
-              Atrás
-            </div>
-          </NavLink>
-        </div>
-      </div>
+      <Navbar2 />
+
       <div className={style.cont}>
         {isAuthenticated && (
           <div className={style.allInfo}>
@@ -93,42 +39,11 @@ const Perfil = () => {
                 : 'No, verificar por favor.'}</h4>
             </div >
 
-            {/* <div className={style.inputs}>
-              <form onSubmit={(e) => handlerSubmit(e)}>
-                <div className={style.info}>
-                  <h5>Direccion: </h5>
-                  <input
-                    type="text"
-                    name="direction"
-                    value={input.direction}
-                    onChange={(e) => handlerChange(e)}></input>
-                </div>
-
-                <div className={style.info}>
-                  <h5>Celular: </h5>
-                  <input
-                    type="number"
-                    name="cel"
-                    value={input.cel}
-                    onChange={(e) => handlerChange(e)}></input>
-                </div>
-
-                <div className={style.info}>
-                  <h5>Código Postal: </h5>
-                  <input
-                    type="number"
-                    name="cp"
-                    value={input.cp}
-                    onChange={(e) => handlerChange(e)}></input>
-                </div>
-
-                <div className={style.guardarInfo}>
-                  <button type="submit">
-                    Guardar información
-                  </button>
-                </div>
-              </form>
-            </div> */}
+            <div className={style.info}>
+              <h4>Rol: {user.nickname === 'suprasportspf'
+                ? 'Administrador'
+                : 'Usuario'}</h4>
+            </div >
           </div>
         )}
       </div>
@@ -152,6 +67,7 @@ const Perfil = () => {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

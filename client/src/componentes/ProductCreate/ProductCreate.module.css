@@ -7,78 +7,9 @@
   justify-content: center;
 }
 
-.createHeader {
-  height: 120px;
-  display: flex;
-  flex-direction: column;
-}
-
-.black {
-  width: 100%;
-  height: 30%;
-  background-color: black;
-}
-
-.white {
-  width: 100%;
-  height: 70%;
-  background-color: white;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-.btns {
-  width: 150px;
-  height: 50px;
-  display: flex;
-  position: absolute;
-  right: 5%;
-}
-
-.btn {
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.btn img {
-  width: 25px;
-}
-
-.btn:nth-child(3) img {
-  width: 35px;
-}
-
-.search {
-  width: 300px;
-  position: absolute;
-  right: 15%;
-}
-
-.backHome {
-  border: 1px solid black;
-  display: flex;
-  padding: 5px;
-  color: black;
-  background-color: white;
-  font-weight: bold;
-  transition: all 0.4s;
-  position: absolute;
-  left: 3%;
-  top: 7%;
-}
-
-.backHome:hover {
-  filter: invert(100%);
-}
-
 .createCont {
   background-color: #edeff0;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -98,18 +29,34 @@
   align-items: center;
 }
 
-.inputs {
-  margin-top: 20px;
-  width: 300px;
+.inputI {
+  margin-top: 40px;
+  width: 400px;
   position: relative;
+  padding-bottom: 40px;
+  display: flex;
+  align-items: center;
 }
 
-.inputs input {
+.inputI img {
   position: absolute;
   right: 0;
 }
 
-.inputs label {
+
+.inputI p {
+  position: absolute;
+  right: 0;
+  top: 25px;
+  width: 100%;
+}
+
+.inputI input {
+  position: absolute;
+  right: 100px;
+}
+
+.inputI label {
   font-weight: bold;
   margin-right: 30px;
 }
@@ -120,12 +67,57 @@ select {
 }
 
 .category {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 30px;
+  margin-left: -33%;
 }
 
 .category label {
   font-weight: bold;
-  margin-right: 20px;
+  margin-right: 35px;
+}
+
+.catDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  display: flex;
+  border-radius: 5px;
+  position: absolute;
+  padding-right: 5px;
+  padding-left: 5px;
+  right: 28.5%;
+  margin-top: 30px;
+  height: 35px;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  color: #fff;
+  font-weight: bold;
+  transition: all 0.4s;
+}
+
+.button:hover {
+  border-radius: 5px;
+  transform: translateY(-10px);
+  box-shadow: 0 7px 0 -2px #f85959, 0 15px 0 -4px #39a2db,
+    0 16px 10px -3px #39a2db;
+  color: #fff;
+
+}
+
+.button:active {
+  transition: all 0.2s;
+  transform: translateY(-5px);
+  box-shadow: 0 2px 0 -2px #f85959, 0 8px 0 -4px #39a2db,
+    0 12px 10px -3px #39a2db;
+  color: #fff;
+
 }
 
 .publicar {

@@ -1,23 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import s from './details.module.css';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getDetails,
   limpiarState,
   addToCart,
+  addToFavorite,
+  removeFromFavorite,
 } from '../../redux/actions/actions.js';
-import { NavLink, useParams } from 'react-router-dom';
-import SearchBar from '../navbar/searchBar/searchBar';
-import back from '../../img/back.png';
+import { useParams } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
-import user from '../../img/user.svg';
-import shopping from '../../img/shopping.png';
 import QASection from '../customersQA/QASection'; // La sección de QA del producto. Debe ir en este componente. Falta posicionarlo bien, dar estilos etc
-import AdminQA from '../adminQA/AdminQA';
+import { useAuth0 } from "@auth0/auth0-react";
+import jwt_decode from "jwt-decode";
+import Navbar2 from '../navbar/navBar2';
+import Footer from '../Footer/Footer';
 
 const Details = () => {
   const dispatch = useDispatch();
+  const carrito = useSelector((state) => state.cart)
 
   let { id } = useParams();
 
@@ -27,44 +28,45 @@ const Details = () => {
   }, [dispatch, id]);
 
   const details = useSelector((state) => state.details);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const {
+    isAuthenticated,
+    getAccessTokenSilently,
+  } = useAuth0();
+
+  useEffect(() => {
+    const checkForAdminRole = async () => {
+      if (isAuthenticated) {
+        const accessToken = await getAccessTokenSilently();
+        let decoded = jwt_decode(accessToken);
+
+        if (decoded.permissions.includes("read:admin")) {
+          // verificación principalmente estética. No brinda seguridad.
+          setIsAdmin(true);
+        }
+      }
+    };
+    checkForAdminRole();
+  }, [isAuthenticated, getAccessTokenSilently]);
+  const [isAdd, setIsAdd] = useState(false);
+
 
   const handleSubmit = (id) => {
     dispatch(addToCart(id));
-    console.log(details);
-    alert('Añadido con éxito al carrito');
+    //console.log(details);
+    alert("Añadido con éxito al carrito");
+  };
+
+  const handleAdd = (id) => {
+    setIsAdd((prev) => !prev);
+    dispatch(addToFavorite(id));
   };
 
   return (
     <div>
-      <div className={s.detailHeader}>
-        <div className={s.black}></div>
-        <div className={s.white}>
-          <NavLink to="/" style={{ textDecoration: 'none' }}>
-            <div className={s.backHome}>
-              <img src={back} alt=""></img>
-              Atrás
-            </div>
-          </NavLink>
-          <div className={s.search}>
-            <SearchBar />
-          </div>
-          <div className={s.btns}>
-            <div className={s.btn}>
-              <img src={user} alt=""></img>
-            </div>
-            <div className={s.btn}>
-              <img src={heart} alt=""></img>
-            </div>
-            <NavLink to="/cart" className={s.carro}>
-              <div className={s.btn}>
-                <img src={shopping} alt=""></img>
-              </div>
-            </NavLink>
-          </div>
-        </div>
-      </div>
+      <Navbar2 />
 
-      {/* <Navbar /> */}
       {details.length ? (
         <div className={s['parent-container']}>
           <div className={s.detailCont}>
@@ -84,20 +86,31 @@ const Details = () => {
                 <h5>Marca: {details[0].marca}</h5>
                 <h5>Color: {details[0].color}</h5>
                 <h5>Talla: {details[0].talla.toUpperCase()}</h5>
-                <h5>Stock: {details[0].stock}</h5>
+                {details[0].stock > 0
+                  ? (<h5>Stock: {details[0].stock}</h5>)
+                  : (<h5>Producto no disponible! Stock agotado momentáneamente...</h5>)
+                }
               </div>
-              <div className={s.botones}>
-                <button onClick={() => handleSubmit(id)}>
-                  AÑADIR AL CARRITO
-                </button>
-                <div className={s.fav}>
-                  <img src={heart} alt=""></img>
+              {!isAdmin && (
+                <div className={s.botones}>
+                  <button disabled={details[0].stock === 0} onClick={() => handleSubmit(id)}>
+                    AÑADIR AL CARRITO
+                  </button>
+                  {/* <div className={s.fav} onClick={() => handleAdd(id)}> */}
+                  <div
+                    className={isAdd ? s.current : s.fav}
+                    onClick={() => handleAdd(id)}
+                  >
+                    <img src={heart} alt=""></img>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
-          <QASection productId={id} />
-          <AdminQA></AdminQA>
+          <div className={s.qyaCont}>
+            <QASection productId={id} />
+          </div>
+          <Footer />
         </div>
       ) : (
         <div className={s.spinner}>
@@ -109,6 +122,7 @@ const Details = () => {
           <div></div>
         </div>
       )}
+      
     </div>
   );
 };

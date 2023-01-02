@@ -16,11 +16,14 @@ import {
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
+  ADD_TO_FAVORITE,
+  REMOVE_FROM_FAVORITE,
 } from '../actions/actions.js';
 
 const initialState = {
   products: [],
   productsHome: [],
+  favorites: [],
   details: [],
   users: [],
   cart: [],
@@ -38,7 +41,10 @@ const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCTS: {
       //console.log(action.payload);
-      if (state.products.length === 0 || action.payload[1] === 'volver a cargar los productos') {
+      if (
+        state.products.length === 0 ||
+        action.payload[1] === 'volver a cargar los productos'
+      ) {
         return {
           ...state,
           products: [...action.payload[0]],
@@ -69,11 +75,6 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         users: action.payload,
       };
-    case 'POST_USER':
-      return {
-        ...state,
-        users: action.payload,
-      };
 
     case GET_DETAILS:
       return {
@@ -91,6 +92,12 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         products: action.payload,
+      };
+
+    case 'POST_CATEGORY':
+      return {
+        ...state,
+        categorys: action.payload,
       };
 
     case SEARCHxNAME: {
@@ -122,16 +129,16 @@ const rootReducer = (state = initialState, action) => {
       const arrPrecio =
         action.payload === 'asc'
           ? state.productsHome.sort((a, b) => {
-              //compara dos valores, en este caso los dos precios
-              if (parseInt(a.precio) > parseInt(b.precio)) return 1; //los va posicionando a la derecha
-              if (parseInt(a.precio) < parseInt(b.precio)) return -1; //o a la izquierda
-              return 0; //o si son iguales los deja así
-            })
+            //compara dos valores, en este caso los dos precios
+            if (parseInt(a.precio) > parseInt(b.precio)) return 1; //los va posicionando a la derecha
+            if (parseInt(a.precio) < parseInt(b.precio)) return -1; //o a la izquierda
+            return 0; //o si son iguales los deja así
+          })
           : state.productsHome.sort((a, b) => {
-              if (parseInt(a.precio) > parseInt(b.precio)) return -1;
-              if (parseInt(a.precio) < parseInt(b.precio)) return 1;
-              return 0;
-            });
+            if (parseInt(a.precio) > parseInt(b.precio)) return -1;
+            if (parseInt(a.precio) < parseInt(b.precio)) return 1;
+            return 0;
+          });
       return {
         ...state,
         productsHome: [...arrPrecio],
@@ -139,7 +146,9 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case SEARCHxCATEGORIA: {
+      let arr = [...state.products];
       let productsFilter = [];
+
       if (action.payload === 'todas') {
         let arr = [...state.products];
         if (state.precio[1] !== 0)
@@ -433,47 +442,47 @@ const rootReducer = (state = initialState, action) => {
 
       return productInCart
         ? {
-            ...state,
-            cart: state.cart.map((c) =>
-              c.id === newProduct.id ? { ...c, cantidad: c.cantidad + 1 } : c
-            ),
-          }
+          ...state,
+          cart: state.cart.map((c) =>
+            c.id === newProduct.id ? { ...c, cantidad: c.cantidad + 1 } : c
+          ),
+        }
         : {
-            ...state,
-            cart: [...state.cart, { ...newProduct, cantidad: 1 }],
-          };
+          ...state,
+          cart: [...state.cart, { ...newProduct, cantidad: 1 }],
+        };
 
     case REMOVE_ONE_FROM_CART:
       let productToDelete = state.cart.find(
         (product) => product.id === action.payload
       );
-      console.log(productToDelete);
+      //console.log(productToDelete);
       return productToDelete.cantidad > 1
         ? {
-            ...state,
-            cart: state.cart.map((c) =>
-              c.id === action.payload ? { ...c, cantidad: c.cantidad - 1 } : c
-            ),
-          }
+          ...state,
+          cart: state.cart.map((c) =>
+            c.id === action.payload ? { ...c, cantidad: c.cantidad - 1 } : c
+          ),
+        }
         : {
-            ...state,
-            cart: state.cart.filter((c) => c.id !== action.payload),
-          };
+          ...state,
+          cart: state.cart.filter((c) => c.id !== action.payload),
+        };
     case ADD_ONE_TO_CART:
       let productToAdd = state.cart.find(
         (product) => product.id === action.payload
       );
       return productToAdd.cantidad >= 1
         ? {
-            ...state,
-            cart: state.cart.map((c) =>
-              c.id === action.payload ? { ...c, cantidad: c.cantidad + 1 } : c
-            ),
-          }
+          ...state,
+          cart: state.cart.map((c) =>
+            c.id === action.payload ? { ...c, cantidad: c.cantidad + 1 } : c
+          ),
+        }
         : {
-            ...state,
-            cart: state.cart.filter((c) => c.id !== action.payload),
-          };
+          ...state,
+          cart: state.cart.filter((c) => c.id !== action.payload),
+        };
     case REMOVE_ALL_FROM_CART:
       return {
         ...state,
@@ -481,6 +490,31 @@ const rootReducer = (state = initialState, action) => {
       };
     case CLEAR_CART:
       return initialState;
+    case ADD_TO_FAVORITE:
+      let newFavorite = state.details.find(
+        (product) => product.id === action.payload
+      );
+      let productInFavorite = state.favorites.find(
+        (product) => product.id === newFavorite.id
+      );
+
+      return productInFavorite
+        ? { ...state }
+        : {
+            ...state,
+            favorites: [...state.favorites, newFavorite],
+          };
+    case REMOVE_FROM_FAVORITE:
+      let productToRemove = state.favorites.find(
+        (product) => product.id === action.payload
+      );
+      return {
+        ...state,
+        favorites: state.favorites.filter(
+          (product) => product.id !== productToRemove.id
+        ),
+      };
+
     default:
       return { ...state };
   }

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Paginado from "../Paginate/Paginate.jsx";
 import Card from "../Card/Card.js";
 import messiNotFound from "../../img/messiNotFound.gif";
+import Footer from '../Footer/Footer'
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -39,14 +40,14 @@ const Home = () => {
 
   const handlerOrderPrecio = (e) => {
     e.preventDefault();
+    setCurrentPage(1);
     dispatch(orderPrecio(e.target.value));
-    setCurrentPage(1); //cuando hago el ordenamiento seteo para que arranque en la prim página
     setOrder(`Ordenado ${e.target.value}`); //cuando seteo esta página, me modifica el estado local y lo modifica
     /* returnDefault() */
   };
 
   return (
-    <div>
+    <div className={s.divaHome}>
       <Navbar setPages={setCurrentPage} />
       <div className={s.hero}>
         <div className={s.textoHero}>
@@ -54,7 +55,7 @@ const Home = () => {
           <button>Ver coleccion</button>
         </div>
         <div className={s.imgHero}>
-          <div className={s.messi}>
+           <div className={s.messi}>
             <div className={s.img1}></div>
             <div className={s.img11}></div>
           </div>
@@ -64,6 +65,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+
       <Paginado
         productsPerPage={productsPerPage} // pupsPerPage
         totalProducts={allProducts.length} // totalPups
@@ -73,7 +75,9 @@ const Home = () => {
         paginateNext={paginateNext}
         key={allProducts.id}
       ></Paginado>
-      {allProducts.length > 0 ? (
+
+ 
+     {allProducts.length > 0 ? (
         <div>
           {/* <select onChange={(e) => handlerOrderPrecio(e)} className={s.select} id='order'>
             <option hidden>Ordenar por Precio</option>
@@ -82,10 +86,9 @@ const Home = () => {
           </select> */}
 
           <div>
-            <div /* className="container d-flex justify-content-center h-100 align-items-center" */
-            >
+            
               <div className={s.section}>
-                {currentProducts.map((card) => (
+                {currentProducts.map((card) => parseInt(card.stock) > 0 && (
                   <div key={card.id}>
                     <Card
                       nombre={card.nombre}
@@ -100,7 +103,6 @@ const Home = () => {
                   </div>
                 ))}
               </div>
-            </div>
           </div>
         </div>
       ) : (
@@ -109,7 +111,7 @@ const Home = () => {
           <h2>En caso de no cargar te recomendamos refrescar la página...</h2>
           <img src={messiNotFound} alt="img"></img>
         </div>
-      )}
+      )} 
       <Paginado
         productsPerPage={productsPerPage} // pupsPerPage
         totalProducts={allProducts.length} // totalPups
@@ -119,6 +121,8 @@ const Home = () => {
         paginateNext={paginateNext}
         key={allProducts.id}
       ></Paginado>
+
+      <Footer />
     </div>
   );
 };

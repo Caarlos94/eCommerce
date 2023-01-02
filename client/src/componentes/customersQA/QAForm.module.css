@@ -1,3 +1,6 @@
+.form-cont {
+}
+
 .form-container {
   display: flex;
   flex-direction: column;
@@ -38,7 +41,7 @@
 }
 
 .submit-button::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -63,4 +66,38 @@
 .pregunta-enviada {
   font-weight: bold;
   margin-left: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .form-cont {
+    position: absolute;
+    width: 95%;
+    height: 50%;
+    bottom: 0;
+  }
+
+  .form-container {
+    height: 50%;
+    width: 100%;
+    position: absolute;
+    right: 0;
+    bottom: 3%;
+    top: 0;
+  }
+
+  .form-input {
+    height: 35px;
+    width: 220px;
+    position: absolute;
+    top: 55%;
+    left: 20%;
+  }
+
+  .submit-button {
+    padding: 5px 15px;
+    width: 220px;
+    position: absolute;
+    top: 65%;
+    left: 20%;
+  }
 }

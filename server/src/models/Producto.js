@@ -36,6 +36,7 @@ module.exports = (sequelize) => {
     },
     stock: {
       type: DataTypes.INTEGER,
+      // validate: { min: 0, max: 100 }
     }
   }, { timestamps: false });
 };

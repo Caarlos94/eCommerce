@@ -11,3 +11,16 @@
   margin-top: 4rem;
   margin-bottom: 4rem;
 }
+
+@media (max-width: 768px) {
+  .admin-questions {
+    width: 90%;
+  }
+}
+
+.question-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}

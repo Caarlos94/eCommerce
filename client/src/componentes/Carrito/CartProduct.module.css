@@ -28,4 +28,39 @@
 .btns button {
   border-radius: 5px;
   margin-left: 10px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.btns button:hover {
+  filter: invert(100%);
+}
+
+.info p {
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .item {
+    width: 95%;
+    height: 170px;
+    padding: 10px;
+  }
+
+  .itemImg {
+    width: 20%;
+    height: 80px;
+    margin-right: 20px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 5px;
+  }
+
+  .btns button {
+    border-radius: 5px;
+    margin-left: 10px;
+    padding: 1px 4px;
+    font-size: 13px;
+    font-weight: 500;
+  }
 }

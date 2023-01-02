@@ -2,7 +2,6 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-
   width: 100%;
 }
 
@@ -39,13 +38,15 @@
 }
 
 .clear button {
-  width: 120px;
+  width: 160px;
+  height: 38px;
   position: relative;
   overflow: hidden;
   transition: all 0.3s;
   background-color: #ecd448;
   font-weight: bolder;
   box-shadow: 0 2px 0 2px #000;
+  font-size: 15px;
 }
 
 .clear button:before {
@@ -72,4 +73,24 @@
 
 .clear button:active {
   transform: scale(0.9);
+}
+
+@media (max-width: 768px) {
+  .div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .clear button {
+    width: 190px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    background-color: #ecd448;
+    font-weight: bolder;
+    box-shadow: 0 2px 0 2px #000;
+    top: -420%;
+    right: -115%;
+  }
 }
