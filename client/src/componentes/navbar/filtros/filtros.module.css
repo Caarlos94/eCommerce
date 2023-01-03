@@ -43,7 +43,7 @@
   position: relative;
   overflow: hidden;
   transition: all 0.3s;
-  background-color: #ecd448;
+  background-color: #4894ec;
   font-weight: bolder;
   box-shadow: 0 2px 0 2px #000;
   font-size: 15px;
@@ -55,7 +55,7 @@
   position: absolute;
   width: 100px;
   height: 120%;
-  background-color: #ff6700;
+  background-color: #111111;
   top: 50%;
   transform: skewX(30deg) translate(-150%, -50%);
   transition: all 0.5s;
@@ -80,6 +80,7 @@
   .div {
     display: flex;
     flex-direction: column;
+    align-items: left;
     width: 100%;
   }
 
@@ -88,10 +89,10 @@
     position: relative;
     overflow: hidden;
     transition: all 0.3s;
-    background-color: #ecd448;
+    background-color: #4894ec;
     font-weight: bolder;
     box-shadow: 0 2px 0 2px #000;
-    top: -280%;
-    right: -105%;
+    top: 200%;
+    right: 5%;
   }
 }

@@ -183,16 +183,16 @@
   border: 0;
 }
 
-.btns{
+.btns {
   display: flex;
   width: 60%;
   justify-content: space-around;
   align-items: center;
-  padding: 5px 15px; 
+  padding: 5px 15px;
   transform: translateY(-140%);
 }
 
-.btns img{
+.btns img {
   transition: all 0.4s;
 }
 
@@ -200,7 +200,6 @@
   border-radius: 5px;
   transform: translateY(-10px);
 }
-
 
 .spinner {
   width: 200px;
@@ -297,6 +296,15 @@
 
   .textCont h5 {
     font-size: 18px;
+  }
+
+  .btns {
+    position: absolute;
+    top: 90%;
+  }
+
+  .btns img {
+    width: 50px;
   }
 
   .productDesc {

@@ -13,6 +13,8 @@ const Favorites = () => {
     dispatch(removeFromFavorite(id));
   };
 
+  console.log(favorites);
+
   return (
     <div>
       <Navbar2 />
