@@ -183,7 +183,12 @@ compraRouter.get("/review-match", async (req, res) => {
       { raw: true }
     );
 
-    return res.status(200).json(review);
+    if (review)
+      throw new Error("El cliente ya dejó una opinión para esta compra");
+
+    return res
+      .status(200)
+      .json({ error: false, msg: "Aún no se ha dejado una opinión" });
   } catch (error) {
     return res.status(400).json({ error: true, msg: error.message });
   }

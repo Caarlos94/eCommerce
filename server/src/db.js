@@ -66,6 +66,9 @@ Categoria.belongsToMany(Producto, { through: "producto_categoria" });
 Producto.hasMany(Pregunta);
 Pregunta.belongsTo(Producto);
 
+Cliente.hasMany(Pregunta);
+Pregunta.belongsTo(Cliente);
+
 Compra.belongsTo(Cliente);
 Cliente.hasMany(Compra);
 

@@ -88,6 +88,7 @@ const VentaCard = ({ data, accessToken }) => {
               key={producto.productoId}
               data={producto}
               clienteId={cliente.clienteId} // solo de prueba
+              enviado={data.enviado} // solo de prueba
             />
           ))}
         </div>
