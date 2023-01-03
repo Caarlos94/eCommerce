@@ -138,11 +138,14 @@ compraRouter.put(
         { where: { id: purchaseId } },
         { raw: true }
       );
+
       purchase.enviado = true;
       purchase.localizador = trackingNumber;
       purchase.save();
 
       let transporter = nodemailer.createTransport({
+        host: EMAIL_HOST,
+        port: EMAIL_PORT,
         host: EMAIL_HOST,
         port: EMAIL_PORT,
         secure: false, // true for 465, false for other ports
@@ -156,7 +159,7 @@ compraRouter.put(
         from: "suprasportspf@outlook.com",
         to: clienteEmail,
         subject: "Confirmación de envío ",
-        text: `Localizador: ${trackingNumber}`,
+        text: `Ya ha sido confirmado el envío del producto, le enviamos el siguiente número Localizador para seguirlo: ${trackingNumber}. ${req.body}`,
       };
 
       transporter.sendMail(mailOptions, function (error, info) {

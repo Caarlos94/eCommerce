@@ -12,17 +12,17 @@ import {
   getProducts2,
 } from '../../../redux/actions/actions.js';
 
-const Filtros = () => {
+const Filtros = ({ setPages }) => {
   const dispatch = useDispatch();
 
   const fn = (el) => {
     dispatch(searchXcategoria(el.target.value));
-    // setPages(1);
+    setPages(1);
   };
 
   const fn2 = (el) => {
     dispatch(searchXmarca(el.target.value));
-    // setPages(1);
+    setPages(1);
   };
 
   const fn3 = (el) => {
@@ -31,13 +31,9 @@ const Filtros = () => {
 
   const fn4 = (el) => {
     dispatch(searchXtalla(el.target.value));
+    setPages(1);
   };
-
-  const handlerClickAllProds = () => {
-    dispatch(getProducts2())
-    returnDefault()
-  }
-
+  
   const returnDefault = () => {
     document.getElementById('fn').value = 'Categorias'
     document.getElementById('fn2').value = 'Marca'
@@ -45,9 +41,16 @@ const Filtros = () => {
     document.getElementById('fn4').value = 'Talla'
   }
 
+
+  const handlerClickAllProds = () => {
+    dispatch(getProducts2())
+    returnDefault()
+  }
+
+
+
   return (
     <div className={style.div}>
-      <div className={style.allFilters}>
         <select onChange={(e) => fn(e)} className={style.select} id='fn'>
           <option className='option1' hidden >Categorias</option>
           <option value="todas">Todas</option>
@@ -87,7 +90,7 @@ const Filtros = () => {
           <option value="XL">XL</option>
           <option value="XXL">XXL</option>
         </select>
-      </div>
+        
       <div className={style.clear}>
         <NavLink to="/">
           <button onClick={(e) => handlerClickAllProds(e)}>

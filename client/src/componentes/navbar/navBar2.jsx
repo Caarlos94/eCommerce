@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
-import SearchBar from "./searchBar/searchBar.jsx";
-import Filtros from "./filtros/filtros.jsx";
-import style from "./navbar.module.css";
-import "./navbarr.css";
-import { Link, NavLink } from "react-router-dom";
-import heart from "../../img/heart-regular.svg";
-import usuario from "../../img/user.svg";
-import shopping from "../../img/shopping.png";
-import answers from "../../img/answ.png";
-import { useDispatch, useSelector } from "react-redux";
-import { getProducts, importUser } from "../../redux/actions/actions.js";
+import React, { useEffect, useState } from 'react';
+import SearchBar from './searchBar/searchBar.jsx';
+import style from './navBar2.module.css';
+import './navBar2.css';
+import { Link, NavLink } from 'react-router-dom';
+import heart from '../../img/heart-regular.svg';
+import usuario from '../../img/user.svg';
+import back from '../../img/back.png';
+import shopping from '../../img/shopping.png';
+import answers from '../../img/answ.png'
+import { useDispatch, useSelector } from 'react-redux';
+import { getProducts, importUser } from '../../redux/actions/actions.js';
 import { useAuth0 } from "@auth0/auth0-react";
 import jwt_decode from "jwt-decode";
 
-const Navbar = ({ setPages }) => {
+const Navbar2 = ({ setPages }) => {
   const dispatch = useDispatch();
-  const carrito = useSelector((state) => state.cart);
-  const favoritos = useSelector((state) => state.favorites);
+  const carrito = useSelector((state) => state.cart)
+  const favoritos = useSelector((state) => state.favorites)
 
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -48,10 +48,7 @@ const Navbar = ({ setPages }) => {
   }, [isAuthenticated, getAccessTokenSilently]);
 
   const [isOpen, SetOpen] = useState(false);
-
-  user && dispatch(importUser(user));
-
-  // {console.log(user)}
+  isAuthenticated && dispatch(importUser(user));
 
   return (
     <div className={style.div}>
@@ -62,10 +59,14 @@ const Navbar = ({ setPages }) => {
           <span className="span"></span>
         </div>
       </div>
-      <div className={`white ${isOpen && "open"}`}>
-        <div className={style.filtros}>
-          <Filtros setPages={setPages} />
-        </div>
+
+      <div className={`white2 ${isOpen && 'open'}`}>
+        <NavLink to="/" style={{ textDecoration: "none" }}>
+          <div className={style.backHome}>
+            <img src={back} alt="" ></img>
+            Inicio
+          </div>
+        </NavLink>
 
         <div className={style.searchBar}>
           <SearchBar setPages={setPages} />
@@ -103,8 +104,8 @@ const Navbar = ({ setPages }) => {
           {isAdmin ? (
             <div className={style.admin}>
               <div className={style.publicar}>
-                <NavLink to="/product" style={{ textDecoration: "none" }}>
-                  <button>Publicar un Producto!</button>
+                <NavLink to="/product" style={{ textDecoration: 'none' }}>
+                  <button>Publicar un producto!</button>
                 </NavLink>
               </div>
               <div className={style.qa}>
@@ -123,23 +124,20 @@ const Navbar = ({ setPages }) => {
           ) : (
             <>
               {carrito.length > 0 ? (
-                <NavLink
-                  to="/cart"
-                  className={style.carro}
-                  style={{ textDecoration: "none" }}
-                >
+                <NavLink to="/cart" className={style.carro} style={{ textDecoration: 'none' }}>
                   <div className={style.btn}>
                     <h6>{carrito.length}</h6>
                     <img src={shopping} alt=""></img>
                   </div>
                 </NavLink>
               ) : (
-                <NavLink to="/cart" className={style.carro}>
+                <NavLink to="/cart" className={style.carro} >
                   <div className={style.btn}>
                     <img src={shopping} alt=""></img>
                   </div>
                 </NavLink>
               )}
+
               {favoritos.length > 0 ? (
                 <NavLink to="/favorites">
                   <div className={style.btn}>
@@ -158,8 +156,8 @@ const Navbar = ({ setPages }) => {
           )}
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
-export default Navbar;
+export default Navbar2;

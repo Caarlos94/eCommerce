@@ -11,7 +11,7 @@ productRouter.get('/', async (req, res) => {
     res.status(200).json(productos);
   } catch (error) {
     res.status(400).send(error.message);
-  }
+  } 
 });
 
 productRouter.get("/:id", async (req, res) => {
@@ -21,7 +21,7 @@ productRouter.get("/:id", async (req, res) => {
   /* let getProduct = await getProductsFireBase();
   
   const productos = await getProduct.Productos.concat(prods); */
-  console.log(prods);
+  // console.log(prods);
   try {
     if (id) {
       let result = await prods.filter((p) => p.id == id);
@@ -75,11 +75,11 @@ productRouter.delete("/", async (req, res) => {
   }
 });
 
-productRouter.put("/:atributo", async (req, res) => {
-  const { atributo } = req.params;
-  const { value } = req.query;
+/* productRouter.put("/", async (req, res) => {
+  const data = req.body;
+
   try {
-    const newProduct = await Producto.update(
+    const editedProduct = await Producto.update(
       { [atributo]: value },
       { where: { [atributo]: null } }
     );
@@ -87,6 +87,6 @@ productRouter.put("/:atributo", async (req, res) => {
   } catch (error) {
     res.status(404).send(error.message);
   }
-});
+}); */
 
 module.exports = productRouter;

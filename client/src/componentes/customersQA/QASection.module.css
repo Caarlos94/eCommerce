@@ -19,8 +19,8 @@
 
 @media (max-width: 768px) {
   .QASection-container {
-    width: 90%;
-    height: 900px;
     position: relative;
+    width: 90%;
+    height: 600px;
   }
 }

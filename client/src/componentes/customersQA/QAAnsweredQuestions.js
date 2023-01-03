@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import QAAnsweredQuestion from "./QAAnsweredQuestion";
 import classes from "./QAAnsweredQuestions.module.css";
 
 const QAAnsweredQuestions = ({ productId }) => {
   const [questions, setQuestions] = useState([]);
+  const mountedRef = useRef(true);
 
   useEffect(() => {
     let isSubscribed = true;

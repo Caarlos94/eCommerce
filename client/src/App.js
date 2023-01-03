@@ -10,6 +10,7 @@ import Favorites from "./componentes/Favorites/Favorites";
 import ReviewForm from "./componentes/ReviewForm/ReviewForm";
 import { Route, useHistory } from "react-router-dom";
 import About from "./componentes/About/About";
+import modifCateg from './componentes/modifCateg/modifCateg';
 import { ProtectedRoute } from "./componentes/ProtectedRoute";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       <Route path="/cart" component={Carrito} />
       <ProtectedRoute path="/answers" component={Answers} />
       <Route path="/about" component={About} />
+      <ProtectedRoute path="/modifCateg" component={modifCateg} />
       <Route path="/profile" component={Perfil} />
       <Route exact path="/favorites" component={Favorites} />
       <ProtectedRoute path="/sales" component={VentasAdmin} />

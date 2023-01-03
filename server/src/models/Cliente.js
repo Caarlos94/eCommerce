@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
     email: {  // 🎇
       type: DataTypes.STRING,
       // allowNull: false,
-      unique: true,
+      // unique: true,
     },
     email_Verified: {  // 🎇
       type: DataTypes.BOOLEAN,
@@ -30,25 +30,25 @@ module.exports = (sequelize) => {
     }, */
     picture: {  // 🎇
       type: DataTypes.STRING,
-    },
-    direction: {  // POST
-      type: DataTypes.STRING,
-      // allowNull: false,
-    },
-    cel: {  // POST
-      type: DataTypes.STRING,
-      // allowNull: false,
-    },
-    cp: {  // POST
-      type: DataTypes.STRING,
-      // allowNull: false,
-    },
-    purchase_history: {  //PENDIENTE
-      type: DataTypes.STRING
-    },
-    admin: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
     }
+    // direction: {  // POST
+    //   type: DataTypes.STRING,
+    //   // allowNull: false,
+    // },
+    // cel: {  // POST
+    //   type: DataTypes.STRING,
+    //   // allowNull: false,
+    // },
+    // cp: {  // POST
+    //   type: DataTypes.STRING,
+    //   // allowNull: false,
+    // },
+    // purchase_history: {  //PENDIENTE
+    //   type: DataTypes.STRING
+    // },
+    // admin: {
+    //   type: DataTypes.BOOLEAN,
+    //   defaultValue: false
+    // }
   }, { timestamps: false });
 }; 
