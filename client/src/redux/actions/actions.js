@@ -56,6 +56,16 @@ export function updateProduct(data) {
   };
 }
 
+export function postProd(payload) {
+  return async function () {
+    const response = await axios.post(
+      'http://localhost:3001/products',
+      payload
+    );
+    return response;
+  };
+}
+
 export function getCategorys() {
   return async function (dispatch) {
     await fetch('http://localhost:3001/category')
@@ -86,15 +96,6 @@ export function importUser(user) {
   };
 }
 
-export function postProd(payload) {
-  return async function () {
-    const response = await axios.post(
-      'http://localhost:3001/products',
-      payload
-    );
-    return response;
-  };
-}
 
 export function postCategory(payload) {
   return async function () {
@@ -108,13 +109,17 @@ export function postCategory(payload) {
 
 export function deleteCategory(nombre) {
   return async function () {
-   await axios.delete(`http://localhost:3001/category/${nombre}`);
+    await axios.delete(`http://localhost:3001/category/${nombre}`);
   }
 }
 
 export function deleteProd(id) {
-  return async function () {
-   await axios.delete(`http://localhost:3001/products/${id}`);
+  return async function (dispatch) {
+    await axios.delete(`http://localhost:3001/products/${id}`);
+    return dispatch({
+      type: 'DELETE_PROD',
+      payload: id,
+    })
   }
 }
 

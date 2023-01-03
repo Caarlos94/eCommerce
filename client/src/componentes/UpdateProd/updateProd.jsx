@@ -59,10 +59,12 @@ const validate = (input, prods) => {
 export default function UpdateProd() {
     const dispatch = useDispatch();
     const prods = useSelector((state) => state.products);
+    const detailId = useSelector((state) => state.details[0].id);
 
     const history = useHistory();
     const [errors, setErrors] = useState({});
     const [input, setInput] = useState({
+        id: detailId,
         nombre: "",
         URL: "",
         precio: "",
@@ -100,6 +102,7 @@ export default function UpdateProd() {
         setTimeout(() => dispatch(getProducts2()), 100);
         alert("Producto actualizado con éxito! Se te redirigirá al inicio...");
         setInput({
+            id: detailId,
             nombre: "",
             URL: "",
             precio: "",
@@ -111,11 +114,9 @@ export default function UpdateProd() {
         history.push("/");
     };
 
-
-
     return (
         <div>
-            {console.log(prods.some((e) => e))}
+            {/* {console.log(prods.some((e) => e))} */}
             <Navbar2 />
             <div className={style.content}>
                 <h1>Editor de Productos</h1>

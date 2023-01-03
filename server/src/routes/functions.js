@@ -1,22 +1,22 @@
 const fetch = (...args) =>
-import('node-fetch').then(({ default: fetch }) => fetch(...args));
+  import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const { Categoria, Producto, Cliente } = require('../db.js');
 
 // Get categories FROM firebase and save then into DB
 const getCategories = async () => {
   const a = await Categoria.findAll();
-  if(a.length === 0) {
-    const response = await fetch( 'https://supra-sports-default-rtdb.firebaseio.com/.json' );
+  if (a.length === 0) {
+    const response = await fetch('https://supra-sports-default-rtdb.firebaseio.com/.json');
     let commits = await response.json();
-     
+
     let category = commits.Productos.map((e) => e.categoria);
     const categoryArr = new Set(category);
     let result = [...categoryArr];
-    
-    result.forEach(async (e) => { 
+
+    result.forEach(async (e) => {
       Categoria.findOrCreate({ where: { nombre: e } });
     });
-  
+
     const allCategoriesDB = await Categoria.findAll();
     const allCat = allCategoriesDB.map(obj => obj.nombre)
     return allCat;
@@ -29,28 +29,35 @@ const getCategories = async () => {
 
 // Get products FROM firebase and save then into DB
 const getProductsFireBase = async () => {
-  let response = await fetch(
-    `https://supra-sports-default-rtdb.firebaseio.com/.json`
-  ); 
-  let commits = await response.json();
+  const allProds = await Producto.findAll();
+  if (allProds === 0) {
+    let response = await fetch(
+      `https://supra-sports-default-rtdb.firebaseio.com/.json`
+    );
+    let commits = await response.json();
     commits.Productos.forEach(async (e) => {
-      const [instance, created] = await Producto.findOrCreate({where: { nombre:e.nombre }, 
+      const [instance, created] = await Producto.findOrCreate({
+        where: { nombre: e.nombre },
         defaults: {
           URL: e.URL,
           color: e.color,
-          marca: e.marca, 
+          marca: e.marca,
           talla: e.talla,
-          precio: e.precio, 
+          precio: e.precio,
           stock: e.stock,
-        } 
+        }
       })
       const DatabaseCategory = await Categoria.findOne({
-        where: { nombre: e.categoria },  
+        where: { nombre: e.categoria },
       });
       await instance.addCategoria(DatabaseCategory)
-  })
+    })
+  }else {
+    const allProds2 = await Producto.findAll();
+    return allProds2;
+  }
 };
- 
+
 // Get Created Products from DB
 const getDataBaseProducts = async () => {
   await getProductsFireBase()

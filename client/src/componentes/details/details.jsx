@@ -8,6 +8,7 @@ import {
   addToFavorite,
   removeFromFavorite,
   deleteProd,
+  getProducts,
 } from '../../redux/actions/actions.js';
 import { NavLink, useParams, useHistory } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
@@ -22,7 +23,7 @@ import Reviews from '../Reviews/Reviews';
 
 const Details = () => {
   const dispatch = useDispatch();
-  const carrito = useSelector((state) => state.cart)
+  /* const carrito = useSelector((state) => state.cart) */
   const history = useHistory();
 
   let { id } = useParams();
@@ -30,6 +31,9 @@ const Details = () => {
   useEffect(() => {
     dispatch(limpiarState());
     dispatch(getDetails(id));
+    return function () {
+      dispatch(getProducts())
+    }
   }, [dispatch, id]);
 
   const details = useSelector((state) => state.details);
@@ -57,10 +61,10 @@ const Details = () => {
     alert('Añadido con éxito al carrito');
   };
 
-  const handleDelete = (e) => {
-    e.preventDefault();
-    dispatch(deleteProd(e.target.value));
-    console.log(e.target.value + ' ELIMINADO');
+  const handleDelete = (id) => {
+    console.log(id + ' ELIMINADO');
+    dispatch(deleteProd(id))
+      .then(alert("Producto publicado con éxito! Se te redirigirá al inicio..."))
     history.push("/");
   }
   const [isAdd, setIsAdd] = useState(false);
@@ -109,9 +113,9 @@ const Details = () => {
               {!isAdmin ? (
                 <div className={s.botones}>
                   <button
-                  disabled={details[0].stock === 0}
-                  onClick={() => handleSubmit(id)}
-                  className={s.añadirCart}>
+                    disabled={details[0].stock === 0}
+                    onClick={() => handleSubmit(id)}
+                    className={s.añadirCart}>
                     AÑADIR AL CARRITO
                   </button>
                   <div
@@ -123,13 +127,15 @@ const Details = () => {
                 </div>
               ) : (
                 <div className={s.btns}>
-                    <button onClick={(e) => handleDelete(e)}>
-                      <img src={trash} alt="" ></img>
-                    </button>
-                  
-                    <NavLink to="/updateProd" style={{ textDecoration: "none" }}>
-                      <img src={edit} alt=""></img>
-                    </NavLink>
+                  <button
+                    /* value={categ} */
+                    onClick={() => handleDelete(id)}>
+                    <img src={trash} alt="" ></img>
+                  </button>
+
+                  <NavLink to="/updateProd" style={{ textDecoration: "none" }}>
+                    <img src={edit} alt=""></img>
+                  </NavLink>
                 </div>
               )}
             </div>
