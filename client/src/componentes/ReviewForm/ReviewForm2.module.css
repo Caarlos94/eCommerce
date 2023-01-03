@@ -140,3 +140,35 @@ img {
   transform: translate(0);
   box-shadow: none;
 }
+
+.warning {
+  height: 2rem;
+}
+
+.enviado-container {
+  /* border: solid 3px blue; */
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.enviado {
+  /* border: solid 3px red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #edeff0;
+  border-radius: 5px;
+  padding: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  /* box-shadow: 4px 4px 5px 0 rgba(0, 0, 0, 0.1); */
+}
+.enviado p {
+  padding: 0px;
+  margin: 0px;
+  font-weight: bold;
+}

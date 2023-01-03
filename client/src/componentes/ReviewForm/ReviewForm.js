@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import StarRating from "./StarRating";
 import "./ReviewForm.css";
 import classes from "./ReviewForm2.module.css";
@@ -7,7 +7,7 @@ import classes from "./ReviewForm2.module.css";
 const ReviewForm = () => {
   const location = useLocation();
   const { clienteId, producto } = location.state;
-
+  const [didClick, setDidClick] = useState(false);
   const [didSend, SetDidSent] = useState(false);
   const [markedRating, setMarkedRating] = useState(0);
   const [comments, setComments] = useState("");
@@ -19,6 +19,11 @@ const ReviewForm = () => {
     "Excelente",
   ];
 
+  const history = useHistory();
+  const handleHistory = () => {
+    history.push("/sales");
+  };
+
   const [ratingNameValue, setRatingNameValue] = useState("");
 
   const ratingColors = ["red", "orange", "yellow", "greenyellow", "green"];
@@ -26,11 +31,6 @@ const ReviewForm = () => {
   const [ratingColor, setRatingColor] = useState("");
 
   const [responseError, setResponseError] = useState({
-    error: false,
-    msg: "",
-  });
-
-  const [commentError, setCommentError] = useState({
     error: false,
     msg: "",
   });
@@ -47,6 +47,7 @@ const ReviewForm = () => {
   };
 
   const handleClick = () => {
+    setDidClick(true);
     const postInfo = {
       comment: comments,
       rating: markedRating,
@@ -54,7 +55,10 @@ const ReviewForm = () => {
       productoId: producto.productoId,
     };
 
-    if (postInfo.comment.length < 10 || postInfo.rating === 0) return;
+    if (postInfo.rating === 0) {
+      // setRatingError((prevState) => ({ ...prevState, error: true }));
+      return;
+    }
 
     fetch("http://localhost:3001/compras/review", {
       method: "POST",
@@ -72,6 +76,9 @@ const ReviewForm = () => {
     console.log(postInfo);
     setComments("");
     SetDidSent(true);
+    setTimeout(() => {
+      handleHistory();
+    }, 1000);
   };
 
   return (
@@ -108,13 +115,28 @@ const ReviewForm = () => {
               <div className={classes["review-btn"]}>
                 <button onClick={handleClick}>Enviar</button>
               </div>
+              <div className={classes.warning}>
+                {markedRating === 0 && didClick ? (
+                  <p>Debe puntuarse el producto</p>
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
           </div>
         </div>
       ) : (
         ""
       )}
-      {didSend && !responseError.error ? <p>Enviado!</p> : ""}
+      {didSend && !responseError.error ? (
+        <div className={classes["enviado-container"]}>
+          <div className={classes.enviado}>
+            <p>Gracias por dejar tu opinión!</p>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
       {responseError.error ? <p>{responseError.msg}</p> : ""}
     </>
   );

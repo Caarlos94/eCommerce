@@ -8,7 +8,7 @@ import Answers from "./componentes/Answers/Answers";
 import VentasAdmin from "./componentes/VentasAdmin/VentasAdmin";
 import Favorites from "./componentes/Favorites/Favorites";
 import ReviewForm from "./componentes/ReviewForm/ReviewForm";
-import { Route } from "react-router-dom";
+import { Route, useHistory } from "react-router-dom";
 import About from "./componentes/About/About";
 import { ProtectedRoute } from "./componentes/ProtectedRoute";
 
@@ -24,7 +24,7 @@ function App() {
       <Route path="/profile" component={Perfil} />
       <Route exact path="/favorites" component={Favorites} />
       <ProtectedRoute path="/sales" component={VentasAdmin} />
-      <ProtectedRoute path="/review-form" args={""} component={ReviewForm} />
+      <ProtectedRoute path="/review-form" component={ReviewForm} />
     </div>
   );
 }
