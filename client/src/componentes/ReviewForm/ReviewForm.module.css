@@ -30,7 +30,7 @@
   /* border: solid purple 3px; */
 }
 
-img {
+.left-side img {
   min-width: 100%;
   min-height: 100%;
   object-fit: contain;
@@ -171,4 +171,19 @@ img {
   padding: 0px;
   margin: 0px;
   font-weight: bold;
+}
+
+.star-rating {
+  display: flex;
+  justify-content: center;
+  /* border: solid yellow 3px; */
+  height: 5rem;
+  margin-top: 1rem;
+}
+
+.star-rating button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }

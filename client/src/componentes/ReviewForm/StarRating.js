@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import classes from "./StarRating.module.css";
 
 const StarRating = ({ handleRating }) => {
   const [rating, setRating] = useState(0);
@@ -16,7 +17,7 @@ const StarRating = ({ handleRating }) => {
           <button
             type="button"
             key={index}
-            className={index <= (hover || rating) ? "on" : "off"}
+            className={index <= (hover || rating) ? classes.on : classes.off}
             onClick={() => setRating(index)}
             onMouseEnter={() => setHover(index)}
             onMouseLeave={() => setHover(rating)}

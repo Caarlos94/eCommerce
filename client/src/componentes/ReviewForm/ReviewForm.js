@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import StarRating from "./StarRating";
-import "./ReviewForm.css";
-import classes from "./ReviewForm2.module.css";
+import classes from "./ReviewForm.module.css";
 
 const ReviewForm = () => {
   const location = useLocation();
@@ -95,7 +94,7 @@ const ReviewForm = () => {
                 <p className={classes["bold-text"]}>
                   ¿Qué puntuación le darías?
                 </p>
-                <div className="star-rating">
+                <div className={classes["star-rating"]}>
                   <StarRating handleRating={handleRating} />
                 </div>
                 <div
