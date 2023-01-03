@@ -17,7 +17,7 @@ const Filtros = ({ setPages }) => {
   const dispatch = useDispatch();
   const [, setOrder] = useState("");
 
-  const [currentPage, setCurrentPage] = useState(1); // DEBERIA SER UN REDUCER
+  const [/* currentPage */, setCurrentPage] = useState(1); // DEBERIA SER UN REDUCER
 
 
   const fn = (el) => {
@@ -32,6 +32,7 @@ const Filtros = ({ setPages }) => {
 
   const fn3 = (el) => {
     dispatch(searchXprecio(el.target.value));
+    setPages(1);
   };
 
   const fn4 = (el) => {
@@ -60,7 +61,6 @@ const Filtros = ({ setPages }) => {
     dispatch(getProducts2())
     returnDefault()
   }
-
 
 
   return (

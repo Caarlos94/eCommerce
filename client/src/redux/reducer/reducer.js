@@ -150,7 +150,7 @@ const rootReducer = (state = initialState, action) => {
       let productsFilter = [];
 
       if (action.payload === 'todas') {
-        let arr = [...state.products];
+        arr = [...state.products];
         if (state.precio[1] !== 0)
           arr = arr.filter(
             (Element) =>

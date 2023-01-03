@@ -104,10 +104,12 @@ const Details = () => {
               </div>
               {!isAdmin ? (
                 <div className={s.botones}>
-                  <button disabled={details[0].stock === 0} onClick={() => handleSubmit(id)}>
+                  <button
+                  disabled={details[0].stock === 0}
+                  onClick={() => handleSubmit(id)}
+                  className={s.añadirCart}>
                     AÑADIR AL CARRITO
                   </button>
-                  {/* <div className={s.fav} onClick={() => handleAdd(id)}> */}
                   <div
                     className={isAdd ? s.current : s.fav}
                     onClick={() => handleAdd(id)}
@@ -117,16 +119,16 @@ const Details = () => {
                 </div>
               ) : (
                 <div className={s.btns}>
-                  <div className={s.bs}>
-                    {/* <button onClick={(e) => handleDelete(e)}>
+                  {/* <div className={s.bsTrash}> */}
+                    <button onClick={(e) => handleDelete(e)}>
                       <img src={trash} alt="" ></img>
-                    </button> */}
-                  </div>
-                  <div className={s.bs}>
+                    </button>
+                  {/* </div> */}
+                  {/* <div className={s.bsEdit}> */}
                     <NavLink to="/updateProd" style={{ textDecoration: "none" }}>
                       <img src={edit} alt=""></img>
                     </NavLink>
-                  </div>
+                  {/* </div> */}
                 </div>
               )}
             </div>

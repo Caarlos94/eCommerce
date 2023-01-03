@@ -4,7 +4,7 @@ import { getCategorys, postCategory, deleteCategory } from '../../redux/actions/
 import Navbar2 from '../navbar/navBar2'
 import Footer from '../Footer/Footer'
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 const validate = (input, categs) => {
     let errors = {};
@@ -25,7 +25,7 @@ const validate = (input, categs) => {
 export default function ModifCateg() {
     const dispatch = useDispatch()
     const categs = useSelector((state) => state.categorys);
-
+    const history = useHistory();
     const [input, setInput] = useState({ nombre: "" });
     const [errors, setErrors] = useState({});
 
@@ -61,11 +61,12 @@ export default function ModifCateg() {
     const handlerSubmit = (e) => {
         e.preventDefault();
         console.log(input.nombre + ' CREADO');
-        dispatch(postCategory(input))
-            .then(dispatch(getCategorys()));
+        dispatch(postCategory(input));
+        setTimeout(() => dispatch(getCategorys()), 100)
         setInput({
             nombre: "",
-        })
+        });
+        history.push("/modifCateg");
     };
 
     return (

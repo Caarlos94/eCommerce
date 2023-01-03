@@ -115,13 +115,12 @@ export default function UpdateProd() {
 
     return (
         <div>
+            {console.log(prods.some((e) => e))}
             <Navbar2 />
             <div className={style.content}>
                 <h1>Editor de Productos</h1>
-
                 <div className={style.forms}>
                     <form onSubmit={(e) => handlerSubmit(e)}>
-
                         <div className={style.inputI}>
                             <label>Nombre: </label>
                             <input
