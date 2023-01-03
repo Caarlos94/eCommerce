@@ -212,7 +212,7 @@
   top: 45%;
 }
 
-.spinner>div {
+.spinner > div {
   background-color: rgba(0, 77, 255, 0.2);
   height: 100%;
   position: absolute;
@@ -282,7 +282,7 @@
 
   .textCont {
     width: 100%;
-    height: 50%;
+    height: 60%;
     position: relative;
   }
 
