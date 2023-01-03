@@ -21,7 +21,7 @@ const ReviewForm = () => {
 
   const history = useHistory();
   const handleHistory = () => {
-    history.push("/sales");
+    history.push("/sales"); //RUTA PROVISIONAL. REALMENTE DEBE A LA RUTA DE HISTORIAL DE COMPRAS
   };
 
   const [ratingNameValue, setRatingNameValue] = useState("");
