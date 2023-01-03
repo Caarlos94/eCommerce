@@ -100,6 +100,13 @@ const rootReducer = (state = initialState, action) => {
         categorys: action.payload,
       };
 
+    case 'DELETE_PROD':
+      return {
+        ...state,
+        productsHome: state.productsHome.filter(prod => prod.id !== action.payload),
+        products: state.products.filter(prod => prod.id !== action.payload),
+      };
+
     case SEARCHxNAME: {
       const productsFilter = state.products.filter((Element) =>
         Element.nombre.toLowerCase().includes(action.payload.toLowerCase())
@@ -150,7 +157,7 @@ const rootReducer = (state = initialState, action) => {
       let productsFilter = [];
 
       if (action.payload === 'todas') {
-        let arr = [...state.products];
+        arr = [...state.products];
         if (state.precio[1] !== 0)
           arr = arr.filter(
             (Element) =>
@@ -501,9 +508,9 @@ const rootReducer = (state = initialState, action) => {
       return productInFavorite
         ? { ...state }
         : {
-            ...state,
-            favorites: [...state.favorites, newFavorite],
-          };
+          ...state,
+          favorites: [...state.favorites, newFavorite],
+        };
     case REMOVE_FROM_FAVORITE:
       let productToRemove = state.favorites.find(
         (product) => product.id === action.payload

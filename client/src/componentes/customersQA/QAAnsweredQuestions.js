@@ -1,28 +1,25 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import QAAnsweredQuestion from "./QAAnsweredQuestion";
 import classes from "./QAAnsweredQuestions.module.css";
 
 const QAAnsweredQuestions = ({ productId }) => {
   const [questions, setQuestions] = useState([]);
-  const mountedRef = useRef(true);
 
   useEffect(() => {
+    let isSubscribed = true;
+
     fetch(`http://localhost:3001/customerQA/${productId}`)
       .then((data) => data.json())
       .then((data) => {
-        if (!mountedRef.current) {
-          return null;
-        }
-        setQuestions(data);
+        if (isSubscribed) setQuestions(data);
       });
 
-    return () => {
-      mountedRef.current = false;
-    };
+    return () => (isSubscribed = false);
   }, [productId]);
+
   return (
     <div className={classes["questions-container"]}>
-      <div className={classes["titulo-preguntas"]}>Última preguntas: </div>
+      <div className={classes["titulo-preguntas"]}>Últimas preguntas: </div>
       {questions?.map((q) => (
         <QAAnsweredQuestion key={q.questionId} questionData={q} />
       ))}

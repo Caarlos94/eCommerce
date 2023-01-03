@@ -13,3 +13,9 @@
 /* 
 .answer {
 } */
+
+@media (max-width: 768px) {
+  .questions-container {
+    width: 90%;
+  }
+}
