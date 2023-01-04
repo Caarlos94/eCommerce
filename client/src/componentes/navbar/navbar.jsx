@@ -77,9 +77,16 @@ const Navbar = ({ setPages }) => {
                       style={{ textDecoration: "none" }}
                       className={style.button}
                     >
-                      Perfil
+                      Perfil  
                     </Link>
                   </div>
+                  {!isAdmin && ( 
+                    <div>
+                      <Link to="/historial" style={{ textDecoration: "none" }} className={style.button}>
+                        Historial
+                      </Link>
+                    </div> )
+                  } 
                   <div>
                     <button onClick={() => logout()} className={style.button}>
                       Cerrar sesión
