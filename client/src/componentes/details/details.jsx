@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import s from './details.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import s from "./details.module.css";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getDetails,
   limpiarState,
   addToCart,
   addToFavorite,
   removeFromFavorite,
-} from '../../redux/actions/actions.js';
-import { useParams } from 'react-router-dom';
-import heart from '../../img/heart-regular.svg';
-import QASection from '../customersQA/QASection'; // La sección de QA del producto. Debe ir en este componente. Falta posicionarlo bien, dar estilos etc
+} from "../../redux/actions/actions.js";
+import { useParams } from "react-router-dom";
+import heart from "../../img/heart-regular.svg";
+import QASection from "../customersQA/QASection"; // La sección de QA del producto. Debe ir en este componente. Falta posicionarlo bien, dar estilos etc
 import { useAuth0 } from "@auth0/auth0-react";
 import jwt_decode from "jwt-decode";
-import Navbar2 from '../navbar/navBar2';
-import Footer from '../Footer/Footer';
+import Navbar2 from "../navbar/navBar2";
+import Footer from "../Footer/Footer";
 
 const Details = () => {
   const dispatch = useDispatch();
-  const carrito = useSelector((state) => state.cart)
+  const carrito = useSelector((state) => state.cart);
 
   let { id } = useParams();
 
@@ -30,10 +30,7 @@ const Details = () => {
   const details = useSelector((state) => state.details);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const {
-    isAuthenticated,
-    getAccessTokenSilently,
-  } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
     const checkForAdminRole = async () => {
@@ -51,7 +48,6 @@ const Details = () => {
   }, [isAuthenticated, getAccessTokenSilently]);
   const [isAdd, setIsAdd] = useState(false);
 
-
   const handleSubmit = (id) => {
     dispatch(addToCart(id));
     //console.log(details);
@@ -68,7 +64,7 @@ const Details = () => {
       <Navbar2 />
 
       {details.length ? (
-        <div className={s['parent-container']}>
+        <div className={s["parent-container"]}>
           <div className={s.detailCont}>
             <div className={s.imgCont}>
               <div className={s.img11}>
@@ -86,14 +82,20 @@ const Details = () => {
                 <h5>Marca: {details[0].marca}</h5>
                 <h5>Color: {details[0].color}</h5>
                 <h5>Talla: {details[0].talla.toUpperCase()}</h5>
-                {details[0].stock > 0
-                  ? (<h5>Stock: {details[0].stock}</h5>)
-                  : (<h5>Producto no disponible! Stock agotado momentáneamente...</h5>)
-                }
+                {details[0].stock > 0 ? (
+                  <h5>Stock: {details[0].stock}</h5>
+                ) : (
+                  <h5>
+                    Producto no disponible! Stock agotado momentáneamente...
+                  </h5>
+                )}
               </div>
               {!isAdmin && (
                 <div className={s.botones}>
-                  <button disabled={details[0].stock === 0} onClick={() => handleSubmit(id)}>
+                  <button
+                    disabled={details[0].stock === 0}
+                    onClick={() => handleSubmit(id)}
+                  >
                     AÑADIR AL CARRITO
                   </button>
                   {/* <div className={s.fav} onClick={() => handleAdd(id)}> */}
@@ -122,7 +124,6 @@ const Details = () => {
           <div></div>
         </div>
       )}
-      
     </div>
   );
 };

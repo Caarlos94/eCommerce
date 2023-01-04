@@ -8,6 +8,7 @@ import Answers from "./componentes/Answers/Answers";
 import VentasAdmin from "./componentes/VentasAdmin/VentasAdmin";
 import Favorites from "./componentes/Favorites/Favorites";
 import ReviewForm from "./componentes/ReviewForm/ReviewForm";
+import HistorialUsuario from "./componentes/HistorialUsuario/HistorialUsuario";
 import { Route } from "react-router-dom";
 import About from "./componentes/About/About";
 import modifCateg from "./componentes/modifCateg/modifCateg";
@@ -27,6 +28,7 @@ function App() {
       <Route exact path="/favorites" component={Favorites} />
       <ProtectedRoute path="/sales" component={VentasAdmin} />
       <ProtectedRoute path="/review-form" component={ReviewForm} />
+      <ProtectedRoute path="/historial-usuario" component={HistorialUsuario} />
     </div>
   );
 }

@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React /*, { useState, useEffect }*/ from "react";
 import classes from "./ProductCard.module.css";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
-const ProductCard = ({ data, clienteId, enviado }) => {
-  const [didReview, setDidReview] = useState(true); //PRUEBA
+const ProductCard = ({ data /*clienteId, enviado*/ }) => {
+  // const [didReview, setDidReview] = useState(true); //PRUEBA
 
-  //PRUEBA
-  useEffect(() => {
-    fetch(
-      `http://localhost:3001/compras/review-match?clienteId=${clienteId}&productoId=${data.productoId}`
-    )
-      .then((data) => data.json())
-      .then((data) => {
-        if (data.error === true) {
-          setDidReview(true);
-        } else {
-          setDidReview(false);
-        }
-        console.log(data);
-      });
-  }, [clienteId, data.productoId]);
+  // //PRUEBA
+  // useEffect(() => {
+  //   fetch(
+  //     `http://localhost:3001/compras/review-match?clienteId=${clienteId}&productoId=${data.productoId}`
+  //   )
+  //     .then((data) => data.json())
+  //     .then((data) => {
+  //       if (data.error === true) {
+  //         setDidReview(true);
+  //       } else {
+  //         setDidReview(false);
+  //       }
+  //       // console.log(data);
+  //     });
+  // }, [clienteId, data.productoId]);
 
   return (
     <div className={classes["product-card"]}>
@@ -34,7 +34,7 @@ const ProductCard = ({ data, clienteId, enviado }) => {
         <p>Cantidad: {data.cantidad}</p>
       </div>
 
-      {enviado && !didReview ? ( // PRUEBA
+      {/* {enviado && !didReview ? ( // PRUEBA
         <Link
           to={{
             pathname: "/review-form",
@@ -45,7 +45,7 @@ const ProductCard = ({ data, clienteId, enviado }) => {
         </Link>
       ) : (
         ""
-      )}
+      )} */}
     </div>
   );
 };

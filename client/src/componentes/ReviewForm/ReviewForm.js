@@ -5,7 +5,7 @@ import classes from "./ReviewForm.module.css";
 
 const ReviewForm = () => {
   const location = useLocation();
-  const { clienteId, producto } = location.state;
+  const { producto, clienteId } = location.state;
   const [didClick, setDidClick] = useState(false);
   const [didSend, SetDidSent] = useState(false);
   const [markedRating, setMarkedRating] = useState(0);
@@ -18,9 +18,11 @@ const ReviewForm = () => {
     "Excelente",
   ];
 
+  console.log(clienteId);
+
   const history = useHistory();
   const handleHistory = () => {
-    history.push("/sales"); //RUTA PROVISIONAL. REALMENTE DEBE A LA RUTA DE HISTORIAL DE COMPRAS
+    history.push("/historial-usuario"); //RUTA PROVISIONAL. REALMENTE DEBE A LA RUTA DE HISTORIAL DE COMPRAS
   };
 
   const [ratingNameValue, setRatingNameValue] = useState("");
@@ -51,7 +53,7 @@ const ReviewForm = () => {
       comment: comments,
       rating: markedRating,
       clienteId,
-      productoId: producto.productoId,
+      productoId: producto.id,
     };
 
     if (postInfo.rating === 0) {
@@ -87,7 +89,7 @@ const ReviewForm = () => {
           <p className={classes.nombre}>{producto.nombre}</p>
           <div className={classes["review-container"]}>
             <div className={classes["left-side"]}>
-              <img src={producto.url} alt={producto.nombre} />
+              <img src={producto.URL} alt={producto.nombre} />
             </div>
             <div className={classes["right-side"]}>
               <div className={classes["rating-container"]}>

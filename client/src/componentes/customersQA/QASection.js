@@ -26,7 +26,7 @@ const QASection = (props) => {
       }
     };
 
-    checkForAdminRole(isSubscribed);
+    checkForAdminRole(isAuthenticated);
     return () => (isSubscribed = false);
   }, [isAuthenticated, getAccessTokenSilently]);
 
