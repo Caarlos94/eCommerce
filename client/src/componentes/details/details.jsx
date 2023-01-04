@@ -133,7 +133,7 @@ const Details = () => {
                     <img src={trash} alt="" ></img>
                   </button>
 
-                  <NavLink to="/updateProd" style={{ textDecoration: "none" }}>
+                  <NavLink to={`/updateProd/${id}`} style={{ textDecoration: "none" }}>
                     <img src={edit} alt=""></img>
                   </NavLink>
                 </div>

@@ -44,9 +44,9 @@ const validate = (input, prods) => {
     }
   }
   if (input.talla) {
-    if (!/^[A-Za-z0-9\s]+$/.test(input.talla)) {
+    if (!(input.talla === 'S' || input.talla === 'M' || input.talla === 'L' || input.talla === 'XL' || input.talla === 'XXL')) {
       errors.talla =
-        "Este dato es obligatorio, no se permiten caracteres especiales.";
+        "Solo se permiten los talles S-M-L-XL-XXL.";
     }
   }
   if (input.marca) {
