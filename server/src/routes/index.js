@@ -7,6 +7,7 @@ const customerQARouter = require("./customerQARouter");
 const adminQARouter = require("./adminQARouter");
 const categoryRouter = require("./categoryRouter")
 const compraRouter = require("./compraRouter");
+const axios = require('axios');
 
 const router = Router();
 const mercadopago = require("mercadopago");
@@ -20,8 +21,8 @@ router.use("/users", userRouter);
 router.use("/customerQA", customerQARouter);
 router.use("/adminQA", adminQARouter);
 router.use("/category", categoryRouter)
-
 router.use("/compras", compraRouter);
+
 
 mercadopago.configure({
   access_token:
@@ -30,10 +31,17 @@ mercadopago.configure({
 });
 
 let obj = {}
+let GuardarComprasDB = {
+  clienteId : '',
+  productos: [],
+}
 
 router.post("/pagosMeli", async (req, res) => {
   let items = req.body.items;
-  obj = items
+  let idUsuario = req.body.idUsuario
+
+  
+  // obj = items
   let itemsArr = [];
   if (items[0].stock > 0) {
     items.forEach(item => itemsArr.push({
@@ -49,16 +57,32 @@ router.post("/pagosMeli", async (req, res) => {
   let preference = {
     items: itemsArr,
     back_urls: {
-      success: "http://localhost:3001/redirect",
-      failure: "http://localhost:3001/redirect",
-      pending: "http://localhost:3001/redirect"
-    }
+      success: "http://localhost:3001/redirect"
+    },
+  
   };
+
+
+  obj = items
+
+  GuardarComprasDB.clienteId = idUsuario
+ 
+  let arr = [];
+
+  items.forEach((elem) => {
+    const obj = {}
+     obj.prodId = elem.id,
+     obj.cantidad = elem.cantidad
+     arr.push(obj)
+  })
+
+  GuardarComprasDB.productos = arr
+
+  console.log(obj);
+  console.log(GuardarComprasDB);
 
   mercadopago.preferences.create(preference)
     .then(function (response) {
-      // console.log(response.body);
-      /* res.redirect(response.body.init_point) */
       res.json(response.body.init_point)
     })
     .catch(function (error) {
@@ -69,9 +93,10 @@ router.post("/pagosMeli", async (req, res) => {
 
 router.get("/redirect", async (req, res) => {
   let { status } = req.query
-
+ 
   if (status === "approved") {
-    obj.forEach(async producto => {
+
+obj.forEach(async producto => {
 
       let productStock = await Producto.findByPk(producto.id)
       let rest = productStock.stock - producto.cantidad
@@ -79,10 +104,12 @@ router.get("/redirect", async (req, res) => {
       const modifiedProduct = await Producto.update(
         { stock: rest },
         { where: { id: producto.id } });
-
     })
 
     try {
+
+      const ComprasGuardadas = await axios.post('http://localhost:3001/compras' , GuardarComprasDB )
+
       res.redirect('http://localhost:3000')
     } catch (error) {
       res.status(400).send(error.message)
@@ -90,5 +117,32 @@ router.get("/redirect", async (req, res) => {
   }
 })
 
+
+
+router.get("/", async (req, res) => {
+  try {
+    let categoria = await getCategories();
+    res.status(200).json(categoria);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+router.get("/category", async (req, res) => {
+  try {
+    let categoria = await getCategories()
+    res.status(200).json(categoria)
+  } catch (error) {
+    res.status(400).send(error.message)
+  }
+})
+
+
+
+router.use('/products', productRouter);
+router.use('/user', userRouter);
+
+// Configurar los routers
+// Ejemplo: router.use('/auth', authRouter);
 
 module.exports = router;

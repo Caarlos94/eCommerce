@@ -25,6 +25,7 @@ export const REMOVE_FROM_FAVORITE = 'REMOVE_FROM_FAVORITE';
 export const getProducts = () => {
   return async function (dispatch) {
     const response = await fetch('http://localhost:3001/products');
+    console.log(response);
     const data = await response.json();
     return dispatch({
       type: GET_PRODUCTS,

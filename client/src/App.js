@@ -12,6 +12,8 @@ import About from "./componentes/About/About";
 import modifCateg from './componentes/modifCateg/modifCateg';
 import { ProtectedRoute } from "./componentes/ProtectedRoute";
 import UpdateProd from './componentes/UpdateProd/updateProd';
+import Prueba from "./componentes/historialCompras/historialUsuario.jsx";
+import ReviewForm from "./componentes/ReviewForm/ReviewForm";
 
 function App() {
   return (
@@ -27,6 +29,9 @@ function App() {
       <Route path="/profile" component={Perfil} />
       <Route exact path="/favorites" component={Favorites} />
       <ProtectedRoute path="/sales" component={VentasAdmin} />
+      <ProtectedRoute path="/historial" component={Prueba} />
+      <ProtectedRoute path="/review-form" component={ReviewForm} />
+
     </div>
   );
 }
