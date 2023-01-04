@@ -7,9 +7,26 @@ const QAForm = (props) => {
   const [email, setEmail] = useState("");
   const [data, setData] = useState({ newQuestion: "", email: "" });
   const [didSaveEmail, setDidSaveEmail] = useState(false);
+  const [emailIsValid, setEmailIsValid] = useState("");
+  const [timer, setTimer] = useState(null);
 
   const handleChange = (e) => {
     setData((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
+
+    clearTimeout(timer); // reinicia el timer
+
+    const newTimer = setTimeout(() => {
+      // todo: no notificar validez si no hay un correo en el input de correo
+      if (e.target.name === "email") {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)) {
+          setEmailIsValid(true);
+        } else {
+          setEmailIsValid(false);
+        }
+      }
+    }, 700);
+
+    setTimer(newTimer);
   };
 
   const { user } = useAuth0();
@@ -46,33 +63,36 @@ const QAForm = (props) => {
         <label className={classes["form-label"]} htmlFor="newQuestion">
           Preguntar al vendedor:
         </label>
-        <input
-          className={classes["form-input"]}
-          autoComplete="off"
-          placeholder="Ej: Hay stock disponible?"
-          onChange={handleChange}
-          name="newQuestion"
-          type="text"
-          value={data.newQuestion}
-        />
-        {!user && !didSaveEmail ? (
-          <div>
-            <label htmlFor="email">
-              Deja tu email para ser notificado cuando tengas unas respuesta
-            </label>
-            <input
-              className={classes["form-input"]}
-              autoComplete="off"
-              placeholder="Ej: Hay stock disponible?"
-              onChange={handleChange}
-              name="email"
-              type="text"
-              value={data.email}
-            />
-          </div>
-        ) : (
-          ""
-        )}
+        <div className={classes["inputs-container"]}>
+          <input
+            className={classes["form-input"]}
+            autoComplete="off"
+            placeholder="Ej: Hay stock disponible?"
+            onChange={handleChange}
+            name="newQuestion"
+            type="text"
+            value={data.newQuestion}
+          />
+          {!user && !didSaveEmail ? (
+            <>
+              <label htmlFor="email">
+                Deja tu email para ser notificado cuando haya una respuesta
+              </label>
+              <input
+                className={classes["form-input"]}
+                autoComplete="off"
+                placeholder="Ej: usuario@email.com"
+                onChange={handleChange}
+                name="email"
+                type="text"
+                value={data.email}
+              />
+              {emailIsValid === false && <p>Correo inválido</p>}
+            </>
+          ) : (
+            ""
+          )}
+        </div>
 
         <button
           className={classes["submit-button"]}

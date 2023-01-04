@@ -78,7 +78,7 @@ const Details = () => {
             <div className={s.textCont}>
               <div className={s.productDesc}>
                 <h2>{details[0].nombre.toUpperCase()}</h2>
-                <h3>${details[0].precio} U$D</h3>
+                <h3>${details[0].precio} </h3>
                 <h5>Marca: {details[0].marca}</h5>
                 <h5>Color: {details[0].color}</h5>
                 <h5>Talla: {details[0].talla.toUpperCase()}</h5>

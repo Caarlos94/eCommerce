@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  /* border: 3px solid green; */
 }
 
 .titulo-preguntas {
