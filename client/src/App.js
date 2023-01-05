@@ -27,8 +27,8 @@ function App() {
       <Route path="/profile" component={Perfil} />
       <Route exact path="/favorites" component={Favorites} />
       <ProtectedRoute path="/sales" component={VentasAdmin} />
+      <ProtectedRoute path="/historial" component={HistorialUsuario} />
       <ProtectedRoute path="/review-form" component={ReviewForm} />
-      <ProtectedRoute path="/historial-usuario" component={HistorialUsuario} />
     </div>
   );
 }

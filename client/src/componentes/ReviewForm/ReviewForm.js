@@ -22,7 +22,7 @@ const ReviewForm = () => {
 
   const history = useHistory();
   const handleHistory = () => {
-    history.push("/historial-usuario"); //RUTA PROVISIONAL. REALMENTE DEBE A LA RUTA DE HISTORIAL DE COMPRAS
+    history.push("/historial"); //RUTA PROVISIONAL. REALMENTE DEBE A LA RUTA DE HISTORIAL DE COMPRAS
   };
 
   const [ratingNameValue, setRatingNameValue] = useState("");
