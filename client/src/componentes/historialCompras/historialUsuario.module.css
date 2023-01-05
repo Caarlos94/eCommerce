@@ -1,0 +1,32 @@
+.divPadre{
+    border: 1px solid black;
+    margin: 40px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.div{
+    border: 1px solid black;
+    margin: 25px;
+    text-align: center;
+    width: 50%;
+}
+
+.imgg{
+    height: 250px;
+}
+
+.imgg img{
+    object-fit: contain;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+/* .imgggg{
+    border: 1px solid black;
+    width: 10000px;
+    height: 20000px;
+} */

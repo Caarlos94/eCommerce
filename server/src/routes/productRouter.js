@@ -1,17 +1,16 @@
 const { Router } = require("express");
 const productRouter = Router();
-const { getDataBaseProducts, getProductsFireBase } = require('./functions');
-const { Categoria, Producto } = require('../db.js');
+const { getDataBaseProducts, getProductsFireBase } = require("./functions");
+const { Categoria, Producto } = require("../db.js");
 
-
-productRouter.get('/', async (req, res) => {
+productRouter.get("/", async (req, res) => {
   try {
-    await getProductsFireBase()
+    await getProductsFireBase();
     let productos = await getDataBaseProducts();
     res.status(200).json(productos);
   } catch (error) {
     res.status(400).send(error.message);
-  } 
+  }
 });
 
 productRouter.get("/:id", async (req, res) => {
@@ -51,7 +50,7 @@ productRouter.get("/:id", async (req, res) => {
 
 productRouter.post("/", async (req, res) => {
   try {
-    const data = req.body; 
+    const data = req.body;
     const { categoria } = req.body;
     const newProduct = await Producto.create(data);
     const DatabaseCategory = await Categoria.findAll({
@@ -60,14 +59,17 @@ productRouter.post("/", async (req, res) => {
     await newProduct.addCategoria(DatabaseCategory);
     res.status(200).json(newProduct);
   } catch (error) {
-    res.status(400).json(error.message); 
+    res.status(400).json(error.message);
   }
 });
 
-productRouter.delete("/", async (req, res) => {
+productRouter.delete("/:id", async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
     const product = await Producto.findByPk(id);
+    console.log(id);
+    console.log(product);
+
     await product.destroy();
     res.status(200).json(product);
   } catch (error) {
@@ -75,18 +77,32 @@ productRouter.delete("/", async (req, res) => {
   }
 });
 
-/* productRouter.put("/", async (req, res) => {
+productRouter.put("/:id", async (req, res) => {
   const data = req.body;
+  const { id } = req.params;
+
+  console.log(data);
+  const producto = await Producto.findOne({
+    where: { id: id }
+  })
 
   try {
     const editedProduct = await Producto.update(
-      { [atributo]: value },
-      { where: { [atributo]: null } }
+      {
+        nombre: data.nombre || producto.nombre,
+        URL: data.URL || producto.URL,
+        precio: data.precio || producto.precio,
+        color: data.color || producto.color,
+        talla: data.talla || producto.talla,
+        marca: data.marca || producto.marca,
+        stock: data.stock || producto.stock
+      },
+      { where: { id: id } }
     );
-    res.status(404).send(newProduct);
+    res.status(200).send("el producto se modificó");
   } catch (error) {
     res.status(404).send(error.message);
   }
-}); */
+});
 
 module.exports = productRouter;

@@ -9,6 +9,7 @@
 .modifCategCont h1 {
     font-weight: bold;
     font-size: 60px;
+    margin-left: -50%;
 }
 
 .categs {
@@ -144,6 +145,18 @@
 
 .publicar button:hover::before {
     width: 100%;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header button{
+    display: flex;
+    top: -25%;
+    right: 140%;
 }
 
 @media (max-width: 768px) {

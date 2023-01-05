@@ -33,6 +33,7 @@ server.use(
     maxAge: 86400,
   })
 );
+server.use(cors())
 
 server.use("/", routes);
 
@@ -44,7 +45,5 @@ server.use((err, req, res, next) => {
   console.error(err);
   res.status(status).send(message);
 });
-
-
 
 module.exports = server;

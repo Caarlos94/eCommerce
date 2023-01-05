@@ -84,7 +84,12 @@ const VentaCard = ({ data, accessToken }) => {
         </div>
         <div className={classes["products-container"]}>
           {data.productos.map((producto) => (
-            <ProductCard key={producto.productoId} data={producto} />
+            <ProductCard
+              key={producto.productoId}
+              data={producto}
+              clienteId={cliente.clienteId} // solo de prueba
+              enviado={data.enviado} // solo de prueba
+            />
           ))}
         </div>
       </div>
@@ -132,7 +137,11 @@ const VentaCard = ({ data, accessToken }) => {
           ) : (
             ""
           )}
-          {trackingError.error ? <p>{trackingError.msg}</p> : ""}
+          {trackingError.error && sent.trackingNumber.length ? (
+            <p>{trackingError.msg}</p>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>
