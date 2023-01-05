@@ -1,0 +1,26 @@
+.QASection-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 6rem;
+  position: relative;
+  width: 100%;
+}
+
+.answered-questions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .QASection-container {
+    position: relative;
+    width: 90%;
+    height: 600px;
+  }
+}

@@ -1,9 +1,8 @@
 require("dotenv").config();
-const { Sequelize } = require("sequelize");
+const { Sequelize, DataTypes } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
-
 
 const sequelize = new Sequelize(
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/ecommerce`,
@@ -12,6 +11,15 @@ const sequelize = new Sequelize(
     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
   }
 );
+// const sequelize = new Sequelize(
+//   `mongodb+srv://suprasports:${DB_PASSWORD}@cluster0.mzlztgd.mongodb.net/?retryWrites=true&w=majority`,
+//   // `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/ecommerce`,
+//   {
+//     logging: false, // set to console.log to see the raw SQL queries
+//     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+//   }
+// );
+
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
@@ -46,13 +54,33 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Producto, Categoria, Cliente } = sequelize.models;
+const { Producto, Categoria, Cliente, Pregunta, Compra } = sequelize.models;
 
-Producto.belongsToMany(Categoria, { through: "Producto_Categoria" });
-Categoria.belongsToMany(Producto, { through: "Producto_Categoria" });
+Producto.belongsToMany(Categoria, { through: "producto_categoria" });
+Categoria.belongsToMany(Producto, { through: "producto_categoria" });
 
-Cliente.belongsToMany(Producto, { through: "Compras" });
-Producto.belongsToMany(Cliente, { through: "Compras" });
+// Cliente.belongsToMany(Producto, { through: "compras" });
+// Producto.belongsToMany(Cliente, { through: "compras" });
+
+Producto.hasMany(Pregunta);
+Pregunta.belongsTo(Producto);
+
+Compra.belongsTo(Cliente);
+Cliente.hasMany(Compra);
+
+const Compra_Producto = sequelize.define(
+  "Compra_Producto",
+  {
+    cantidad: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  },
+  { timestamps: false }
+);
+
+Compra.belongsToMany(Producto, { through: Compra_Producto });
+Producto.belongsToMany(Compra, { through: Compra_Producto });
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);

@@ -1,0 +1,27 @@
+.questions-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.titulo-preguntas {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+}
+
+@media (max-width: 768px) {
+  .questions-container {
+    position: absolute;
+    width: 95%;
+    height: 40%;
+    top: 0;
+  }
+
+  .titulo-preguntas {
+    position: absolute;
+    top: 10px;
+  }
+}

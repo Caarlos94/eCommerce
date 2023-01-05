@@ -1,22 +1,31 @@
-import './App.css';
-import ProductCreate from './componentes/ProductCreate/ProductCreate';
-import Home from './componentes/home/home.jsx';
-import Details from './componentes/details/details';
-import { Route } from 'react-router-dom';
-/*import { useEffect } from "react";
+import "./App.css";
+import ProductCreate from "./componentes/ProductCreate/ProductCreate";
+import Home from "./componentes/home/home.jsx";
+import Details from "./componentes/details/details";
+import Perfil from "./componentes/navbar/Perfil/Perfil";
+import Carrito from "./componentes/Carrito/Carrito";
+import Answers from "./componentes/Answers/Answers";
+import VentasAdmin from "./componentes/VentasAdmin/VentasAdmin";
+import Favorites from "./componentes/Favorites/Favorites";
+import { Route } from "react-router-dom";
+import About from "./componentes/About/About";
+import modifCateg from './componentes/modifCateg/modifCateg';
+import { ProtectedRoute } from "./componentes/ProtectedRoute";
 
-
-  useEffect(() => {
-    fetch("http://localhost:3001/products")
-      .then((data) => data.json())
-      .then((data) => console.log(data));
-  }, []); */
 function App() {
   return (
-    <div>
+    <div className="divPadre">
       <Route exact path="/" component={Home} />
       <Route path="/product" component={ProductCreate} />
+
       <Route path="/details/:id" component={Details} />
+      <Route path="/cart" component={Carrito} />
+      <ProtectedRoute path="/answers" component={Answers} />
+      <Route path="/about" component={About} />
+      <ProtectedRoute path="/modifCateg" component={modifCateg} />
+      <Route path="/profile" component={Perfil} />
+      <Route exact path="/favorites" component={Favorites} />
+      <ProtectedRoute path="/sales" component={VentasAdmin} />
     </div>
   );
 }
