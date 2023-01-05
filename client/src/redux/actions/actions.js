@@ -21,10 +21,12 @@ export const CLEAR_CART = 'CLEAR_CART';
 export const IMPORT_USER = 'IMPORT_USER';
 export const ADD_TO_FAVORITE = 'ADD_TO_FAVORITE';
 export const REMOVE_FROM_FAVORITE = 'REMOVE_FROM_FAVORITE';
+export const GET_REVIEWS = 'GET_REVIEWS'
 
 export const getProducts = () => {
   return async function (dispatch) {
     const response = await fetch('http://localhost:3001/products');
+    console.log(response);
     const data = await response.json();
     return dispatch({
       type: GET_PRODUCTS,
@@ -44,9 +46,9 @@ export const getProducts2 = () => {
   };
 };
 
-export function updateProduct(data) {
+export function updateProduct(data, id) {
   return function () {
-    fetch('http://localhost:3001/products', {
+    fetch(`http://localhost:3001/products/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -82,6 +84,16 @@ export function getUserInfo() {
       payload: response.data,
     });
   };
+}
+
+export function getReviews(id){
+  return async function (dispatch){
+    const response = await axios.get(`http://localhost:3001/compras/reviews/${id}`)
+    return dispatch({
+      type: GET_REVIEWS,
+      payload: response.data,
+    });
+  }
 }
 
 export function importUser(user) {

@@ -23,6 +23,11 @@ const QAAnsweredQuestions = ({ productId }) => {
       {questions?.map((q) => (
         <QAAnsweredQuestion key={q.questionId} questionData={q} />
       ))}
+      {!questions.length ? (
+        <p>Aún no se han hecho preguntas sobre este producto</p>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

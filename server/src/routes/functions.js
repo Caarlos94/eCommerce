@@ -30,7 +30,7 @@ const getCategories = async () => {
 // Get products FROM firebase and save then into DB
 const getProductsFireBase = async () => {
   const allProds = await Producto.findAll();
-  if (allProds === 0) {
+  if (allProds.length === 0) {
     let response = await fetch(
       `https://supra-sports-default-rtdb.firebaseio.com/.json`
     );
@@ -52,7 +52,7 @@ const getProductsFireBase = async () => {
       });
       await instance.addCategoria(DatabaseCategory)
     })
-  }else {
+  } else {
     const allProds2 = await Producto.findAll();
     return allProds2;
   }
@@ -60,7 +60,7 @@ const getProductsFireBase = async () => {
 
 // Get Created Products from DB
 const getDataBaseProducts = async () => {
-  await getProductsFireBase()
+  /* await getProductsFireBase() */
   const allProductsDB = await Producto.findAll({
     include: {
       model: Categoria,

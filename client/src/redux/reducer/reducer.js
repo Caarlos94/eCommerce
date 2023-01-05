@@ -18,6 +18,7 @@ import {
   CLEAR_CART,
   ADD_TO_FAVORITE,
   REMOVE_FROM_FAVORITE,
+  GET_REVIEWS
 } from '../actions/actions.js';
 
 const initialState = {
@@ -28,6 +29,7 @@ const initialState = {
   users: [],
   cart: [],
   categorys: [],
+  reviews: [],
   categoria: 'todas',
   ordenamiento: 'ninguno',
   marca: 'todas',
@@ -80,6 +82,12 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         details: action.payload,
+      };
+
+    case GET_REVIEWS:
+      return {
+        ...state,
+        reviews: action.payload,
       };
 
     case LIMPIAR_SATE:

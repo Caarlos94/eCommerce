@@ -1,0 +1,15 @@
+.divPadre {
+  border: 1px solid black;
+  margin: 40px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.div {
+  border: 1px solid black;
+  margin: 25px;
+  text-align: center;
+  width: 50%;
+}

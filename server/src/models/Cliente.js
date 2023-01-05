@@ -23,11 +23,6 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-    /* password: { // ?????
-      type: DataTypes.STRING,
-      // allowNull: false,
-      unique: true,
-    }, */
     picture: {  // 🎇
       type: DataTypes.STRING,
     }
