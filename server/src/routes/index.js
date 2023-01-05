@@ -1,18 +1,18 @@
 const { Router } = require("express");
-const { Producto } = require('../db.js');
+const { Producto } = require("../db.js");
 
 const productRouter = require("./productRouter.js");
 const userRouter = require("./userRouter.js");
 const customerQARouter = require("./customerQARouter");
 const adminQARouter = require("./adminQARouter");
-const categoryRouter = require("./categoryRouter")
+const categoryRouter = require("./categoryRouter");
 const compraRouter = require("./compraRouter");
 const axios = require('axios');
+const favoritosRouter = require("./favoritosRouter");
 
 const router = Router();
 const mercadopago = require("mercadopago");
 const express = require("express");
-
 
 router.use(express.json());
 
@@ -20,7 +20,9 @@ router.use("/products", productRouter);
 router.use("/users", userRouter);
 router.use("/customerQA", customerQARouter);
 router.use("/adminQA", adminQARouter);
-router.use("/category", categoryRouter)
+router.use("/category", categoryRouter);
+router.use("/favoritos", favoritosRouter);
+
 router.use("/compras", compraRouter);
 
 
@@ -44,14 +46,16 @@ router.post("/pagosMeli", async (req, res) => {
   // obj = items
   let itemsArr = [];
   if (items[0].stock > 0) {
-    items.forEach(item => itemsArr.push({
-      id: item.id,
-      title: item.nombre,
-      currency_id: "ARS",
-      picture_url: item.URL,
-      quantity: items[0].cantidad,
-      unit_price: parseInt(item.precio),
-    }))
+    items.forEach((item) =>
+      itemsArr.push({
+        id: item.id,
+        title: item.nombre,
+        currency_id: "ARS",
+        picture_url: item.URL,
+        quantity: items[0].cantidad,
+        unit_price: parseInt(item.precio),
+      })
+    );
   }
 
   let preference = {
@@ -88,8 +92,7 @@ router.post("/pagosMeli", async (req, res) => {
     .catch(function (error) {
       console.log(error);
     });
-})
-
+});
 
 router.get("/redirect", async (req, res) => {
   let { status } = req.query
@@ -112,32 +115,10 @@ obj.forEach(async producto => {
 
       res.redirect('http://localhost:3000')
     } catch (error) {
-      res.status(400).send(error.message)
+      res.status(400).send(error.message);
     }
   }
-})
-
-
-
-router.get("/", async (req, res) => {
-  try {
-    let categoria = await getCategories();
-    res.status(200).json(categoria);
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
 });
-
-router.get("/category", async (req, res) => {
-  try {
-    let categoria = await getCategories()
-    res.status(200).json(categoria)
-  } catch (error) {
-    res.status(400).send(error.message)
-  }
-})
-
-
 
 router.use('/products', productRouter);
 router.use('/user', userRouter);

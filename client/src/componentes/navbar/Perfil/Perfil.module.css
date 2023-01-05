@@ -1,61 +1,71 @@
 .cont {
-    background-color: #edeff0;
-    height: 50vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-items: center;
+  background-color: #edeff0;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
 }
 
 .allInfo {
-    padding-top: 50px;
-    width: 40%;
-    height: 70%;
-    display: flex;
-    flex-direction: column;
-    /* align-items: center; */
+  padding-top: 50px;
+  width: 40%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
 }
 
 .info {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    width: 100%;
-    position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+  position: relative;
 }
 
 .info h5 {
-    font-weight: bold;
-    margin-right: 30px;
+  font-weight: bold;
+  margin-right: 30px;
 }
 
 .info h2 {
-    margin: 10px;
-    display: flex;
-    align-items: center;
+  margin: 10px;
+  display: flex;
+  align-items: center;
 }
 
 .info img {
-    margin: 10px;
-    border-radius: 100%;
+  margin: 10px;
+  border-radius: 100%;
 }
 
 .relacionados {
-    width: 100%;
-    height: 50%;
-    background-color: rgba(94, 94, 94, 0.699);
+  width: 100%;
+  height: 50%;
+  background-color: rgba(255, 255, 255, 0.699);
+}
+
+.relacionados h2 {
+  font-size: 40px;
+  margin-left: 20px;
+  padding-top: 20px;
+  font-weight: 700;
 }
 
 .section {
-    justify-content: space-between;
-    display: flex;
-    align-items: center;
-    height: 100%;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-bottom: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .select:hover {
-    color: var(--hover-text);
-    transform: translate(-0.25rem, -0.25rem);
-    background: var(--hover-bg);
-    box-shadow: 0.25rem 0.25rem var(--bg);
+  color: var(--hover-text);
+  transform: translate(-0.25rem, -0.25rem);
+  background: var(--hover-bg);
+  box-shadow: 0.25rem 0.25rem var(--bg);
 }

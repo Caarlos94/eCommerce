@@ -17,6 +17,9 @@ module.exports = (sequelize) => {
       answer: {
         type: DataTypes.STRING,
       },
+      email: {
+        type: DataTypes.STRING,
+      },
     },
     { timestamps: false }
   );

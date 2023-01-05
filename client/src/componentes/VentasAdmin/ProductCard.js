@@ -1,7 +1,26 @@
-import React from "react";
+import React /*, { useState, useEffect }*/ from "react";
 import classes from "./ProductCard.module.css";
+// import { Link } from "react-router-dom";
 
-const ProductCard = ({ data }) => {
+const ProductCard = ({ data /*clienteId, enviado*/ }) => {
+  // const [didReview, setDidReview] = useState(true); //PRUEBA
+
+  // //PRUEBA
+  // useEffect(() => {
+  //   fetch(
+  //     `http://localhost:3001/compras/review-match?clienteId=${clienteId}&productoId=${data.productoId}`
+  //   )
+  //     .then((data) => data.json())
+  //     .then((data) => {
+  //       if (data.error === true) {
+  //         setDidReview(true);
+  //       } else {
+  //         setDidReview(false);
+  //       }
+  //       // console.log(data);
+  //     });
+  // }, [clienteId, data.productoId]);
+
   return (
     <div className={classes["product-card"]}>
       <div className={classes["img-container"]}>
@@ -14,6 +33,19 @@ const ProductCard = ({ data }) => {
         <p>Precio: ${data.precio}</p>
         <p>Cantidad: {data.cantidad}</p>
       </div>
+
+      {/* {enviado && !didReview ? ( // PRUEBA
+        <Link
+          to={{
+            pathname: "/review-form",
+            state: { clienteId, producto: data },
+          }}
+        >
+          <button>TEST add review button</button>
+        </Link>
+      ) : (
+        ""
+      )} */}
     </div>
   );
 };

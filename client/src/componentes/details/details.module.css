@@ -112,7 +112,7 @@
   font-weight: bold;
 }
 
-.textCont button {
+.añadirCart {
   padding: 10px;
   width: 260px;
   outline: none;
@@ -125,13 +125,12 @@
   cursor: pointer;
 }
 
-.textCont button::before {
+.añadirCart::before {
   content: 'AÑADIR AL CARRITO';
-  /*Button's value/text-content */
   position: absolute;
   top: -14%;
   left: 7%;
-  background-color: black;
+  background-color: rgb(0, 0, 0);
   width: 100%;
   height: 100%;
   color: white;
@@ -142,7 +141,7 @@
   font-weight: bold;
 }
 
-.textCont button:hover::before {
+.añadirCart:hover::before {
   top: 0;
   left: 0;
 }
@@ -206,6 +205,29 @@
   align-items: center;
 }
 
+.btns button {
+  border: 0;
+}
+
+.btns{
+  display: flex;
+  width: 60%;
+  justify-content: space-around;
+  align-items: center;
+  padding: 5px 15px; 
+  transform: translateY(-140%);
+}
+
+.btns img{
+  transition: all 0.4s;
+}
+
+.btns img:hover {
+  border-radius: 5px;
+  transform: translateY(-10px);
+}
+
+
 .spinner {
   width: 200px;
   height: 200px;
@@ -216,7 +238,7 @@
   top: 45%;
 }
 
-.spinner>div {
+.spinner > div {
   background-color: rgba(0, 77, 255, 0.2);
   height: 100%;
   position: absolute;
@@ -286,7 +308,7 @@
 
   .textCont {
     width: 100%;
-    height: 50%;
+    height: 60%;
     position: relative;
   }
 

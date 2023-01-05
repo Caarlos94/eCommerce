@@ -19,12 +19,12 @@
   transition: 0.2s;
 }
 
-/* .select:hover {
+.select:hover {
   color: var(--hover-text);
   transform: translate(-0.25rem, -0.25rem);
   background: var(--hover-bg);
   box-shadow: 0.25rem 0.25rem var(--bg);
-} */
+}
 
 .select:active {
   transform: translate(0);
@@ -47,6 +47,7 @@
   font-weight: bolder;
   box-shadow: 0 2px 0 2px #000;
   font-size: 15px;
+  margin-left: 30px;
 }
 
 .clear button:before {
@@ -90,7 +91,7 @@
     background-color: #ecd448;
     font-weight: bolder;
     box-shadow: 0 2px 0 2px #000;
-    top: -420%;
-    right: -115%;
+    top: -280%;
+    right: -105%;
   }
 }

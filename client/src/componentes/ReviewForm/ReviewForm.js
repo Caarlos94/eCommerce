@@ -1,13 +1,11 @@
-import React, { useState , useEffect } from "react";
+import React, { useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import StarRating from "./StarRating";
 import classes from "./ReviewForm.module.css";
-import { useAuth0 } from "@auth0/auth0-react";
-import axios from "axios";
 
 const ReviewForm = () => {
   const location = useLocation();
-  const {  producto } = location.state;
+  const { producto, clienteId } = location.state;
   const [didClick, setDidClick] = useState(false);
   const [didSend, SetDidSent] = useState(false);
   const [markedRating, setMarkedRating] = useState(0);
@@ -20,20 +18,7 @@ const ReviewForm = () => {
     "Excelente",
   ];
 
-
-  const { user } = useAuth0();
-  const [ clienteId , setClienteId] = useState('')
-  
-  useEffect(async()=>{
-    const infoUsuario = await axios.post("http://localhost:3001/compras/obtenerId",{
-         User: user.nickname
-      })
-
-     setClienteId(infoUsuario.data)
-},[])
-
-
- console.log(clienteId);
+  console.log(clienteId);
 
   const history = useHistory();
   const handleHistory = () => {
@@ -68,7 +53,7 @@ const ReviewForm = () => {
       comment: comments,
       rating: markedRating,
       clienteId,
-      productoId: producto.productoId,
+      productoId: producto.id,
     };
 
     if (postInfo.rating === 0) {
@@ -115,9 +100,8 @@ const ReviewForm = () => {
                   <StarRating handleRating={handleRating} />
                 </div>
                 <div
-                  className={`${classes["rating-name"]} ${
-                    ratingColor && classes[ratingColor]
-                  }`}
+                  className={`${classes["rating-name"]} ${ratingColor && classes[ratingColor]
+                    }`}
                 >
                   {ratingNameValue}
                 </div>
