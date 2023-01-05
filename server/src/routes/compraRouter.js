@@ -245,7 +245,7 @@ compraRouter.get("/reviews/:productoId", async (req, res) => {
   try {
     const { productoId } = req.params;
     const reviews = await Review.findAll(
-      { where: { productoId } },
+      { where: { productoId }, include: Cliente },
       { raw: true }
     );
 

@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   /* border: 3px solid green; */
   width: 41%;
 }
@@ -11,6 +11,11 @@
   font-weight: bold;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: flex-start;
+  /* border: 3px solid purple; */
+  width: 100%;
+  margin-left: 31%;
 }
 
 @media (max-width: 768px) {
