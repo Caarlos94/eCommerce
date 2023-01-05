@@ -100,24 +100,6 @@ const Filtros = ({ setPages }) => {
         <option value={[25, 30]}>25 a 30 usd$</option>
       </select>
 
-<<<<<<< HEAD
-        <select onChange={(e) => fn4(e)} className={style.select} id='fn4'>
-          <option className='option4' hidden>Talla</option>
-          <option value="todas">Todas</option>
-          <option value="S">S</option>
-          <option value="M">M</option>
-          <option value="L">L</option>
-          <option value="XL">XL</option>
-          <option value="XXL">XXL</option>
-        </select>
-
-        <select onChange={(e) => handlerOrderPrecio(e)} className={style.select} id='fn5'>
-            <option hidden>Ordenar por Precio</option>
-            <option value="asc">Menor a Mayor</option>
-            <option value="desc">Mayor a Menor</option>
-          </select>
-          
-=======
       <select onChange={(e) => fn4(e)} className={style.select} id='fn4'>
         <option className='option4' hidden>Talla</option>
         <option value="todas">Todas</option>
@@ -134,7 +116,6 @@ const Filtros = ({ setPages }) => {
         <option value="desc">Mayor a Menor</option>
       </select>
 
->>>>>>> joaquin-dileo
       <div className={style.clear}>
         <NavLink to="/">
           <button onClick={(e) => handlerClickAllProds(e)}>
