@@ -67,10 +67,9 @@ productRouter.post("/", async (req, res) => {
 productRouter.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const product = await Producto.findOne({
-      where: { id }
-    });
+    const product = await Producto.findByPk(id);
     console.log(id);
+    console.log(product);
 
     await product.destroy();
     res.status(200).json(product);
@@ -79,11 +78,13 @@ productRouter.delete("/:id", async (req, res) => {
   }
 });
 
-productRouter.put("/", async (req, res) => {
+productRouter.put("/:id", async (req, res) => {
   const data = req.body;
+  const { id } = req.params;
+
   console.log(data);
   const producto = await Producto.findOne({
-    where: { id: data.id }
+    where: { id: id }
   })
 
   try {
@@ -97,7 +98,7 @@ productRouter.put("/", async (req, res) => {
         marca: data.marca || producto.marca,
         stock: data.stock || producto.stock
       },
-      { where: { id: data.id } }
+      { where: { id: id } }
     );
     res.status(200).send("el producto se modificó");
   } catch (error) {

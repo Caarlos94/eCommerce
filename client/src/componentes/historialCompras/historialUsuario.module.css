@@ -15,6 +15,16 @@
     width: 50%;
 }
 
+.imgg{
+    height: 250px;
+}
+
+.imgg img{
+    object-fit: contain;
+    min-width: 100%;
+    min-height: 100%;
+}
+
 /* .imgggg{
     border: 1px solid black;
     width: 10000px;

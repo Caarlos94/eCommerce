@@ -60,7 +60,7 @@ const getProductsFireBase = async () => {
 
 // Get Created Products from DB
 const getDataBaseProducts = async () => {
-  await getProductsFireBase()
+  /* await getProductsFireBase() */
   const allProductsDB = await Producto.findAll({
     include: {
       model: Categoria,

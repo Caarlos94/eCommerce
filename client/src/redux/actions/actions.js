@@ -45,9 +45,9 @@ export const getProducts2 = () => {
   };
 };
 
-export function updateProduct(data) {
+export function updateProduct(data, id) {
   return function () {
-    fetch('http://localhost:3001/products', {
+    fetch(`http://localhost:3001/products/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

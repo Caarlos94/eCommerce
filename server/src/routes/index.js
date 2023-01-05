@@ -118,27 +118,6 @@ obj.forEach(async producto => {
 })
 
 
-
-router.get("/", async (req, res) => {
-  try {
-    let categoria = await getCategories();
-    res.status(200).json(categoria);
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-});
-
-router.get("/category", async (req, res) => {
-  try {
-    let categoria = await getCategories()
-    res.status(200).json(categoria)
-  } catch (error) {
-    res.status(400).send(error.message)
-  }
-})
-
-
-
 router.use('/products', productRouter);
 router.use('/user', userRouter);
 

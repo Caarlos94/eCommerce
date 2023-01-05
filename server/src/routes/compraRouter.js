@@ -259,7 +259,7 @@ compraRouter.put(
         to: clienteEmail,
         subject: "Confirmación de envío ",
         text: `Ya ha sido confirmado el envío del producto, le enviamos el siguiente número Localizador para seguirlo: ${trackingNumber}.`,
-
+        
       };
 
       transporter.sendMail(mailOptions, function (error, info) {

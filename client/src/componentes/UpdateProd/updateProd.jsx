@@ -3,8 +3,8 @@ import Navbar2 from '../navbar/navBar2'
 import Footer from '../Footer/Footer'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router';
-import { useEffect, useState } from 'react';
-import { getCategorys, getDetails, getProducts, getProducts2, updateProduct } from '../../redux/actions/actions';
+import React, { useEffect, useState } from 'react';
+import { getProducts, getProducts2, updateProduct } from '../../redux/actions/actions';
 
 const validate = (input, prods) => {
     let errors = {};
@@ -59,10 +59,14 @@ const validate = (input, prods) => {
 export default function UpdateProd() {
     const dispatch = useDispatch();
     const prods = useSelector((state) => state.products);
-    const detail = useSelector((state) => state.details[0]);
+    const { id } = useParams();
 
-    const {id} = useParams()
+    useEffect(() => {
+        dispatch(getProducts());
+    }, [dispatch]);
 
+
+    console.log(id);
     const history = useHistory();
     const [errors, setErrors] = useState({});
     const [input, setInput] = useState({
@@ -76,10 +80,7 @@ export default function UpdateProd() {
         stock: "",
     });
 
-    useEffect(() => {
-        dispatch(getProducts());
-        /* dispatch(getDetails(detail.id)); */
-    }, [dispatch, detail.id]);
+
 
     const handlerChange = (e) => {
         setInput({
@@ -96,13 +97,12 @@ export default function UpdateProd() {
 
     const handlerSubmit = (e) => {
         e.preventDefault();
-        console.log(id);
         console.log(input);
-        dispatch(updateProduct(input));
+        dispatch(updateProduct(input, id));
         setTimeout(() => dispatch(getProducts2()), 100);
         alert("Producto actualizado con éxito! Se te redirigirá al inicio...");
         setInput({
-            id: detail.id,
+            id: id,
             nombre: "",
             URL: "",
             precio: "",
