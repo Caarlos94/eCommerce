@@ -15,8 +15,8 @@ import jwt_decode from 'jwt-decode';
 
 const Navbar = ({ setPages }) => {
   const dispatch = useDispatch();
-  const carrito = useSelector((state) => state.cart)
-  const favoritos = useSelector((state) => state.favorites)
+  const carrito = useSelector((state) => state.cart);
+  const favoritos = useSelector((state) => state.favorites);
 
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -83,16 +83,16 @@ const Navbar = ({ setPages }) => {
                       style={{ textDecoration: 'none' }}
                       className={style.button}
                     >
-                      Perfil  
+                      Perfil
                     </Link>
                   </div>
-                  {!isAdmin && ( 
+                  {/* {!isAdmin && (
                     <div>
                       <Link to="/historial" style={{ textDecoration: "none" }} className={style.button}>
                         Historial
                       </Link>
-                    </div> )
-                  } 
+                    </div>)
+                  } */}
                   <div>
                     <button onClick={() => logout()} className={style.button}>
                       Cerrar sesión
@@ -133,7 +133,7 @@ const Navbar = ({ setPages }) => {
                 <NavLink
                   to="/cart"
                   className={style.carro}
-                  style={{ textDecoration: 'none' }}
+                  style={{ textDecoration: "none" }}
                 >
                   <div className={style.btn}>
                     <h6>{carrito.length}</h6>
@@ -161,6 +161,11 @@ const Navbar = ({ setPages }) => {
                   </div>
                 </NavLink>
               )}
+              <div className={style.historial}>
+                <NavLink to="/historial" style={{ textDecoration: "none" }}>
+                  <button>Historial de Compras</button>
+                </NavLink>
+              </div>
             </>
           )}
         </div>

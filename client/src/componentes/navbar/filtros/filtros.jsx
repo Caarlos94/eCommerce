@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './filtros.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import {
@@ -10,15 +10,20 @@ import {
   searchXcategoria,
   /* emptyError, */
   getProducts2,
-  orderPrecio
+  orderPrecio,
+  getCategorys
 } from '../../../redux/actions/actions.js';
 
 const Filtros = ({ setPages }) => {
   const dispatch = useDispatch();
+  const categs = useSelector((state) => state.categorys)
   const [, setOrder] = useState("");
 
   const [/* currentPage */, setCurrentPage] = useState(1); // DEBERIA SER UN REDUCER
 
+  useEffect(() => {
+    dispatch(getCategorys())
+  }, [dispatch])
 
   const fn = (el) => {
     dispatch(searchXcategoria(el.target.value));
@@ -68,11 +73,11 @@ const Filtros = ({ setPages }) => {
       <select onChange={(e) => fn(e)} className={style.select} id='fn'>
         <option className='option1' hidden >Categorias</option>
         <option value="todas">Todas</option>
-        <option value="Camperas">Camperas</option>
-        <option value="Pantalones">Pantalones</option>
-        <option value="Remeras">Remeras</option>
-        <option value="Shorts">Shorts</option>
-        <option value="Zapatillas">Zapatillas</option>
+        {categs?.map((c) => {//muestro todos los temperamentos como opciones
+          return (
+            <option value={c} key={categs.indexOf(c)}>{c}</option>
+          )
+        })}
       </select>
 
 

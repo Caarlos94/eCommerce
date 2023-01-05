@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import s from './details.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import s from "./details.module.css";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getDetails,
   limpiarState,
@@ -9,6 +9,7 @@ import {
   removeFromFavorite,
   deleteProd,
   getProducts,
+  getReviews,
 } from '../../redux/actions/actions.js';
 import { NavLink, useParams, useHistory } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
@@ -25,12 +26,15 @@ const Details = () => {
   const dispatch = useDispatch();
   /* const carrito = useSelector((state) => state.cart) */
   const history = useHistory();
+  const reviews = useSelector((state) => state.reviews);
 
+  console.log(reviews);
   let { id } = useParams();
 
   useEffect(() => {
     dispatch(limpiarState());
     dispatch(getDetails(id));
+    dispatch(getReviews(id));
     return function () {
       dispatch(getProducts())
     }
@@ -84,7 +88,7 @@ const Details = () => {
       <Navbar2 />
 
       {details.length ? (
-        <div className={s['parent-container']}>
+        <div className={s["parent-container"]}>
           <div className={s.detailCont}>
             <div className={s.imgCont}>
               <div className={s.img11}>
@@ -143,6 +147,9 @@ const Details = () => {
           <div className={s.qyaCont}>
             <QASection productId={id} />
           </div>
+          <div className={s.valoraciones}>
+            <Reviews reviews={reviews} />
+          </div>
         </div>
       ) : (
         <div className={s.spinner}>
@@ -154,9 +161,6 @@ const Details = () => {
           <div></div>
         </div>
       )}
-      {/* <div className={s.valoraciones}>
-        <Reviews />
-      </div> */}
       <Footer />
     </div>
   );

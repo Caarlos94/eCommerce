@@ -1,12 +1,11 @@
 const { Router } = require("express");
 const productRouter = Router();
-const { getDataBaseProducts, getProductsFireBase } = require('./functions');
-const { Categoria, Producto } = require('../db.js');
+const { getDataBaseProducts, getProductsFireBase } = require("./functions");
+const { Categoria, Producto } = require("../db.js");
 
-
-productRouter.get('/', async (req, res) => {
+productRouter.get("/", async (req, res) => {
   try {
-    await getProductsFireBase()
+    await getProductsFireBase();
     let productos = await getDataBaseProducts();
     res.status(200).json(productos);
   } catch (error) {

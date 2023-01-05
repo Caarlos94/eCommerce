@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "Pregunta",
+    "Review",
     {
       id: {
         type: DataTypes.UUID,
@@ -10,17 +10,20 @@ module.exports = (sequelize) => {
         primaryKey: true,
         alowNull: false,
       },
-      question: {
+      comment: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      answer: {
+      rating: {
         type: DataTypes.STRING,
-      },
-      email: {
-        type: DataTypes.STRING,
+        allowNull: false,
       },
     },
-    { timestamps: false }
+
+    {
+      timestamps: true,
+      createdAt: "fecha",
+      updatedAt: false,
+    }
   );
 };
