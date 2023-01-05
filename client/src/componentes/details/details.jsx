@@ -37,7 +37,6 @@ const Details = () => {
 
   const details = useSelector((state) => state.details);
   const [isAdmin, setIsAdmin] = useState(false);
-
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
@@ -67,11 +66,11 @@ const Details = () => {
     );
     history.push('/');
   };
-  const [isAdd, setIsAdd] = useState(localStorage.getItem('fav') || false);
+  const [isAdd, setIsAdd] = useState(localStorage.getItem('fav2') || false);
 
   const handleAdd = (id) => {
     setIsAdd((prev) => !prev);
-    localStorage.setItem('fav', isAdd);
+    localStorage.setItem('fav2', isAdd);
 
     // dispatch(addToFavorite(id));
     if (isAdd === false) {
@@ -81,7 +80,7 @@ const Details = () => {
     }
   };
 
-  console.log(localStorage.getItem('fav'));
+  // console.log(JSON.parse(localStorage.getItem('fav')));
 
   return (
     <div>

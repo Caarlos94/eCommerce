@@ -23,7 +23,7 @@ import {
 const initialState = {
   products: [],
   productsHome: [],
-  favorites: [],
+  favorites: JSON.parse(localStorage.getItem('fav')) || [],
   details: [],
   users: [],
   cart: JSON.parse(localStorage.getItem('cart')) || [],
@@ -476,7 +476,7 @@ const rootReducer = (state = initialState, action) => {
       }
 
       localStorage.setItem('cart', JSON.stringify(state.cart));
-      console.log(JSON.parse(localStorage.getItem('cart')));
+      // console.log(JSON.parse(localStorage.getItem('cart')));
 
       return state;
 
@@ -484,18 +484,32 @@ const rootReducer = (state = initialState, action) => {
       let productToDelete = state.cart.find(
         (product) => product.id === action.payload
       );
-      //console.log(productToDelete);
-      return productToDelete.cantidad > 1
-        ? {
-            ...state,
-            cart: state.cart.map((c) =>
-              c.id === action.payload ? { ...c, cantidad: c.cantidad - 1 } : c
-            ),
-          }
-        : {
-            ...state,
-            cart: state.cart.filter((c) => c.id !== action.payload),
-          };
+      // productToDelete.cantidad > 1
+      //   ? {
+      //       ...state,
+      //       cart: state.cart.map((c) =>
+      //         c.id === action.payload ? { ...c, cantidad: c.cantidad - 1 } : c
+      //       ),
+      //     }
+      //   : {
+      //       ...state,
+      //       cart: state.cart.filter((c) => c.id !== action.payload),
+      //     };
+      if (productToDelete.cantidad > 1) {
+        state = {
+          ...state,
+          cart: state.cart.map((c) =>
+            c.id === action.payload ? { ...c, cantidad: c.cantidad - 1 } : c
+          ),
+        };
+      } else {
+        state = {
+          ...state,
+          cart: state.cart.filter((c) => c.id !== action.payload),
+        };
+      }
+      localStorage.setItem('cart', JSON.stringify(state.cart));
+      return state;
     case ADD_ONE_TO_CART:
       let productToAdd = state.cart.find(
         (product) => product.id === action.payload
@@ -559,12 +573,14 @@ const rootReducer = (state = initialState, action) => {
       }
 
       localStorage.setItem('fav', JSON.stringify(state.favorites));
-      console.log(JSON.parse(localStorage.getItem('fav')));
+      // console.log(JSON.parse(localStorage.getItem('fav')));
+      console.log(state.favorites);
       return state;
     case REMOVE_FROM_FAVORITE:
       let productToRemove = state.favorites.find(
         (product) => product.id === action.payload
       );
+      // localStorage.setItem('fav', JSON.stringify(state.favorites));
       return {
         ...state,
         favorites: state.favorites.filter(

@@ -53,10 +53,10 @@
 }
 
 .img111 {
-  width: 50%;
+  width: 40%;
   height: 90%;
   background-position: center;
-  background-size: cover;
+  background-size: calc(120% - 80px);
 }
 
 .textCont {
