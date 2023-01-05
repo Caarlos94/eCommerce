@@ -36,22 +36,31 @@ const Carrito = () => {
     }
   }, [])
 
+<<<<<<< HEAD
 
+=======
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
+>>>>>>> cesar-zegarra
   const handleDelete = (id, all = false) => {
     //console.log(id, all);
     if (all) {
       dispatch(removeAllFromCart(id));
     } else {
-      let producto = cart.find(producto => producto.id === id)
-      producto.stock++
-      if (id === cart.id) cart[0].stock++
+      let producto = cart.find((producto) => producto.id === id);
+      producto.stock++;
+      if (id === cart.id) cart[0].stock++;
       dispatch(removeOneFromCart(id));
     }
   };
 
   const handleAdd = (id) => {
+<<<<<<< HEAD
     let producto = cart.find(producto => producto.id === id)
     producto.stock--
+=======
+    let producto = cart.find((producto) => producto.id === id);
+    producto.stock--;
+>>>>>>> cesar-zegarra
     if (producto.stock > 0) {
       dispatch(addOneToCart(id));
     }
@@ -80,12 +89,12 @@ const Carrito = () => {
       .then((data) => {
         if (data.error) console.log(data); // manejar caso de error
         window.open(data, '_self');
-        /* console.log(data); */
+        console.log(data);
       });
     // handleStock()
   };
   let totalProd = 0;
-  cart.map(prod => totalProd += prod.cantidad * prod.precio);
+  cart.map((prod) => (totalProd += prod.cantidad * prod.precio));
 
   // console.log(usuarioid);
 
@@ -103,6 +112,7 @@ const Carrito = () => {
         <button className={s.pagar} onClick={() => handleBuy()}>
           Pagar ahora
         </button>
+<<<<<<< HEAD
         <NavLink to={"/formCompra"}>
           <button /* className={s.pagar} */>
             Llenar datos para envío
@@ -129,6 +139,27 @@ const Carrito = () => {
           )
         }
       </div >
+=======
+        {cart ? (
+          cart.map((c) => (
+            <CartProduct
+              key={c.id}
+              id={c.id}
+              nombre={c.nombre}
+              talla={c.talla}
+              stock={c.stock}
+              precio={c.precio}
+              cantidad={c.cantidad}
+              URL={c.URL}
+              handleDelete={handleDelete}
+              handleAdd={handleAdd}
+            />
+          ))
+        ) : (
+          <p>No tienes productos en tu carrito</p>
+        )}
+      </div>
+>>>>>>> cesar-zegarra
       <div className={s.totalFinal}>
         <div className={s.total2}>
           <p>Total: ${totalProd}</p>
@@ -137,7 +168,7 @@ const Carrito = () => {
           Pagar ahora
         </button>
       </div>
-    </div >
+    </div>
   );
 };
 

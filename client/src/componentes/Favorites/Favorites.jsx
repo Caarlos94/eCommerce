@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import s from "./Favorites.module.css";
 // import { useSelector, useDispatch } from "react-redux";
@@ -6,14 +7,54 @@ import FavoriteProduct from "./FavoriteProduct";
 import Navbar2 from "../navbar/navBar2";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
+=======
+import React from 'react';
+import s from './Favorites.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+import FavoriteProduct from './FavoriteProduct';
+import { removeFromFavorite } from '../../redux/actions/actions';
+import Navbar2 from '../navbar/navBar2';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useEffect, useState } from 'react';
+>>>>>>> cesar-zegarra
 
 const Favorites = () => {
   // const dispatch = useDispatch();
   const [favoritos, setFavoritos] = useState([]);
+<<<<<<< HEAD
   const [clienteId, setClienteId] = useState("");
 
   const { user } = useAuth0();
   // console.log(user);
+
+  useEffect(() => {
+    if (user) {
+      fetch(`http://localhost:3001/favoritos/${user.email}`)
+        .then((data) => data.json())
+        .then((data) => {
+          setFavoritos(data.productos);
+          setClienteId(data.clienteId);
+        });
+    }
+  }, [user]);
+=======
+  const [clienteId, setClienteId] = useState('');
+
+  const handleDelete = (clienteId, productoId) => {
+    fetch('http://localhost:3001/favoritos/', {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: { clienteId: clienteId, productoId: productoId },
+    })
+      .then((response) => response.json())
+      .then((response) => console.log(response));
+  };
+>>>>>>> cesar-zegarra
+
+  const { user } = useAuth0();
+  console.log(user);
 
   useEffect(() => {
     if (user) {
@@ -41,8 +82,12 @@ const Favorites = () => {
               precio={c.precio}
               cantidad={c.cantidad}
               URL={c.URL}
+<<<<<<< HEAD
               clienteId={clienteId}
               // handleDelete={() => handleDelete(clienteId, c.id)}
+=======
+              handleDelete={() => handleDelete(clienteId, c.id)}
+>>>>>>> cesar-zegarra
             />
           ))
         ) : (

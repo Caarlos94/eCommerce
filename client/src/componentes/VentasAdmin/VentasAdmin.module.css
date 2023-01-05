@@ -55,6 +55,14 @@
   font-weight: bold;
 }
 
+<<<<<<< HEAD
 .bold-text {
   font-weight: bold;
+=======
+@media (max-width: 768px) {
+  .registro {
+    margin-left: 40px;
+    margin-top: 10px;
+  }
+>>>>>>> cesar-zegarra
 }
