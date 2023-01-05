@@ -1,6 +1,6 @@
 import { useState } from "react";
 import classes from "./UnansweredQuestion.module.css";
-import { NavLink } from 'react-router-dom'
+import { NavLink } from "react-router-dom";
 
 const UnansweredQuestion = ({ question, accessToken }) => {
   const [answer, setAnswer] = useState("");
@@ -35,7 +35,7 @@ const UnansweredQuestion = ({ question, accessToken }) => {
         }
       });
     setDidSubmit(true);
-    alert("Respuesta enviada con éxito! Se reflejará en el detalle del producto al actualizar la página...")
+    // alert("Respuesta enviada con éxito! Se reflejará en el detalle del producto al actualizar la página...")
   };
 
   const handleDelete = () => {
@@ -99,11 +99,11 @@ const UnansweredQuestion = ({ question, accessToken }) => {
           type="text"
           value={answer}
         />
-        <button disabled={!answer.length} type="submit"  >
+        <button disabled={!answer.length} type="submit">
           Enviar respuesta
         </button>
       </form>
-    </div >
+    </div>
   ) : (
     ""
   );

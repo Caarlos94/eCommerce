@@ -16,13 +16,17 @@ const QAAnsweredQuestions = ({ productId }) => {
 
     return () => (isSubscribed = false);
   }, [productId]);
-
   return (
     <div className={classes["questions-container"]}>
       <div className={classes["titulo-preguntas"]}>Últimas preguntas: </div>
       {questions?.map((q) => (
         <QAAnsweredQuestion key={q.questionId} questionData={q} />
       ))}
+      {!questions.length ? (
+        <p>Aún no se han hecho preguntas sobre este producto</p>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

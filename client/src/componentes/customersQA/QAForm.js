@@ -81,13 +81,17 @@ const QAForm = (props) => {
               <input
                 className={classes["form-input"]}
                 autoComplete="off"
-                placeholder="Ej: usuario@email.com"
+                placeholder="Ej: usuario@email.com (Opcional)"
                 onChange={handleChange}
                 name="email"
                 type="text"
                 value={data.email}
               />
-              {emailIsValid === false && <p>Correo inválido</p>}
+              {emailIsValid === false && data.email.length ? (
+                <p>Correo inválido</p>
+              ) : (
+                ""
+              )}
             </>
           ) : (
             ""
