@@ -1,8 +1,8 @@
 import React from "react";
 import s from "./Favorites.module.css";
-import { useSelector, useDispatch } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
 import FavoriteProduct from "./FavoriteProduct";
-import { removeFromFavorite } from "../../redux/actions/actions";
+// import { removeFromFavorite } from "../../redux/actions/actions";
 import Navbar2 from "../navbar/navBar2";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
@@ -11,18 +11,6 @@ const Favorites = () => {
   // const dispatch = useDispatch();
   const [favoritos, setFavoritos] = useState([]);
   const [clienteId, setClienteId] = useState("");
-
-  // const handleDelete = (clienteId, productoId) => {
-  //   fetch("http://localhost:3001/favoritos/", {
-  //     method: "DELETE",
-  //     headers: {
-  //       "Content-type": "application/json",
-  //     },
-  //     body: { clienteId: clienteId, productoId: productoId },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((response) => console.log(response));
-  // };
 
   const { user } = useAuth0();
   // console.log(user);
@@ -53,6 +41,7 @@ const Favorites = () => {
               precio={c.precio}
               cantidad={c.cantidad}
               URL={c.URL}
+              clienteId={clienteId}
               // handleDelete={() => handleDelete(clienteId, c.id)}
             />
           ))

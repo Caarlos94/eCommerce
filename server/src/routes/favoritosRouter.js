@@ -41,15 +41,21 @@ favoritosRouter.get("/:email", async (req, res) => {
   }
 });
 
-favoritosRouter.delete("/", async (req, res) => {
+favoritosRouter.delete("/:clienteId/:productoId", async (req, res) => {
   try {
-    const { clienteId, productoId } = req.body;
+    const { clienteId, productoId } = req.params;
     const favorito = await Favorito.findOne({
       where: { clienteId, productoId },
     });
     console.log(favorito);
     if (!favorito) throw new Error("No existe una coincidencia");
     favorito.destroy();
+    res
+      .status(200)
+      .json({
+        error: false,
+        msj: "El producto fue eliminado de los favoritos",
+      });
   } catch (error) {
     res.status(400).json({ error: true, msj: error.message });
   }
