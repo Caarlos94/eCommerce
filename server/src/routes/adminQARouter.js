@@ -9,7 +9,7 @@ adminQARouter.get("/", validateAccessToken, validateAdmin, async (req, res) => {
   try {
     const allQuestions = await Pregunta.findAll({
       raw: true,
-      include: [{ model: Producto }],
+      include: [{ model: Producto }], 
     });
 
     let questionsArr = allQuestions.map((q) => ({

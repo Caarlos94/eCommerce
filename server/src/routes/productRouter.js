@@ -3,23 +3,21 @@ const productRouter = Router();
 const { getDataBaseProducts, getProductsFireBase } = require('./functions');
 const { Categoria, Producto } = require('../db.js');
 
-
 productRouter.get('/', async (req, res) => {
   try {
     await getProductsFireBase()
-    let productos = await getDataBaseProducts();
-    res.status(200).json(productos);
+    res.status(200).json(await getProductsFireBase());
+    // res.status(200).json(await getDataBaseProducts());
   } catch (error) {
     res.status(400).send(error.message);
   } 
-});
+}); 
 
 productRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
-
-  let prods = await getDataBaseProducts();
+  console.log(id);
+  let prods = await getProductsFireBase();
   /* let getProduct = await getProductsFireBase();
-  
   const productos = await getProduct.Productos.concat(prods); */
   // console.log(prods);
   try {
@@ -30,7 +28,7 @@ productRouter.get("/:id", async (req, res) => {
           return {
             id: r.id,
             nombre: r.nombre,
-            URL: r.URL,
+            images: r.images,
             marca: r.marca,
             precio: r.precio,
             color: r.color,
@@ -74,7 +72,7 @@ productRouter.delete("/:id", async (req, res) => {
   
     await product.destroy();
     res.status(200).json(product);
-  } catch (error) {
+  } catch (error) { 
     res.status(404).send(error.message);
   }
 }); 
@@ -83,7 +81,7 @@ productRouter.put("/", async (req, res) => {
   const data = req.body;
   try {
     const editedProduct = await Producto.update(
-      { nombre: data.nombre,
+      { nombre: data.nombre || "hola",
         URL: data.URL,
         precio: data.precio,
         color: data.color,

@@ -7,6 +7,7 @@ const customerQARouter = require("./customerQARouter");
 const adminQARouter = require("./adminQARouter");
 const categoryRouter = require("./categoryRouter")
 const compraRouter = require("./compraRouter");
+const imagesRouter = require("./imagesRouter");
 
 const router = Router();
 const mercadopago = require("mercadopago");
@@ -20,8 +21,9 @@ router.use("/users", userRouter);
 router.use("/customerQA", customerQARouter);
 router.use("/adminQA", adminQARouter);
 router.use("/category", categoryRouter)
-
 router.use("/compras", compraRouter);
+router.use("/images", imagesRouter);
+
 
 mercadopago.configure({
   access_token:
@@ -52,7 +54,7 @@ router.post("/pagosMeli", async (req, res) => {
       success: "http://localhost:3001/redirect",
       failure: "http://localhost:3001/redirect",
       pending: "http://localhost:3001/redirect"
-    }
+    } 
   };
 
   mercadopago.preferences.create(preference)
@@ -64,31 +66,28 @@ router.post("/pagosMeli", async (req, res) => {
     .catch(function (error) {
       console.log(error);
     });
-})
-
+}) 
 
 router.get("/redirect", async (req, res) => {
   let { status } = req.query
 
   if (status === "approved") {
-    obj.forEach(async producto => {
-
+    obj.forEach(async producto => {  
+ 
       let productStock = await Producto.findByPk(producto.id)
       let rest = productStock.stock - producto.cantidad
 
       const modifiedProduct = await Producto.update(
         { stock: rest },
-        { where: { id: producto.id } });
-
+        { where: { id: producto.id } }); 
     })
-
     try {
       res.redirect('http://localhost:3000')
     } catch (error) {
       res.status(400).send(error.message)
     }
   }
-})
-
+}) 
+ 
 
 module.exports = router;

@@ -21,6 +21,7 @@ export const CLEAR_CART = 'CLEAR_CART';
 export const IMPORT_USER = 'IMPORT_USER';
 export const ADD_TO_FAVORITE = 'ADD_TO_FAVORITE';
 export const REMOVE_FROM_FAVORITE = 'REMOVE_FROM_FAVORITE';
+export const GET_IMAGES = "GET_IMAGES"
 
 export const getProducts = () => {
   return async function (dispatch) {
@@ -61,6 +62,14 @@ export function getCategorys() {
     await fetch('http://localhost:3001/category')
       .then((response) => response.json())
       .then((data) => dispatch({ type: GET_CATEGORYS, payload: data }));
+  };
+}
+
+export function getImages() {
+  return async function () {
+    await fetch('http://localhost:3001/images')
+      // .then((response) => response.json())
+      // .then((data) => dispatch({ type: GET_IMAGES, payload: data }));
   };
 }
 

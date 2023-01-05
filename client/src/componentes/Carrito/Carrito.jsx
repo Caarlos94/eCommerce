@@ -15,6 +15,8 @@ const Carrito = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 
+  console.log(cart);
+
 
   const { isAuthenticated, loginWithRedirect } = useAuth0()
   const handleDelete = (id, all = false) => {
@@ -42,6 +44,7 @@ const Carrito = () => {
   };
 
   const handleBuy = () => {
+    
     if (!isAuthenticated) {
       loginWithRedirect();
       return;
@@ -91,7 +94,7 @@ const Carrito = () => {
                 stock={c.stock}
                 precio={c.precio}
                 cantidad={c.cantidad}
-                URL={c.URL}
+                URL={c.images[0].URL[0]}
                 handleDelete={handleDelete}
                 handleAdd={handleAdd}
               />

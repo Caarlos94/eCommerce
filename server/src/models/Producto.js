@@ -14,10 +14,10 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    URL: {
-      type: DataTypes.STRING,
-      // allowNull: false,
-    },
+    // URL: {
+    //   type: DataTypes.STRING,
+    //   // allowNull: false,
+    // },
     precio: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     talla: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING, 
       allowNull: false,
     },
     marca: {

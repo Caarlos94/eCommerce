@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { getCategorys, getProducts, orderPrecio } from "../../redux/actions/actions.js";
+import { getCategorys, getProducts, orderPrecio, getImages } from "../../redux/actions/actions.js";
 import s from "./home.module.css";
 import Navbar from "../navbar/navbar.jsx";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,9 +11,13 @@ import Footer from '../Footer/Footer'
 
 const Home = () => {
   const dispatch = useDispatch();
-  const allProducts = useSelector((state) => state.productsHome);
+  let allProducts = useSelector((state) => state.productsHome);
 
+  // allProducts.forEach(producto => producto.images = producto.images.split(","))
+  console.log(allProducts)
+  
   useEffect(() => {
+    dispatch(getImages());
     dispatch(getProducts());
     dispatch(getCategorys());
   }, [dispatch]);
@@ -25,8 +29,7 @@ const Home = () => {
   const firstIndex = lastIndex - productsPerPage; // 8 - 8 = 0
   const currentProducts = allProducts.slice(firstIndex, lastIndex);
 
-  const fnPaginado = (page) => {
-    // FUNCIÓN PARA MODIFICAR EL ESTADO LOCAL PAGE
+  const fnPaginado = (page) => {  // FUNCIÓN PARA MODIFICAR EL ESTADO LOCAL PAGE
     setCurrentPage(page);
   };
 
@@ -92,7 +95,7 @@ const Home = () => {
                   <div key={card.id}>
                     <Card
                       nombre={card.nombre}
-                      URL={card.URL}
+                      URL={card.images[0].URL[0]}
                       marca={card.marca}
                       precio={card.precio}
                       color={card.color}

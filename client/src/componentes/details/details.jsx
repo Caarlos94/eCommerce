@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import s from './details.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getDetails,
-  limpiarState,
-  addToCart,
-  addToFavorite,
-  removeFromFavorite,
-  deleteProd,
-} from '../../redux/actions/actions.js';
+import { getDetails, limpiarState, addToCart, addToFavorite, removeFromFavorite, deleteProd, } from '../../redux/actions/actions.js';
 import { NavLink, useParams, useHistory } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
 import trash from '../../img/trash.png';
@@ -23,12 +16,11 @@ const Details = () => {
   const dispatch = useDispatch();
   const carrito = useSelector((state) => state.cart)
   const history = useHistory();
-
   let { id } = useParams();
 
   useEffect(() => {
-    dispatch(limpiarState());
     dispatch(getDetails(id));
+    dispatch(limpiarState());
   }, [dispatch, id]);
 
   const details = useSelector((state) => state.details);
@@ -85,7 +77,15 @@ const Details = () => {
               <div className={s.img11}>
                 <div
                   className={s.img111}
-                  style={{ backgroundImage: `url(${details[0].URL})` }}
+                  style={{ backgroundImage: `url(${details[0].images[0].URL[0]})` }}
+                ></div>
+                  <div
+                  className={s.img111}
+                  style={{ backgroundImage: `url(${details[0].images[0].URL[1]})` }}
+                ></div>
+                  <div
+                  className={s.img111}
+                  style={{ backgroundImage: `url(${details[0].images[0].URL[2]})` }}
                 ></div>
               </div>
             </div>
