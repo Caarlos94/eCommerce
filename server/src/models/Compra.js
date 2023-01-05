@@ -19,12 +19,14 @@ module.exports = (sequelize) => {
 
       localizador: {
         type: DataTypes.STRING,
-      },
+      }
+
     },
     {
       timestamps: true,
       createdAt: "fecha",
       updatedAt: false,
-    }
+    },
+    
   );
 };

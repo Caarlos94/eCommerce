@@ -5,23 +5,11 @@ const { validateAdmin } = require("./middleware/validateAdmin");
 const { validateAccessToken } = require("./middleware/validateAccessToken");
 const { errorHandler } = require("./middleware/error.middleware");
 const nodemailer = require("nodemailer");
+const { DATE } = require("sequelize");
 require("dotenv").config();
 const { EMAIL_PASSWORD, EMAIL_PORT, EMAIL_HOST, EMAIL_USER } = process.env;
 
-// Ejemplo de req.body:
-// {
-//   "clienteId":"32671d87-37bf-4014-af3c-bb6bd59a8f8d",
-//   "productos":[
-//     {
-//       "prodId":"3d995950-86eb-11ed-b779-997a2f11ad2c",
-//       "cantidad":1
-//     },
-//     {
-//       "prodId":"3d99f590-86eb-11ed-b779-997a2f11ad2c",
-//       "cantidad":1
-//     }
-//   ]
-// }
+
 
 compraRouter.post("/", async (req, res) => {
   try {
@@ -112,13 +100,11 @@ compraRouter.post("/historial", async (req, res) => {
 //recorremos cada uno de los indices de result(todas las compras que realizo el usuario) 
 //obtenemos la informacion del producto y la compra con los id que nos provee cada iteracion de result
 //y luego creamos un objeto con toda la informacion necesaria y la pusheamos al arreglo arregloDeCompras para que luego se envie como respuesta 
-let  totalDeIteraciones = 0
 let arregloDeCompras = [];
+let idFront = 1;
  Arr.forEach(async (elem) => {
 
   const result = await Compra_Producto.findAll({ where : {CompraId : elem.id}})
-
-  totalDeIteraciones = totalDeIteraciones + result.length; 
 
   result.forEach(async (elem)=>{
   
@@ -127,26 +113,46 @@ let arregloDeCompras = [];
   
      let obj = {}    
 
-      obj.nombre = producto.dataValues.nombre,
-      obj.URL = producto.dataValues.URL,
-      obj.precio = producto.dataValues.precio,
-      obj.color = producto.dataValues.color,
-      obj.talla = producto.dataValues.talla,
-      obj.id = producto.dataValues.id,
-      obj.marca = producto.dataValues.marca,
-      obj.estado = compra.dataValues.enviado,
-      obj.fecha = compra.dataValues.fecha,
-      obj.localizador = compra.dataValues.localizador
+      obj.nombre = producto.dataValues.nombre;
+      obj.URL = producto.dataValues.URL;
+      obj.precio = producto.dataValues.precio;
+      obj.color = producto.dataValues.color;
+      obj.talla = producto.dataValues.talla;
+      obj.id = producto.dataValues.id;
+      obj.marca = producto.dataValues.marca;
+      obj.estado = compra.dataValues.enviado;
+      obj.fecha =new Date(compra.dataValues.fecha).toLocaleDateString();
+      obj.localizador = compra.dataValues.localizador;
+      obj.idFront = idFront++
    
+      
       arregloDeCompras.push(obj)
-
-      if(arregloDeCompras.length === totalDeIteraciones) res.status(200).json(arregloDeCompras);
-    
   })
-   
 })
-// console.log(arregloDeCompras);
-// res.status(200).json(arregloDeCompras);    
+
+setTimeout(() => {
+
+  const respuestaFinal = arregloDeCompras.sort((a,b) => {
+
+    const A = a.fecha.split("/")
+    const B = b.fecha.split("/")
+
+   if (parseInt(A[1]) < parseInt(B[1])) return 1
+
+   if (parseInt(A[1]) > parseInt(B[1])) return -1
+   
+   if (parseInt(A[1]) === parseInt(B[1])){
+     if(parseInt(A[0]) < parseInt(B[0]))return 1
+     if(parseInt(A[0]) > parseInt(B[0]))return -1
+     return 0
+    }
+  })
+
+  console.log(respuestaFinal);
+  res.status(200).json(respuestaFinal);  
+  return
+}, "100")
+
  } catch (error) {
   res.status(400).json(error.message);  
  }
