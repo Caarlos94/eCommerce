@@ -100,7 +100,7 @@ const QAForm = (props) => {
 
         <button
           className={classes["submit-button"]}
-          disabled={!data.newQuestion.length}
+          disabled={!data.newQuestion.length || (!emailIsValid && true)}
           type="submit"
         >
           Enviar pregunta

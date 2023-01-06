@@ -1,8 +1,9 @@
 .form-container {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
+  /* margin-bottom: 5rem; */
   /* border: red solid 3px; */
+  height: 30rem;
 }
 
 .form-container input {

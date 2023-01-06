@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { getCategorys, getProducts,/*  orderPrecio */ } from "../../redux/actions/actions.js";
+import { getCategorys, getProducts, orderPrecio } from "../../redux/actions/actions.js";
 import s from "./home.module.css";
 import Navbar from "../navbar/navbar.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import Paginado from "../Paginate/Paginate.jsx";
 import Card from "../Card/Card.js";
 import messiNotFound from "../../img/messiNotFound.gif";
-import Footer from '../Footer/Footer'
+import Footer from "../Footer/Footer";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -63,25 +63,34 @@ const Home = () => {
         key={allProducts.id}
       ></Paginado>
 
-
-      {allProducts.length > 0 ? (
+ 
+     {allProducts.length > 0 ? (
         <div>
-            <div className={s.section}>
-              {currentProducts.map((card) => parseInt(card.stock) > 0 && (
-                <div key={card.id}>
-                  <Card
-                    nombre={card.nombre}
-                    URL={card.URL}
-                    marca={card.marca}
-                    precio={card.precio}
-                    color={card.color}
-                    talla={card.talla}
-                    categoria={card.categoria}
-                    id={card.id}
-                  />
-                </div>
-              ))}
-            </div>
+          <select onChange={(e) => handlerOrderPrecio(e)} className={s.select}>
+            <option hidden>Ordenar por Precio</option>
+            <option value="asc">Menor a Mayor</option>
+            <option value="desc">Mayor a Menor</option>
+          </select>
+
+          <div>
+            
+              <div className={s.section}>
+                {currentProducts.map((card) => parseInt(card.stock) > 0 && (
+                  <div key={card.id}>
+                    <Card
+                      nombre={card.nombre}
+                      URL={card.URL}
+                      marca={card.marca}
+                      precio={card.precio}
+                      color={card.color}
+                      talla={card.talla}
+                      categoria={card.categoria}
+                      id={card.id}
+                    />
+                  </div>
+                ))}
+              </div>
+          </div>
         </div>
       ) : (
         <div className={s.notFound}>
