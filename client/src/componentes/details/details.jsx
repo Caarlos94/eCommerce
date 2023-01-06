@@ -21,22 +21,30 @@ import jwt_decode from 'jwt-decode';
 import Navbar2 from '../navbar/navBar2';
 import Footer from '../Footer/Footer';
 import Reviews from '../Reviews/Reviews';
+import { useValidateUser } from '../../customHooks/validate-user'
 
 const Details = () => {
   const dispatch = useDispatch();
-  /* const carrito = useSelector((state) => state.cart) */
   const history = useHistory();
   const reviews = useSelector((state) => state.reviews);
-  const email = useSelector((state) => state.email);
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+
+  const [input, setInput] = useState({
+    email: '',
+    productoId: '',
+  })
+  const [, , , , , user] = useValidateUser();
 
   let { id } = useParams();
 
-  
-  const [input, setInput] = useState({
-    email: email,
-    productoId: id,
-  })
+  useEffect(() => {
+    if (user) {
+      setInput({
+        email: user.email,
+        productoId: id
+      })
+    }
+  }, [user, id])
 
   useEffect(() => {
     dispatch(limpiarState());
@@ -90,82 +98,86 @@ const Details = () => {
   return (
     <div>
       <Navbar2 />
-
-      {details.length ? (
-        <div className={s["parent-container"]}>
-          <div className={s.detailCont}>
-            <div className={s.imgCont}>
-              <div className={s.img11}>
-                <div
-                  className={s.img111}
-                  style={{ backgroundImage: `url(${details[0].URL})` }}
-                ></div>
+      <div>
+        {details.length ? (
+          <div className={s["parent-container"]}>
+            <div className={s.detailCont}>
+              <div className={s.imgCont}>
+                <div className={s.img11}>
+                  <div
+                    className={s.img111}
+                    style={{ backgroundImage: `url(${details[0].URL})` }}
+                  ></div>
+                </div>
               </div>
-            </div>
-            <div className={s.textCont}>
+              <div className={s.textCont}>
 
-              <div className={s.productDesc}>
-                <h2 className={s.h2}>{details[0].nombre.toUpperCase()}</h2>
-                <h3>${details[0].precio}</h3>
-                <h5>Marca: {details[0].marca}</h5>
-                <h5>Color: {details[0].color}</h5>
-                <h5>Talla: {details[0].talla.toUpperCase()}</h5>
-                {details[0].stock > 0 ? (
-                  <h5>Stock: {details[0].stock}</h5>
+                <div className={s.productDesc}>
+                  <h2 className={s.h2}>{details[0].nombre.toUpperCase()}</h2>
+                  <h3>${details[0].precio}</h3>
+                  <h5>Marca: {details[0].marca}</h5>
+                  <h5>Color: {details[0].color}</h5>
+                  <h5>Talla: {details[0].talla.toUpperCase()}</h5>
+                  {details[0].stock > 0 ? (
+                    <h5>Stock: {details[0].stock}</h5>
+                  ) : (
+                    <h5>
+                      Producto no disponible! Stock agotado momentáneamente...
+                    </h5>
+                  )}
+                </div>
+                {!isAdmin ? (
+                  <div className={s.botones}>
+                    <button
+                      disabled={details[0].stock === 0}
+                      onClick={() => handleSubmit(id)}
+                      className={s.añadirCart}>
+                      AÑADIR AL CARRITO
+                    </button>
+                    {user ?(
+                      <div
+                        className={isAdd ? s.current : s.fav}
+                        onClick={() => handleAdd(id)}
+                      >
+                        <img src={heart} alt=""></img>
+                      </div>): ("iniciar sesión para favear"
+                      )
+                    }
+                  </div>
                 ) : (
-                  <h5>
-                    Producto no disponible! Stock agotado momentáneamente...
-                  </h5>
+                  <div className={s.btns}>
+                    <button
+                      /* value={categ} */
+                      onClick={() => handleDelete(id)}>
+                      <img src={trash} alt="" ></img>
+                    </button>
+
+                    <NavLink to={`/updateProd/${id}`} style={{ textDecoration: "none" }}>
+                      <img src={edit} alt=""></img>
+                    </NavLink>
+                  </div>
                 )}
               </div>
-              {!isAdmin ? (
-                <div className={s.botones}>
-                  <button
-                    disabled={details[0].stock === 0}
-                    onClick={() => handleSubmit(id)}
-                    className={s.añadirCart}>
-                    AÑADIR AL CARRITO
-                  </button>
-                  <div
-                    className={isAdd ? s.current : s.fav}
-                    onClick={() => handleAdd(id)}
-                  >
-                    <img src={heart} alt=""></img>
-                  </div>
-                </div>
-              ) : (
-                <div className={s.btns}>
-                  <button
-                    /* value={categ} */
-                    onClick={() => handleDelete(id)}>
-                    <img src={trash} alt="" ></img>
-                  </button>
-
-                  <NavLink to={`/updateProd/${id}`} style={{ textDecoration: "none" }}>
-                    <img src={edit} alt=""></img>
-                  </NavLink>
-                </div>
-              )}
+            </div>
+            <div className={s.qyaCont}>
+              <QASection productId={id} />
+            </div>
+            <div className={s.valoraciones}>
+              <Reviews reviews={reviews} />
             </div>
           </div>
-          <div className={s.qyaCont}>
-            <QASection productId={id} />
+        ) : (
+          <div className={s.spinner}>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
           </div>
-          <div className={s.valoraciones}>
-            <Reviews reviews={reviews} />
-          </div>
-        </div>
-      ) : (
-        <div className={s.spinner}>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      )}
-      <Footer />
+        )}
+        <Footer />
+      </div>
     </div>
   );
 };

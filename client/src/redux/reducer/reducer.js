@@ -29,7 +29,6 @@ const initialState = {
   favorites: [],
   details: [],
   users: [],
-  email: '',
   cart: [],
   categorys: [],
   reviews: [],
@@ -79,12 +78,6 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         users: action.payload,
-      };
-
-    case EMAIL:
-      return {
-        ...state,
-        email: action.payload,
       };
 
     case GET_DETAILS:

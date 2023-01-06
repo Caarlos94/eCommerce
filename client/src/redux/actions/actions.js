@@ -109,14 +109,6 @@ export function importUser(user) {
   };
 }
 
-export const importEmail = (email) => {
-  return {
-    type: EMAIL,
-    payload: email,
-  };
-};
-
-
 export function postCategory(payload) {
   return async function () {
     const response = await axios.post(
