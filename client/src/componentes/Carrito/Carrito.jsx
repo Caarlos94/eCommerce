@@ -36,11 +36,6 @@ const Carrito = () => {
     }
   }, [])
 
-<<<<<<< HEAD
-
-=======
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
->>>>>>> cesar-zegarra
   const handleDelete = (id, all = false) => {
     //console.log(id, all);
     if (all) {
@@ -54,13 +49,8 @@ const Carrito = () => {
   };
 
   const handleAdd = (id) => {
-<<<<<<< HEAD
-    let producto = cart.find(producto => producto.id === id)
-    producto.stock--
-=======
     let producto = cart.find((producto) => producto.id === id);
     producto.stock--;
->>>>>>> cesar-zegarra
     if (producto.stock > 0) {
       dispatch(addOneToCart(id));
     }
@@ -112,34 +102,6 @@ const Carrito = () => {
         <button className={s.pagar} onClick={() => handleBuy()}>
           Pagar ahora
         </button>
-<<<<<<< HEAD
-        <NavLink to={"/formCompra"}>
-          <button /* className={s.pagar} */>
-            Llenar datos para envío
-          </button>
-        </NavLink>
-        {
-          cart ? (
-            cart.map((c) => (
-              <CartProduct
-                key={c.id}
-                id={c.id}
-                nombre={c.nombre}
-                talla={c.talla}
-                stock={c.stock}
-                precio={c.precio}
-                cantidad={c.cantidad}
-                URL={c.URL}
-                handleDelete={handleDelete}
-                handleAdd={handleAdd}
-              />
-            ))
-          ) : (
-            <p>No tienes productos en tu carrito</p>
-          )
-        }
-      </div >
-=======
         {cart ? (
           cart.map((c) => (
             <CartProduct
@@ -159,7 +121,6 @@ const Carrito = () => {
           <p>No tienes productos en tu carrito</p>
         )}
       </div>
->>>>>>> cesar-zegarra
       <div className={s.totalFinal}>
         <div className={s.total2}>
           <p>Total: ${totalProd}</p>

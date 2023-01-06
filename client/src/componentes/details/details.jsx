@@ -141,11 +141,7 @@ const Details = () => {
                     <img src={trash} alt=""></img>
                   </button>
 
-<<<<<<< HEAD
-                  <NavLink to={`/updateProd/${id}`} style={{ textDecoration: "none" }}>
-=======
                   <NavLink to="/updateProd" style={{ textDecoration: 'none' }}>
->>>>>>> cesar-zegarra
                     <img src={edit} alt=""></img>
                   </NavLink>
                 </div>
@@ -155,9 +151,9 @@ const Details = () => {
           <div className={s.qyaCont}>
             <QASection productId={id} />
           </div>
-          <div className={s.valoraciones}>
+          {/* <div className={s.valoraciones}>
             <Reviews reviews={reviews} />
-          </div>
+          </div> */}
         </div>
       ) : (
         <div className={s.spinner}>
@@ -169,10 +165,6 @@ const Details = () => {
           <div></div>
         </div>
       )}
-<<<<<<< HEAD
-=======
-
->>>>>>> cesar-zegarra
       <Footer />
     </div>
   );

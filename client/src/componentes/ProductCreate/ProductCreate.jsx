@@ -46,11 +46,7 @@ const validate = (input, prods) => {
   if (input.talla) {
     if (!(input.talla === 'S' || input.talla === 'M' || input.talla === 'L' || input.talla === 'XL' || input.talla === 'XXL')) {
       errors.talla =
-<<<<<<< HEAD
-        "Solo se permiten los talles S-M-L-XL-XXL.";
-=======
         'Este dato es obligatorio, no se permiten caracteres especiales.';
->>>>>>> cesar-zegarra
     }
   }
   if (input.marca) {
