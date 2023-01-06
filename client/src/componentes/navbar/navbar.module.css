@@ -19,7 +19,7 @@
   align-items: center;
   height: 30px;
   position: relative;
-  right: 2%;
+  right: -2%;
 }
 
 .filtros {
@@ -173,7 +173,7 @@
   height: 50px;
   display: flex;
   position: relative;
-  right: 5%;
+  right: 2%;
   padding-right: 400px;
 }
 
@@ -227,6 +227,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
   padding: 5px 10px;
   margin-left: 20px;
   margin-right: 20px;
@@ -239,24 +241,38 @@
   transition: all 0.4s;
 }
 
+.publicar button:before {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 120%;
+  background-color: #111111;
+  top: 50%;
+  transform: skewX(30deg) translate(-150%, -50%);
+  transition: all 0.5s;
+}
+
 .publicar button:hover {
-  border-radius: 5px;
-  transform: translateY(-10px);
-  box-shadow: 0 7px 0 -2px #f85959, 0 15px 0 -4px #39a2db,
-    0 16px 10px -3px #39a2db;
+  background-color: #4cc9f0;
+  color: #fff;
+  box-shadow: 0 2px 0 2px #0d3b66;
+}
+
+.publicar button:hover::before {
+  transform: skewX(30deg) translate(150%, -50%);
+  transition-delay: 0.1s;
 }
 
 .publicar button:active {
-  transition: all 0.2s;
-  transform: translateY(-5px);
-  box-shadow: 0 2px 0 -2px #f85959, 0 8px 0 -4px #39a2db,
-    0 12px 10px -3px #39a2db;
+  transform: scale(0.9);
 }
 
 .historial button {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
   padding: 5px 10px;
   margin-left: 20px;
   margin-right: 20px;
@@ -269,18 +285,30 @@
   transition: all 0.4s;
 }
 
+.historial button:before {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 120%;
+  background-color: #111111;
+  top: 50%;
+  transform: skewX(30deg) translate(-150%, -50%);
+  transition: all 0.5s;
+}
+
 .historial button:hover {
-  border-radius: 5px;
-  transform: translateY(-10px);
-  box-shadow: 0 7px 0 -2px #f85959, 0 15px 0 -4px #39a2db,
-    0 16px 10px -3px #39a2db;
+  background-color: #4cc9f0;
+  color: #fff;
+  box-shadow: 0 2px 0 2px #0d3b66;
+}
+
+.historial button:hover::before {
+  transform: skewX(30deg) translate(150%, -50%);
+  transition-delay: 0.1s;
 }
 
 .historial button:active {
-  transition: all 0.2s;
-  transform: translateY(-5px);
-  box-shadow: 0 2px 0 -2px #f85959, 0 8px 0 -4px #39a2db,
-    0 12px 10px -3px #39a2db;
+  transform: scale(0.9);
 }
 
 @media (max-width: 768px) {
@@ -301,13 +329,12 @@
   }
 
   .filtros {
-    width: 100px;
+    width: 50%;
     display: flex;
     flex-direction: column;
     position: relative;
-    top: 15%;
-    right: 33.5%;
-    margin-left: 40px;
+    top: -17%;
+    left: 0%;
   }
 
   .searchBar {
@@ -330,8 +357,8 @@
     width: 190px;
     height: 38px;
     position: absolute;
-    top: 370%;
-    right: 60px;
+    top: 1350%;
+    right: 45%;
     padding: 5px 10px;
     border-radius: 5px;
     background-color: black;
@@ -346,8 +373,8 @@
     width: 190px;
     height: 38px;
     position: absolute;
-    top: 260%;
-    right: 60px;
+    top: 1220%;
+    right: 45%;
     padding: 5px 10px;
     border-radius: 5px;
     background-color: black;

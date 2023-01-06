@@ -13,7 +13,7 @@ const Favorites = () => {
   const [clienteId, setClienteId] = useState("");
 
   const { user } = useAuth0();
-  // console.log(user);
+  /* console.log(user); */
 
   useEffect(() => {
     if (user) {

@@ -20,7 +20,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import jwt_decode from 'jwt-decode';
 import Navbar2 from '../navbar/navBar2';
 import Footer from '../Footer/Footer';
-import Reviews from '../Reviews/Reviews';
+import Reviews from '../Reviews/Reviews'
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -36,13 +36,12 @@ const Details = () => {
     dispatch(getDetails(id));
     dispatch(getReviews(id));
     return function () {
-      dispatch(getProducts())
-    }
+      dispatch(getProducts());
+    };
   }, [dispatch, id]);
 
   const details = useSelector((state) => state.details);
   const [isAdmin, setIsAdmin] = useState(false);
-
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
@@ -67,14 +66,17 @@ const Details = () => {
 
   const handleDelete = (id) => {
     console.log(id + ' ELIMINADO');
-    dispatch(deleteProd(id))
-      .then(alert("Producto publicado con éxito! Se te redirigirá al inicio..."))
-    history.push("/");
-  }
-  const [isAdd, setIsAdd] = useState(false);
+    dispatch(deleteProd(id)).then(
+      alert('Producto publicado con éxito! Se te redirigirá al inicio...')
+    );
+    history.push('/');
+  };
+  const [isAdd, setIsAdd] = useState(localStorage.getItem('fav2') || false);
 
   const handleAdd = (id) => {
     setIsAdd((prev) => !prev);
+    localStorage.setItem('fav2', isAdd);
+
     // dispatch(addToFavorite(id));
     if (isAdd === false) {
       dispatch(addToFavorite(id));
@@ -82,6 +84,8 @@ const Details = () => {
       dispatch(removeFromFavorite(id));
     }
   };
+
+  // console.log(JSON.parse(localStorage.getItem('fav')));
 
   return (
     <div>
@@ -99,7 +103,6 @@ const Details = () => {
               </div>
             </div>
             <div className={s.textCont}>
-
               <div className={s.productDesc}>
                 <h2 className={s.h2}>{details[0].nombre.toUpperCase()}</h2>
                 <h3>${details[0].precio}</h3>
@@ -133,8 +136,9 @@ const Details = () => {
                 <div className={s.btns}>
                   <button
                     /* value={categ} */
-                    onClick={() => handleDelete(id)}>
-                    <img src={trash} alt="" ></img>
+                    onClick={() => handleDelete(id)}
+                  >
+                    <img src={trash} alt=""></img>
                   </button>
 
                   <NavLink to={`/updateProd/${id}`} style={{ textDecoration: "none" }}>
