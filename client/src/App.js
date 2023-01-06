@@ -16,6 +16,7 @@ import { ProtectedRoute } from "./componentes/ProtectedRoute";
 import UpdateProd from './componentes/UpdateProd/updateProd';
 import FormCompra from "./componentes/formCompra/FormCompra";
 import Review from "./componentes/Reviews/Reviews";
+import HistorialDeUsuario from "./componentes/historialCompras/historialUsuario.jsx";
 
 function App() {
   return (

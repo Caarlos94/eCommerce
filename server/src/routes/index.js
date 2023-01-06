@@ -34,7 +34,7 @@ mercadopago.configure({
 
 let obj = {}
 let GuardarComprasDB = {
-  clienteId : '',
+  clienteId: '',
   productos: [],
 }
 
@@ -42,7 +42,7 @@ router.post('/pagosMeli', async (req, res) => {
   let items = req.body.items;
   let idUsuario = req.body.idUsuario
 
-  
+
   // obj = items
   let itemsArr = [];
   if (items[0].stock > 0) {
@@ -63,21 +63,21 @@ router.post('/pagosMeli', async (req, res) => {
     back_urls: {
       success: "http://localhost:3001/redirect"
     },
-  
+
   };
 
 
   obj = items
 
   GuardarComprasDB.clienteId = idUsuario
- 
+
   let arr = [];
 
   items.forEach((elem) => {
     const obj = {}
-     obj.prodId = elem.id,
-     obj.cantidad = elem.cantidad
-     arr.push(obj)
+    obj.prodId = elem.id,
+      obj.cantidad = elem.cantidad
+    arr.push(obj)
   })
 
   GuardarComprasDB.productos = arr
@@ -96,10 +96,10 @@ router.post('/pagosMeli', async (req, res) => {
 
 router.get("/redirect", async (req, res) => {
   let { status } = req.query
- 
+
   if (status === "approved") {
 
-obj.forEach(async producto => {
+    obj.forEach(async producto => {
 
       let productStock = await Producto.findByPk(producto.id)
       let rest = productStock.stock - producto.cantidad
@@ -108,10 +108,11 @@ obj.forEach(async producto => {
         { stock: rest },
         { where: { id: producto.id } });
     })
+    console.log(obj);
 
     try {
 
-      const ComprasGuardadas = await axios.post('http://localhost:3001/compras' , GuardarComprasDB )
+      const ComprasGuardadas = await axios.post('http://localhost:3001/compras', GuardarComprasDB)
 
       res.redirect('http://localhost:3000')
     } catch (error) {
