@@ -36,21 +36,22 @@ const Carrito = () => {
     }
   }, [])
 
+
   const handleDelete = (id, all = false) => {
     //console.log(id, all);
     if (all) {
       dispatch(removeAllFromCart(id));
     } else {
-      let producto = cart.find((producto) => producto.id === id);
-      producto.stock++;
-      if (id === cart.id) cart[0].stock++;
+      let producto = cart.find(producto => producto.id === id)
+      producto.stock++
+      if (id === cart.id) cart[0].stock++
       dispatch(removeOneFromCart(id));
     }
   };
 
   const handleAdd = (id) => {
-    let producto = cart.find((producto) => producto.id === id);
-    producto.stock--;
+    let producto = cart.find(producto => producto.id === id)
+    producto.stock--
     if (producto.stock > 0) {
       dispatch(addOneToCart(id));
     }
@@ -73,18 +74,18 @@ const Carrito = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ items: cart , idUsuario : usuarioid }),
+      body: JSON.stringify({ items: cart, idUsuario: usuarioid }),
     })
       .then((data) => data.json())
       .then((data) => {
         if (data.error) console.log(data); // manejar caso de error
         window.open(data, '_self');
         /* console.log(data); */
-      });   
-      // handleStock()
+      });
+    // handleStock()
   };
   let totalProd = 0;
-  cart.map((prod) => (totalProd += prod.cantidad * prod.precio));
+  cart.map(prod => totalProd += prod.cantidad * prod.precio);
 
   // console.log(usuarioid);
 
@@ -136,7 +137,7 @@ const Carrito = () => {
           Pagar ahora
         </button>
       </div>
-    </div>
+    </div >
   );
 };
 

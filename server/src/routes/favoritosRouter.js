@@ -4,8 +4,10 @@ const { Cliente, Producto, Favorito } = require("../db");
 
 favoritosRouter.post("/", async (req, res) => {
   try {
-    const { clienteId, productoId } = req.body;
-    const cliente = await Cliente.findByPk(clienteId);
+    const { email, productoId } = req.body;
+    const cliente = await Cliente.findOne({
+      where: { email },
+    });
     const producto = await Producto.findByPk(productoId);
     // console.log(cliente, producto.id);
     cliente.addProducto(producto);

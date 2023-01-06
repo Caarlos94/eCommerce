@@ -1,38 +1,25 @@
-import React from "react";
-import s from "./Favorites.module.css";
-// import { useSelector, useDispatch } from "react-redux";
-import FavoriteProduct from "./FavoriteProduct";
-// import { removeFromFavorite } from "../../redux/actions/actions";
-import Navbar2 from "../navbar/navBar2";
-import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect, useState } from "react";
+import React from 'react';
+import s from './Favorites.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+import FavoriteProduct from './FavoriteProduct';
+import { removeFromFavorite } from '../../redux/actions/actions';
+import Navbar2 from '../navbar/navBar2';
 
 const Favorites = () => {
-  // const dispatch = useDispatch();
-  const [favoritos, setFavoritos] = useState([]);
-  const [clienteId, setClienteId] = useState("");
+  const favorites = useSelector((state) => state.favorites);
+  const dispatch = useDispatch();
 
-  const { user } = useAuth0();
-  /* console.log(user); */
-
-  useEffect(() => {
-    if (user) {
-      fetch(`http://localhost:3001/favoritos/${user.email}`)
-        .then((data) => data.json())
-        .then((data) => {
-          setFavoritos(data.productos);
-          setClienteId(data.clienteId);
-        });
-    }
-  }, [user]);
+  const handleDelete = (id) => {
+    dispatch(removeFromFavorite(id));
+  };
 
   return (
     <div>
       <Navbar2 />
       <div className={s.favoriteCont}>
         <h1>Favoritos</h1>
-        {favoritos ? (
-          favoritos.map((c) => (
+        {favorites ? (
+          favorites.map((c) => (
             <FavoriteProduct
               key={c.id}
               id={c.id}
@@ -41,8 +28,7 @@ const Favorites = () => {
               precio={c.precio}
               cantidad={c.cantidad}
               URL={c.URL}
-              clienteId={clienteId}
-              // handleDelete={() => handleDelete(clienteId, c.id)}
+              handleDelete={handleDelete}
             />
           ))
         ) : (

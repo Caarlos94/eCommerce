@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const GET_CATEGORYS = 'GET_CATEGORYS';
 export const SEARCHxMARCA = 'SEARCHxMARCA';
@@ -21,7 +20,9 @@ export const CLEAR_CART = 'CLEAR_CART';
 export const IMPORT_USER = 'IMPORT_USER';
 export const ADD_TO_FAVORITE = 'ADD_TO_FAVORITE';
 export const REMOVE_FROM_FAVORITE = 'REMOVE_FROM_FAVORITE';
-export const GET_REVIEWS = 'GET_REVIEWS'
+export const GET_REVIEWS = 'GET_REVIEWS';
+export const GET_FAVORITES = 'GET_FAVORITES';
+export const EMAIL = 'EMAIL'
 
 export const getProducts = () => {
   return async function (dispatch) {
@@ -86,8 +87,8 @@ export function getUserInfo() {
   };
 }
 
-export function getReviews(id){
-  return async function (dispatch){
+export function getReviews(id) {
+  return async function (dispatch) {
     const response = await axios.get(`http://localhost:3001/compras/reviews/${id}`)
     return dispatch({
       type: GET_REVIEWS,
@@ -107,6 +108,13 @@ export function importUser(user) {
     });
   };
 }
+
+export const importEmail = (email) => {
+  return {
+    type: EMAIL,
+    payload: email,
+  };
+};
 
 
 export function postCategory(payload) {
@@ -228,12 +236,26 @@ export function clearCart() {
     type: CLEAR_CART,
   };
 }
-export function addToFavorite(id) {
-  return {
-    type: ADD_TO_FAVORITE,
-    payload: id,
+export function getFavorites(email) {
+  return async function (dispatch) {
+    const response = await axios.get(`http://localhost:3001/favoritos/${email}`)
+    return dispatch({
+      type: GET_FAVORITES,
+      payload: response.data,
+    });
+  }
+}
+
+export function addToFavorite(payload) {
+  return async function () {
+    const response = await axios.post(
+      'http://localhost:3001/favoritos',
+      payload
+    );
+    return response;
   };
 }
+
 export function removeFromFavorite(id) {
   return {
     type: REMOVE_FROM_FAVORITE,

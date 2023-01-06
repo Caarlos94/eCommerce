@@ -9,7 +9,7 @@ import back from '../../img/back.png';
 import shopping from '../../img/shopping.png';
 import answers from '../../img/answ.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, importUser } from '../../redux/actions/actions.js';
+import { getProducts, importUser, importEmail } from '../../redux/actions/actions.js';
 import { useAuth0 } from '@auth0/auth0-react';
 import jwt_decode from 'jwt-decode';
 
@@ -49,6 +49,7 @@ const Navbar2 = ({ setPages }) => {
 
   const [isOpen, SetOpen] = useState(false);
   isAuthenticated && dispatch(importUser(user));
+  isAuthenticated && dispatch(importEmail(user.email))
 
   return (
     <div className={style.div}>
