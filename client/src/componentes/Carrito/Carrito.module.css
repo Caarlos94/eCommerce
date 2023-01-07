@@ -32,10 +32,7 @@
 
 .total p {
   font-size: 30px;
-  width: 150px;
   font-weight: bold;
-  position: absolute;
-  right: -290%;
 }
 
 .pagar {

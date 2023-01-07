@@ -66,6 +66,7 @@ superAdminRouter.post(
       let { managementToken } = res.locals;
       let idUsers = req.body;
 
+      //  console.log(idUsers);
       for (let index in idUsers) {
         var options = {
           method: "DELETE",
@@ -89,7 +90,9 @@ superAdminRouter.post(
       }
 
       res.status(200).json({ msg: "usuarios eliminados de rol admin" });
-    } catch (error) {}
+    } catch (error) {
+      res.status(400).json({ err: error.message });
+    }
   }
 );
 

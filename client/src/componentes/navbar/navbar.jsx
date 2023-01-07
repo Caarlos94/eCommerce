@@ -20,6 +20,7 @@ const Navbar = ({ setPages }) => {
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
+
   useEffect(() => {
     dispatch(getProducts);
   }, [dispatch]);
@@ -37,12 +38,11 @@ const Navbar = ({ setPages }) => {
       if (isAuthenticated) {
         const accessToken = await getAccessTokenSilently();
         let decoded = jwt_decode(accessToken);
-        console.log(decoded);
+
         if (decoded.permissions.includes("read:admin")) {
-          // verificación principalmente estética. No brinda seguridad.
+          // verificación principalmente UX. No brinda seguridad.
           setIsAdmin(true);
         }
-
         if (decoded.permissions.includes("read:users")) {
           // verificación principalmente estética. No brinda seguridad.
           setIsSuperAdmin(true);
@@ -57,8 +57,6 @@ const Navbar = ({ setPages }) => {
   user && dispatch(importUser(user));
 
   // {console.log(user)}
-
-  console.log(isSuperAdmin);
 
   return (
     <div className={style.div}>
@@ -93,13 +91,17 @@ const Navbar = ({ setPages }) => {
                       Perfil
                     </Link>
                   </div>
-                  {/* {!isAdmin && (
+                  {!isAdmin && (
                     <div>
-                      <Link to="/historial" style={{ textDecoration: "none" }} className={style.button}>
+                      <Link
+                        to="/historial"
+                        style={{ textDecoration: "none" }}
+                        className={style.button}
+                      >
                         Historial
                       </Link>
-                    </div>)
-                  } */}
+                    </div>
+                  )}
                   <div>
                     <button onClick={() => logout()} className={style.button}>
                       Cerrar sesión
@@ -118,7 +120,7 @@ const Navbar = ({ setPages }) => {
             <div className={style.admin}>
               <div className={style.publicar}>
                 <NavLink to="/product" style={{ textDecoration: "none" }}>
-                  <button>Publicar un Producto</button>
+                  <button>Publicar un Producto!</button>
                 </NavLink>
               </div>
               <div className={style.qa}>
@@ -128,7 +130,7 @@ const Navbar = ({ setPages }) => {
                   </div>
                 </NavLink>
               </div>
-              <div className={style.historial}>
+              <div className={style.publicar}>
                 <NavLink to="/sales" style={{ textDecoration: "none" }}>
                   <button>Historial de Ventas</button>
                 </NavLink>
@@ -177,12 +179,6 @@ const Navbar = ({ setPages }) => {
                   </div>
                 </NavLink>
               )}
-
-              <div className={style.historial}>
-                <NavLink to="/historial" style={{ textDecoration: "none" }}>
-                  <button>Historial de Compras</button>
-                </NavLink>
-              </div>
             </>
           )}
         </div>

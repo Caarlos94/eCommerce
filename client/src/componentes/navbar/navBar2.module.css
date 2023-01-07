@@ -117,7 +117,7 @@
   transition: all 0.4s;
 }
 
-.btnQA:hover {
+.btnQA:hover{
   padding-bottom: 10px;
 }
 
@@ -163,8 +163,7 @@
   width: 150px;
   height: 50px;
   display: flex;
-  position: relative;
-  right: 10%;
+  right: 1%;
 }
 
 .backHome {

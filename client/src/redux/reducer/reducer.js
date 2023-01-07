@@ -18,7 +18,6 @@ import {
   CLEAR_CART,
   ADD_TO_FAVORITE,
   REMOVE_FROM_FAVORITE,
-  GET_REVIEWS
 } from '../actions/actions.js';
 
 const initialState = {
@@ -29,7 +28,6 @@ const initialState = {
   users: [],
   cart: [],
   categorys: [],
-  reviews: [],
   categoria: 'todas',
   ordenamiento: 'ninguno',
   marca: 'todas',
@@ -84,12 +82,6 @@ const rootReducer = (state = initialState, action) => {
         details: action.payload,
       };
 
-    case GET_REVIEWS:
-      return {
-        ...state,
-        reviews: action.payload,
-      };
-
     case LIMPIAR_SATE:
       return {
         ...state,
@@ -106,13 +98,6 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         categorys: action.payload,
-      };
-
-    case 'DELETE_PROD':
-      return {
-        ...state,
-        productsHome: state.productsHome.filter(prod => prod.id !== action.payload),
-        products: state.products.filter(prod => prod.id !== action.payload),
       };
 
     case SEARCHxNAME: {
@@ -165,7 +150,7 @@ const rootReducer = (state = initialState, action) => {
       let productsFilter = [];
 
       if (action.payload === 'todas') {
-        arr = [...state.products];
+        let arr = [...state.products];
         if (state.precio[1] !== 0)
           arr = arr.filter(
             (Element) =>
@@ -516,9 +501,9 @@ const rootReducer = (state = initialState, action) => {
       return productInFavorite
         ? { ...state }
         : {
-          ...state,
-          favorites: [...state.favorites, newFavorite],
-        };
+            ...state,
+            favorites: [...state.favorites, newFavorite],
+          };
     case REMOVE_FROM_FAVORITE:
       let productToRemove = state.favorites.find(
         (product) => product.id === action.payload

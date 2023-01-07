@@ -26,7 +26,7 @@ const UnansweredQuestion = ({ question, accessToken }) => {
         console.log(data);
         setDidDelete(true);
 
-       /*  alert(data); */
+        alert(data);
       })
       .catch((error) => {
         if (error.error) {

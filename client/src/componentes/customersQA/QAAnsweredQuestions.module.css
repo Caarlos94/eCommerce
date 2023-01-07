@@ -22,9 +22,8 @@
   .questions-container {
     position: absolute;
     width: 95%;
-    height: 100%;
+    height: 40%;
     top: 0;
-    /* border: 1px solid red; */
   }
 
   .titulo-preguntas {

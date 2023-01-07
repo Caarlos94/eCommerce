@@ -10,7 +10,6 @@ import {
 } from '../../redux/actions/actions';
 import style from './ProductCreate.module.css';
 import Navbar2 from '../navbar/navBar2';
-import Footer from '../Footer/Footer';
 
 const validate = (input, prods) => {
   let errors = {};
@@ -44,9 +43,9 @@ const validate = (input, prods) => {
     }
   }
   if (input.talla) {
-    if (!(input.talla === 'S' || input.talla === 'M' || input.talla === 'L' || input.talla === 'XL' || input.talla === 'XXL')) {
+    if (!/^[A-Za-z0-9\s]+$/.test(input.talla)) {
       errors.talla =
-        "Solo se permiten los talles S-M-L-XL-XXL.";
+        "Este dato es obligatorio, no se permiten caracteres especiales.";
     }
   }
   if (input.marca) {
@@ -116,6 +115,7 @@ export default function ProdCreate() {
     e.preventDefault();
     console.log(input);
     dispatch(postProd(input));
+    /* dispatch(postCategory(input)); */
     setTimeout(() => dispatch(getProducts2()), 100);
     alert("Producto publicado con éxito! Se te redirigirá al inicio...");
     setInput({
@@ -128,7 +128,7 @@ export default function ProdCreate() {
       categoria: "",
       stock: "",
     });
-    history.push("/"); //manda al home
+    history.push("/"); //me manda al home
   };
 
   return (
@@ -136,7 +136,6 @@ export default function ProdCreate() {
       <Navbar2 />
       <div className={style.createCont}>
         <h1>Crear Producto</h1>
-
         <div className={style.forms}>
           <form onSubmit={(e) => handlerSubmit(e)}>
 
@@ -186,6 +185,7 @@ export default function ProdCreate() {
                 name="color"
                 onChange={(e) => handlerChange(e)}
               ></input>
+
               {errors.color && <p className={style.errors}>{errors.color}</p>}
             </div>
 
@@ -262,7 +262,6 @@ export default function ProdCreate() {
           </form>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

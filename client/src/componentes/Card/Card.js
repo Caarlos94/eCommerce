@@ -14,7 +14,7 @@ function Card({ nombre, URL, marca, precio, categoria, id }) {
         <div className="card-body">
           <h3 className="card-title">{nombre}</h3>
           <h5 className="h55">{marca}</h5>
-          <h4 className="h44">${precio}</h4>
+          <h4 className="h44">${precio} U$D</h4>
           <p className="card-text text-secondary">
             {categoria ? categoria : 'Este producto no posee categoría.'}
           </p>

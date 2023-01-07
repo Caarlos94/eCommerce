@@ -20,32 +20,11 @@ module.exports = (sequelize) => {
       localizador: {
         type: DataTypes.STRING,
       },
-
-      ciudad: {
-        type: DataTypes.STRING,
-        alowNull: true,
-      },
-
-      cp: {
-        type: DataTypes.INTEGER,
-        alowNull: true,
-      },
-      
-      direc: {
-        type: DataTypes.STRING,
-        alowNull: true,
-      },
-      
-      cel: {
-        type: DataTypes.INTEGER,
-        alowNull: true,
-      },
     },
     {
       timestamps: true,
       createdAt: "fecha",
       updatedAt: false,
-    },
-    
+    }
   );
 };
