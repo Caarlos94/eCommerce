@@ -6,23 +6,27 @@ const QAForm = (props) => {
   const [didSubmit, setDidSubmit] = useState(false);
   const [email, setEmail] = useState("");
   const [data, setData] = useState({ newQuestion: "", email: "" });
-  const [didSaveEmail, setDidSaveEmail] = useState(false);
-  const [emailIsValid, setEmailIsValid] = useState("");
+
+  const [emailIsValid, setEmailIsValid] = useState(true);
   const [timer, setTimer] = useState(null);
+  const [disable, setDisable] = useState(true);
 
   const handleChange = (e) => {
+    setDisable(true);
     setData((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
 
     clearTimeout(timer); // reinicia el timer
+    setEmailIsValid(true);
 
     const newTimer = setTimeout(() => {
       // toDo: No notificar validez si no hay un correo en el input de correo
       if (e.target.name === "email") {
-        //eslint-disable-next-line
         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)) {
           setEmailIsValid(true);
+          setDisable(false);
         } else {
           setEmailIsValid(false);
+          setDisable(true);
         }
       }
     }, 700);
@@ -51,7 +55,6 @@ const QAForm = (props) => {
     });
     setDidSubmit(true);
     setData((prevState) => ({ ...prevState, newQuestion: "" }));
-    data.email.length && setDidSaveEmail(true);
   };
 
   const handleClick = () => {
@@ -74,34 +77,27 @@ const QAForm = (props) => {
             type="text"
             value={data.newQuestion}
           />
-          {!user && !didSaveEmail ? (
-            <>
-              <label htmlFor="email">
-                Deja tu email para ser notificado cuando haya una respuesta
-              </label>
-              <input
-                className={classes["form-input"]}
-                autoComplete="off"
-                placeholder="Ej: usuario@email.com (Opcional)"
-                onChange={handleChange}
-                name="email"
-                type="text"
-                value={data.email}
-              />
-              {emailIsValid === false && data.email.length ? (
-                <p>Correo inválido</p>
-              ) : (
-                ""
-              )}
-            </>
-          ) : (
-            ""
-          )}
+
+          <>
+            <label htmlFor="email">
+              Deja tu email para ser notificado cuando haya una respuesta
+            </label>
+            <input
+              className={classes["form-input"]}
+              autoComplete="off"
+              placeholder="Ej: usuario@email.com (Opcional)"
+              onChange={handleChange}
+              name="email"
+              type="text"
+              value={data.email}
+            />
+            {!emailIsValid && data.email.length ? <p>Correo inválido</p> : ""}
+          </>
         </div>
 
         <button
-          className={classes["submit-button"]}
-          disabled={!data.newQuestion.length || (!emailIsValid && true)}
+          // className={classes["submit-button"]}
+          disabled={disable}
           type="submit"
         >
           Enviar pregunta

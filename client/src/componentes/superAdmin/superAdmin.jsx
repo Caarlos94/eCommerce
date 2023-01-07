@@ -16,6 +16,8 @@ const SuperAdmin = (props) => {
   const [disable, setDisable] = useState(true);
 
   const handleChange = (e) => {
+    setDisable(true);
+
     setNewAdmin((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
