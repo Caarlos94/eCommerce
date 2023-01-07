@@ -8,6 +8,8 @@ const nodemailer = require("nodemailer");
 require("dotenv").config();
 const { EMAIL_PASSWORD, EMAIL_HOST, EMAIL_PORT, EMAIL_USER } = process.env;
 
+adminQARouter.use(errorHandler);
+
 adminQARouter.get("/", validateAccessToken, validateAdmin, async (req, res) => {
   try {
     const allQuestions = await Pregunta.findAll({
@@ -108,7 +110,5 @@ adminQARouter.delete(
     }
   }
 );
-
-adminQARouter.use(errorHandler);
 
 module.exports = adminQARouter;

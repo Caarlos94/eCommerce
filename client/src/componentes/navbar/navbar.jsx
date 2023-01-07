@@ -39,7 +39,7 @@ const Navbar = ({ setPages }) => {
         let decoded = jwt_decode(accessToken);
 
         if (decoded.permissions.includes("read:admin")) {
-          // verificación principalmente estética. No brinda seguridad.
+          // verificación principalmente UX. No brinda seguridad.
           setIsAdmin(true);
         }
       }
