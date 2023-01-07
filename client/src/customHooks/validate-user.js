@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import jwt_decode from "jwt-decode";
 
 export const useValidateUser = () => {
+  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [accessToken, setAccessToken] = useState("");
@@ -19,12 +20,19 @@ export const useValidateUser = () => {
           setIsAdmin(true);
         }
         setAccessToken(accessToken);
+
+        if (decoded.permissions.includes("read:users")) {
+          setIsSuperAdmin(true);
+        }
+        setAccessToken(accessToken);
       }
+
+      
     };
     checkForAdminRole();
   }, [isAuthenticated, getAccessTokenSilently]);
 
-  return [isAuthenticated, isAdmin, accessToken, userId];
+  return [isAuthenticated, isAdmin, accessToken, userId , isSuperAdmin];
 };
 
 // isAuthenticated PERMITE VERIFICAR SI EL USUARIO INICIO SESION

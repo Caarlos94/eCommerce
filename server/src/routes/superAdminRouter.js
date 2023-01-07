@@ -1,41 +1,52 @@
 const { Router } = require("express");
 const superAdminRouter = Router();
 const { fetchManagementToken } = require("./middleware/fetchManagementToken");
+var axios = require("axios").default;
 
-superAdminRouter.get("/removeAdmin", fetchManagementToken, async (req, res) => {
+superAdminRouter.post("/removeAdmin", fetchManagementToken, async (req, res) => {
   try {
-    var axios = require("axios").default;
-
+   let { managementToken } = res.locals;
+   let  idUsers  = req.body
+ 
+  //  console.log(idUsers);
+   for(let index in idUsers){
     var options = {
       method: "DELETE",
-      url: "https://dev-62en868tsb2ut7tq.us.auth0.com/api/v2/users/USER_ID/roles",
+      url: `https://dev-62en868tsb2ut7tq.us.auth0.com/api/v2/users/${idUsers[index]}/roles`,
       headers: {
         "content-type": "application/json",
-        authorization: "Bearer MGMT_API_ACCESS_TOKEN",
+        "Accept-Encoding": "gzip,deflate,compress",
+        authorization: `Bearer ${managementToken}`,
         "cache-control": "no-cache",
       },
-      data: { roles: ["ROLE_ID"] },
+      data: { roles: ["rol_6qqkVmqdgh583LhO"] },
     };
-
     axios
-      .request(options)
-      .then(function (response) {
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-    console.log(res.locals.managementToken);
-  } catch (error) {}
+    .request(options)
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      throw new Error(error)
+    });
+
+   }
+   
+    res.status(200).json({msg:'usuarios eliminados de rol admin'})
+  } catch (error) {
+    res.status(400).json({err:error.message})
+  }
+
+
 });
 
 superAdminRouter.get(
-  "/fetchRolesTEST",
+  "/fetchRoles",
   fetchManagementToken,
   async (req, res) => {
     try {
       var axios = require("axios").default;
-      const { managementToken } = res.locals;
+       const { managementToken } = res.locals;
 
       var options = {
         method: "GET",
@@ -52,12 +63,15 @@ superAdminRouter.get(
       axios
         .request(options)
         .then(function (response) {
+          
           res.status(200).json(response.data);
         })
         .catch(function (error) {
           res.status(400).json({ error: true, msg: error.msg });
         });
-    } catch (error) {}
+    } catch (error) {
+      res.send(error.message)
+    }
   }
 );
 

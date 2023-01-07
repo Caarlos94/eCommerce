@@ -14,7 +14,7 @@ import modifCateg from "./componentes/modifCateg/modifCateg";
 import { ProtectedRoute } from "./componentes/ProtectedRoute";
 import Prueba from "./componentes/historialCompras/historialUsuario.jsx";
 import ReviewForm from "./componentes/ReviewForm/ReviewForm";
-
+import SuperAdmin from './componentes/superAdmin/superAdmin.jsx'
 function App() {
   return (
     <div className="divPadre">
@@ -33,6 +33,7 @@ function App() {
       <ProtectedRoute path="/sales" component={VentasAdmin} />
       <ProtectedRoute path="/historial" component={Prueba} />
       <ProtectedRoute path="/review-form" component={ReviewForm} />
+      <ProtectedRoute path="/superAdmin" component={SuperAdmin} />
     </div>
   );
 }

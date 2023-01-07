@@ -66,11 +66,11 @@ const Home = () => {
  
      {allProducts.length > 0 ? (
         <div>
-          <select onChange={(e) => handlerOrderPrecio(e)} className={s.select}>
+          {/* <select onChange={(e) => handlerOrderPrecio(e)} className={s.select}>
             <option hidden>Ordenar por Precio</option>
             <option value="asc">Menor a Mayor</option>
             <option value="desc">Mayor a Menor</option>
-          </select>
+          </select> */}
 
           <div>
             
@@ -115,3 +115,4 @@ const Home = () => {
 };
 
 export default Home;
+
