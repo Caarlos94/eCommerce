@@ -45,7 +45,7 @@ const Navbar2 = ({ setPages }) => {
       }
     };
     checkForAdminRole();
-    /* dispatch(getFavorites(email)); */
+    dispatch(getFavorites(email));
   }, [isAuthenticated, getAccessTokenSilently, dispatch]);
 
   const [isOpen, SetOpen] = useState(false);

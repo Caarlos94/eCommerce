@@ -22,19 +22,17 @@ import jwt_decode from 'jwt-decode';
 import Navbar2 from '../navbar/navBar2';
 import Footer from '../Footer/Footer';
 import Reviews from '../Reviews/Reviews';
-import { useValidateUser } from '../../customHooks/validate-user'
 
 const Details = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const reviews = useSelector((state) => state.reviews);
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
 
   const [input, setInput] = useState({
     email: '',
     productoId: '',
   })
-  const [, , , , , user] = useValidateUser();
 
   let { id } = useParams();
 
@@ -51,11 +49,12 @@ const Details = () => {
     dispatch(limpiarState());
     dispatch(getDetails(id));
     dispatch(getReviews(id));
+
     return function () {
       dispatch(getProducts())
     }
   }, [dispatch, id]);
-  user && dispatch(getFavorites(user.email))
+
 
   const details = useSelector((state) => state.details);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -88,6 +87,8 @@ const Details = () => {
   const [isAdd, setIsAdd] = useState(false);
 
   const handleAdd = (id) => {
+
+    user && dispatch(getFavorites(user.email))
     setIsAdd((prev) => !prev);
     if (isAdd === false) {
       console.log(input);
@@ -96,6 +97,8 @@ const Details = () => {
       dispatch(removeFromFavorite(id));
     }
   };
+
+  user && dispatch(getFavorites(user.email))
 
   return (
     <div>

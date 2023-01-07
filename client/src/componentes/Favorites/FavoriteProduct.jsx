@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import s from "./FavoriteProduct.module.css";
 import { NavLink } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useDispatch } from "react-redux";
+import { getFavorites } from "../../redux/actions/actions";
 
 const FavoriteProduct = ({
   nombre,
@@ -11,6 +14,10 @@ const FavoriteProduct = ({
   clienteId,
 }) => {
   const [didDelete, setDidDelete] = useState(false);
+
+  const { user } = useAuth0();
+  const dispatch = useDispatch();
+
   const handleDelete = () => {
     // console.log("hello");
     fetch(`http://localhost:3001/favoritos/${clienteId}/${productoId}`, {
@@ -25,6 +32,8 @@ const FavoriteProduct = ({
         setDidDelete(true);
       });
   };
+
+  user && dispatch(getFavorites(user.email));
 
   return (
     <>

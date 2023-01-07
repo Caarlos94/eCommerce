@@ -6,14 +6,15 @@ import FavoriteProduct from "./FavoriteProduct";
 import Navbar2 from "../navbar/navBar2";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
+import { getFavorites } from "../../redux/actions/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useValidateUser } from "../../customHooks/validate-user";
 
 const Favorites = () => {
-  // const dispatch = useDispatch();
   const [favoritos, setFavoritos] = useState([]);
   const [clienteId, setClienteId] = useState("");
 
   const { user } = useAuth0();
-  // console.log(user);
 
   useEffect(() => {
     if (user) {
@@ -42,7 +43,7 @@ const Favorites = () => {
               cantidad={c.cantidad}
               URL={c.URL}
               clienteId={clienteId}
-              // handleDelete={() => handleDelete(clienteId, c.id)}
+            // handleDelete={() => handleDelete(clienteId, c.id)}
             />
           ))
         ) : (

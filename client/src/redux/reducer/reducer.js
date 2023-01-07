@@ -105,7 +105,7 @@ const rootReducer = (state = initialState, action) => {
     case 'POST_FAVORITE':
       return {
         ...state,
-        favorites: action.payload.productos,
+        favorites: action.payload,
       };
 
     case 'POST_PROD':
