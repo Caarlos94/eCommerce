@@ -36,7 +36,7 @@ function App() {
       <Route path="/about" component={About} />
       <Route path="/profile" component={Perfil} />
       <Route path="/formCompra" component={FormCompra} />
-      <Route exact path="/favorites" component={Favorites} />
+      <Route exact path="/favoritos/:email" component={Favorites} />
       <ProtectedRoute path="/product" component={ProductCreate} />
       <ProtectedRoute path="/answers" component={Answers} />
       <ProtectedRoute path="/modifCateg" component={modifCateg} />

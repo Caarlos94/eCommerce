@@ -60,9 +60,6 @@ const { Producto, Categoria, Cliente, Pregunta, Compra, Review } =
 Producto.belongsToMany(Categoria, { through: 'producto_categoria' });
 Categoria.belongsToMany(Producto, { through: 'producto_categoria' });
 
-// Cliente.belongsToMany(Producto, { through: "compras" });
-// Producto.belongsToMany(Cliente, { through: "compras" });
-
 Producto.hasMany(Pregunta);
 Pregunta.belongsTo(Producto);
 

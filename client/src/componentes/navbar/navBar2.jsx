@@ -9,17 +9,15 @@ import back from '../../img/back.png';
 import shopping from '../../img/shopping.png';
 import answers from '../../img/answ.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, importUser } from '../../redux/actions/actions.js';
+import { getFavorites, getProducts, importUser } from '../../redux/actions/actions.js';
 import { useAuth0 } from '@auth0/auth0-react';
 import jwt_decode from 'jwt-decode';
 
 const Navbar2 = ({ setPages }) => {
   const dispatch = useDispatch();
   const carrito = useSelector((state) => state.cart);
-  const favoritos = useSelector((state) => state.favorites);
 
   const [isAdmin, setIsAdmin] = useState(false);
-
 
   const {
     user,
@@ -29,8 +27,12 @@ const Navbar2 = ({ setPages }) => {
     getAccessTokenSilently,
   } = useAuth0();
 
+  let email
+  user && (email = user.email)
+
   useEffect(() => {
     dispatch(getProducts);
+
 
     const checkForAdminRole = async () => {
       if (isAuthenticated) {
@@ -44,11 +46,14 @@ const Navbar2 = ({ setPages }) => {
       }
     };
     checkForAdminRole();
-  }, [isAuthenticated, getAccessTokenSilently, dispatch]);
+    /* dispatch(getFavorites(email)); */
+  }, [isAuthenticated, getAccessTokenSilently, dispatch, email]);
+
+  const favoritos = useSelector((state) => state.favorites);
 
   const [isOpen, SetOpen] = useState(false);
   isAuthenticated && dispatch(importUser(user));
-
+  isAuthenticated && dispatch(getFavorites(email));
 
   return (
     <div className={style.div}>
@@ -142,26 +147,28 @@ const Navbar2 = ({ setPages }) => {
                 </NavLink>
               )}
 
-              {favoritos.length > 0 ? (
-                <NavLink to="/favorites">
-                  <div className={style.btn}>
-                    <h6>{favoritos.length}</h6>
-                    <img src={heart} alt=""></img>
+              {user ? (
+                <>
+                  <NavLink to={`/favoritos/${user.email}`}>
+                    <div className={style.btn}>
+                      {favoritos.length > 0 && (<h6>{favoritos.length}</h6>)}
+                      <img src={heart} alt=""></img>
+                    </div>
+                  </NavLink>
+
+                  <div className={style.historial}>
+                    <NavLink to="/historial" style={{ textDecoration: "none" }}>
+                      <button>Historial de Compras</button>
+                    </NavLink>
                   </div>
-                </NavLink>
+                </>
               ) : (
-                <NavLink to="/favorites">
+                <NavLink to='/'>
                   <div className={style.btn}>
                     <img src={heart} alt=""></img>
                   </div>
                 </NavLink>
               )}
-
-              <div className={style.publicar}>
-                <NavLink to="/historial" style={{ textDecoration: "none" }}>
-                  <button>Historial de Compras</button>
-                </NavLink>
-              </div>
             </>
           )}
         </div>

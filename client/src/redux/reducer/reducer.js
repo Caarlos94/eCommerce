@@ -16,11 +16,9 @@ import {
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
-  ADD_TO_FAVORITE,
   REMOVE_FROM_FAVORITE,
   GET_REVIEWS,
   GET_FAVORITES,
-  EMAIL
 } from '../actions/actions.js';
 
 const initialState = {
@@ -96,6 +94,18 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         details: [],
+      };
+
+    case GET_FAVORITES:
+      return {
+        ...state,
+        favorites: action.payload.productos,
+      };
+
+    case 'POST_FAVORITE':
+      return {
+        ...state,
+        favorites: action.payload,
       };
 
     case 'POST_PROD':
@@ -508,14 +518,7 @@ const rootReducer = (state = initialState, action) => {
     case CLEAR_CART:
       return initialState;
 
-
-    case GET_FAVORITES:
-      return {
-        ...state,
-        favorites: action.payload,
-      };
-
-    case ADD_TO_FAVORITE:
+    /* case ADD_TO_FAVORITE:
       let newFavorite = state.details.find(
         (product) => product.id === action.payload
       );
@@ -527,7 +530,7 @@ const rootReducer = (state = initialState, action) => {
         : {
           ...state,
           favorites: [...state.favorites, newFavorite],
-        };
+        }; */
 
 
     case REMOVE_FROM_FAVORITE:

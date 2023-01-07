@@ -9,20 +9,16 @@ import usuario from '../../img/user.svg';
 import shopping from '../../img/shopping.png';
 import answers from '../../img/answ.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, importUser } from '../../redux/actions/actions.js';
+import { getFavorites, getProducts, importUser } from '../../redux/actions/actions.js';
 import { useAuth0 } from '@auth0/auth0-react';
 import jwt_decode from 'jwt-decode';
 
 const Navbar = ({ setPages }) => {
   const dispatch = useDispatch();
   const carrito = useSelector((state) => state.cart);
-  const favoritos = useSelector((state) => state.favorites);
 
   const [isAdmin, setIsAdmin] = useState(false);
 
-  useEffect(() => {
-    dispatch(getProducts);
-  }, [dispatch]);
 
   const {
     user,
@@ -32,7 +28,14 @@ const Navbar = ({ setPages }) => {
     getAccessTokenSilently,
   } = useAuth0();
 
+  let email;
+  user && (email = user.email)
+
   useEffect(() => {
+
+    dispatch(getProducts);
+    dispatch(getFavorites(email));
+
     const checkForAdminRole = async () => {
       if (isAuthenticated) {
         const accessToken = await getAccessTokenSilently();
@@ -45,7 +48,11 @@ const Navbar = ({ setPages }) => {
       }
     };
     checkForAdminRole();
-  }, [isAuthenticated, getAccessTokenSilently]);
+    dispatch(getFavorites(email));
+  }, [isAuthenticated, getAccessTokenSilently, dispatch, email]);
+
+
+  const favoritos = useSelector((state) => state.favorites);
 
   const [isOpen, SetOpen] = useState(false);
 
@@ -86,13 +93,6 @@ const Navbar = ({ setPages }) => {
                       Perfil
                     </Link>
                   </div>
-                  {/* {!isAdmin && (
-                    <div>
-                      <Link to="/historial" style={{ textDecoration: "none" }} className={style.button}>
-                        Historial
-                      </Link>
-                    </div>)
-                  } */}
                   <div>
                     <button onClick={() => logout()} className={style.button}>
                       Cerrar sesión
@@ -147,25 +147,29 @@ const Navbar = ({ setPages }) => {
                   </div>
                 </NavLink>
               )}
-              {favoritos.length > 0 ? (
-                <NavLink to="/favorites">
-                  <div className={style.btn}>
-                    <h6>{favoritos.length}</h6>
-                    <img src={heart} alt=""></img>
+
+              {user ? (
+                <>
+                  <NavLink to={`/favoritos/${user.email}`}>
+                    <div className={style.btn}>
+                      {favoritos.length > 0 && (<h6>{favoritos.length}</h6>)}
+                      <img src={heart} alt=""></img>
+                    </div>
+                  </NavLink>
+
+                  <div className={style.historial}>
+                    <NavLink to="/historial" style={{ textDecoration: "none" }}>
+                      <button>Historial de Compras</button>
+                    </NavLink>
                   </div>
-                </NavLink>
-              ) : (
-                <NavLink to="/favorites">
-                  <div className={style.btn}>
-                    <img src={heart} alt=""></img>
-                  </div>
-                </NavLink>
-              )}
-              <div className={style.historial}>
-                <NavLink to="/historial" style={{ textDecoration: "none" }}>
-                  <button>Historial de Compras</button>
-                </NavLink>
-              </div>
+                </>)
+                : (
+                  <NavLink to='/'>
+                    <div className={style.btn}>
+                      <img src={heart} alt=""></img>
+                    </div>
+                  </NavLink>
+                )}
             </>
           )}
         </div>

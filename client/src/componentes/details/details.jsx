@@ -134,14 +134,18 @@ const Details = () => {
                       className={s.añadirCart}>
                       AÑADIR AL CARRITO
                     </button>
-                    {user ?(
+                    {user ? (
                       <div
                         className={isAdd ? s.current : s.fav}
-                        onClick={() => handleAdd(id)}
-                      >
+                        onClick={() => handleAdd(id)}>
                         <img src={heart} alt=""></img>
-                      </div>): ("iniciar sesión para favear"
-                      )
+                      </div>
+                    ) : (
+                      <div className={isAdd ? s.current : s.fav}>
+                        <img src={heart} alt=""></img>
+                      </div>
+
+                    )
                     }
                   </div>
                 ) : (
@@ -178,7 +182,7 @@ const Details = () => {
         )}
         <Footer />
       </div>
-    </div>
+    </div >
   );
 };
 
