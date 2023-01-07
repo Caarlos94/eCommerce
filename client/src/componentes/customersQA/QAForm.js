@@ -16,8 +16,9 @@ const QAForm = (props) => {
     clearTimeout(timer); // reinicia el timer
 
     const newTimer = setTimeout(() => {
-      // todo: no notificar validez si no hay un correo en el input de correo
+      // toDo: No notificar validez si no hay un correo en el input de correo
       if (e.target.name === "email") {
+        //eslint-disable-next-line
         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)) {
           setEmailIsValid(true);
         } else {

@@ -87,7 +87,6 @@ const UnansweredQuestion = ({ question, accessToken }) => {
       </div>
       <form onSubmit={handleSubmit}>
         <label className={classes.label} htmlFor="respuesta">
-          {/* <p>Pregunta: </p> */}
           {question.question}
         </label>
         <br />
