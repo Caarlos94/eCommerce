@@ -22,7 +22,7 @@ favoritosRouter.get("/:email", async (req, res) => {
     const { email } = req.params;
     const cliente = await Cliente.findOne({ where: { email }, raw: true });
     //   console.log(clienteId);
-    console.log(cliente);
+    /* console.log(cliente); */
     const clienteId = cliente.id;
     const productos = [];
     const favoritos = await Favorito.findAll({

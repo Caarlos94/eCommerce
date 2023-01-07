@@ -33,7 +33,6 @@ const Navbar2 = ({ setPages }) => {
   useEffect(() => {
     dispatch(getProducts);
 
-
     const checkForAdminRole = async () => {
       if (isAuthenticated) {
         const accessToken = await getAccessTokenSilently();
@@ -47,13 +46,14 @@ const Navbar2 = ({ setPages }) => {
     };
     checkForAdminRole();
     /* dispatch(getFavorites(email)); */
-  }, [isAuthenticated, getAccessTokenSilently, dispatch, email]);
-
-  const favoritos = useSelector((state) => state.favorites);
+  }, [isAuthenticated, getAccessTokenSilently, dispatch]);
 
   const [isOpen, SetOpen] = useState(false);
   isAuthenticated && dispatch(importUser(user));
-  isAuthenticated && dispatch(getFavorites(email));
+  /* user && dispatch(getFavorites(email)); */
+
+  const favoritos = useSelector((state) => state.favorites);
+  console.log(favoritos);
 
   return (
     <div className={style.div}>

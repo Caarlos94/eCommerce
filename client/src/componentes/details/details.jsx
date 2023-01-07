@@ -10,6 +10,7 @@ import {
   deleteProd,
   getProducts,
   getReviews,
+  getFavorites,
 } from '../../redux/actions/actions.js';
 import { NavLink, useParams, useHistory } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
@@ -54,6 +55,7 @@ const Details = () => {
       dispatch(getProducts())
     }
   }, [dispatch, id]);
+  user && dispatch(getFavorites(user.email))
 
   const details = useSelector((state) => state.details);
   const [isAdmin, setIsAdmin] = useState(false);
