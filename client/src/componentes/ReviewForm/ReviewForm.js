@@ -100,9 +100,8 @@ const ReviewForm = () => {
                   <StarRating handleRating={handleRating} />
                 </div>
                 <div
-                  className={`${classes["rating-name"]} ${
-                    ratingColor && classes[ratingColor]
-                  }`}
+                  className={`${classes["rating-name"]} ${ratingColor && classes[ratingColor]
+                    }`}
                 >
                   {ratingNameValue}
                 </div>

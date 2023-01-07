@@ -16,6 +16,7 @@ const QAAnsweredQuestions = ({ productId }) => {
 
     return () => (isSubscribed = false);
   }, [productId]);
+
   return (
     <div className={classes["questions-container"]}>
       <div className={classes["titulo-preguntas"]}>Últimas preguntas: </div>

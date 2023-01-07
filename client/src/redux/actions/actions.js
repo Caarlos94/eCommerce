@@ -21,10 +21,12 @@ export const CLEAR_CART = "CLEAR_CART";
 export const IMPORT_USER = "IMPORT_USER";
 export const ADD_TO_FAVORITE = "ADD_TO_FAVORITE";
 export const REMOVE_FROM_FAVORITE = "REMOVE_FROM_FAVORITE";
+export const GET_REVIEWS = "GET_REVIEWS";
 
 export const getProducts = () => {
   return async function (dispatch) {
     const response = await fetch("http://localhost:3001/products");
+    console.log(response);
     const data = await response.json();
     return dispatch({
       type: GET_PRODUCTS,
@@ -44,6 +46,28 @@ export const getProducts2 = () => {
   };
 };
 
+export function updateProduct(data, id) {
+  return function () {
+    fetch(`http://localhost:3001/products/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+  };
+}
+
+export function postProd(payload) {
+  return async function () {
+    const response = await axios.post(
+      "http://localhost:3001/products",
+      payload
+    );
+    return response;
+  };
+}
+
 export function getCategorys() {
   return async function (dispatch) {
     await fetch("http://localhost:3001/category")
@@ -57,6 +81,18 @@ export function getUserInfo() {
     const response = axios.get(`http://localhost:3001/users`);
     return dispatch({
       type: GET_USER,
+      payload: response.data,
+    });
+  };
+}
+
+export function getReviews(id) {
+  return async function (dispatch) {
+    const response = await axios.get(
+      `http://localhost:3001/compras/reviews/${id}`
+    );
+    return dispatch({
+      type: GET_REVIEWS,
       payload: response.data,
     });
   };
@@ -97,6 +133,16 @@ export function postCategory(payload) {
 export function deleteCategory(nombre) {
   return async function () {
     await axios.delete(`http://localhost:3001/category/${nombre}`);
+  };
+}
+
+export function deleteProd(id) {
+  return async function (dispatch) {
+    await axios.delete(`http://localhost:3001/products/${id}`);
+    return dispatch({
+      type: "DELETE_PROD",
+      payload: id,
+    });
   };
 }
 

@@ -14,10 +14,12 @@
 }
 
 .searchBar {
-  width: 300px;
+  width: 250px;
   display: flex;
   align-items: center;
   height: 30px;
+  position: relative;
+  right: 2%;
 }
 
 .filtros {
@@ -170,7 +172,8 @@
   width: 150px;
   height: 50px;
   display: flex;
-  right: 1%;
+  position: relative;
+  right: 5%;
   padding-right: 400px;
 }
 
@@ -250,6 +253,36 @@
     0 12px 10px -3px #39a2db;
 }
 
+.historial button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 5px;
+  background-color: #000000;
+  width: 135px;
+  height: 55px;
+  color: #fff;
+  font-weight: bold;
+  transition: all 0.4s;
+}
+
+.historial button:hover {
+  border-radius: 5px;
+  transform: translateY(-10px);
+  box-shadow: 0 7px 0 -2px #f85959, 0 15px 0 -4px #39a2db,
+    0 16px 10px -3px #39a2db;
+}
+
+.historial button:active {
+  transition: all 0.2s;
+  transform: translateY(-5px);
+  box-shadow: 0 2px 0 -2px #f85959, 0 8px 0 -4px #39a2db,
+    0 12px 10px -3px #39a2db;
+}
+
 @media (max-width: 768px) {
   .backHome {
     position: absolute;
@@ -297,8 +330,24 @@
     width: 190px;
     height: 38px;
     position: absolute;
-    top: 270%;
-    right: -130px;
+    top: 370%;
+    right: 60px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: black;
+    border-color: black;
+    color: white;
+    font-weight: bold;
+    transition: all 0.4s;
+    filter: invert(100%);
+  }
+
+  .historial button {
+    width: 190px;
+    height: 38px;
+    position: absolute;
+    top: 260%;
+    right: 60px;
     padding: 5px 10px;
     border-radius: 5px;
     background-color: black;

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useAuth0 } from "@auth0/auth0-react";
+import axios from 'axios'
 import s from './Carrito.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import CartProduct from './CartProduct';
-import { useAuth0 } from '@auth0/auth0-react';
 import {
   clearCart,
   removeAllFromCart,
@@ -10,13 +11,32 @@ import {
   addOneToCart,
 } from '../../redux/actions/actions';
 import Navbar2 from '../navbar/navBar2';
+import { NavLink } from 'react-router-dom';
+
 
 const Carrito = () => {
+
+
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0()
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const [usuarioid, setUsuaruioId] = useState('');
 
 
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  useEffect(async () => {
+
+    if (isAuthenticated === true) {
+      if (cart.length) {
+        const idUsuariodb = await axios.post("http://localhost:3001/compras/obtenerId", {
+          User: user.nickname
+        })
+
+        if (idUsuariodb) setUsuaruioId(idUsuariodb.data);
+      }
+    }
+  }, [])
+
+
   const handleDelete = (id, all = false) => {
     //console.log(id, all);
     if (all) {
@@ -32,7 +52,7 @@ const Carrito = () => {
   const handleAdd = (id) => {
     let producto = cart.find(producto => producto.id === id)
     producto.stock--
-    if(producto.stock > 0) { 
+    if (producto.stock > 0) {
       dispatch(addOneToCart(id));
     }
   };
@@ -54,7 +74,7 @@ const Carrito = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ items: cart }),
+      body: JSON.stringify({ items: cart, idUsuario: usuarioid }),
     })
       .then((data) => data.json())
       .then((data) => {
@@ -62,9 +82,12 @@ const Carrito = () => {
         window.open(data, '_self');
         /* console.log(data); */
       });
+    // handleStock()
   };
   let totalProd = 0;
   cart.map(prod => totalProd += prod.cantidad * prod.precio);
+
+  // console.log(usuarioid);
 
   return (
     <div className={s.cont}>
@@ -80,6 +103,11 @@ const Carrito = () => {
         <button className={s.pagar} onClick={() => handleBuy()}>
           Pagar ahora
         </button>
+        <NavLink to={"/formCompra"}>
+          <button /* className={s.pagar} */>
+            Llenar datos para envío
+          </button>
+        </NavLink>
         {
           cart ? (
             cart.map((c) => (

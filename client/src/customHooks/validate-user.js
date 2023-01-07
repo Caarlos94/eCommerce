@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import jwt_decode from "jwt-decode";
 
 export const useValidateUser = () => {
+  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
   const [accessToken, setAccessToken] = useState("");
