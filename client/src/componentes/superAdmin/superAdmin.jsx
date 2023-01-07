@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar2 from "../navbar/navBar2.jsx";
 import axios from "axios";
 import style from "./superAdmin.module.css";
+import { useValidateUser } from "../../customHooks/validate-user.js";
 // import Admins from './Admins.j'
 // import { Link } from "react-router-dom";
 // import { element } from "prop-types";
@@ -30,6 +31,7 @@ const SuperAdmin = (props) => {
       // toDo: No notificar validez si no hay un correo en el input de correo
       if (e.target.name === "email") {
         if (
+          //eslint-disable-next-line
           /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(newAdmin.email)
         ) {
           setEmailIsValid(true);
@@ -43,8 +45,6 @@ const SuperAdmin = (props) => {
 
     setTimer(newTimer);
   };
-
-  console.log(newAdmin);
 
   useEffect(async () => {
     // const admins = '';
@@ -112,6 +112,7 @@ const SuperAdmin = (props) => {
       <div className={style["add-role-container"]}>
         <div className={style["add-title"]}></div>
         <div className={style["add-role-form"]}>
+          <p>Agregar permisos de Admin a usuarios:</p>
           <form onSubmit={handleSubmit}>
             <div className={style["email-input"]}>
               <label htmlFor="email">email:</label>
