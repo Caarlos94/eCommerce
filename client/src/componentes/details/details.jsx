@@ -15,7 +15,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import jwt_decode from "jwt-decode";
 import Navbar2 from "../navbar/navBar2";
 import Footer from "../Footer/Footer";
-import { useValidateUser } from "../../customHooks/validate-user";
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -27,8 +26,6 @@ const Details = () => {
     dispatch(limpiarState());
     dispatch(getDetails(id));
   }, [dispatch, id]);
-
-  // const [, , , , , user] = useValidateUser();
 
   const details = useSelector((state) => state.details);
   const [isAdmin, setIsAdmin] = useState(false);

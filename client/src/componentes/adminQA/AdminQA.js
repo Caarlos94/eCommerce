@@ -8,7 +8,7 @@ const AdminQA = () => {
   const [error, setError] = useState({});
   const [hasRemainingQuestions, setHasRemainingQuestions] = useState("");
 
-  const [, /*isAuthenticated*/ isAdmin, accessToken] = useValidateUser();
+  const { /*isAuthenticated*/ isAdmin, accessToken } = useValidateUser();
 
   useEffect(() => {
     accessToken &&

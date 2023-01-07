@@ -6,7 +6,7 @@ import Navbar2 from "../navbar/navBar2";
 import { useValidateUser } from "../../customHooks/validate-user";
 
 const VentasAdmin = () => {
-  const [, /*isAuthenticated*/ isAdmin, accessToken] = useValidateUser();
+  const { /*isAuthenticated*/ isAdmin, accessToken } = useValidateUser();
   const [error, setError] = useState({});
   const [data, setData] = useState();
   const [filters, setFilters] = useState({ order: "DESC", show: "all" });
