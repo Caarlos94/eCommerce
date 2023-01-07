@@ -9,6 +9,7 @@ import { useValidateUser } from "../../customHooks/validate-user.js";
 // import e from "cors";
 
 const SuperAdmin = (props) => {
+  const postAdminUrl = "http://localhost:3001/superAdmin/addAdminRole";
   const [deleteAdmins, DeleteAdmins] = useState([]);
   const [admins, setAdmins] = useState([]);
   const [newAdmin, setNewAdmin] = useState({ email: "", idType: "googleId" });
@@ -16,7 +17,17 @@ const SuperAdmin = (props) => {
   const [timer, setTimer] = useState(null);
   const [disable, setDisable] = useState(true);
 
-  const handleChange = (e) => {
+  const { accessToken, isSuperAdmin } = useValidateUser();
+
+  const handleChangeNewAdmin = (e) => {
+    if (e.target.name === "idType") {
+      setNewAdmin((prevState) => ({
+        ...prevState,
+        [e.target.name]: e.target.value,
+      }));
+      return;
+    }
+
     setDisable(true);
 
     setNewAdmin((prevState) => ({
@@ -46,110 +57,138 @@ const SuperAdmin = (props) => {
     setTimer(newTimer);
   };
 
-  useEffect(async () => {
-    // const admins = '';
-    const result = await axios.get(
-      "http://localhost:3001/superAdmin/fetchRoles"
-    );
+  // useEffect(async () => {
+  //   // const admins = '';
+  //   const result = await axios.get(
+  //     "http://localhost:3001/superAdmin/fetchRoles"
+  //   );
 
-    setAdmins(result.data);
+  //   setAdmins(result.data);
 
-    // console.log(result.data);
-  }, []);
+  //   // console.log(result.data);
+  // }, []);
 
   const deleteAd = (params) => {
     DeleteAdmins([...deleteAdmins, params]);
   };
 
-  const Delete = async () => {
-    // console.log(deleteAdmins);
-    const adminsdeletes = await axios.post(
-      "http://localhost:3001/superAdmin/removeAdmin",
-      deleteAdmins
-    );
+  // const Delete = async () => {
+  //   //NECESITA PASAR TOKEN DE ACCESSO
+  //   const adminsdeletes = await axios.post(
+  //     "http://localhost:3001/superAdmin/removeAdmin",
+  //     deleteAdmins
+  //   );
 
-    if (adminsdeletes.data) {
-      setTimeout(async () => {
-        const result = await axios.get(
-          "http://localhost:3001/superAdmin/fetchRoles"
-        );
+  //   if (adminsdeletes.data) {
+  //     setTimeout(async () => {
+  //       const result = await axios.get(
+  //         "http://localhost:3001/superAdmin/fetchRoles"
+  //       );
 
-        setAdmins(result.data);
-      }, 100);
-    }
-  };
+  //       setAdmins(result.data);
+  //     }, 100);
+  //   }
+  // };
 
-  const handleSubmit = (e) => {
+  const handleSubmitNewAdmin = (e) => {
     e.preventDefault();
-    console.log("submitted");
+    console.log(newAdmin);
+
+    // fetch(`${postAdminUrl}`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${accessToken}`,
+    //   },
+    //   body: newAdmin,
+    // })
+    //   .then((response) => response.json())
+    //   .then((response) => {
+    //     if (response.error) {
+    //       console.log(response.error);
+    //     }
+    //   });
   };
 
   return (
-    <div className={style.divPadre}>
-      <Navbar2></Navbar2>
-      <div className={style.divAdmins}>
-        <h2>usuarios con rol admin</h2>
-        <div>
-          {admins?.map((element) => {
-            return (
-              <div className={style.admin} key={element.user_id}>
-                <h5>{element.email}</h5>
-                <h5>{element.name}</h5>
-                <button
-                  onClick={() => deleteAd(element.user_id)}
-                  className={style.buttonAdmins}
-                >
-                  eliminar admin
-                </button>
-              </div>
-            );
-          })}
-          <button onClick={() => Delete()} className={style.admins}>
-            delete admins
-          </button>
-        </div>
-      </div>
-      <div className={style["add-role-container"]}>
-        <div className={style["add-title"]}></div>
-        <div className={style["add-role-form"]}>
-          <p>Agregar permisos de Admin a usuarios:</p>
-          <form onSubmit={handleSubmit}>
-            <div className={style["email-input"]}>
-              <label htmlFor="email">email:</label>
-              <br />
-              <input
-                onChange={handleChange}
-                autoComplete="off"
-                placeholder=" Ej: test@test.com"
-                name="email"
-                type="text"
-                value={newAdmin.email}
-              />
+    <>
+      {isSuperAdmin ? (
+        <div className={style.divPadre}>
+          <Navbar2></Navbar2>
+          <div className={style.divAdmins}>
+            <h2>usuarios con rol admin</h2>
+            <div>
+              {admins?.map((element) => {
+                return (
+                  <div className={style.admin} key={element.user_id}>
+                    <h5>{element.email}</h5>
+                    <h5>{element.name}</h5>
+                    <button
+                      onClick={() => deleteAd(element.user_id)}
+                      className={style.buttonAdmins}
+                    >
+                      eliminar admin
+                    </button>
+                  </div>
+                );
+              })}
+              <button
+              //  onClick={() => Delete()} className={style.admins}
+              >
+                delete admins
+              </button>
             </div>
-            {!emailIsValid && newAdmin.email.length ? (
-              <div className={style["email-warning"]}>
-                El correo ingresado es inválido
-              </div>
-            ) : (
-              ""
-            )}
-            <div className={style["id-select"]}>
-              <label htmlFor="login">Tipo de login:</label>
-              <br />
-              <select onChange={handleChange} name="idType" selected="googleId">
-                <option value="googleId">googleId</option>
-                <option value="auth0Id">auth0Id</option>
-              </select>
-            </div>
-            <div className={style["add-submit"]}>
-              <button disabled={disable}>Agregar a role Admin</button>
-            </div>
-          </form>
-        </div>
+          </div>
+          <div className={style["add-role-container"]}>
+            <div className={style["add-title"]}></div>
+            <div className={style["add-role-form"]}>
+              <p>Agregar permisos de Admin a usuarios:</p>
 
-        <div></div>
-      </div>
-    </div>
+              <form onSubmit={handleSubmitNewAdmin}>
+                <div className={style["email-input"]}>
+                  <label htmlFor="email">email:</label>
+                  <br />
+                  <input
+                    onChange={handleChangeNewAdmin}
+                    autoComplete="off"
+                    placeholder=" Ej: test@test.com"
+                    name="email"
+                    type="text"
+                    value={newAdmin.email}
+                  />
+                </div>
+                {!emailIsValid && newAdmin.email.length ? (
+                  <div className={style["email-warning"]}>
+                    El correo ingresado es inválido
+                  </div>
+                ) : (
+                  ""
+                )}
+                <div className={style["id-select"]}>
+                  <label htmlFor="login">Tipo de login:</label>
+                  <br />
+                  <select
+                    onChange={handleChangeNewAdmin}
+                    name="idType"
+                    selected="googleId"
+                  >
+                    <option value="googleId">googleId</option>
+                    <option value="auth0Id">auth0Id</option>
+                  </select>
+                </div>
+                <div className={style["add-submit"]}>
+                  <button disabled={disable}>Agregar a role Admin</button>
+                </div>
+              </form>
+            </div>
+
+            <div></div>
+          </div>
+        </div>
+      ) : (
+        "Sólo disponible para usuarios con role de Super Admin"
+      )}
+    </>
   );
 };
 

@@ -54,7 +54,16 @@ const Navbar = ({ setPages }) => {
 
   const [isOpen, SetOpen] = useState(false);
 
-  user && dispatch(importUser(user));
+  useEffect(() => {
+    user &&
+      fetch("http://localhost:3001/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+  }, [user]);
 
   // {console.log(user)}
 
