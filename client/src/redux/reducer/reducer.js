@@ -18,16 +18,18 @@ import {
   CLEAR_CART,
   ADD_TO_FAVORITE,
   REMOVE_FROM_FAVORITE,
+  GET_REVIEWS,
 } from '../actions/actions.js';
 
 const initialState = {
   products: [],
   productsHome: [],
-  favorites: JSON.parse(localStorage.getItem('fav')) || [],
+  favorites: [],
   details: [],
   users: [],
-  cart: JSON.parse(localStorage.getItem('cart')) || [],
+  cart: [],
   categorys: [],
+  reviews: [],
   categoria: 'todas',
   ordenamiento: 'ninguno',
   marca: 'todas',
@@ -80,6 +82,12 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         details: action.payload,
+      };
+
+    case GET_REVIEWS:
+      return {
+        ...state,
+        reviews: action.payload,
       };
 
     case LIMPIAR_SATE:
@@ -141,7 +149,7 @@ const rootReducer = (state = initialState, action) => {
               //compara dos valores, en este caso los dos precios
               if (parseInt(a.precio) > parseInt(b.precio)) return 1; //los va posicionando a la derecha
               if (parseInt(a.precio) < parseInt(b.precio)) return -1; //o a la izquierda
-              return 0; //o si son iguales los deja así
+              return 0; //o si son iguales los deja asÃ­
             })
           : state.productsHome.sort((a, b) => {
               if (parseInt(a.precio) > parseInt(b.precio)) return -1;
@@ -449,108 +457,56 @@ const rootReducer = (state = initialState, action) => {
         (product) => product.id === newProduct.id
       );
 
-      // productInCart
-      //   ? {
-      //       ...state,
-      //       cart: state.cart.map((c) =>
-      //         c.id === newProduct.id ? { ...c, cantidad: c.cantidad + 1 } : c
-      //       ),
-      //     }
-      //   : {
-      //       ...state,
-      //       cart: [...state.cart, { ...newProduct, cantidad: 1 }],
-      //     };
-
-      if (productInCart) {
-        state = {
-          ...state,
-          cart: state.cart.map((c) =>
-            c.id === newProduct.id ? { ...c, cantidad: c.cantidad + 1 } : c
-          ),
-        };
-      } else {
-        state = {
-          ...state,
-          cart: [...state.cart, { ...newProduct, cantidad: 1 }],
-        };
-      }
-
-      localStorage.setItem('cart', JSON.stringify(state.cart));
-      // console.log(JSON.parse(localStorage.getItem('cart')));
-
-      return state;
+      return productInCart
+        ? {
+            ...state,
+            cart: state.cart.map((c) =>
+              c.id === newProduct.id ? { ...c, cantidad: c.cantidad + 1 } : c
+            ),
+          }
+        : {
+            ...state,
+            cart: [...state.cart, { ...newProduct, cantidad: 1 }],
+          };
 
     case REMOVE_ONE_FROM_CART:
       let productToDelete = state.cart.find(
         (product) => product.id === action.payload
       );
-      // productToDelete.cantidad > 1
-      //   ? {
-      //       ...state,
-      //       cart: state.cart.map((c) =>
-      //         c.id === action.payload ? { ...c, cantidad: c.cantidad - 1 } : c
-      //       ),
-      //     }
-      //   : {
-      //       ...state,
-      //       cart: state.cart.filter((c) => c.id !== action.payload),
-      //     };
-      if (productToDelete.cantidad > 1) {
-        state = {
-          ...state,
-          cart: state.cart.map((c) =>
-            c.id === action.payload ? { ...c, cantidad: c.cantidad - 1 } : c
-          ),
-        };
-      } else {
-        state = {
-          ...state,
-          cart: state.cart.filter((c) => c.id !== action.payload),
-        };
-      }
-      localStorage.setItem('cart', JSON.stringify(state.cart));
-      return state;
+      //console.log(productToDelete);
+      return productToDelete.cantidad > 1
+        ? {
+            ...state,
+            cart: state.cart.map((c) =>
+              c.id === action.payload ? { ...c, cantidad: c.cantidad - 1 } : c
+            ),
+          }
+        : {
+            ...state,
+            cart: state.cart.filter((c) => c.id !== action.payload),
+          };
     case ADD_ONE_TO_CART:
       let productToAdd = state.cart.find(
         (product) => product.id === action.payload
       );
-      // productToAdd.cantidad >= 1
-      //   ? {
-      //       ...state,
-      //       cart: state.cart.map((c) =>
-      //         c.id === action.payload ? { ...c, cantidad: c.cantidad + 1 } : c
-      //       ),
-      //     }
-      //   : {
-      //       ...state,
-      //       cart: state.cart.filter((c) => c.id !== action.payload),
-      //     };
-      if (productToAdd.cantidad >= 1) {
-        state = {
-          ...state,
-          cart: state.cart.map((c) =>
-            c.id === action.payload ? { ...c, cantidad: c.cantidad + 1 } : c
-          ),
-        };
-      } else {
-        state = {
-          ...state,
-          cart: state.cart.filter((c) => c.id !== action.payload),
-        };
-      }
-      localStorage.setItem('cart', JSON.stringify(state.cart));
-      return state;
+      return productToAdd.cantidad >= 1
+        ? {
+            ...state,
+            cart: state.cart.map((c) =>
+              c.id === action.payload ? { ...c, cantidad: c.cantidad + 1 } : c
+            ),
+          }
+        : {
+            ...state,
+            cart: state.cart.filter((c) => c.id !== action.payload),
+          };
     case REMOVE_ALL_FROM_CART:
       return {
         ...state,
         cart: state.cart.filter((c) => c.id !== action.payload),
       };
     case CLEAR_CART:
-      localStorage.setItem('cart', JSON.stringify([]));
-      return {
-        ...state,
-        cart: [],
-      };
+      return initialState;
     case ADD_TO_FAVORITE:
       let newFavorite = state.details.find(
         (product) => product.id === action.payload
@@ -559,28 +515,16 @@ const rootReducer = (state = initialState, action) => {
         (product) => product.id === newFavorite.id
       );
 
-      // productInFavorite
-      //   ? { ...state }
-      //   : {
-      //       ...state,
-      //       favorites: [...state.favorites, newFavorite],
-      //     };
-
-      if (productInFavorite) {
-        state = { ...state };
-      } else {
-        state = { ...state, favorites: [...state.favorites, newFavorite] };
-      }
-
-      localStorage.setItem('fav', JSON.stringify(state.favorites));
-      // console.log(JSON.parse(localStorage.getItem('fav')));
-      console.log(state.favorites);
-      return state;
+      return productInFavorite
+        ? { ...state }
+        : {
+            ...state,
+            favorites: [...state.favorites, newFavorite],
+          };
     case REMOVE_FROM_FAVORITE:
       let productToRemove = state.favorites.find(
         (product) => product.id === action.payload
       );
-      // localStorage.setItem('fav', JSON.stringify(state.favorites));
       return {
         ...state,
         favorites: state.favorites.filter(

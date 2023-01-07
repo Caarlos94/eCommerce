@@ -7,7 +7,9 @@ const customerQARouter = require('./customerQARouter');
 const adminQARouter = require('./adminQARouter');
 const categoryRouter = require('./categoryRouter');
 const compraRouter = require('./compraRouter');
+const axios = require('axios');
 const favoritosRouter = require('./favoritosRouter');
+
 const router = Router();
 const mercadopago = require('mercadopago');
 const express = require('express');
@@ -20,6 +22,7 @@ router.use('/customerQA', customerQARouter);
 router.use('/adminQA', adminQARouter);
 router.use('/category', categoryRouter);
 router.use('/favoritos', favoritosRouter);
+
 router.use('/compras', compraRouter);
 
 mercadopago.configure({
@@ -29,10 +32,16 @@ mercadopago.configure({
 });
 
 let obj = {};
+let GuardarComprasDB = {
+  clienteId: '',
+  productos: [],
+};
 
 router.post('/pagosMeli', async (req, res) => {
   let items = req.body.items;
-  obj = items;
+  let idUsuario = req.body.idUsuario;
+
+  // obj = items
   let itemsArr = [];
   if (items[0].stock > 0) {
     items.forEach((item) =>
@@ -51,16 +60,29 @@ router.post('/pagosMeli', async (req, res) => {
     items: itemsArr,
     back_urls: {
       success: 'http://localhost:3001/redirect',
-      failure: 'http://localhost:3001/redirect',
-      pending: 'http://localhost:3001/redirect',
     },
   };
+
+  obj = items;
+
+  GuardarComprasDB.clienteId = idUsuario;
+
+  let arr = [];
+
+  items.forEach((elem) => {
+    const obj = {};
+    (obj.prodId = elem.id), (obj.cantidad = elem.cantidad);
+    arr.push(obj);
+  });
+
+  GuardarComprasDB.productos = arr;
+
+  console.log(obj);
+  console.log(GuardarComprasDB);
 
   mercadopago.preferences
     .create(preference)
     .then(function (response) {
-      // console.log(response.body);
-      /* res.redirect(response.body.init_point) */
       res.json(response.body.init_point);
     })
     .catch(function (error) {
@@ -83,11 +105,22 @@ router.get('/redirect', async (req, res) => {
     });
 
     try {
+      const ComprasGuardadas = await axios.post(
+        'http://localhost:3001/compras',
+        GuardarComprasDB
+      );
+
       res.redirect('http://localhost:3000');
     } catch (error) {
       res.status(400).send(error.message);
     }
   }
 });
+
+router.use('/products', productRouter);
+router.use('/user', userRouter);
+
+// Configurar los routers
+// Ejemplo: router.use('/auth', authRouter);
 
 module.exports = router;

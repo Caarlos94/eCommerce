@@ -1,23 +1,23 @@
-import React, { useState } from "react";
-import classes from "./VentaCard.module.css";
-import ProductCard from "./ProductCard";
+import React, { useState } from 'react';
+import classes from './VentaCard.module.css';
+import ProductCard from './ProductCard';
 
 const VentaCard = ({ data, accessToken }) => {
   const { cliente } = data;
   const [sent, setSent] = useState({
     didClick: false,
     didNotify: data.enviado,
-    trackingNumber: "",
-    feedback: "",
+    trackingNumber: '',
+    feedback: '',
   });
 
   const [responseError, setResponseError] = useState({
     error: false,
-    msg: "",
+    msg: '',
   });
   const [trackingError, setTrackingError] = useState({
     error: false,
-    msg: "",
+    msg: '',
   });
   const [didFocus, setDidFocus] = useState(false);
 
@@ -30,11 +30,11 @@ const VentaCard = ({ data, accessToken }) => {
     e.target.value.length < 8
       ? setTrackingError({
           error: true,
-          msg: "El localizador debe tener más de 8 digitos",
+          msg: 'El localizador debe tener más de 8 digitos',
         })
       : setTrackingError({
           error: false,
-          msg: "",
+          msg: '',
         });
 
     setSent((prevState) => ({ ...prevState, trackingNumber: e.target.value }));
@@ -52,9 +52,9 @@ const VentaCard = ({ data, accessToken }) => {
     }));
 
     fetch(`http://localhost:3001/compras/adminSales/${data.purchaseId}`, {
-      method: "PUT",
+      method: 'PUT',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify({
@@ -68,44 +68,53 @@ const VentaCard = ({ data, accessToken }) => {
         setSent((prevState) => ({
           ...prevState,
           feedback: data,
-          trackingNumber: "",
+          trackingNumber: '',
         }));
       });
   };
 
   return (
     <div className={classes.container}>
-      <div className={classes["left-side-container"]}>
-        <div className={classes["sent-date-container"]}>
-          <p className={classes["bold-text"]}>
-            {sent.didNotify ? "Enviado" : "Por enviar"}
+      <div className={classes['left-side-container']}>
+        <div className={classes['sent-date-container']}>
+          <p className={classes['bold-text']}>
+            {sent.didNotify ? 'Enviado' : 'Por enviar'}
           </p>
           <p>Fecha de compra: {data.fecha}</p>
         </div>
-        <div className={classes["products-container"]}>
+        <div className={classes['products-container']}>
           {data.productos.map((producto) => (
-            <ProductCard key={producto.productoId} data={producto} />
+            <ProductCard
+              key={producto.productoId}
+              data={producto}
+              clienteId={cliente.clienteId} // solo de prueba
+              enviado={data.enviado} // solo de prueba
+            />
           ))}
         </div>
       </div>
-      <div className={classes["right-side-container"]}>
-        <div className={classes["client-container"]}>
-          <p className={classes["bold-text"]}>{cliente.nickname}</p>
-          <p>Correo: {cliente.email || "null"}</p>
-          <p>Teléfono: {cliente.cel || "null"}</p>
-          <p>Dirección: {cliente.address || "null"}</p>
-          <p>Código postal: {cliente.zipCode || "null"}</p>
+      <div className={classes['right-side-container']}>
+        <div className={classes['client-container']}>
+          <p className={classes['bold-text']}>{cliente.nickname}</p>
+          <p className={classes['info']}>Correo: {cliente.email || 'null'}</p>
+          <p className={classes['info']}>Teléfono: {cliente.cel || 'null'}</p>
+          <p className={classes['info']}>
+            Dirección: {cliente.address || 'null'}
+          </p>
+          <p className={classes['info']}>
+            Código postal: {cliente.zipCode || 'null'}
+          </p>
         </div>
-        <div className={classes["mark-sent-container"]}>
+        <div className={classes['mark-sent-container']}>
           {!sent.didNotify && !sent.didClick ? (
             <button onClick={handleClick}>Notificar envío</button>
           ) : (
-            ""
+            ''
           )}
           {sent.didNotify && !sent.didClick ? (
             <button onClick={handleClick}>Modificar localizador</button>
           ) : (
-            ""
+            ''
           )}
           {responseError.error && <p>{responseError.msg}</p>}
           {sent.didClick ? (
@@ -125,14 +134,18 @@ const VentaCard = ({ data, accessToken }) => {
               </form>
             </div>
           ) : (
-            ""
+            ''
           )}
           {sent.didNotify ? (
             <p className={classes.feedback}>{sent.feedback}</p>
           ) : (
-            ""
+            ''
           )}
-          {trackingError.error ? <p>{trackingError.msg}</p> : ""}
+          {trackingError.error && sent.trackingNumber.length ? (
+            <p>{trackingError.msg}</p>
+          ) : (
+            ''
+          )}
         </div>
       </div>
     </div>

@@ -2,16 +2,16 @@ import style from './updateProd.module.css'
 import Navbar2 from '../navbar/navBar2'
 import Footer from '../Footer/Footer'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router';
-import { useEffect, useState } from 'react';
-import { getCategorys, getProducts, getProducts2, updateProduct } from '../../redux/actions/actions';
+import { useHistory, useParams } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import { getProducts, getProducts2, updateProduct } from '../../redux/actions/actions';
 
 const validate = (input, prods) => {
     let errors = {};
     if (input.nombre) {
         if (!/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(input.nombre)) {
             errors.nombre =
-                "Este dato es incorrecto... Es obligatorio, no se permiten caracteres especiales o números.";
+                "No se permiten caracteres especiales o números.";
         }
         if (prods.some((e) => e.nombre.toUpperCase() === input.nombre.toUpperCase())) {
             errors.nombre = "Este producto ya existe!";
@@ -20,37 +20,37 @@ const validate = (input, prods) => {
     if (input.URL) {
         if (!/(https?:\/\/.*\.(?:png|jpg|jpeg))/i.test(input.URL)) {
             errors.URL =
-                "Este dato es obligatorio, solo permite imágenes de tipo .jpg/.png/.jpeg";
+                "Solo se permite imágenes de tipo .jpg/.png/.jpeg";
         }
     }
     if (input.precio) {
         if (input.precio < 1) {
             errors.precio =
-                "Este dato es obligatorio, solo permite números mayores a uno.";
+                "Solo se permite números mayores a uno.";
         }
     }
     if (input.color) {
         if (!/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(input.color)) {
             errors.color =
-                "Este dato es obligatorio, no se permiten caracteres especiales, números o espacios.";
+                "Solo se permiten caracteres especiales, números o espacios.";
         }
     }
     if (input.talla) {
-        if (!/^[A-Za-z0-9\s]+$/.test(input.talla)) {
+        if (!(input.talla === 'S' || input.talla === 'M' || input.talla === 'L' || input.talla === 'XL' || input.talla === 'XXL')) {
             errors.talla =
-                "Este dato es obligatorio, no se permiten caracteres especiales.";
+                "Solo se permiten los talles S-M-L-XL-XXL.";
         }
     }
     if (input.marca) {
         if (!/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(input.marca)) {
             errors.marca =
-                "Este dato es obligatorio, no se permiten caracteres especiales o números.";
+                "No se permiten caracteres especiales o números.";
         }
     }
     if (input.stock) {
         if (input.stock < 0 || !/^[0-9]+$/.test(input.stock)) {
             errors.stock =
-                "Este dato es obligatorio, solo permite números entero y mayor o igual 0.";
+                "Solo se permiten números entero y mayor o igual 0.";
         }
     }
     return errors;
@@ -59,12 +59,18 @@ const validate = (input, prods) => {
 export default function UpdateProd() {
     const dispatch = useDispatch();
     const prods = useSelector((state) => state.products);
-    const detailId = useSelector((state) => state.details[0].id);
+    const { id } = useParams();
 
+    useEffect(() => {
+        dispatch(getProducts());
+    }, [dispatch]);
+
+
+    console.log(id);
     const history = useHistory();
     const [errors, setErrors] = useState({});
     const [input, setInput] = useState({
-        id: detailId,
+        id: id,
         nombre: "",
         URL: "",
         precio: "",
@@ -74,10 +80,7 @@ export default function UpdateProd() {
         stock: "",
     });
 
-    useEffect(() => {
-        dispatch(getProducts());
-        dispatch(getCategorys())
-    }, [dispatch]);
+
 
     const handlerChange = (e) => {
         setInput({
@@ -85,24 +88,21 @@ export default function UpdateProd() {
             [e.target.name]: e.target.value,
         });
         setErrors(
-            validate(
-                {
-                    ...input,
-                    [e.target.name]: e.target.value,
-                },
-                prods
-            )
-        );
+            validate({
+                ...input,
+                [e.target.name]: e.target.value,
+            }, prods
+            ));
     };
 
     const handlerSubmit = (e) => {
         e.preventDefault();
         console.log(input);
-        dispatch(updateProduct(input));
+        dispatch(updateProduct(input, id));
         setTimeout(() => dispatch(getProducts2()), 100);
         alert("Producto actualizado con éxito! Se te redirigirá al inicio...");
         setInput({
-            id: detailId,
+            id: id,
             nombre: "",
             URL: "",
             precio: "",
@@ -116,15 +116,16 @@ export default function UpdateProd() {
 
     return (
         <div>
-            {/* {console.log(prods.some((e) => e))} */}
             <Navbar2 />
             <div className={style.content}>
                 <h1>Editor de Productos</h1>
+                <h5>(Deje el cuadro vacío en caso de querer el valor previamente establecido.)</h5>
                 <div className={style.forms}>
                     <form onSubmit={(e) => handlerSubmit(e)}>
                         <div className={style.inputI}>
                             <label>Nombre: </label>
                             <input
+                                /* placeholder={`Anterior: ${detail.nombre}`} */
                                 type="text"
                                 name="nombre"
                                 value={input.nombre}
@@ -136,6 +137,7 @@ export default function UpdateProd() {
                         <div className={style.inputI}>
                             <label>Imagen: </label>
                             <input
+                                /* placeholder={`Anterior: ${detail.URL}`} */
                                 type="text"
                                 value={input.URL}
                                 name="URL"
@@ -152,6 +154,7 @@ export default function UpdateProd() {
                         <div className={style.inputI}>
                             <label>Precio </label>
                             <input
+                                /* placeholder={`Anterior: ${detail.precio}`} */
                                 type="number"
                                 value={input.precio}
                                 name="precio"
@@ -163,6 +166,7 @@ export default function UpdateProd() {
                         <div className={style.inputI}>
                             <label>Color: </label>
                             <input
+                                /* placeholder={`Anterior: ${detail.color}`} */
                                 type="text"
                                 value={input.color}
                                 name="color"
@@ -174,6 +178,7 @@ export default function UpdateProd() {
                         <div className={style.inputI}>
                             <label>Talla: </label>
                             <input
+                                /* placeholder={`Anterior: ${detail.talla}`} */
                                 type="text"
                                 value={input.talla}
                                 name="talla"
@@ -185,6 +190,7 @@ export default function UpdateProd() {
                         <div className={style.inputI}>
                             <label>Marca: </label>
                             <input
+                                /* placeholder={`Anterior: ${detail.marca}`} */
                                 type="text"
                                 value={input.marca}
                                 name="marca"
@@ -196,6 +202,7 @@ export default function UpdateProd() {
                         <div className={style.inputI}>
                             <label>Stock: </label>
                             <input
+                                /* placeholder={`Anterior: ${detail.stock}`} */
                                 type="number"
                                 value={input.stock}
                                 name="stock"

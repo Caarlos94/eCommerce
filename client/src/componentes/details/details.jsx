@@ -9,6 +9,7 @@ import {
   removeFromFavorite,
   deleteProd,
   getProducts,
+  getReviews,
 } from '../../redux/actions/actions.js';
 import { NavLink, useParams, useHistory } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
@@ -19,17 +20,21 @@ import { useAuth0 } from '@auth0/auth0-react';
 import jwt_decode from 'jwt-decode';
 import Navbar2 from '../navbar/navBar2';
 import Footer from '../Footer/Footer';
+import Reviews from '../Reviews/Reviews';
 
 const Details = () => {
   const dispatch = useDispatch();
   /* const carrito = useSelector((state) => state.cart) */
   const history = useHistory();
+  const reviews = useSelector((state) => state.reviews);
 
+  console.log(reviews);
   let { id } = useParams();
 
   useEffect(() => {
     dispatch(limpiarState());
     dispatch(getDetails(id));
+    dispatch(getReviews(id));
     return function () {
       dispatch(getProducts());
     };
@@ -37,6 +42,7 @@ const Details = () => {
 
   const details = useSelector((state) => state.details);
   const [isAdmin, setIsAdmin] = useState(false);
+
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
@@ -56,22 +62,19 @@ const Details = () => {
 
   const handleSubmit = (id) => {
     dispatch(addToCart(id));
-    alert('Añadido con éxito al carrito');
   };
 
   const handleDelete = (id) => {
     console.log(id + ' ELIMINADO');
     dispatch(deleteProd(id)).then(
-      alert('Producto publicado con éxito! Se te redirigirá al inicio...')
+      alert('Producto eliminado con éxito! Se te redirigirá al inicio...')
     );
     history.push('/');
   };
-  const [isAdd, setIsAdd] = useState(localStorage.getItem('fav2') || false);
+  const [isAdd, setIsAdd] = useState(false);
 
   const handleAdd = (id) => {
     setIsAdd((prev) => !prev);
-    localStorage.setItem('fav2', isAdd);
-
     // dispatch(addToFavorite(id));
     if (isAdd === false) {
       dispatch(addToFavorite(id));
@@ -79,8 +82,6 @@ const Details = () => {
       dispatch(removeFromFavorite(id));
     }
   };
-
-  // console.log(JSON.parse(localStorage.getItem('fav')));
 
   return (
     <div>
@@ -99,8 +100,8 @@ const Details = () => {
             </div>
             <div className={s.textCont}>
               <div className={s.productDesc}>
-                <h2>{details[0].nombre.toUpperCase()}</h2>
-                <h3>${details[0].precio} U$D</h3>
+                <h2 className={s.h2}>{details[0].nombre.toUpperCase()}</h2>
+                <h3>${details[0].precio}</h3>
                 <h5>Marca: {details[0].marca}</h5>
                 <h5>Color: {details[0].color}</h5>
                 <h5>Talla: {details[0].talla.toUpperCase()}</h5>
@@ -137,7 +138,10 @@ const Details = () => {
                     <img src={trash} alt=""></img>
                   </button>
 
-                  <NavLink to="/updateProd" style={{ textDecoration: 'none' }}>
+                  <NavLink
+                    to={`/updateProd/${id}`}
+                    style={{ textDecoration: 'none' }}
+                  >
                     <img src={edit} alt=""></img>
                   </NavLink>
                 </div>
@@ -146,6 +150,9 @@ const Details = () => {
           </div>
           <div className={s.qyaCont}>
             <QASection productId={id} />
+          </div>
+          <div className={s.valoraciones}>
+            <Reviews reviews={reviews} />
           </div>
         </div>
       ) : (
@@ -158,7 +165,6 @@ const Details = () => {
           <div></div>
         </div>
       )}
-
       <Footer />
     </div>
   );

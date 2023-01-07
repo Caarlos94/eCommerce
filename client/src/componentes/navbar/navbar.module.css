@@ -339,8 +339,8 @@
 
   .searchBar {
     width: 300px;
-    position: absolute;
-    top: 5%;
+    position: relative;
+    top: -59%;
     right: 15%;
     display: flex;
     flex-direction: column;
@@ -351,6 +351,10 @@
     width: 200px;
     border-radius: 10px;
     margin-left: 50px;
+  }
+
+  .btns {
+    border: 1px solid green;
   }
 
   .publicar button {
@@ -372,9 +376,10 @@
   .historial button {
     width: 190px;
     height: 38px;
-    position: absolute;
+    position: relative;
+    border: 3px solid red;
     top: 1220%;
-    right: 45%;
+    left: 10px;
     padding: 5px 10px;
     border-radius: 5px;
     background-color: black;
@@ -404,6 +409,110 @@
     border-radius: 2px;
     transform-origin: 5px 0px;
     transition: all 0.2s linear;
+  }
+
+  .btns {
+    position: absolute;
+    top: -65px;
+    margin-right: 17%;
+    width: 40%;
+    height: 50px;
+    display: flex;
+    left: 25%;
+    filter: invert(100%);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .black {
+    width: 100%;
+    height: 70%;
+    background-color: black;
+  }
+
+  .btns {
+    border: 1px solid green;
+    width: 100%;
+  }
+
+  .Hamburguesa {
+    display: flex !important;
+    flex-direction: column;
+    margin: 5px;
+    position: relative;
+    left: 5%;
+    top: 27px;
+    cursor: pointer;
+    width: 30px;
+  }
+
+  .Hamburguesa span {
+    width: 30px;
+    height: 4px;
+    background-color: white;
+    margin-bottom: 5px;
+    border-radius: 2px;
+    transform-origin: 5px 0px;
+    transition: all 0.2s linear;
+  }
+
+  .filtros {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: -8%;
+    left: 0%;
+  }
+
+  .searchBar {
+    width: 40%;
+    height: 40px;
+    position: relative;
+    top: -67%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .admin {
+    width: 1000px;
+    border-radius: 10px;
+    margin-left: 50px;
+    border: 2px solid yellow;
+  }
+
+  .publicar button {
+    width: 190px;
+    height: 38px;
+    position: absolute;
+    top: 1600%;
+    right: 15%;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: black;
+    border-color: black;
+    color: white;
+    font-weight: bold;
+    transition: all 0.4s;
+    filter: invert(100%);
+  }
+
+  .historial button {
+    width: 190px;
+    height: 38px;
+    position: absolute;
+    top: 1470%;
+    right: 15%;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: black;
+    border-color: black;
+    color: white;
+    font-weight: bold;
+    transition: all 0.4s;
+    filter: invert(100%);
   }
 
   .btns {

@@ -156,6 +156,12 @@ const Navbar2 = ({ setPages }) => {
                   </div>
                 </NavLink>
               )}
+
+              <div className={style.publicar}>
+                <NavLink to="/historial" style={{ textDecoration: "none" }}>
+                  <button>Historial de Compras</button>
+                </NavLink>
+              </div>
             </>
           )}
         </div>

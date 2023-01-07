@@ -1,0 +1,18 @@
+.divPadre {
+  margin: 40px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.divPadre h2 {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .divPadre {
+    margin: 10px;
+  }
+}
