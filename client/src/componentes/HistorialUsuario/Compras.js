@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import style from "./HistorialUsuario.module.css";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import style from './Compras.module.css';
+import { Link } from 'react-router-dom';
 
 const Compras = (props) => {
   const { enviado } = props;
@@ -26,24 +26,28 @@ const Compras = (props) => {
 
   return (
     <div key={props.nombre} className={style.div}>
-      <img src={props.URL} alt="imagen de producto" />
-      <h4>{props.nombre}</h4>
-      <h5>marca: {props.marca}</h5>
-      <h5>fecha: {props.fecha}</h5>
-      <h5>precio: {props.precio}</h5>
-      <h5>talla: {props.talla}</h5>
-      <h5>numero de envio: {props.localizador}</h5>
+      <div className={style.imgCont}>
+        <img src={props.URL} alt="imagen de producto" />
+      </div>
+      <div className={style.textCont}>
+        <h4>{props.nombre}</h4>
+        <h5>Marca: {props.marca}</h5>
+        <h5>Fecha: {props.fecha}</h5>
+        <h5>Precio: {props.precio}</h5>
+        <h5>Talla: {props.talla}</h5>
+        <h5>Numero de envio: {props.localizador}</h5>
+      </div>
       {enviado && !didReview ? (
         <Link
           to={{
-            pathname: "/review-form",
+            pathname: '/review-form',
             state: { producto: props, clienteId },
           }}
         >
           <button>aca va la logica del review</button>
         </Link>
       ) : (
-        ""
+        ''
       )}
     </div>
   );

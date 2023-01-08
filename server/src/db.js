@@ -60,9 +60,6 @@ const { Producto, Categoria, Cliente, Pregunta, Compra, Review } =
 Producto.belongsToMany(Categoria, { through: 'producto_categoria' });
 Categoria.belongsToMany(Producto, { through: 'producto_categoria' });
 
-// Cliente.belongsToMany(Producto, { through: "compras" });
-// Producto.belongsToMany(Cliente, { through: "compras" });
-
 Producto.hasMany(Pregunta);
 Pregunta.belongsTo(Producto);
 
@@ -80,13 +77,22 @@ const Compra_Producto = sequelize.define(
   { timestamps: false }
 );
 
+/* const Carrito = sequelize.define("Carrito", {}, { timestamps: false });
+Cliente.belongsToMany(Producto, { through: Carrito });
+Producto.belongsToMany(Cliente, { through: Carrito }); */
+
 const Favorito = sequelize.define('Favorito', {}, { timestamps: false });
+Cliente.belongsToMany(Producto, { through: Favorito });
+Producto.belongsToMany(Cliente, { through: Favorito });
 
 Compra.belongsToMany(Producto, { through: Compra_Producto });
 Producto.belongsToMany(Compra, { through: Compra_Producto });
 
-Cliente.belongsToMany(Producto, { through: Favorito });
-Producto.belongsToMany(Cliente, { through: Favorito });
+Cliente.hasMany(Review);
+Review.belongsTo(Cliente);
+
+Producto.hasMany(Review);
+Review.belongsTo(Producto);
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
