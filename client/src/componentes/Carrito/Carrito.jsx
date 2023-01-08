@@ -101,7 +101,7 @@ const Carrito = () => {
           Pagar ahora
         </button>
         <NavLink to={'/formCompra'}>
-          <button /* className={s.pagar} */>Llenar datos para envÃ­o</button>
+          <button /* className={s.pagar} */>Llenar datos para envío</button>
         </NavLink>
         {cart ? (
           cart.map((c) => (

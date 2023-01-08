@@ -4,8 +4,10 @@ const { Cliente, Producto, Favorito } = require('../db');
 
 favoritosRouter.post('/', async (req, res) => {
   try {
-    const { clienteId, productoId } = req.body;
-    const cliente = await Cliente.findByPk(clienteId);
+    const { email, productoId } = req.body;
+    const cliente = await Cliente.findOne({
+      where: { email },
+    });
     const producto = await Producto.findByPk(productoId);
     // console.log(cliente, producto.id);
     cliente.addProducto(producto);
@@ -20,7 +22,7 @@ favoritosRouter.get('/:email', async (req, res) => {
     const { email } = req.params;
     const cliente = await Cliente.findOne({ where: { email }, raw: true });
     //   console.log(clienteId);
-    console.log(cliente);
+    // console.log(cliente);
     const clienteId = cliente.id;
     const productos = [];
     const favoritos = await Favorito.findAll({
@@ -47,7 +49,7 @@ favoritosRouter.delete('/:clienteId/:productoId', async (req, res) => {
     const favorito = await Favorito.findOne({
       where: { clienteId, productoId },
     });
-    console.log(favorito);
+    // console.log(favorito);
     if (!favorito) throw new Error('No existe una coincidencia');
     favorito.destroy();
     res.status(200).json({

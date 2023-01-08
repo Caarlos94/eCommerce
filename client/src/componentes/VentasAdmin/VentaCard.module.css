@@ -4,8 +4,9 @@
   flex-wrap: nowrap;
   padding: 1rem;
   margin-bottom: 1.3rem;
-  min-width: 60%;
-  justify-content: space-between;
+  width: 70%;
+  justify-content: center;
+  align-items: center;
   border-radius: 0.5rem;
   box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.2);
   background-color: #edeff0;
@@ -63,6 +64,7 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  justify-content: center;
 }
 
 form label {
@@ -71,4 +73,24 @@ form label {
 
 .feedback {
   margin-top: 1rem;
+}
+
+@media (max-width: 835px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .client-container {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .right-side-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
