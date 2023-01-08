@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import s from "./details.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import s from './details.module.css';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   getDetails,
   limpiarState,
@@ -22,6 +22,7 @@ import jwt_decode from 'jwt-decode';
 import Navbar2 from '../navbar/navBar2';
 import Footer from '../Footer/Footer';
 import Reviews from '../Reviews/Reviews';
+import { Toaster, toast } from 'react-hot-toast';
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -40,10 +41,10 @@ const Details = () => {
     if (user) {
       setInput({
         email: user.email,
-        productoId: id
-      })
+        productoId: id,
+      });
     }
-  }, [user, id])
+  }, [user, id]);
 
   useEffect(() => {
     dispatch(limpiarState());
@@ -51,9 +52,10 @@ const Details = () => {
     dispatch(getReviews(id));
 
     return function () {
-      dispatch(getProducts())
-    }
+      dispatch(getProducts());
+    };
   }, [dispatch, id]);
+  user && dispatch(getFavorites(user.email));
 
 
   const details = useSelector((state) => state.details);
@@ -76,24 +78,27 @@ const Details = () => {
 
   const handleSubmit = (id) => {
     dispatch(addToCart(id));
+    toast.success('El producto fue añadido al carrito');
   };
 
   const handleDelete = (id) => {
     console.log(id + ' ELIMINADO');
-    dispatch(deleteProd(id))
-      .then(alert("Producto eliminado con éxito! Se te redirigirá al inicio..."))
-    history.push("/");
-  }
+    dispatch(deleteProd(id)).then(
+      alert('Producto eliminado con éxito! Se te redirigirá al inicio...')
+    );
+    history.push('/');
+  };
   const [isAdd, setIsAdd] = useState(false);
 
   const handleAdd = (id) => {
     user && dispatch(getFavorites(user.email))
     setIsAdd((prev) => !prev);
     if (isAdd === false) {
-      console.log(input);
-      dispatch(addToFavorite(input))
+      dispatch(addToFavorite(input));
+      toast.success('El producto se agrego a favoritos');
     } else {
       dispatch(removeFromFavorite(id));
+      toast.error('El producto se elimino de favoritos');
     }
   };
 
@@ -104,7 +109,7 @@ const Details = () => {
       <Navbar2 />
       <div>
         {details.length ? (
-          <div className={s["parent-container"]}>
+          <div className={s['parent-container']}>
             <div className={s.detailCont}>
               <div className={s.imgCont}>
                 <div className={s.img11}>
@@ -115,7 +120,6 @@ const Details = () => {
                 </div>
               </div>
               <div className={s.textCont}>
-
                 <div className={s.productDesc}>
                   <h2 className={s.h2}>{details[0].nombre.toUpperCase()}</h2>
                   <h3>${details[0].precio}</h3>
@@ -135,32 +139,36 @@ const Details = () => {
                     <button
                       disabled={details[0].stock === 0}
                       onClick={() => handleSubmit(id)}
-                      className={s.añadirCart}>
+                      className={s.añadirCart}
+                    >
                       AÑADIR AL CARRITO
                     </button>
                     {user ? (
                       <div
                         className={isAdd ? s.current : s.fav}
-                        onClick={() => handleAdd(id)}>
+                        onClick={() => handleAdd(id)}
+                      >
                         <img src={heart} alt=""></img>
                       </div>
                     ) : (
                       <div className={isAdd ? s.current : s.fav}>
                         <img src={heart} alt=""></img>
                       </div>
-
-                    )
-                    }
+                    )}
                   </div>
                 ) : (
                   <div className={s.btns}>
                     <button
                       /* value={categ} */
-                      onClick={() => handleDelete(id)}>
-                      <img src={trash} alt="" ></img>
+                      onClick={() => handleDelete(id)}
+                    >
+                      <img src={trash} alt=""></img>
                     </button>
 
-                    <NavLink to={`/updateProd/${id}`} style={{ textDecoration: "none" }}>
+                    <NavLink
+                      to={`/updateProd/${id}`}
+                      style={{ textDecoration: 'none' }}
+                    >
                       <img src={edit} alt=""></img>
                     </NavLink>
                   </div>
@@ -186,7 +194,18 @@ const Details = () => {
         )}
         <Footer />
       </div>
-    </div >
+      <Toaster
+        toastOptions={{
+          // Define default options
+          className: '',
+          duration: 3000,
+          style: {
+            background: '#fff',
+            color: '#000',
+          },
+        }}
+      />
+    </div>
   );
 };
 

@@ -1,18 +1,15 @@
-import React from "react";
-import s from "./Favorites.module.css";
+import React from 'react';
+import s from './Favorites.module.css';
 // import { useSelector, useDispatch } from "react-redux";
-import FavoriteProduct from "./FavoriteProduct";
+import FavoriteProduct from './FavoriteProduct';
 // import { removeFromFavorite } from "../../redux/actions/actions";
 import Navbar2 from "../navbar/navBar2";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
-import { getFavorites } from "../../redux/actions/actions";
-import { useDispatch, useSelector } from "react-redux";
-import { useValidateUser } from "../../customHooks/validate-user";
 
 const Favorites = () => {
   const [favoritos, setFavoritos] = useState([]);
-  const [clienteId, setClienteId] = useState("");
+  const [clienteId, setClienteId] = useState('');
 
   const { user } = useAuth0();
 

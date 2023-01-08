@@ -28,10 +28,8 @@ cartRouter.get("/:email", async (req, res) => {
       raw: true,
     });
 
-    for (let i in carrito
-) {
-      const producto = await Producto.findByPk(carrito
-[i].productoId, {
+    for (let i in carrito) {
+      const producto = await Producto.findByPk(carrito[i].productoId, {
         raw: true,
       });
       productos.push(producto);

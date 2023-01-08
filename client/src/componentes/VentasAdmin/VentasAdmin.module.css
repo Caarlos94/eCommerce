@@ -1,7 +1,6 @@
 .registro-parent-container {
   /* border: solid 3px blue; */
   padding-top: 3rem;
-  background-color: #edeff0;
   height: 100vh;
   display: flex;
   flex-direction: column;
