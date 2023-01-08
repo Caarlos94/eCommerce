@@ -44,7 +44,6 @@ const Navbar = ({ setPages }) => {
           setIsAdmin(true);
         }
         if (decoded.permissions.includes("read:users")) {
-          // verificación principalmente estética. No brinda seguridad.
           setIsSuperAdmin(true);
         }
       }

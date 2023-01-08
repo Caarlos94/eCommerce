@@ -45,3 +45,9 @@
 .admins:hover {
   filter: invert(100%);
 }
+
+.options-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
