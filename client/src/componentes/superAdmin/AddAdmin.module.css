@@ -15,7 +15,8 @@
 }
 .email-select label {
   font-weight: bold;
-  margin: 1rem;
+  margin: 1.5rem;
+  margin-bottom: 1.7rem;
 }
 
 .add-submit {
@@ -24,6 +25,8 @@
 }
 
 .add-submit button {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
   background-color: white;
   border: 1px solid black;
   color: black;
@@ -37,12 +40,19 @@
   filter: invert(100%);
 }
 
+.filter-users {
+  /* border: solid purple 3px; */
+  margin-top: 2rem;
+  margin-bottom: 0;
+}
+
 .response-container {
   height: 6rem;
-  border: 3px solid blue;
+  /* border: 3px solid blue; */
 }
 
 .response-container p {
+  margin: 0;
   font-size: medium;
   font-weight: normal;
 }
