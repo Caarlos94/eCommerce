@@ -87,7 +87,6 @@ const Details = () => {
   const [isAdd, setIsAdd] = useState(false);
 
   const handleAdd = (id) => {
-
     user && dispatch(getFavorites(user.email))
     setIsAdd((prev) => !prev);
     if (isAdd === false) {

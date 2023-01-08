@@ -9,6 +9,7 @@ const categoryRouter = require("./categoryRouter");
 const compraRouter = require("./compraRouter");
 const axios = require('axios');
 const favoritosRouter = require("./favoritosRouter");
+const cartRouter = require('./cartRouter')
 
 const router = Router();
 const mercadopago = require("mercadopago");
@@ -22,7 +23,7 @@ router.use("/customerQA", customerQARouter);
 router.use("/adminQA", adminQARouter);
 router.use("/category", categoryRouter);
 router.use("/favoritos", favoritosRouter);
-
+router.use("/carrito", cartRouter);
 router.use("/compras", compraRouter);
 
 

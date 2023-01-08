@@ -21,6 +21,7 @@ export const REMOVE_FROM_FAVORITE = 'REMOVE_FROM_FAVORITE';
 export const GET_REVIEWS = 'GET_REVIEWS';
 export const GET_FAVORITES = 'GET_FAVORITES';
 export const EMAIL = 'EMAIL'
+export const GET_CARRITO = 'GET_CARRITO'
 
 export const getProducts = () => {
   return async function (dispatch) {
@@ -247,6 +248,33 @@ export function addToFavorite(payload) {
 }
 
 export function removeFromFavorite(id) {
+  return {
+    type: REMOVE_FROM_FAVORITE,
+    payload: id,
+  };
+}
+
+export function getCarrito(email) {
+  return async function (dispatch) {
+    const response = await axios.get(`http://localhost:3001/carrito/${email}`)
+    return dispatch({
+      type: GET_CARRITO,
+      payload: response.data,
+    });
+  }
+}
+
+export function addToCarrito(payload) {
+  return async function () {
+    const response = await axios.post(
+      'http://localhost:3001/carrito',
+      payload
+    );
+    return response;
+  };
+}
+
+export function removeFromCarrito(id) {
   return {
     type: REMOVE_FROM_FAVORITE,
     payload: id,
