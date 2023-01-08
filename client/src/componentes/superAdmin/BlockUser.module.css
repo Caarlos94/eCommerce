@@ -1,0 +1,28 @@
+.title-container {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.block-section-container {
+  border: solid 3px blue;
+  width: 35rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.block-options-container {
+  border: solid 3px red;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: space-evenly;
+}
+
+.block-options-container > div {
+  border: solid 3px green;
+  padding: 1rem;
+}

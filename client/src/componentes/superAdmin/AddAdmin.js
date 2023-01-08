@@ -11,6 +11,8 @@ const AddAdmin = ({ accessToken }) => {
   const [filteredValue, setFilteredValue] = useState("");
   const [response, setResponse] = useState({});
 
+  //RESOLVER PROBLEMA DE SELECT. NO ACTUALIZA VALOR SI SELECCIONO LA OPCION QUE MOSTRABA INICIALMENTE
+
   const fetchNonAdmins = useCallback(() => {
     fetch(`${getNonAdminsUrl}`, {
       method: "GET",
@@ -86,7 +88,7 @@ const AddAdmin = ({ accessToken }) => {
 
           <form onSubmit={handleSubmit}>
             <div className={classes["email-select"]}>
-              <label htmlFor="email">Usuarios no-Admin:</label>
+              <label htmlFor="email">Usuarios sin role Admin:</label>
               <br />
               <select onChange={handleChange} name="email">
                 {/*mapear nonadmins aqui. object en index user será el valor*/}
@@ -117,7 +119,7 @@ const AddAdmin = ({ accessToken }) => {
             </div>
 
             <div className={classes["add-submit"]}>
-              <button type="submit">Agregar a role Admin</button>
+              <button type="submit">Agregar role Admin</button>
             </div>
             <div className={classes["response-container"]}>
               {response.hasOwnProperty("msg") && <p>{response.msg}</p>}

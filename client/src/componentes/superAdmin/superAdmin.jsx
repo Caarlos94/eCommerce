@@ -4,6 +4,7 @@ import axios from "axios";
 import style from "./superAdmin.module.css";
 import { useValidateUser } from "../../customHooks/validate-user.js";
 import AddAdmin from "./AddAdmin.js";
+import BlockUser from "./BlockUser.js";
 // import Admins from './Admins.j'
 // import { Link } from "react-router-dom";
 // import { element } from "prop-types";
@@ -78,6 +79,9 @@ const SuperAdmin = (props) => {
             </div>
             <div className={style["add-container"]}>
               <AddAdmin accessToken={accessToken} />
+            </div>
+            <div className={style["block-users-container"]}>
+              <BlockUser accessToken={accessToken} />
             </div>
           </div>
         </div>
