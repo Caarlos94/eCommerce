@@ -35,7 +35,7 @@ const SuperAdmin = (props) => {
       [e.target.name]: e.target.value,
     }));
 
-    clearTimeout(timer); // NO FUNCIONA EL TIMER. REVISAR
+    clearTimeout(timer);
     setEmailIsValid(true);
 
     const newTimer = setTimeout(() => {
@@ -55,59 +55,59 @@ const SuperAdmin = (props) => {
     }, 900);
 
     setTimer(newTimer);
+    console.log(newAdmin);
   };
 
-  // useEffect(async () => {
-  //   // const admins = '';
-  //   const result = await axios.get(
-  //     "http://localhost:3001/superAdmin/fetchRoles"
-  //   );
+  useEffect(async () => {
+    const result = await axios.get(
+      "http://localhost:3001/superAdmin/fetchRoles"
+    );
 
-  //   setAdmins(result.data);
-
-  //   // console.log(result.data);
-  // }, []);
+    setAdmins(result.data);
+  }, []);
 
   const deleteAd = (params) => {
     DeleteAdmins([...deleteAdmins, params]);
   };
 
-  // const Delete = async () => {
-  //   //NECESITA PASAR TOKEN DE ACCESSO
-  //   const adminsdeletes = await axios.post(
-  //     "http://localhost:3001/superAdmin/removeAdmin",
-  //     deleteAdmins
-  //   );
+  const Delete = async () => {
+    //NECESITA PASAR TOKEN DE ACCESSO
+    const adminsdeletes = await axios.post(
+      "http://localhost:3001/superAdmin/removeAdmin",
+      deleteAdmins
+    );
 
-  //   if (adminsdeletes.data) {
-  //     setTimeout(async () => {
-  //       const result = await axios.get(
-  //         "http://localhost:3001/superAdmin/fetchRoles"
-  //       );
+    // Probar implementarlo de esta forma
+    // axios trae respuesta de vuelta. respuesta actualiza estado de variable. cambio variable activa useEffect que vuelve a traer los roles
 
-  //       setAdmins(result.data);
-  //     }, 100);
-  //   }
-  // };
+    if (adminsdeletes.data) {
+      setTimeout(async () => {
+        const result = await axios.get(
+          "http://localhost:3001/superAdmin/fetchRoles"
+        );
+
+        setAdmins(result.data);
+      }, 100);
+    }
+  };
 
   const handleSubmitNewAdmin = (e) => {
     e.preventDefault();
-    console.log(newAdmin);
 
-    // fetch(`${postAdminUrl}`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${accessToken}`,
-    //   },
-    //   body: newAdmin,
-    // })
-    //   .then((response) => response.json())
-    //   .then((response) => {
-    //     if (response.error) {
-    //       console.log(response.error);
-    //     }
-    //   });
+    fetch(`${postAdminUrl}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(newAdmin),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.error) {
+          console.log(response.error);
+        }
+      });
   };
 
   return (
@@ -132,9 +132,7 @@ const SuperAdmin = (props) => {
                   </div>
                 );
               })}
-              <button
-              //  onClick={() => Delete()} className={style.admins}
-              >
+              <button onClick={() => Delete()} className={style.admins}>
                 delete admins
               </button>
             </div>
