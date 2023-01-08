@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import classes from "./QAForm.module.css";
 import { useAuth0 } from "@auth0/auth0-react";
+import { Toaster, toast } from 'react-hot-toast';
+
 
 const QAForm = (props) => {
   const [didSubmit, setDidSubmit] = useState(false);
@@ -51,6 +53,7 @@ const QAForm = (props) => {
     setDidSubmit(true);
     setData((prevState) => ({ ...prevState, newQuestion: "" }));
     data.email.length && setDidSaveEmail(true);
+    toast.success('Pregunta enviada!');
   };
 
   const handleClick = () => {
@@ -106,6 +109,17 @@ const QAForm = (props) => {
           Enviar pregunta
         </button>
       </form>
+      <Toaster
+        toastOptions={{
+          // Define default options
+          className: '',
+          duration: 3000,
+          style: {
+            background: '#fff',
+            color: '#000',
+          },
+        }}
+      />
     </div>
   ) : (
     <div className={classes["form-container"]}>
@@ -115,6 +129,7 @@ const QAForm = (props) => {
       <button className={classes["submit-button"]} onClick={handleClick}>
         Hacer otra pregunta
       </button>
+
     </div>
   );
 };
