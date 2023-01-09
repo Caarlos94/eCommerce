@@ -16,7 +16,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 300px;
+    height: 860px;
     transition: 0.3s ease all;
     border: 3px solid black;
     transform: translateX(-200%);
@@ -25,5 +25,34 @@
   .white.open {
     transform: translateX(0%) !important;
     /* justify-content: left; */
+  }
+}
+
+@media (max-width: 1200px) {
+  .white {
+    position: absolute;
+    left: 0px;
+    top: 80px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 860px;
+    transition: 0.3s ease all;
+    border: 3px solid black;
+    transform: translateX(-200%);
+  }
+
+  .white.open {
+    transform: translateX(0%) !important;
+    /* justify-content: left; */
+  }
+}
+
+@media (min-width: 1201px) and (max-width: 1500px) {
+  .white {
+    height: 185%;
   }
 }

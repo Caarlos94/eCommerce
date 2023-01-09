@@ -1,7 +1,7 @@
 const fetch = (...args) =>
 import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const { Categoria, Producto, Cliente, Images } = require('../db.js');
-
+ 
 // Get categories FROM firebase and save then into DB
 const getCategories = async () => {
   const a = await Categoria.findAll();
@@ -11,7 +11,7 @@ const getCategories = async () => {
      
     let category = commits.Productos.map((e) => e.categoria);
     const categoryArr = new Set(category);
-    let result = [...categoryArr];
+    let result = [...categoryArr]; 
 
     result.forEach(async (e) => { 
       const [category, created] = await Categoria.findOrCreate({ where: { nombre: e } });

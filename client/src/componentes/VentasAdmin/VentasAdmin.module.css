@@ -1,6 +1,7 @@
 .registro-parent-container {
-  background-color: #edeff0;
-  height: 200vh;
+  /* border: solid 3px blue; */
+  padding-top: 3rem;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,7 +16,7 @@
 .ventas-cards {
   margin-top: 3rem;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   display: flex;
   margin-left: 0;
   margin-right: 0;
@@ -23,6 +24,7 @@
   flex-direction: column;
   /* border: solid red 3px; */
   padding: 0;
+  width: 100%;
 }
 
 .filters-container select {
@@ -50,4 +52,15 @@
 
 .sent {
   font-weight: bold;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .registro {
+    margin-left: 40px;
+    margin-top: 10px;
+  }
 }

@@ -6,7 +6,7 @@ const imagesRouter = Router();
 imagesRouter.get("/", async (req, res) => {
     try {
         res.status(200).json(await getImages())
-    } catch (error) {
+    } catch (error) { 
         res.status(400).send(error.message)
     }
 })

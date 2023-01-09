@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { getCategorys, getProducts, orderPrecio, getImages } from "../../redux/actions/actions.js";
+import { getCategorys, getProducts, getImages } from "../../redux/actions/actions.js";
 import s from "./home.module.css";
 import Navbar from "../navbar/navbar.jsx";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +14,7 @@ const Home = () => {
   let allProducts = useSelector((state) => state.productsHome);
 
   // allProducts.forEach(producto => producto.images = producto.images.split(","))
-  console.log(allProducts)
+  // console.log(allProducts)
   
   useEffect(() => {
     dispatch(getImages());
@@ -22,7 +22,6 @@ const Home = () => {
     dispatch(getCategorys());
   }, [dispatch]);
 
-  const [, setOrder] = useState("");
   const [currentPage, setCurrentPage] = useState(1); // DEBERIA SER UN REDUCER
   const productsPerPage = 9;
   const lastIndex = currentPage * productsPerPage; // 1 * 8 = 8
@@ -37,18 +36,6 @@ const Home = () => {
 
   const paginateNext = (nextPage) => setCurrentPage(nextPage);
 
-  const returnDefault = () => {
-    document.getElementById('order').value = 'Ordenar por Precio'
-  }
-
-  const handlerOrderPrecio = (e) => {
-    e.preventDefault();
-    setCurrentPage(1);
-    dispatch(orderPrecio(e.target.value));
-    setOrder(`Ordenado ${e.target.value}`); //cuando seteo esta página, me modifica el estado local y lo modifica
-    /* returnDefault() */
-  };
-
   return (
     <div className={s.divaHome}>
       <Navbar setPages={setCurrentPage} />
@@ -58,7 +45,7 @@ const Home = () => {
           <button>Ver coleccion</button>
         </div>
         <div className={s.imgHero}>
-           <div className={s.messi}>
+          <div className={s.messi}>
             <div className={s.img1}></div>
             <div className={s.img11}></div>
           </div>
@@ -79,34 +66,25 @@ const Home = () => {
         key={allProducts.id}
       ></Paginado>
 
- 
-     {allProducts.length > 0 ? (
-        <div>
-          {/* <select onChange={(e) => handlerOrderPrecio(e)} className={s.select} id='order'>
-            <option hidden>Ordenar por Precio</option>
-            <option value="asc">Menor a Mayor</option>
-            <option value="desc">Mayor a Menor</option>
-          </select> */}
 
-          <div>
-            
-              <div className={s.section}>
-                {currentProducts.map((card) => parseInt(card.stock) > 0 && (
-                  <div key={card.id}>
-                    <Card
-                      nombre={card.nombre}
-                      URL={card.images[0].URL[0]}
-                      marca={card.marca}
-                      precio={card.precio}
-                      color={card.color}
-                      talla={card.talla}
-                      categoria={card.categoria}
-                      id={card.id}
-                    />
-                  </div>
-                ))}
-              </div>
-          </div>
+      {allProducts.length > 0 ? (
+        <div>
+            <div className={s.section}>
+              {currentProducts.map((card) => parseInt(card.stock) > 0 && (
+                <div key={card.id}>
+                  <Card
+                    nombre={card.nombre}
+                    URL={card.images[0].URL[0]}
+                    marca={card.marca}
+                    precio={card.precio}
+                    color={card.color}
+                    talla={card.talla}
+                    categoria={card.categoria}
+                    id={card.id}
+                  />
+                </div>
+              ))}
+            </div>
         </div>
       ) : (
         <div className={s.notFound}>
@@ -114,7 +92,7 @@ const Home = () => {
           <h2>En caso de no cargar te recomendamos refrescar la página...</h2>
           <img src={messiNotFound} alt="img"></img>
         </div>
-      )} 
+      )}
       <Paginado
         productsPerPage={productsPerPage} // pupsPerPage
         totalProducts={allProducts.length} // totalPups
