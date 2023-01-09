@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
       },
 
-      ciudad: {
+/*       ciudad: {
         type: DataTypes.STRING,
         alowNull: true,
       },
@@ -39,7 +39,7 @@ module.exports = (sequelize) => {
       cel: {
         type: DataTypes.INTEGER,
         alowNull: true,
-      },
+      }, */
     },
     {
       timestamps: true,

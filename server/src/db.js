@@ -1,7 +1,7 @@
-require("dotenv").config();
-const { Sequelize, DataTypes } = require("sequelize");
-const fs = require("fs");
-const path = require("path");
+require('dotenv').config();
+const { Sequelize, DataTypes } = require('sequelize');
+const fs = require('fs');
+const path = require('path');
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
 const sequelize = new Sequelize(
@@ -25,13 +25,13 @@ const basename = path.basename(__filename);
 const modelDefiners = [];
 
 // Leemos todos los archivos de la carpeta Models, los requerimos y agregamos al arreglo modelDefiners
-fs.readdirSync(path.join(__dirname, "/models"))
+fs.readdirSync(path.join(__dirname, '/models'))
   .filter(
     (file) =>
-      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
+      file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
   )
   .forEach((file) => {
-    modelDefiners.push(require(path.join(__dirname, "/models", file)));
+    modelDefiners.push(require(path.join(__dirname, '/models', file)));
   });
 
 // Injectamos la conexion (sequelize) a todos los modelos
@@ -57,11 +57,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { Producto, Categoria, Cliente, Pregunta, Compra, Review } =
   sequelize.models;
 
-Producto.belongsToMany(Categoria, { through: "producto_categoria" });
-Categoria.belongsToMany(Producto, { through: "producto_categoria" });
-
-// Cliente.belongsToMany(Producto, { through: "compras" });
-// Producto.belongsToMany(Cliente, { through: "compras" });
+Producto.belongsToMany(Categoria, { through: 'producto_categoria' });
+Categoria.belongsToMany(Producto, { through: 'producto_categoria' });
 
 Producto.hasMany(Pregunta);
 Pregunta.belongsTo(Producto);
@@ -70,7 +67,7 @@ Compra.belongsTo(Cliente);
 Cliente.hasMany(Compra);
 
 const Compra_Producto = sequelize.define(
-  "Compra_Producto",
+  'Compra_Producto',
   {
     cantidad: {
       type: DataTypes.INTEGER,
@@ -80,8 +77,11 @@ const Compra_Producto = sequelize.define(
   { timestamps: false }
 );
 
-const Favorito = sequelize.define("Favorito", {}, { timestamps: false });
+/* const Carrito = sequelize.define("Carrito", {}, { timestamps: false });
+Cliente.belongsToMany(Producto, { through: Carrito });
+Producto.belongsToMany(Cliente, { through: Carrito }); */
 
+const Favorito = sequelize.define('Favorito', {}, { timestamps: false });
 Cliente.belongsToMany(Producto, { through: Favorito });
 Producto.belongsToMany(Cliente, { through: Favorito });
 

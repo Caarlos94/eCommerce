@@ -3,7 +3,8 @@
   border-radius: 8px;
   width: 30rem;
   padding: 1rem;
-  margin: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   padding-left: 2rem;
 }
 
@@ -16,6 +17,7 @@
 
 @media (max-width: 768px) {
   .questions-container {
+    position: absolute;
     width: 90%;
   }
 }
