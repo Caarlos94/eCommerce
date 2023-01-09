@@ -60,11 +60,24 @@ superAdminRouter.get(
         data: { roles: ["rol_6qqkVmqdgh583LhO"] },
       };
 
+    let resopuesta = [];
+
+    
       axios
         .request(options)
         .then(function (response) {
+         
+          const resp = response.data.map((Element) => {
+            const EmailType = Element.user_id.split("|")
+            const obj = {
+              email: Element.email,
+              idEmail : EmailType[0],
+              user_id : Element.user_id
+            }
+            return obj
+          })
           
-          res.status(200).json(response.data);
+          res.status(200).json(resp);
         })
         .catch(function (error) {
           res.status(400).json({ error: true, msg: error.msg });

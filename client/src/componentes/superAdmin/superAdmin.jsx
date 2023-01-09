@@ -55,7 +55,7 @@ const SuperAdmin = (props) => {
                     admins?.map((element) => {
                      return <div className={style.admin} key={element.user_id}>
                          <h5 >{element.email}</h5>
-                         <h5>{element.name}</h5>
+                         <h5>{element.idEmail}</h5>
                          <button onClick={() => deleteAd(element.user_id)} className={style.buttonAdmins}>eliminar admin</button>
                      </div>
                     })
