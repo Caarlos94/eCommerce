@@ -9,7 +9,7 @@ function Card({ nombre, URL, marca, precio, categoria, id }) {
       <div className="card">
         <div
           className="overflow"
-          style={{ backgroundImage: `url(${URL})`, backgroundSize: `90%` }}
+          style={{ backgroundImage: `url(${URL})`, backgroundSize: `100%` }}
         ></div>
 
         <div className="card-body">

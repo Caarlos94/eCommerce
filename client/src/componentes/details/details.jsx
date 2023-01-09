@@ -11,6 +11,7 @@ import {
   getProducts,
   getReviews,
   getFavorites,
+  getCategorys
 } from '../../redux/actions/actions.js';
 import { NavLink, useParams, useHistory } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
@@ -50,6 +51,7 @@ const Details = () => {
     dispatch(limpiarState());
     dispatch(getDetails(id));
     dispatch(getReviews(id));
+    dispatch(getCategorys(id));
 
     return function () {
       dispatch(getProducts());
@@ -59,6 +61,7 @@ const Details = () => {
 
 
   const details = useSelector((state) => state.details);
+  const categories = useSelector((state) => state.categories);
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
@@ -121,17 +124,24 @@ const Details = () => {
               </div>
               <div className={s.textCont}>
                 <div className={s.productDesc}>
-                  <h2 className={s.h2}>{details[0].nombre.toUpperCase()}</h2>
-                  <h3>${details[0].precio}</h3>
-                  <h5>Marca: {details[0].marca}</h5>
-                  <h5>Color: {details[0].color}</h5>
-                  <h5>Talla: {details[0].talla.toUpperCase()}</h5>
+                  <p className={s.marca}>{details[0].marca}</p>
+                  <p className={s.nombre}>{details[0].nombre}</p>
+                  <p className={s.precio}>${details[0].precio}</p>
+                  <p className={s.categoria}>Categoria</p>
+                  <p className={s.color}>Color: {details[0].color}</p>
+                  <p className={s.talla}>Talla: {details[0].talla.toUpperCase()}</p>
+                  <button className={s.buttonTalle}>XS</button>
+                  <button className={s.buttonTalle}>S</button>
+                  <button className={s.buttonTalle}>M</button>
+                  <button className={s.buttonTalle}>L</button>
+                  <button className={s.buttonTalle}>XL</button>
+                  <button className={s.buttonTalle}>XXL</button>
                   {details[0].stock > 0 ? (
-                    <h5>Stock: {details[0].stock}</h5>
+                    <p className={s.stock}>Stock: {details[0].stock}</p>
                   ) : (
-                    <h5>
+                    <p>
                       Producto no disponible! Stock agotado momentáneamente...
-                    </h5>
+                    </p>
                   )}
                 </div>
                 {!isAdmin ? (
