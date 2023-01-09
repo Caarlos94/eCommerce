@@ -100,12 +100,9 @@ const Carrito = () => {
         <button className={s.pagar} onClick={() => handleBuy()}>
           Pagar ahora
         </button>
-<<<<<<< HEAD
-=======
         <NavLink to={'/formCompra'}>
           <button /* className={s.pagar} */>Llenar datos para envío</button>
         </NavLink>
->>>>>>> development
         {cart ? (
           cart.map((c) => (
             <CartProduct
