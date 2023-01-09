@@ -40,7 +40,17 @@ userRouter.post("/", async (req, res) => {
     }
 }) */
 
-userRouter.get('/', async (req, res) => {
+userRouter.get('/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      let clienteDB = await Cliente.findByPk(id);
+      res.status(200).json(clienteDB); 
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
+  });
+
+  userRouter.get('/', async (req, res) => {
     try {
       let clientesDB = await getDataBaseClient();
       res.status(200).json(clientesDB); 

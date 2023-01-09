@@ -14,10 +14,10 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    // URL: {
-    //   type: DataTypes.STRING,
-    //   // allowNull: false,
-    // },
+    URL: {
+      type: DataTypes.STRING,
+      // allowNull: false,
+    },
     precio: {
       type: DataTypes.STRING,
       allowNull: false,
