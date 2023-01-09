@@ -1,18 +1,18 @@
 const axios = require("axios");
 require("dotenv").config();
-const { CLIENT_ID, CLIENT_SECRET } = process.env;
+const { CLIENT_ID, CLIENT_SECRET, AUTH0_DOMAIN } = process.env;
 
 const fetchManagementToken = async (req, res, next) => {
   const data = JSON.stringify({
     client_id: CLIENT_ID,
     client_secret: CLIENT_SECRET,
-    audience: "https://dev-62en868tsb2ut7tq.us.auth0.com/api/v2/",
+    audience: `${AUTH0_DOMAIN}/api/v2/`,
     grant_type: "client_credentials",
   });
 
   const config = {
     method: "post",
-    url: "https://dev-62en868tsb2ut7tq.us.auth0.com/oauth/token",
+    url: `${AUTH0_DOMAIN}/oauth/token`,
     headers: {
       "Content-Type": "application/json",
       "Accept-Encoding": "gzip,deflate,compress", // salta error "br" brotli compression encoding

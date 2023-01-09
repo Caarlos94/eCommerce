@@ -17,19 +17,6 @@ superAdminRouter.post(
     try {
       const { managementToken } = res.locals;
       const { newAdmin } = req.body;
-      // const data = req.body;
-      // const { email, idType } = data;
-      // const user = await Cliente.findOne({ where: { email }, raw: true });
-      // if (!user)
-      //   throw new Error(
-      //     `El usuario ${email} debe autenticarse con ${idType} para habilitar asignacion de roles por ese medio`
-      //   );
-      // if (!user[idType])
-      //   throw new Error(
-      //     `El usuario ${email} debe autenticarse con ${idType} para habilitar asignacion de roles por ese medio`
-      //   );
-
-      // const id = user[idType];
 
       // hacer request de add user
       var options = {
@@ -48,12 +35,10 @@ superAdminRouter.post(
         .request(options)
         .then(function (response) {
           console.log(response.data); // no envia respuesta
-          return res
-            .status(200)
-            .json({
-              error: false,
-              msg: `El usuario ${newAdmin.email} ha recibido el rol de admin con ${newAdmin.idType}`,
-            });
+          return res.status(200).json({
+            error: false,
+            msg: `El usuario ${newAdmin.email} ha recibido el rol de admin con ${newAdmin.idType}`,
+          });
         })
         .catch(function (error) {
           throw new Error(error);
@@ -76,7 +61,7 @@ superAdminRouter.post(
       for (let index in idUsers) {
         var options = {
           method: "DELETE",
-          url: `https://dev-62en868tsb2ut7tq.us.auth0.com/api/v2/users/${idUsers[index]}/roles`,
+          url: `${AUTH0_DOMAIN}/api/v2/users/${idUsers[index]}/roles`,
           headers: {
             "content-type": "application/json",
             "Accept-Encoding": "gzip,deflate,compress",
@@ -104,12 +89,11 @@ superAdminRouter.post(
 
 superAdminRouter.get("/fetchRoles", fetchManagementToken, async (req, res) => {
   try {
-    var axios = require("axios").default;
     const { managementToken } = res.locals;
 
     var options = {
       method: "GET",
-      url: "https://dev-62en868tsb2ut7tq.us.auth0.com/api/v2/roles/rol_6qqkVmqdgh583LhO/users",
+      url: `${AUTH0_DOMAIN}/api/v2/roles/rol_6qqkVmqdgh583LhO/users`,
       headers: {
         "content-type": "application/json",
         "Accept-Encoding": "gzip,deflate,compress",
@@ -133,6 +117,7 @@ superAdminRouter.get("/fetchRoles", fetchManagementToken, async (req, res) => {
 });
 
 // ruta fetchNonAdmins funcionará asumiendo que la tabla cliente mantenga un registo actualizado de los usuarios registrados en Auth0
+// Nota: Mejorable. Innecesario hacerlo a partir de admins. Sería mejor traerlos directamente a partir de endpoint Auth0 /getUsers y verificar permissions admin
 superAdminRouter.get(
   "/fetchNonAdmins",
   fetchManagementToken,
@@ -140,7 +125,7 @@ superAdminRouter.get(
   async (req, res) => {
     try {
       const { admins } = res.locals;
-      // console.log(admins);
+
       const users = await Cliente.findAll({ raw: true });
 
       const mappedAdmins = admins.map((admin) => {
@@ -193,5 +178,107 @@ superAdminRouter.get(
     }
   }
 );
+
+superAdminRouter.get("/getUsers", fetchManagementToken, async (req, res) => {
+  try {
+    let { blocked } = req.query;
+
+    if (blocked) {
+      blocked = JSON.parse(blocked);
+    }
+
+    const { managementToken } = res.locals;
+
+    var options = {
+      method: "GET",
+      url: `${AUTH0_DOMAIN}/api/v2/users`,
+      headers: {
+        "content-type": "application/json",
+        "Accept-Encoding": "gzip,deflate,compress",
+        authorization: `Bearer ${managementToken}`,
+        "cache-control": "no-cache",
+      },
+    };
+
+    axios
+      .request(options)
+      .then(function (response) {
+        response.data.forEach((user) => {
+          if (user.user_id.includes("google")) {
+            user.idType = "googleId";
+          } else {
+            user.idType = "auth0Id";
+          }
+        });
+        ///
+
+        if (!req.query.hasOwnProperty("blocked")) {
+          return res.status(200).json(response.data);
+        }
+
+        if (blocked) {
+          let blockedUsers = response.data.filter(
+            (user) => user.blocked === true
+          );
+          return res.status(200).json(blockedUsers);
+        }
+        if (blocked === undefined) {
+          return res.status(200).json(response.data);
+        }
+
+        if (blocked === false) {
+          let nonBlockedUsers = response.data.filter((user) => {
+            if (!user.hasOwnProperty("blocked") || !user.blocked) return user;
+          });
+          return res.status(200).json(nonBlockedUsers);
+        }
+
+        ///
+      })
+      .catch(function (error) {
+        throw new Error(error);
+      });
+  } catch (error) {}
+});
+
+superAdminRouter.post("/blockUser", fetchManagementToken, async (req, res) => {
+  try {
+    const { managementToken } = res.locals;
+    const { user, block } = req.body; // Pasa booleano. true bloqueará. false desbloqueará
+
+    // console.log(req.body);
+
+    const response = await axios.patch(
+      `${AUTH0_DOMAIN}/api/v2/users/${user.user_id}`,
+      {
+        blocked: block,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${managementToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log(response.data);
+
+    if (block) {
+      return res.status(200).json({
+        error: false,
+        msg: `Se ha bloqueado la autenticación de ${user.idType} para el usuario ${user.email}`,
+      });
+    }
+
+    if (!block) {
+      return res.status(200).json({
+        error: false,
+        msg: `Se ha desbloqueado la autenticación de ${user.idType} para el usuario ${user.email}`,
+      });
+    }
+  } catch (error) {
+    return res.status(400).json({ error: true, msg: error.message });
+  }
+});
 
 module.exports = superAdminRouter;

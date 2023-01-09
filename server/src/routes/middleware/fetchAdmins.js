@@ -1,5 +1,8 @@
 // Debe usarse luego del middleware fetchManagementToken
 
+require("dotenv").config();
+const { AUTH0_DOMAIN } = process.env;
+
 const fetchAdmins = async (req, res, next) => {
   try {
     var axios = require("axios").default;
@@ -7,7 +10,7 @@ const fetchAdmins = async (req, res, next) => {
 
     var options = {
       method: "GET",
-      url: "https://dev-62en868tsb2ut7tq.us.auth0.com/api/v2/roles/rol_6qqkVmqdgh583LhO/users",
+      url: `${AUTH0_DOMAIN}/api/v2/roles/rol_6qqkVmqdgh583LhO/users`,
       headers: {
         "content-type": "application/json",
         "Accept-Encoding": "gzip,deflate,compress",
