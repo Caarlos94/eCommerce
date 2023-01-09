@@ -1,7 +1,7 @@
 /* contenedor de todo el navbar */
 
 .div {
-  /* border: 1px solid black; */
+  border: 1px solid black;
   height: 120px;
   width: 100%;
   display: flex;
