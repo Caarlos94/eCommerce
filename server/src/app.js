@@ -33,7 +33,6 @@ server.use(
     maxAge: 86400,
   })
 );
-server.use(cors())
 
 server.use("/", routes);
 

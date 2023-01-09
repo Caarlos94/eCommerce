@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import Navbar2 from '../navbar/navBar2';
 import style from './FormCompra.module.css';
 
 export default function FormCompra() {
     /* const dispatch = useDispatch();
-
     const history = useHistory(); */
     const [input, setInput] = useState({
         ciudad: "",

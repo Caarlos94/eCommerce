@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 import s from './Carrito.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import CartProduct from './CartProduct';
+import { useAuth0 } from '@auth0/auth0-react';
 import {
   clearCart,
   removeAllFromCart,
@@ -17,7 +17,7 @@ const Carrito = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const [usuarioid, setUsuaruioId] = useState('');
+  const [, setUsuaruioId] = useState('');
 
   useEffect(async () => {
     if (isAuthenticated === true) {
@@ -34,6 +34,7 @@ const Carrito = () => {
     }
   }, []);
 
+  /* const { isAuthenticated, loginWithRedirect } = useAuth0() */
   const handleDelete = (id, all = false) => {
     //console.log(id, all);
     if (all) {
@@ -71,7 +72,7 @@ const Carrito = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ items: cart, idUsuario: usuarioid }),
+      body: JSON.stringify({ items: cart }),
     })
       .then((data) => data.json())
       .then((data) => {
@@ -79,12 +80,9 @@ const Carrito = () => {
         window.open(data, '_self');
         /* console.log(data); */
       });
-    // handleStock()
   };
   let totalProd = 0;
   cart.map((prod) => (totalProd += prod.cantidad * prod.precio));
-
-  // console.log(usuarioid);
 
   return (
     <div className={s.cont}>

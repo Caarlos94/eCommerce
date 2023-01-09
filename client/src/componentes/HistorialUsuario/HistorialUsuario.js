@@ -43,7 +43,7 @@ const HistorialUsuario = () => {
 
   return (
     <div>
-      <Navbar2></Navbar2>
+      <Navbar2/>
 
       <div className={style.divPadre}>
         <h2>Historial de compras</h2>

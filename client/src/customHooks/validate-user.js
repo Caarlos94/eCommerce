@@ -28,7 +28,14 @@ export const useValidateUser = () => {
     checkForAdminRole();
   }, [isAuthenticated, getAccessTokenSilently]);
 
-  return [isAuthenticated, isAdmin, accessToken, userId, isSuperAdmin, user];
+  return {
+    isAuthenticated,
+    isAdmin,
+    accessToken,
+    userId,
+    isSuperAdmin,
+    user,
+  };
 };
 
 // isAuthenticated PERMITE VERIFICAR SI EL USUARIO INICIO SESION

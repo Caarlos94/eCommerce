@@ -31,7 +31,7 @@ const QAAnsweredQuestions = ({ productId }) => {
     return () => (isSubscribed = false);
   }, [productId]);
 
-  console.log(questions);
+/*   console.log(questions); */
   let num = 2;
   return (
     <div className={classes['questions-container']}>
