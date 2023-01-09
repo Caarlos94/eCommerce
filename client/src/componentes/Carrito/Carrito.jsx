@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import s from './Carrito.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import CartProduct from './CartProduct';
@@ -10,29 +11,46 @@ import {
   addOneToCart,
 } from '../../redux/actions/actions';
 import Navbar2 from '../navbar/navBar2';
+import { NavLink } from 'react-router-dom';
 
 const Carrito = () => {
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const [, setUsuaruioId] = useState('');
 
+  useEffect(async () => {
+    if (isAuthenticated === true) {
+      if (cart.length) {
+        const idUsuariodb = await axios.post(
+          'http://localhost:3001/compras/obtenerId',
+          {
+            User: user.nickname,
+          }
+        );
 
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
+        if (idUsuariodb) setUsuaruioId(idUsuariodb.data);
+      }
+    }
+  }, []);
+
+  /* const { isAuthenticated, loginWithRedirect } = useAuth0() */
   const handleDelete = (id, all = false) => {
     //console.log(id, all);
     if (all) {
       dispatch(removeAllFromCart(id));
     } else {
-      let producto = cart.find(producto => producto.id === id)
-      producto.stock++
-      if (id === cart.id) cart[0].stock++
+      let producto = cart.find((producto) => producto.id === id);
+      producto.stock++;
+      if (id === cart.id) cart[0].stock++;
       dispatch(removeOneFromCart(id));
     }
   };
 
   const handleAdd = (id) => {
-    let producto = cart.find(producto => producto.id === id)
-    producto.stock--
-    if(producto.stock > 0) { 
+    let producto = cart.find((producto) => producto.id === id);
+    producto.stock--;
+    if (producto.stock > 0) {
       dispatch(addOneToCart(id));
     }
   };
@@ -64,7 +82,7 @@ const Carrito = () => {
       });
   };
   let totalProd = 0;
-  cart.map(prod => totalProd += prod.cantidad * prod.precio);
+  cart.map((prod) => (totalProd += prod.cantidad * prod.precio));
 
   return (
     <div className={s.cont}>
@@ -80,27 +98,28 @@ const Carrito = () => {
         <button className={s.pagar} onClick={() => handleBuy()}>
           Pagar ahora
         </button>
-        {
-          cart ? (
-            cart.map((c) => (
-              <CartProduct
-                key={c.id}
-                id={c.id}
-                nombre={c.nombre}
-                talla={c.talla}
-                stock={c.stock}
-                precio={c.precio}
-                cantidad={c.cantidad}
-                URL={c.URL}
-                handleDelete={handleDelete}
-                handleAdd={handleAdd}
-              />
-            ))
-          ) : (
-            <p>No tienes productos en tu carrito</p>
-          )
-        }
-      </div >
+        <NavLink to={'/formCompra'}>
+          <button /* className={s.pagar} */>Llenar datos para envío</button>
+        </NavLink>
+        {cart ? (
+          cart.map((c) => (
+            <CartProduct
+              key={c.id}
+              id={c.id}
+              nombre={c.nombre}
+              talla={c.talla}
+              stock={c.stock}
+              precio={c.precio}
+              cantidad={c.cantidad}
+              URL={c.URL}
+              handleDelete={handleDelete}
+              handleAdd={handleAdd}
+            />
+          ))
+        ) : (
+          <p>No tienes productos en tu carrito</p>
+        )}
+      </div>
       <div className={s.totalFinal}>
         <div className={s.total2}>
           <p>Total: ${totalProd}</p>
@@ -109,7 +128,7 @@ const Carrito = () => {
           Pagar ahora
         </button>
       </div>
-    </div >
+    </div>
   );
 };
 

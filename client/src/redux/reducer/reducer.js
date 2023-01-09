@@ -16,9 +16,11 @@ import {
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
-  ADD_TO_FAVORITE,
   REMOVE_FROM_FAVORITE,
-} from '../actions/actions.js';
+  GET_REVIEWS,
+  GET_FAVORITES,
+  GET_CARRITO,
+} from "../actions/actions.js";
 
 const initialState = {
   products: [],
@@ -26,12 +28,13 @@ const initialState = {
   favorites: [],
   details: [],
   users: [],
-  cart: [],
+  cart: JSON.parse(localStorage.getItem("cart")) || [],
   categorys: [],
-  categoria: 'todas',
-  ordenamiento: 'ninguno',
-  marca: 'todas',
-  talla: 'todas',
+  reviews: [],
+  categoria: "todas",
+  ordenamiento: "ninguno",
+  marca: "todas",
+  talla: "todas",
   precio: [0, 0],
   error: false,
   page: 1,
@@ -43,16 +46,16 @@ const rootReducer = (state = initialState, action) => {
       //console.log(action.payload);
       if (
         state.products.length === 0 ||
-        action.payload[1] === 'volver a cargar los productos'
+        action.payload[1] === "volver a cargar los productos"
       ) {
         return {
           ...state,
           products: [...action.payload[0]],
           productsHome: [...action.payload[0]],
-          categoria: 'todas',
-          ordenamiento: 'ninguno',
-          marca: 'todas',
-          talla: 'todas',
+          categoria: "todas",
+          ordenamiento: "ninguno",
+          marca: "todas",
+          talla: "todas",
           precio: [0, 0],
         };
       }
@@ -82,22 +85,54 @@ const rootReducer = (state = initialState, action) => {
         details: action.payload,
       };
 
+    case GET_REVIEWS:
+      return {
+        ...state,
+        reviews: action.payload,
+      };
+
     case LIMPIAR_SATE:
       return {
         ...state,
         details: [],
       };
+    case GET_CARRITO:
+      return {
+        ...state,
+        cart: action.payload,
+      };
 
-    case 'POST_PROD':
+    case GET_FAVORITES:
+      return {
+        ...state,
+        favorites: action.payload.productos,
+      };
+
+    case "POST_FAVORITE":
+      return {
+        ...state,
+        favorites: action.payload,
+      };
+
+    case "POST_PROD":
       return {
         ...state,
         products: action.payload,
       };
 
-    case 'POST_CATEGORY':
+    case "POST_CATEGORY":
       return {
         ...state,
         categorys: action.payload,
+      };
+
+    case "DELETE_PROD":
+      return {
+        ...state,
+        productsHome: state.productsHome.filter(
+          (prod) => prod.id !== action.payload
+        ),
+        products: state.products.filter((prod) => prod.id !== action.payload),
       };
 
     case SEARCHxNAME: {
@@ -127,18 +162,18 @@ const rootReducer = (state = initialState, action) => {
 
     case ORDER_PRECIO:
       const arrPrecio =
-        action.payload === 'asc'
+        action.payload === "asc"
           ? state.productsHome.sort((a, b) => {
-            //compara dos valores, en este caso los dos precios
-            if (parseInt(a.precio) > parseInt(b.precio)) return 1; //los va posicionando a la derecha
-            if (parseInt(a.precio) < parseInt(b.precio)) return -1; //o a la izquierda
-            return 0; //o si son iguales los deja así
-          })
+              //compara dos valores, en este caso los dos precios
+              if (parseInt(a.precio) > parseInt(b.precio)) return 1; //los va posicionando a la derecha
+              if (parseInt(a.precio) < parseInt(b.precio)) return -1; //o a la izquierda
+              return 0; //o si son iguales los deja así
+            })
           : state.productsHome.sort((a, b) => {
-            if (parseInt(a.precio) > parseInt(b.precio)) return -1;
-            if (parseInt(a.precio) < parseInt(b.precio)) return 1;
-            return 0;
-          });
+              if (parseInt(a.precio) > parseInt(b.precio)) return -1;
+              if (parseInt(a.precio) < parseInt(b.precio)) return 1;
+              return 0;
+            });
       return {
         ...state,
         productsHome: [...arrPrecio],
@@ -149,17 +184,17 @@ const rootReducer = (state = initialState, action) => {
       let arr = [...state.products];
       let productsFilter = [];
 
-      if (action.payload === 'todas') {
-        let arr = [...state.products];
+      if (action.payload === "todas") {
+        arr = [...state.products];
         if (state.precio[1] !== 0)
           arr = arr.filter(
             (Element) =>
               state.precio[0] <= parseInt(Element.precio) &&
               state.precio[1] >= parseInt(Element.precio)
           );
-        if (state.talla !== 'todas')
+        if (state.talla !== "todas")
           arr = arr.filter((Element) => Element.talla.includes(state.talla));
-        if (state.marca !== 'todas')
+        if (state.marca !== "todas")
           arr = arr.filter((Element) => Element.marca.includes(state.marca));
         productsFilter = [...arr];
       } else {
@@ -173,14 +208,14 @@ const rootReducer = (state = initialState, action) => {
               state.precio[0] <= parseInt(Element.precio) &&
               state.precio[1] >= parseInt(Element.precio)
           );
-        if (state.talla !== 'todas')
+        if (state.talla !== "todas")
           arr = arr.filter((Element) => Element.talla.includes(state.talla));
-        if (state.marca !== 'todas')
+        if (state.marca !== "todas")
           arr = arr.filter((Element) => Element.marca.includes(state.marca));
         productsFilter = [...arr];
       }
 
-      let setError = '';
+      let setError = "";
 
       if (productsFilter.length === 0) {
         setError = true;
@@ -188,7 +223,7 @@ const rootReducer = (state = initialState, action) => {
         setError = false;
       }
 
-      if (state.ordenamiento === 'asc') {
+      if (state.ordenamiento === "asc") {
         productsFilter = productsFilter.sort((a, b) => {
           //el valor A va antes que el B ya que A es menor(negativo significa que el valor A va antes que B)
           if (parseInt(a.precio) > parseInt(b.precio)) return 1;
@@ -198,7 +233,7 @@ const rootReducer = (state = initialState, action) => {
           return 0;
         });
       }
-      if (state.ordenamiento === 'desc') {
+      if (state.ordenamiento === "desc") {
         productsFilter = productsFilter.sort((a, b) => {
           //el valor B va antes que el A ya que B es mayor(positivo significa que el valor B va antes que A)
           if (parseInt(a.precio) < parseInt(b.precio)) return 1;
@@ -219,7 +254,7 @@ const rootReducer = (state = initialState, action) => {
 
     case SEARCHxMARCA: {
       let productsFilter = [];
-      if (action.payload === 'todas') {
+      if (action.payload === "todas") {
         let arr = [...state.products];
         if (state.precio[1] !== 0)
           arr = arr.filter(
@@ -227,9 +262,9 @@ const rootReducer = (state = initialState, action) => {
               state.precio[0] <= parseInt(Element.precio) &&
               state.precio[1] >= parseInt(Element.precio)
           );
-        if (state.talla !== 'todas')
+        if (state.talla !== "todas")
           arr = arr.filter((Element) => Element.talla.includes(state.talla));
-        if (state.categoria !== 'todas')
+        if (state.categoria !== "todas")
           arr = arr.filter((Element) =>
             Element.categoria.includes(state.categoria)
           );
@@ -239,7 +274,7 @@ const rootReducer = (state = initialState, action) => {
         arr = arr.filter((Element) =>
           Element.marca.toLowerCase().includes(action.payload.toLowerCase())
         );
-        if (state.talla !== 'todas')
+        if (state.talla !== "todas")
           arr = arr.filter((Element) => Element.talla.includes(state.talla));
         if (state.precio[1] !== 0)
           arr = arr.filter(
@@ -247,14 +282,14 @@ const rootReducer = (state = initialState, action) => {
               state.precio[0] <= parseInt(Element.precio) &&
               state.precio[1] >= parseInt(Element.precio)
           );
-        if (state.categoria !== 'todas')
+        if (state.categoria !== "todas")
           arr = arr.filter((Element) =>
             Element.categoria.includes(state.categoria)
           );
         productsFilter = [...arr];
       }
 
-      let setError = '';
+      let setError = "";
 
       if (productsFilter.length === 0) {
         setError = true;
@@ -262,7 +297,7 @@ const rootReducer = (state = initialState, action) => {
         setError = false;
       }
 
-      if (state.ordenamiento === 'asc') {
+      if (state.ordenamiento === "asc") {
         productsFilter = productsFilter.sort((a, b) => {
           //el valor A va antes que el B ya que A es menor(negativo significa que el valor A va antes que B)
           if (parseInt(a.precio) > parseInt(b.precio)) return 1;
@@ -272,7 +307,7 @@ const rootReducer = (state = initialState, action) => {
           return 0;
         });
       }
-      if (state.ordenamiento === 'desc') {
+      if (state.ordenamiento === "desc") {
         productsFilter = productsFilter.sort((a, b) => {
           //el valor B va antes que el A ya que B es mayor(positivo significa que el valor B va antes que A)
           if (parseInt(a.precio) < parseInt(b.precio)) return 1;
@@ -293,7 +328,7 @@ const rootReducer = (state = initialState, action) => {
 
     case SEARCHxTALLA: {
       let productsFilter = [];
-      if (action.payload === 'todas') {
+      if (action.payload === "todas") {
         let arr = [...state.products];
         if (state.precio[1] !== 0)
           arr = arr.filter(
@@ -301,9 +336,9 @@ const rootReducer = (state = initialState, action) => {
               state.precio[0] <= parseInt(Element.precio) &&
               state.precio[1] >= parseInt(Element.precio)
           );
-        if (state.marca !== 'todas')
+        if (state.marca !== "todas")
           arr = arr.filter((Element) => Element.marca.includes(state.marca));
-        if (state.categoria !== 'todas')
+        if (state.categoria !== "todas")
           arr = arr.filter((Element) =>
             Element.categoria.includes(state.categoria)
           );
@@ -314,7 +349,7 @@ const rootReducer = (state = initialState, action) => {
           (Element) =>
             Element.talla.toLowerCase() === action.payload.toLowerCase()
         );
-        if (state.marca !== 'todas')
+        if (state.marca !== "todas")
           arr = arr.filter((Element) => Element.marca.includes(state.marca));
         if (state.precio[1] !== 0)
           arr = arr.filter(
@@ -322,14 +357,14 @@ const rootReducer = (state = initialState, action) => {
               state.precio[0] <= parseInt(Element.precio) &&
               state.precio[1] >= parseInt(Element.precio)
           );
-        if (state.categoria !== 'todas')
+        if (state.categoria !== "todas")
           arr = arr.filter((Element) =>
             Element.categoria.includes(state.categoria)
           );
         productsFilter = [...arr];
       }
 
-      let setError = '';
+      let setError = "";
 
       if (productsFilter.length === 0) {
         setError = true;
@@ -337,7 +372,7 @@ const rootReducer = (state = initialState, action) => {
         setError = false;
       }
 
-      if (state.ordenamiento === 'asc') {
+      if (state.ordenamiento === "asc") {
         productsFilter = productsFilter.sort((a, b) => {
           //el valor A va antes que el B ya que A es menor(negativo significa que el valor A va antes que B)
           if (parseInt(a.precio) > parseInt(b.precio)) return 1;
@@ -347,7 +382,7 @@ const rootReducer = (state = initialState, action) => {
           return 0;
         });
       }
-      if (state.ordenamiento === 'desc') {
+      if (state.ordenamiento === "desc") {
         productsFilter = productsFilter.sort((a, b) => {
           //el valor B va antes que el A ya que B es mayor(positivo significa que el valor B va antes que A)
           if (parseInt(a.precio) < parseInt(b.precio)) return 1;
@@ -370,11 +405,11 @@ const rootReducer = (state = initialState, action) => {
       let arr = [...state.products];
       if (action.payload[1] === 0) {
         arr = [...state.products];
-        if (state.marca !== 'todas')
+        if (state.marca !== "todas")
           arr = arr.filter((Element) => Element.marca.includes(state.marca));
-        if (state.talla !== 'todas')
+        if (state.talla !== "todas")
           arr = arr.filter((Element) => Element.talla.includes(state.talla));
-        if (state.categoria !== 'todas')
+        if (state.categoria !== "todas")
           arr = arr.filter((Element) =>
             Element.categoria.includes(state.categoria)
           );
@@ -385,17 +420,17 @@ const rootReducer = (state = initialState, action) => {
             action.payload[0] <= parseInt(Element.precio) &&
             action.payload[1] >= parseInt(Element.precio)
         );
-        if (state.marca !== 'todas')
+        if (state.marca !== "todas")
           arr = arr.filter((Element) => Element.marca.includes(state.marca));
-        if (state.talla !== 'todas')
+        if (state.talla !== "todas")
           arr = arr.filter((Element) => Element.talla.includes(state.talla));
-        if (state.categoria !== 'todas')
+        if (state.categoria !== "todas")
           arr = arr.filter((Element) =>
             Element.categoria.includes(state.categoria)
           );
       }
 
-      let setError = '';
+      let setError = "";
 
       if (arr.length === 0) {
         setError = true;
@@ -403,7 +438,7 @@ const rootReducer = (state = initialState, action) => {
         setError = false;
       }
 
-      if (state.ordenamiento === 'asc') {
+      if (state.ordenamiento === "asc") {
         arr = arr.sort((a, b) => {
           //el valor A va antes que el B ya que A es menor(negativo significa que el valor A va antes que B)
           if (parseInt(a.precio) > parseInt(b.precio)) return 1;
@@ -413,7 +448,7 @@ const rootReducer = (state = initialState, action) => {
           return 0;
         });
       }
-      if (state.ordenamiento === 'desc') {
+      if (state.ordenamiento === "desc") {
         arr = arr.sort((a, b) => {
           //el valor B va antes que el A ya que B es mayor(positivo significa que el valor B va antes que A)
           if (parseInt(a.precio) < parseInt(b.precio)) return 1;
@@ -440,70 +475,100 @@ const rootReducer = (state = initialState, action) => {
         (product) => product.id === newProduct.id
       );
 
-      return productInCart
-        ? {
+      if (productInCart) {
+        state = {
           ...state,
           cart: state.cart.map((c) =>
             c.id === newProduct.id ? { ...c, cantidad: c.cantidad + 1 } : c
           ),
-        }
-        : {
+        };
+        localStorage.setItem("cart", JSON.stringify(state.cart));
+      } else {
+        state = {
           ...state,
           cart: [...state.cart, { ...newProduct, cantidad: 1 }],
         };
+        localStorage.setItem("cart", JSON.stringify(state.cart));
+      }
+
+      return state;
 
     case REMOVE_ONE_FROM_CART:
       let productToDelete = state.cart.find(
         (product) => product.id === action.payload
       );
-      //console.log(productToDelete);
-      return productToDelete.cantidad > 1
-        ? {
+
+      if (productToDelete.cantidad > 1) {
+        state = {
           ...state,
           cart: state.cart.map((c) =>
             c.id === action.payload ? { ...c, cantidad: c.cantidad - 1 } : c
           ),
-        }
-        : {
+        };
+        localStorage.setItem("cart", JSON.stringify(state.cart));
+      } else {
+        state = {
           ...state,
           cart: state.cart.filter((c) => c.id !== action.payload),
         };
+        localStorage.setItem("cart", JSON.stringify(state.cart));
+      }
+
+      return state;
+
     case ADD_ONE_TO_CART:
       let productToAdd = state.cart.find(
         (product) => product.id === action.payload
       );
-      return productToAdd.cantidad >= 1
-        ? {
+
+      if (productToAdd.cantidad >= 1) {
+        state = {
           ...state,
           cart: state.cart.map((c) =>
             c.id === action.payload ? { ...c, cantidad: c.cantidad + 1 } : c
           ),
-        }
-        : {
+        };
+        localStorage.setItem("cart", JSON.stringify(state.cart));
+      } else {
+        state = {
           ...state,
           cart: state.cart.filter((c) => c.id !== action.payload),
         };
+        localStorage.setItem("cart", JSON.stringify(state.cart));
+      }
+      return state;
+
     case REMOVE_ALL_FROM_CART:
-      return {
+      state = {
         ...state,
         cart: state.cart.filter((c) => c.id !== action.payload),
       };
+      localStorage.setItem("cart", JSON.stringify(state.cart));
+
+      return state;
+
     case CLEAR_CART:
-      return initialState;
-    case ADD_TO_FAVORITE:
+      state = {
+        ...state,
+        cart: [],
+      };
+      localStorage.setItem("cart", JSON.stringify(state.cart));
+      return state;
+
+    /* case ADD_TO_FAVORITE:
       let newFavorite = state.details.find(
         (product) => product.id === action.payload
       );
       let productInFavorite = state.favorites.find(
         (product) => product.id === newFavorite.id
       );
-
       return productInFavorite
         ? { ...state }
         : {
-            ...state,
-            favorites: [...state.favorites, newFavorite],
-          };
+          ...state,
+          favorites: [...state.favorites, newFavorite],
+        }; */
+
     case REMOVE_FROM_FAVORITE:
       let productToRemove = state.favorites.find(
         (product) => product.id === action.payload

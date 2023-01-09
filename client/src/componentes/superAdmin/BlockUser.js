@@ -42,7 +42,7 @@ const BlockUser = ({ accessToken, block }) => {
         }
         setUsers(response);
       });
-  }, [accessToken]);
+  }, [block, accessToken]);
 
   useEffect(() => {
     fetchUsers();
@@ -91,6 +91,7 @@ const BlockUser = ({ accessToken, block }) => {
           setResponse(response);
         }
       });
+    console.log({ user: blockedUser, block });
   };
 
   return (

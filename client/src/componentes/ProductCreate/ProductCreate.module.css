@@ -43,7 +43,6 @@
   right: 0;
 }
 
-
 .inputI p {
   position: absolute;
   right: 0;
@@ -108,7 +107,6 @@ select {
   box-shadow: 0 7px 0 -2px #f85959, 0 15px 0 -4px #39a2db,
     0 16px 10px -3px #39a2db;
   color: #fff;
-
 }
 
 .button:active {
@@ -117,7 +115,6 @@ select {
   box-shadow: 0 2px 0 -2px #f85959, 0 8px 0 -4px #39a2db,
     0 12px 10px -3px #39a2db;
   color: #fff;
-
 }
 
 .publicar {
@@ -164,4 +161,21 @@ select {
 
 .publicar button:hover::before {
   width: 100%;
+}
+
+@media (max-width: 768px) {
+  .createCont h1 {
+    margin-left: 40px;
+    margin-top: 10px;
+  }
+
+  .inputI label {
+    font-size: 18px;
+    margin-left: 20px;
+  }
+
+  .category label {
+    font-size: 18px;
+    margin-left: 20px;
+  }
 }

@@ -13,20 +13,28 @@ import { Route } from "react-router-dom";
 import About from "./componentes/About/About";
 import modifCateg from "./componentes/modifCateg/modifCateg";
 import { ProtectedRoute } from "./componentes/ProtectedRoute";
+import UpdateProd from './componentes/UpdateProd/updateProd';
+import FormCompra from "./componentes/formCompra/FormCompra";
+import Review from "./componentes/Reviews/Reviews";
+
 import SuperAdmin from "./componentes/superAdmin/superAdmin.jsx";
 
 function App() {
+
   return (
     <div className="divPadre">
       <Route exact path="/" component={Home} />
-      <Route path="/product" component={ProductCreate} />
+      <Route path="/updateProd/:id" component={UpdateProd} />
       <Route path="/details/:id" component={Details} />
+      <Route path="/compras/review/:id" component={Review} />
       <Route path="/cart" component={Carrito} />
-      <ProtectedRoute path="/answers" component={Answers} />
+      <Route path="/formCompra" component={FormCompra} />
       <Route path="/about" component={About} />
-      <ProtectedRoute path="/modifCateg" component={modifCateg} />
       <Route path="/profile" component={Perfil} />
-      <Route exact path="/favorites" component={Favorites} />
+      <Route exact path="/favoritos/:email" component={Favorites} />
+      <ProtectedRoute path="/answers" component={Answers} />
+      <ProtectedRoute path="/modifCateg" component={modifCateg} />
+      <ProtectedRoute path="/product" component={ProductCreate} />
       <ProtectedRoute path="/sales" component={VentasAdmin} />
       <ProtectedRoute path="/historial" component={HistorialUsuario} />
       <ProtectedRoute path="/review-form" component={ReviewForm} />

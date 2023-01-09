@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
 .btnQA {
   width: 50px;
   height: 50px;
@@ -15,6 +17,32 @@
 
 .btnQA:nth-child(3) img {
   width: 35px;
+}
+
+.profileMenu summary:hover :before {
+  transform: skewX(30deg) translate(150%, -50%);
+  transition-delay: 0.1s;
+}
+
+.profileMenu summary:active {
+  transform: scale(0.9);
+}
+
+.backHome {
+  border: 1px solid black;
+  display: flex;
+  padding: 5px;
+  color: black;
+  background-color: white;
+  font-weight: bold;
+  transition: all 0.4s;
+  position: absolute;
+  left: 3%;
+  top: 130px;
+}
+
+.backHome:hover {
+  filter: invert(100%);
 }
 
 .detailCont {
@@ -53,16 +81,16 @@
 }
 
 .img111 {
-  width: 50%;
+  width: 40%;
   height: 90%;
   background-position: center;
-  background-size: cover;
+  background-size: calc(120% - 80px);
 }
 
 .textCont {
   background-color: #edeff0;
   height: 100%;
-  width: 35%;
+  width: 45%;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -73,39 +101,87 @@
   font-size: 40px;
 }
 
-.textCont p {
-  font-size: 20px;
-}
 
 .productDesc {
-  margin-bottom: 180px;
+  margin-bottom: 150px;
+  margin-left: -10%;
 }
 
 .productDesc h2 {
   margin-bottom: 30px;
+  font-size: 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.marca{
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.nombre{
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
 }
 
-.textCont button {
+.categoria{
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.precio{
+  font-size: 35px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.color{
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.talla{
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.stock{
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.buttonTalle{
+  width: 40px;
+  height: 40px;
+  margin-right: 2%;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+.buttonTalle:hover {
+  filter: invert(100%);
+}
+
+.añadirCart {
   padding: 10px;
   width: 260px;
   outline: none;
   border: 2px solid black;
+  border-radius: 5px;
   background-color: white;
   color: white;
   position: relative;
   letter-spacing: 1px;
   font-weight: bold;
   cursor: pointer;
+  font-family: 'Poppins', sans-serif;
 }
 
-.textCont button::before {
+.añadirCart::before {
   content: 'AÑADIR AL CARRITO';
-  /*Button's value/text-content */
   position: absolute;
-  top: -14%;
-  left: 7%;
-  background-color: black;
+  top: -8%;
+  left: 2%;
+  background-color: rgb(0, 0, 0);
   width: 100%;
   height: 100%;
   color: white;
@@ -114,9 +190,10 @@
   justify-content: center;
   transition: 0.15s ease-in-out;
   font-weight: bold;
+  border-radius: 5px;
 }
 
-.textCont button:hover::before {
+.añadirCart:hover::before {
   top: 0;
   left: 0;
 }
@@ -133,15 +210,16 @@
 
 .botones {
   display: flex;
-  width: 60%;
-  justify-content: space-between;
+  width: 80%;
+  justify-content: space-around;
   align-items: center;
 }
 
 .fav {
-  width: 50px;
-  height: 50px;
-  border: 1px solid black;
+  width: 45px;
+  height: 45px;
+  border: 2px solid black;
+  border-radius: 5px;
   background-color: #edeff0;
   display: flex;
   justify-content: center;
@@ -180,6 +258,28 @@
   align-items: center;
 }
 
+.btns button {
+  border: 0;
+}
+
+.btns {
+  display: flex;
+  width: 60%;
+  justify-content: space-around;
+  align-items: center;
+  padding: 5px 15px;
+  transform: translateY(-140%);
+}
+
+.btns img {
+  transition: all 0.4s;
+}
+
+.btns img:hover {
+  border-radius: 5px;
+  transform: translateY(-10px);
+}
+
 .spinner {
   width: 200px;
   height: 200px;
@@ -190,7 +290,7 @@
   top: 45%;
 }
 
-.spinner>div {
+.spinner > div {
   background-color: rgba(0, 77, 255, 0.2);
   height: 100%;
   position: absolute;
@@ -260,7 +360,7 @@
 
   .textCont {
     width: 100%;
-    height: 50%;
+    height: 60%;
     position: relative;
   }
 
@@ -277,6 +377,15 @@
     font-size: 18px;
   }
 
+  .btns {
+    position: absolute;
+    top: 90%;
+  }
+
+  .btns img {
+    width: 50px;
+  }
+
   .productDesc {
     margin-left: 15%;
     position: absolute;
@@ -285,6 +394,103 @@
 
   .botones {
     width: 90%;
+    position: absolute;
+    bottom: 10%;
+  }
+
+  .spinner {
+    width: 150px;
+    height: 150px;
+    left: 35%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1380px) {
+  .textCont {
+    background-color: #edeff0;
+    height: 100%;
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .textCont h2 {
+    font-size: 30px;
+    margin-left: 5%;
+  }
+
+  .textCont h3 {
+    font-size: 20px;
+    margin-left: 5%;
+  }
+
+  .textCont h5 {
+    font-size: 18px;
+    margin-left: 5%;
+  }
+
+  .botones {
+    width: 100%;
+    justify-content: space-around;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 990px) {
+  .detailCont {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .imgCont {
+    height: 400px;
+  }
+
+  .img1 {
+    width: 60%;
+  }
+
+  .img111 {
+    width: 80%;
+  }
+
+  .textCont {
+    width: 100%;
+    height: 60%;
+    position: relative;
+  }
+
+  .textCont h2 {
+    font-size: 28px;
+    width: 80%;
+  }
+
+  .textCont h3 {
+    font-weight: bold;
+  }
+
+  .textCont h5 {
+    font-size: 18px;
+  }
+
+  .btns {
+    position: absolute;
+    top: 90%;
+  }
+
+  .btns img {
+    width: 50px;
+  }
+
+  .productDesc {
+    margin-left: 15%;
+    position: absolute;
+    top: 10px;
+  }
+
+  .botones {
+    width: 70%;
     position: absolute;
     bottom: 10%;
   }

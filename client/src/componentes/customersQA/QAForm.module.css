@@ -16,7 +16,7 @@
   margin: 1rem;
   margin-bottom: 0rem;
 }
-/* 
+
 .form-input {
   height: 3rem;
   width: 30rem;
@@ -28,7 +28,6 @@
   border: unset;
   border-radius: 100px;
   color: #212121;
-  z-index: 1;
   background: #e8e8e8;
   position: relative;
   font-weight: 1000;
@@ -38,10 +37,10 @@
   transition: all 250ms;
   overflow: hidden;
   cursor: pointer;
-} */
+}
 
-/* .submit-button::before {
-  content: "";
+.submit-button::before {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -61,7 +60,7 @@
 
 .submit-button:hover::before {
   width: 100%;
-} */
+}
 
 .pregunta-enviada {
   font-weight: bold;
@@ -87,32 +86,30 @@
   .form-cont {
     position: absolute;
     width: 95%;
-    height: 50%;
-    bottom: 0;
+    height: 60%;
+    bottom: 3%;
   }
 
   .form-container {
     height: 50%;
     width: 100%;
+    align-items: center;
     position: absolute;
     right: 0;
-    bottom: 3%;
-    top: 0;
+    bottom: 6%;
   }
 
   .form-input {
     height: 35px;
     width: 220px;
     position: absolute;
-    top: 55%;
-    left: 20%;
+    top: 40%;
   }
 
-  /* .submit-button {
+  .submit-button {
     padding: 5px 15px;
     width: 220px;
     position: absolute;
     top: 65%;
-    left: 20%;
-  } */
+  }
 }

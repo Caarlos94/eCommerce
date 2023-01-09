@@ -18,8 +18,9 @@
 }
 
 .section {
-  justify-content: center;
   display: grid;
+  padding: 20px 20px 20px 20px;
+  justify-content: center;
   grid-template-columns: 400px 400px 400px;
   grid-template-rows: auto;
 }
@@ -29,6 +30,9 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+.notFound img{
+  width: 200px;
 }
 
 .textoHero {
@@ -107,7 +111,7 @@
 }
 
 .hero h1 {
-  font-size: 100px;
+  font-size: 6rem;
   color: #ffffff;
   text-shadow: 3px 3px 0 #222, 5px 5px 0 #000000b5, 5px 5px 5px #f2f2f2;
 }
@@ -226,5 +230,40 @@
   .hero {
     position: relative;
     top: -22px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1500px) {
+  .messi {
+    position: relative;
+    left: 50%;
+  }
+
+  .img1 {
+  }
+
+  .img11 {
+  }
+
+  .img2 {
+    width: 307px;
+    height: 314px;
+    position: relative;
+    left: -240%;
+    top: 20%;
+  }
+
+  .img3 {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .section {
+    justify-content: center;
+    display: grid;
+    grid-template-columns: 350px 350px;
+    grid-template-rows: auto;
+    grid-gap: 20px;
   }
 }

@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from "react";
-import SearchBar from "./searchBar/searchBar.jsx";
-import style from "./navBar2.module.css";
-import "./navBar2.css";
-import { Link, NavLink } from "react-router-dom";
-import heart from "../../img/heart-regular.svg";
-import usuario from "../../img/user.svg";
-import back from "../../img/back.png";
-import shopping from "../../img/shopping.png";
-import answers from "../../img/answ.png";
-import { useDispatch, useSelector } from "react-redux";
-import { getProducts, importUser } from "../../redux/actions/actions.js";
-import { useAuth0 } from "@auth0/auth0-react";
-import jwt_decode from "jwt-decode";
+import React, { useEffect, useState } from 'react';
+import SearchBar from './searchBar/searchBar.jsx';
+import style from './navBar2.module.css';
+import './navBar2.css';
+import { Link, NavLink } from 'react-router-dom';
+import heart from '../../img/heart-regular.svg';
+import usuario from '../../img/user.svg';
+import back from '../../img/back.png';
+import shopping from '../../img/shopping.png';
+import answers from '../../img/answ.png';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getFavorites,
+  getProducts,
+  importUser,
+} from '../../redux/actions/actions.js';
+import { useAuth0 } from '@auth0/auth0-react';
+import jwt_decode from 'jwt-decode';
 
 const Navbar2 = ({ setPages }) => {
   const dispatch = useDispatch();
   const carrito = useSelector((state) => state.cart);
-  const favoritos = useSelector((state) => state.favorites);
 
   const [isAdmin, setIsAdmin] = useState(false);
-
-  useEffect(() => {
-    dispatch(getProducts);
-  }, [dispatch]);
+  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
 
   const {
     user,
@@ -32,34 +32,34 @@ const Navbar2 = ({ setPages }) => {
     getAccessTokenSilently,
   } = useAuth0();
 
+  let email;
+  user && (email = user.email);
+
   useEffect(() => {
+    dispatch(getProducts);
+
     const checkForAdminRole = async () => {
       if (isAuthenticated) {
         const accessToken = await getAccessTokenSilently();
         let decoded = jwt_decode(accessToken);
 
-        if (decoded.permissions.includes("read:admin")) {
+        if (decoded.permissions.includes('read:admin')) {
           // verificación principalmente estética. No brinda seguridad.
           setIsAdmin(true);
+        }
+        if (decoded.permissions.includes("read:users")) {
+          setIsSuperAdmin(true);
         }
       }
     };
     checkForAdminRole();
-  }, [isAuthenticated, getAccessTokenSilently]);
+    dispatch(getFavorites(email));
+  }, [isAuthenticated, getAccessTokenSilently, dispatch, email]);
+
+  const favoritos = useSelector((state) => state.favorites);
 
   const [isOpen, SetOpen] = useState(false);
-  // isAuthenticated && dispatch(importUser(user));
-
-  useEffect(() => {
-    user &&
-      fetch("http://localhost:3001/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
-  }, [user, isAuthenticated]);
+  isAuthenticated && dispatch(importUser(user));
 
   return (
     <div className={style.div}>
@@ -71,8 +71,8 @@ const Navbar2 = ({ setPages }) => {
         </div>
       </div>
 
-      <div className={`white2 ${isOpen && "open"}`}>
-        <NavLink to="/" style={{ textDecoration: "none" }}>
+      <div className={`white2 ${isOpen && 'open'}`}>
+        <NavLink to="/" style={{ textDecoration: 'none' }}>
           <div className={style.backHome}>
             <img src={back} alt=""></img>
             Inicio
@@ -92,7 +92,7 @@ const Navbar2 = ({ setPages }) => {
                   <div>
                     <Link
                       to="/profile"
-                      style={{ textDecoration: "none" }}
+                      style={{ textDecoration: 'none' }}
                       className={style.button}
                     >
                       Perfil
@@ -103,6 +103,37 @@ const Navbar2 = ({ setPages }) => {
                       Cerrar sesión
                     </button>
                   </div>
+                  {/* <div className={style.historialC}>
+                    <NavLink to="/historial" style={{ textDecoration: 'none' }}>
+                      <button>Historial de Compras</button>
+                    </NavLink>
+                  </div> */}
+                  {isAdmin ? (
+                    <div className={style.adminn}>
+                      <div className={style.historialV}>
+                        <NavLink to="/sales" style={{ textDecoration: 'none' }}>
+                          <button>Historial de Ventas</button>
+                        </NavLink>
+                      </div>
+                      <div className={style.publicar}>
+                        <NavLink
+                          to="/product"
+                          style={{ textDecoration: 'none' }}
+                        >
+                          <button>Publicar un Producto</button>
+                        </NavLink>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={style.historialC}>
+                      <NavLink
+                        to="/historial"
+                        style={{ textDecoration: 'none' }}
+                      >
+                        <button>Historial de Compras</button>
+                      </NavLink>
+                    </div>
+                  )}
                 </div>
               </details>
             </div>
@@ -114,11 +145,11 @@ const Navbar2 = ({ setPages }) => {
 
           {isAdmin ? (
             <div className={style.admin}>
-              <div className={style.publicar}>
-                <NavLink to="/product" style={{ textDecoration: "none" }}>
-                  <button>Publicar un producto!</button>
+              {/* <div className={style.publicar}>
+                <NavLink to="/product" style={{ textDecoration: 'none' }}>
+                  <button>Publicar un Producto</button>
                 </NavLink>
-              </div>
+              </div> */}
               <div className={style.qa}>
                 <NavLink to="/answers">
                   <div className={style.btnQA}>
@@ -126,11 +157,20 @@ const Navbar2 = ({ setPages }) => {
                   </div>
                 </NavLink>
               </div>
-              <div className={style.publicar}>
+              {/* <div className={style.publicar}>
                 <NavLink to="/sales" style={{ textDecoration: "none" }}>
                   <button>Historial de Ventas</button>
                 </NavLink>
-              </div>
+              </div> */}
+              {isSuperAdmin ? (
+                <div className={style.historial}>
+                  <NavLink to="/superAdmin" style={{ textDecoration: "none" }}>
+                    <button>admins</button>
+                  </NavLink>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           ) : (
             <>
@@ -138,7 +178,7 @@ const Navbar2 = ({ setPages }) => {
                 <NavLink
                   to="/cart"
                   className={style.carro}
-                  style={{ textDecoration: "none" }}
+                  style={{ textDecoration: 'none' }}
                 >
                   <div className={style.btn}>
                     <h6>{carrito.length}</h6>
@@ -153,15 +193,23 @@ const Navbar2 = ({ setPages }) => {
                 </NavLink>
               )}
 
-              {favoritos.length > 0 ? (
-                <NavLink to="/favorites">
-                  <div className={style.btn}>
-                    <h6>{favoritos.length}</h6>
-                    <img src={heart} alt=""></img>
-                  </div>
-                </NavLink>
+              {user ? (
+                <>
+                  <NavLink to={`/favoritos/${user.email}`}>
+                    <div className={style.btn}>
+                      {favoritos.length > 0 && <h6>{favoritos.length}</h6>}
+                      <img src={heart} alt=""></img>
+                    </div>
+                  </NavLink>
+
+                  {/* <div className={style.historial}>
+                    <NavLink to="/historial" style={{ textDecoration: "none" }}>
+                      <button>Historial de Compras</button>
+                    </NavLink>
+                  </div> */}
+                </>
               ) : (
-                <NavLink to="/favorites">
+                <NavLink to="/">
                   <div className={style.btn}>
                     <img src={heart} alt=""></img>
                   </div>
