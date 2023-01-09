@@ -5,11 +5,23 @@ const { validateAdmin } = require("./middleware/validateAdmin");
 const { validateAccessToken } = require("./middleware/validateAccessToken");
 const { errorHandler } = require("./middleware/error.middleware");
 const nodemailer = require("nodemailer");
-const { DATE } = require("sequelize");
 require("dotenv").config();
 const { EMAIL_PASSWORD, EMAIL_HOST, EMAIL_PORT, EMAIL_USER } = process.env;
 
-
+// Ejemplo de req.body:
+// {
+//   "clienteId":"32671d87-37bf-4014-af3c-bb6bd59a8f8d",
+//   "productos":[
+//     {
+//       "prodId":"3d995950-86eb-11ed-b779-997a2f11ad2c",
+//       "cantidad":1
+//     },
+//     {
+//       "prodId":"3d99f590-86eb-11ed-b779-997a2f11ad2c",
+//       "cantidad":1
+//     }
+//   ]
+// }
 
 compraRouter.post("/", async (req, res) => {
   try {
@@ -262,7 +274,7 @@ compraRouter.put(
         from: "suprasportspf@outlook.com",
         to: clienteEmail,
         subject: "Confirmación de envío ",
-        text: `Ya ha sido confirmado el envío del producto, le enviamos el siguiente número Localizador para seguirlo: ${trackingNumber}.`,
+        text: `Ya ha sido confirmado el envío del producto, le enviamos el siguiente número Localizador para seguirlo: ${trackingNumber}. ${req.body}`,
       };
 
       transporter.sendMail(mailOptions, function (error, info) {
@@ -352,7 +364,7 @@ compraRouter.get("/reviews/:productoId", async (req, res) => {
   try {
     const { productoId } = req.params;
     const reviews = await Review.findAll(
-      { where: { productoId } },
+      { where: { productoId }, include: Cliente },
       { raw: true }
     );
 

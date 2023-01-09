@@ -22,6 +22,7 @@ const Navbar = ({ setPages }) => {
   const carrito = useSelector((state) => state.cart);
 
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
 
   const {
     user,
@@ -42,9 +43,12 @@ const Navbar = ({ setPages }) => {
         const accessToken = await getAccessTokenSilently();
         let decoded = jwt_decode(accessToken);
 
-        if (decoded.permissions.includes('read:admin')) {
-          // verificación principalmente estética. No brinda seguridad.
+        if (decoded.permissions.includes("read:admin")) {
+          // verificación principalmente UX. No brinda seguridad.
           setIsAdmin(true);
+        }
+        if (decoded.permissions.includes("read:users")) {
+          setIsSuperAdmin(true);
         }
       }
     };
@@ -56,7 +60,16 @@ const Navbar = ({ setPages }) => {
 
   const [isOpen, SetOpen] = useState(false);
 
-  user && dispatch(importUser(user));
+  useEffect(() => {
+    user &&
+      fetch("http://localhost:3001/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+  }, [user]);
 
   // {console.log(user)}
 
@@ -69,7 +82,7 @@ const Navbar = ({ setPages }) => {
           <span className="span"></span>
         </div>
       </div>
-      <div className={`white ${isOpen && 'open'}`}>
+      <div className={`white ${isOpen && "open"}`}>
         <div className={style.filtros}>
           <Filtros setPages={setPages} />
         </div>
@@ -87,7 +100,7 @@ const Navbar = ({ setPages }) => {
                   <div>
                     <Link
                       to="/profile"
-                      style={{ textDecoration: 'none' }}
+                      style={{ textDecoration: "none" }}
                       className={style.button}
                     >
                       Perfil
@@ -152,11 +165,20 @@ const Navbar = ({ setPages }) => {
                   </div>
                 </NavLink>
               </div>
-              {/* <div className={style.historialV}>
-                <NavLink to="/sales" style={{ textDecoration: 'none' }}>
+              {/* <div className={style.publicar}>
+                <NavLink to="/sales" style={{ textDecoration: "none" }}>
                   <button>Historial de Ventas</button>
                 </NavLink>
               </div> */}
+              {isSuperAdmin ? (
+                <div className={style.historial}>
+                  <NavLink to="/superAdmin" style={{ textDecoration: "none" }}>
+                    <button>admins</button>
+                  </NavLink>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           ) : (
             <>

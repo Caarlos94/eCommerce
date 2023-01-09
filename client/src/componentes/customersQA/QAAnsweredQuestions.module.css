@@ -11,6 +11,11 @@
   font-weight: bold;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: flex-start;
+  /* border: 3px solid purple; */
+  width: 100%;
+  margin-left: 31%;
 }
 
 .qContainer {
@@ -49,7 +54,6 @@
     width: 95%;
     height: 55%;
     top: 0;
-    /* border: 1px solid red; */
   }
 
   .titulo-preguntas {

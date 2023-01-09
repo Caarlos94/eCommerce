@@ -4,7 +4,6 @@ import { getCategorys, postCategory, deleteCategory } from '../../redux/actions/
 import Navbar2 from '../navbar/navBar2'
 import Footer from '../Footer/Footer'
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useHistory } from 'react-router-dom';
 
 const validate = (input, categs) => {
     let errors = {};
@@ -25,7 +24,7 @@ const validate = (input, categs) => {
 export default function ModifCateg() {
     const dispatch = useDispatch()
     const categs = useSelector((state) => state.categorys);
-    const history = useHistory();
+
     const [input, setInput] = useState({ nombre: "" });
     const [errors, setErrors] = useState({});
 
@@ -61,26 +60,18 @@ export default function ModifCateg() {
     const handlerSubmit = (e) => {
         e.preventDefault();
         console.log(input.nombre + ' CREADO');
-        dispatch(postCategory(input));
-        setTimeout(() => dispatch(getCategorys()), 100)
+        dispatch(postCategory(input))
+            .then(dispatch(getCategorys()));
         setInput({
             nombre: "",
-        });
-        history.push("/modifCateg");
+        })
     };
 
     return (
         <div>
             <Navbar2 />
             <div className={style.modifCategCont}>
-                <div className={style.header}>
-                    <div className={style.publicar}>
-                        <NavLink to="/product" style={{ textDecoration: "none" }}>
-                            <button>Volver al Creador de Productos...</button>
-                        </NavLink>
-                    </div>
-                    <h1>Categorías</h1>
-                </div>
+                <h1>Categorías</h1>
                 <form onSubmit={(e) => handlerSubmit(e)}>
                     <div className={style.inputI}>
                         <label>Nombre de la nueva categoría: </label>

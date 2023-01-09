@@ -17,6 +17,7 @@ import UpdateProd from './componentes/UpdateProd/updateProd';
 import FormCompra from "./componentes/formCompra/FormCompra";
 import Review from "./componentes/Reviews/Reviews";
 
+import SuperAdmin from "./componentes/superAdmin/superAdmin.jsx";
 
 function App() {
 
@@ -24,19 +25,20 @@ function App() {
     <div className="divPadre">
       <Route exact path="/" component={Home} />
       <Route path="/updateProd/:id" component={UpdateProd} />
-      <Route path="/compras/review/:id" component={Review} />
+      <Route path="/product" component={ProductCreate} />
       <Route path="/details/:id" component={Details} />
+      <Route path="/compras/review/:id" component={Review} />
       <Route path="/cart" component={Carrito} />
-      <Route path="/about" component={About} />
-      <Route path="/profile" component={Perfil} />
       <Route path="/formCompra" component={FormCompra} />
-      <Route exact path="/favoritos/:email" component={Favorites} />
-      <ProtectedRoute path="/product" component={ProductCreate} />
       <ProtectedRoute path="/answers" component={Answers} />
+      <Route path="/about" component={About} />
       <ProtectedRoute path="/modifCateg" component={modifCateg} />
+      <Route path="/profile" component={Perfil} />
+      <Route exact path="/favorites" component={Favorites} />
       <ProtectedRoute path="/sales" component={VentasAdmin} />
       <ProtectedRoute path="/historial" component={HistorialUsuario} />
       <ProtectedRoute path="/review-form" component={ReviewForm} />
+      <ProtectedRoute path="/superAdmin" component={SuperAdmin} />
     </div>
   );
 }
