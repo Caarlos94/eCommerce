@@ -6,7 +6,7 @@ import Perfil from "./componentes/navbar/Perfil/Perfil";
 import Carrito from "./componentes/Carrito/Carrito";
 import Answers from "./componentes/Answers/Answers";
 import VentasAdmin from "./componentes/VentasAdmin/VentasAdmin";
-import Favorites from "./componentes/Favorites/Favorites";
+// import Favorites from "./componentes/Favorites/Favorites";
 import HistorialUsuario from "./componentes/HistorialUsuario/HistorialUsuario";
 import { Route } from "react-router-dom";
 import About from "./componentes/About/About";
@@ -35,14 +35,14 @@ function App() {
       <Route path="/about" component={About} />
       <Route path="/profile" component={Perfil} />
       <Route path="/formCompra" component={FormCompra} />
-      <Route exact path="/favoritos/:email" component={Favorites} />
+      {/* <Route exact path="/favoritos/:email" component={Favorites} /> */}
       <ProtectedRoute path="/product" component={ProductCreate} />
       <ProtectedRoute path="/answers" component={Answers} />
       <ProtectedRoute path="/modifCateg" component={modifCateg} />
       <ProtectedRoute path="/sales" component={VentasAdmin} />
       <ProtectedRoute path="/historial" component={HistorialUsuario} />
-      <ProtectedRoute path="/review-form" component={ReviewForm} />
-      <ProtectedRoute path="/superAdmin" component={SuperAdmin} />
+      {/* <ProtectedRoute path="/review-form" component={ReviewForm} />
+      <ProtectedRoute path="/superAdmin" component={SuperAdmin} /> */}
     </div>
   );
 }

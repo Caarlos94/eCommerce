@@ -5,21 +5,68 @@ import Footer from '../Footer/Footer'
 
 export default function About() {
     return (
-        <div>
+        <div className={style.Div}>
+            
             <Navbar2 />
+          
             <div className={style.contentAbout}>
                 <h1>Nosotros</h1>
+              
+                <div className={style.divPadre}>
 
+<div className={style.card}>
+     <div className={style.card_image}>
+     </div>
+     <div className={style.card_description}>
+      <p className={style.text_title}>carlos islas</p>
+      <p  className={style.text_body} ></p>
+    </div>
+   </div>
+
+    <div className={style.card}>
+     <div className={style.card_image2}></div>
+     <div className={style.card_description}>
+      <p className={style.text_title}> Alejandro mocse</p>
+      <p  className={style.text_body} ></p>
+    </div>
+   </div>
+
+   <div className={style.card}>
+     <div className={style.card_image3}></div>
+     <div className={style.card_description}>
+      <p className={style.text_title}> Carlos Medero</p>
+      <p  className={style.text_body} ></p>
+     </div>
+   </div>
+
+   <div className={style.card}>
+     <div className={style.card_image4}></div>
+     <div className={style.card_description}>
+      <p className={style.text_title}>joaquin dileo</p>
+      <p  className={style.text_body} ></p>
+     </div>
+   </div>
+
+   <div className={style.card}>
+     <div className={style.card_image5}></div>
+     <div className={style.card_description}>
+      <p className={style.text_title}> cesar </p>
+      <p  className={style.text_body}></p>
+     </div>
+   </div>
+
+   <div className={style.card}>
+     <div className={style.card_image6}></div>
+     <div className={style.card_description}>
+      <p className={style.text_title}>beli </p>
+      <p  className={style.text_body} ></p>
+     </div>
+   </div>
+</div>
+
+ <div className={style.divData}>
                 <h3>SupraSports es una página dedicada a la venta de indumentaria deportiva.</h3>
-                <h5>Diseñada por:</h5>
-                <h6>
-                    Carlos-Islas<br />
-                    Alejandro Mocse<br />
-                    Joaquín Di Leo<br />
-                    Carlos Medero<br />
-                    Cesar Zegarra<br />
-                    Belisandro Dávalos<br />
-                </h6>
+
                 <h5>Esta cuenta con:</h5>
                 <h6>
                     Diseño responsive.<br />
@@ -39,8 +86,16 @@ export default function About() {
                     Paginado.<br />
                     Perfil de usuario.<br />
                 </h6>
-            </div>
+
+
+            <div className={style.Footer}>
             <Footer />
+          </div>
+    </div>
+            </div>
+
+  
+
         </div>
     )
 }

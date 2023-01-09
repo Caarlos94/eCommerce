@@ -36,6 +36,7 @@ const Home = () => {
   return (
     <div className={s.divaHome}>
       <Navbar setPages={setCurrentPage} />
+      <img src="../../img/messi.jpg" alt="" className={s.imgH}/>
       <div className={s.hero}>
         <div className={s.textoHero}>
           <h1>Supra Sports</h1>

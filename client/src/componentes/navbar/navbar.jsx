@@ -22,6 +22,7 @@ const Navbar = ({ setPages }) => {
   const carrito = useSelector((state) => state.cart);
 
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
 
   const {
     user,
