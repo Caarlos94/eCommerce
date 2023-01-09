@@ -6,7 +6,7 @@ const { fetchAdmins } = require("./middleware/fetchAdmins"); // solo puede usars
 const axios = require("axios");
 const { Cliente } = require("../db.js");
 require("dotenv").config();
-const { AUTH0_DOMAIN } = process.env;
+const { AUTH0_DOMAIN, ADMIN_ROLE_ID } = process.env;
 
 // agregar middleware de proteccion de token al haber implementado peticiones desde el front
 
@@ -28,7 +28,7 @@ superAdminRouter.post(
           authorization: `Bearer ${managementToken}`,
           "cache-control": "no-cache",
         },
-        data: { roles: ["rol_6qqkVmqdgh583LhO"] },
+        data: { roles: [ADMIN_ROLE_ID] },
       };
 
       axios
@@ -68,7 +68,7 @@ superAdminRouter.post(
             authorization: `Bearer ${managementToken}`,
             "cache-control": "no-cache",
           },
-          data: { roles: ["rol_6qqkVmqdgh583LhO"] },
+          data: { roles: [ADMIN_ROLE_ID] },
         };
         axios
           .request(options)
@@ -100,7 +100,7 @@ superAdminRouter.get("/fetchRoles", fetchManagementToken, async (req, res) => {
         authorization: `Bearer ${managementToken}`,
         "cache-control": "no-cache",
       },
-      data: { roles: ["rol_6qqkVmqdgh583LhO"] },
+      data: { roles: [ADMIN_ROLE_ID] },
     };
 
     axios

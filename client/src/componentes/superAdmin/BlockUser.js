@@ -94,62 +94,60 @@ const BlockUser = ({ accessToken, block }) => {
   };
 
   return (
-    <div>
-      <div className={classes["add-role-container"]}>
-        <div className={classes["add-title"]}></div>
-        <div className={classes["add-role-form"]}>
-          <p>{block ? "Bloquear usuarios" : "Desbloquear usuarios"}</p>
+    <div className={classes["blocking-container"]}>
+      <div className={classes["blocking-title"]}></div>
+      <div className={classes["blocking-form"]}>
+        <p>{block ? "Bloquear usuarios" : "Desbloquear usuarios"}</p>
 
-          <form onSubmit={handleSubmit}>
-            <div className={classes["email-select"]}>
-              <label htmlFor="email">
-                {block ? "Usuarios sin bloqueos" : "Usuarios bloqueados"}
-              </label>
-              <br />
-              {users.length && !filteredValue ? (
-                <select onChange={handleChange} name="email">
-                  {/*mapear users aqui. object en index user será el valor*/}
-                  {users.map((user) => (
-                    <option value={JSON.stringify(user)} key={newId()}>
-                      {user.email} | {user.idType}
-                    </option>
-                  ))}
-                </select>
-              ) : (
-                ""
-              )}
-              {filteredUsers.length && filteredValue ? (
-                <select onChange={handleChange} name="email">
-                  {filteredUsers.map((user) => (
-                    <option value={JSON.stringify(user)} key={newId()}>
-                      {user.email} | {user.idType}
-                    </option>
-                  ))}
-                </select>
-              ) : (
-                ""
-              )}
-            </div>
-            <div className={classes["filter-users"]}>
-              <label htmlFor="filter">Filtrar usuarios por email:</label>
-              <input
-                onChange={handleFilteredValue}
-                name="filter"
-                value={filteredValue}
-                type="text"
-              ></input>
-            </div>
+        <form onSubmit={handleSubmit}>
+          <div className={classes["email-select"]}>
+            <label htmlFor="email">
+              {block ? "Usuarios sin bloqueos: " : "Usuarios bloqueados: "}
+            </label>
+            <br />
+            {users.length && !filteredValue ? (
+              <select onChange={handleChange} name="email">
+                {/*mapear users aqui. object en index user será el valor*/}
+                {users.map((user) => (
+                  <option value={JSON.stringify(user)} key={newId()}>
+                    {user.email} | {user.idType}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              ""
+            )}
+            {filteredUsers.length && filteredValue ? (
+              <select onChange={handleChange} name="email">
+                {filteredUsers.map((user) => (
+                  <option value={JSON.stringify(user)} key={newId()}>
+                    {user.email} | {user.idType}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              ""
+            )}
+          </div>
+          <div className={classes["filter-users"]}>
+            <label htmlFor="filter">Filtrar usuarios por email:</label>
+            <input
+              onChange={handleFilteredValue}
+              name="filter"
+              value={filteredValue}
+              type="text"
+            ></input>
+          </div>
 
-            <div className={classes["add-submit"]}>
-              <button type="submit">
-                {block ? "Bloquear usuarios" : "Desbloquear usuarios"}
-              </button>
-            </div>
-            <div className={classes["response-container"]}>
-              {response.hasOwnProperty("msg") && <p>{response.msg}</p>}
-            </div>
-          </form>
-        </div>
+          <div className={classes["blocking-submit"]}>
+            <button type="submit">
+              {block ? "Bloquear usuarios" : "Desbloquear usuarios"}
+            </button>
+          </div>
+          <div className={classes["response-container"]}>
+            {response.hasOwnProperty("msg") && <p>{response.msg}</p>}
+          </div>
+        </form>
       </div>
     </div>
   );

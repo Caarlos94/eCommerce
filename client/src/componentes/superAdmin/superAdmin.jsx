@@ -78,14 +78,16 @@ const SuperAdmin = (props) => {
                 </button>
               </div>
             </div>
-            <div className={style["add-container"]}>
-              <AddAdmin accessToken={accessToken} />
-            </div>
-            <div className={style["block-users-container"]}>
-              <BlockUser accessToken={accessToken} block={true} />
-            </div>
-            <div className={style["block-users-container"]}>
-              <BlockUser accessToken={accessToken} block={false} />
+            <div className={style["right-side"]}>
+              <div className={style["add-container"]}>
+                <AddAdmin accessToken={accessToken} />
+              </div>
+              <div className={style["blocking-options"]}>
+                <BlockUser accessToken={accessToken} block={true} />
+              </div>
+              <div className={style["blocking-options"]}>
+                <BlockUser accessToken={accessToken} block={false} />
+              </div>
             </div>
           </div>
         </div>

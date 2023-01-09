@@ -35,22 +35,17 @@ adminQARouter.get("/", validateAccessToken, validateAdmin, async (req, res) => {
 adminQARouter.put("/", validateAccessToken, validateAdmin, async (req, res) => {
   try {
     const { questionId, answer } = req.body;
-
     Pregunta.findByPk(questionId).then((question) => {
       question.answer = answer;
       question.save();
     });
-
     const pregunta = await Pregunta.findOne({
       where: { id: questionId },
       include: Producto,
       raw: true,
     });
-
     let productName = pregunta["producto.nombre"];
-
     let email = pregunta.email;
-
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       let transporter = nodemailer.createTransport({
         host: EMAIL_HOST,
@@ -61,16 +56,13 @@ adminQARouter.put("/", validateAccessToken, validateAdmin, async (req, res) => {
           pass: EMAIL_PASSWORD,
         },
       });
-
       const mailOptions = {
         from: "suprasportspf@outlook.com",
         to: email,
         subject: "Respuesta a tu pregunta",
-        text: `La tienda respondió tu pregunta sobre el producto ${productName}: 
-        
+        text: `La tienda respondió tu pregunta sobre el producto ${productName}:
         ${answer}`,
       };
-
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
           throw new Error(error);
@@ -79,11 +71,9 @@ adminQARouter.put("/", validateAccessToken, validateAdmin, async (req, res) => {
         }
       });
     } else {
-      console.log("email inválido");
+      throw new Error("Email inválido");
     }
-
-    res.status(200).json("La respuesta fue enviada");
-    return;
+    return res.status(200).json("La respuesta fue enviada");
   } catch (error) {
     res.status(400).json({ error: true, msg: error.message });
   }

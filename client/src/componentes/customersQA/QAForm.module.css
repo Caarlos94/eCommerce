@@ -16,7 +16,7 @@
   margin: 1rem;
   margin-bottom: 0rem;
 }
-
+/* 
 .form-input {
   height: 3rem;
   width: 30rem;
@@ -38,9 +38,9 @@
   transition: all 250ms;
   overflow: hidden;
   cursor: pointer;
-}
+} */
 
-.submit-button::before {
+/* .submit-button::before {
   content: "";
   position: absolute;
   top: 0;
@@ -61,7 +61,7 @@
 
 .submit-button:hover::before {
   width: 100%;
-}
+} */
 
 .pregunta-enviada {
   font-weight: bold;
@@ -108,11 +108,11 @@
     left: 20%;
   }
 
-  .submit-button {
+  /* .submit-button {
     padding: 5px 15px;
     width: 220px;
     position: absolute;
     top: 65%;
     left: 20%;
-  }
+  } */
 }
