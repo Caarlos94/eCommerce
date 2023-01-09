@@ -42,18 +42,19 @@ const FavoriteProduct = ({
       {!didDelete ? (
         <div className={s.itemm}>
           <div className={s.item}>
-            <NavLink
-              to={`/details/${productoId}`}
-              style={{ textDecoration: 'none' }}
-              className={s.itemmm}
-            >
-              <div
-                className={s.itemImg}
-                style={{ backgroundImage: `url(${URL})` }}
-              ></div>
-            </NavLink>
+
+            <div
+              className={s.itemImg}
+              style={{ backgroundImage: `url(${URL})` }}
+            ></div>
             <div className={s.info}>
-              <h2>{nombre}</h2>
+              <NavLink
+                to={`/details/${productoId}`}
+                style={{ textDecoration: 'none' }}
+                className={s.itemmm}
+              >
+                <h2>{nombre}</h2>
+              </NavLink>
               <p>{talla}</p>
               <p>${precio}</p>
             </div>

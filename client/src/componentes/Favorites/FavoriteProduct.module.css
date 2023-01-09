@@ -24,7 +24,7 @@
 
 .itemImg {
   border: 0.5px solid rgb(143, 143, 143);
-  width: 70%;
+  width: 35%;
   height: 180px;
   margin-right: 20px;
   background-size: cover;
@@ -35,7 +35,7 @@
 .info {
   color: black;
   position: absolute;
-  left: 23%;
+  left: 40%;
 }
 
 .info p {
@@ -75,8 +75,8 @@
   }
 
   .itemImg {
-    width: 20%;
-    height: 80px;
+    width: 35%;
+    height: 120px;
     margin-right: 20px;
     background-size: cover;
     background-position: center;

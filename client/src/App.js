@@ -16,21 +16,15 @@ import { ProtectedRoute } from "./componentes/ProtectedRoute";
 import UpdateProd from './componentes/UpdateProd/updateProd';
 import FormCompra from "./componentes/formCompra/FormCompra";
 import Review from "./componentes/Reviews/Reviews";
-/* import { useAuth0 } from '@auth0/auth0-react'; */
 
 
 function App() {
-
-  /* const { user } = useAuth0(); */
 
   return (
     <div className="divPadre">
       <Route exact path="/" component={Home} />
       <Route path="/updateProd/:id" component={UpdateProd} />
       <Route path="/compras/review/:id" component={Review} />
-      {/* <Route path="/details/:id">
-        <Details user={user}></Details>
-      </Route> */}
       <Route path="/details/:id" component={Details} />
       <Route path="/cart" component={Carrito} />
       <Route path="/about" component={About} />
