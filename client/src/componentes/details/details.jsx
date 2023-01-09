@@ -6,13 +6,11 @@ import {
   limpiarState,
   addToCart,
   addToFavorite,
-  removeFromFavorite,
-  deleteProd,
   getProducts,
   getReviews,
   getFavorites,
 } from '../../redux/actions/actions.js';
-import { NavLink, useParams, useHistory } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
 import trash from '../../img/trash.png';
 import edit from '../../img/edit.png';
@@ -26,40 +24,20 @@ import { Toaster, toast } from 'react-hot-toast';
 
 const Details = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const reviews = useSelector((state) => state.reviews);
-  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const details = useSelector((state) => state.details);
 
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [, setFavoritos] = useState([]);
+  const [clienteId, setClienteId] = useState('');
+  const [, setDidDelete] = useState(false);
   const [input, setInput] = useState({
     email: '',
     productoId: '',
-  })
+  });
 
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   let { id } = useParams();
-
-  useEffect(() => {
-    if (user) {
-      setInput({
-        email: user.email,
-        productoId: id,
-      });
-    }
-  }, [user, id]);
-
-  useEffect(() => {
-    dispatch(limpiarState());
-    dispatch(getDetails(id));
-    dispatch(getReviews(id));
-
-    return function () {
-      dispatch(getProducts());
-    };
-  }, [dispatch, id]);
-  user && dispatch(getFavorites(user.email));
-
-
-  const details = useSelector((state) => state.details);
-  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     const checkForAdminRole = async () => {
@@ -73,36 +51,68 @@ const Details = () => {
         }
       }
     };
+
+    if (user) {
+      setInput({
+        email: user.email,
+        productoId: id,
+      });
+    }
+
     checkForAdminRole();
-  }, [isAuthenticated, getAccessTokenSilently]);
+    if (user) {
+      fetch(`http://localhost:3001/favoritos/${user.email}`)
+        .then((data) => data.json())
+        .then((data) => {
+          setFavoritos(data.productos);
+          setClienteId(data.clienteId);
+        });
+    }
+    dispatch(limpiarState());
+    dispatch(getDetails(id));
+    dispatch(getReviews(id));
+    user && dispatch(getFavorites(user.email))
+    return function () {
+      dispatch(getProducts());
+    };
+  }, [dispatch, id, user, isAuthenticated, getAccessTokenSilently]);
+
+
+  const handleDelete = () => {
+    // console.log("hello");
+    fetch(`http://localhost:3001/favoritos/${clienteId}/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        setDidDelete(true);
+      });
+  };
+
+  const favoritos = useSelector((state) => state.favorites);
+  let actual = favoritos.filter(fav => fav.id === id)
+
+  const handleAdd = () => {
+    user && dispatch(getFavorites(user.email))
+    if (actual.length === 0) {
+      dispatch(addToFavorite(input));
+      toast.success('El producto se agrego a favoritos');
+      user && dispatch(getFavorites(user.email))
+    } else {
+      handleDelete()
+      toast.error('El producto se elimino de favoritos');
+      user && dispatch(getFavorites(user.email))
+    }
+  };
 
   const handleSubmit = (id) => {
     dispatch(addToCart(id));
     toast.success('El producto fue añadido al carrito');
   };
-
-  const handleDelete = (id) => {
-    console.log(id + ' ELIMINADO');
-    dispatch(deleteProd(id)).then(
-      alert('Producto eliminado con éxito! Se te redirigirá al inicio...')
-    );
-    history.push('/');
-  };
-  const [isAdd, setIsAdd] = useState(false);
-
-  const handleAdd = (id) => {
-    user && dispatch(getFavorites(user.email))
-    setIsAdd((prev) => !prev);
-    if (isAdd === false) {
-      dispatch(addToFavorite(input));
-      toast.success('El producto se agrego a favoritos');
-    } else {
-      dispatch(removeFromFavorite(id));
-      toast.error('El producto se elimino de favoritos');
-    }
-  };
-
-  user && dispatch(getFavorites(user.email))
 
   return (
     <div>
@@ -144,14 +154,17 @@ const Details = () => {
                       AÑADIR AL CARRITO
                     </button>
                     {user ? (
-                      <div
-                        className={isAdd ? s.current : s.fav}
-                        onClick={() => handleAdd(id)}
-                      >
-                        <img src={heart} alt=""></img>
-                      </div>
+                      <>
+                        { }
+                        <div
+                          className={actual.length > 0 ? s.current : s.fav}
+                          onClick={() => handleAdd(id)}
+                        >
+                          <img src={heart} alt=""></img>
+                        </div>
+                      </>
                     ) : (
-                      <div className={isAdd ? s.current : s.fav}>
+                      <div className={s.fav}>
                         <img src={heart} alt=""></img>
                       </div>
                     )}

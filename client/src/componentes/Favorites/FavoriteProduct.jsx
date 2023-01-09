@@ -20,7 +20,6 @@ const FavoriteProduct = ({
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    // console.log("hello");
     fetch(`http://localhost:3001/favoritos/${clienteId}/${productoId}`, {
       method: 'DELETE',
       headers: {

@@ -56,7 +56,6 @@ const Navbar2 = ({ setPages }) => {
 
   const [isOpen, SetOpen] = useState(false);
   isAuthenticated && dispatch(importUser(user));
-  // isAuthenticated && dispatch(getFavorites(email));
 
   return (
     <div className={style.div}>
