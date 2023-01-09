@@ -9,8 +9,9 @@ import {
   getProducts,
   getReviews,
   getFavorites,
+  deleteProd,
 } from '../../redux/actions/actions.js';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useParams, useHistory } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
 import trash from '../../img/trash.png';
 import edit from '../../img/edit.png';
@@ -24,6 +25,7 @@ import { Toaster, toast } from 'react-hot-toast';
 
 const Details = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const reviews = useSelector((state) => state.reviews);
   const details = useSelector((state) => state.details);
 
@@ -108,6 +110,13 @@ const Details = () => {
       user && dispatch(getFavorites(user.email))
     }
   };
+  const handleDeleteProd = (id) => {
+    console.log(id + ' ELIMINADO');
+    dispatch(deleteProd(id)).then(
+      alert('Producto eliminado con éxito! Se te redirigirá al inicio...')
+    );
+    history.push('/');
+  };
 
   const handleSubmit = (id) => {
     dispatch(addToCart(id));
@@ -173,7 +182,7 @@ const Details = () => {
                   <div className={s.btns}>
                     <button
                       /* value={categ} */
-                      onClick={() => handleDelete(id)}
+                      onClick={() => handleDeleteProd(id)}
                     >
                       <img src={trash} alt=""></img>
                     </button>

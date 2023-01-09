@@ -38,12 +38,7 @@ const Home = () => {
 
   const paginateNext = (nextPage) => setCurrentPage(nextPage);
 
-  const handlerOrderPrecio = (e) => {
-    e.preventDefault();
-    setCurrentPage(1);
-    dispatch(orderPrecio(e.target.value));
-    setOrder(`Ordenado ${e.target.value}`); //cuando seteo esta página, me modifica el estado local y lo modifica
-  };
+
 
   return (
     <div className={s.divaHome}>
@@ -76,13 +71,6 @@ const Home = () => {
       ></Paginado>
 
       {allProducts.length > 0 ? (
-        <div>
-          <select onChange={(e) => handlerOrderPrecio(e)} className={s.select}>
-            <option hidden>Ordenar por Precio</option>
-            <option value="asc">Menor a Mayor</option>
-            <option value="desc">Mayor a Menor</option>
-          </select>
-
           <div>
             <div className={s.section}>
               {currentProducts.map(
@@ -104,7 +92,6 @@ const Home = () => {
               )}
             </div>
           </div>
-        </div>
       ) : (
         <div className={s.notFound}>
           <h1>Estamos buscando lo que necesitas!</h1>
