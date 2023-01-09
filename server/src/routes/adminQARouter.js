@@ -32,21 +32,33 @@ adminQARouter.get("/", validateAccessToken, validateAdmin, async (req, res) => {
   }
 });
 
-adminQARouter.put("/", validateAccessToken, validateAdmin, async (req, res) => {
-  try {
-    const { questionId, answer } = req.body;
-    Pregunta.findByPk(questionId).then((question) => {
-      question.answer = answer;
-      question.save();
-    });
-    const pregunta = await Pregunta.findOne({
-      where: { id: questionId },
-      include: Producto,
-      raw: true,
-    });
-    let productName = pregunta["producto.nombre"];
-    let email = pregunta.email;
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+adminQARouter.put(
+  "/",
+  /*validateAccessToken, validateAdmin,*/ async (req, res) => {
+    try {
+      const { questionId, answer } = req.body;
+      Pregunta.findByPk(questionId).then((question) => {
+        question.answer = answer;
+        question.save();
+      });
+      const pregunta = await Pregunta.findOne({
+        where: { id: questionId },
+        include: Producto,
+        raw: true,
+      });
+
+      let productName = pregunta["producto.nombre"];
+      let email = pregunta.email;
+
+      if (!pregunta.email) {
+        return res
+          .status(200)
+          .json({ error: false, msg: "La respuesta fue enviada" });
+      }
+
+      if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+        return res.status(400).json({ error: true, msg: "Email inválido" });
+      }
       let transporter = nodemailer.createTransport({
         host: EMAIL_HOST,
         port: EMAIL_PORT,
@@ -65,19 +77,18 @@ adminQARouter.put("/", validateAccessToken, validateAdmin, async (req, res) => {
       };
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
-          throw new Error(error);
+          return res.status(400).json({ error: true, msg: error.message });
         } else {
-          console.log("Email sent: " + info.response);
+          return res
+            .status(200)
+            .json(`El correo ${email} fue notificado de la respuesta`);
         }
       });
-    } else {
-      throw new Error("Email inválido");
+    } catch (error) {
+      res.status(400).json({ error: true, msg: error.message });
     }
-    return res.status(200).json("La respuesta fue enviada");
-  } catch (error) {
-    res.status(400).json({ error: true, msg: error.message });
   }
-});
+);
 
 adminQARouter.delete(
   "/:id",
