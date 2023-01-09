@@ -20,6 +20,7 @@ const FavoriteProduct = ({
   const dispatch = useDispatch();
 
   const handleDelete = () => {
+    // console.log("hello");
     fetch(`http://localhost:3001/favoritos/${clienteId}/${productoId}`, {
       method: 'DELETE',
       headers: {
@@ -42,19 +43,18 @@ const FavoriteProduct = ({
       {!didDelete ? (
         <div className={s.itemm}>
           <div className={s.item}>
-
-            <div
-              className={s.itemImg}
-              style={{ backgroundImage: `url(${URL})` }}
-            ></div>
+            <NavLink
+              to={`/details/${productoId}`}
+              style={{ textDecoration: 'none' }}
+              className={s.itemmm}
+            >
+              <div
+                className={s.itemImg}
+                style={{ backgroundImage: `url(${URL})` }}
+              ></div>
+            </NavLink>
             <div className={s.info}>
-              <NavLink
-                to={`/details/${productoId}`}
-                style={{ textDecoration: 'none' }}
-                className={s.itemmm}
-              >
-                <h2>{nombre}</h2>
-              </NavLink>
+              <h2>{nombre}</h2>
               <p>{talla}</p>
               <p>${precio}</p>
             </div>

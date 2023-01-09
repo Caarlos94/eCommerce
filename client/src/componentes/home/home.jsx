@@ -3,14 +3,12 @@ import { useEffect } from "react";
 import {
   getCategorys,
   getProducts,
-  orderPrecio,
 } from "../../redux/actions/actions.js";
 import s from "./home.module.css";
 import Navbar from "../navbar/navbar.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import Paginado from "../Paginate/Paginate.jsx";
 import Card from "../Card/Card.js";
-import messiNotFound from "../../img/messiNotFound.gif";
 import Footer from "../Footer/Footer";
 
 const Home = () => {
@@ -22,7 +20,6 @@ const Home = () => {
     dispatch(getCategorys());
   }, [dispatch]);
 
-  const [, setOrder] = useState("");
   const [currentPage, setCurrentPage] = useState(1); // DEBERIA SER UN REDUCER
   const productsPerPage = 9;
   const lastIndex = currentPage * productsPerPage; // 1 * 8 = 8
@@ -96,7 +93,7 @@ const Home = () => {
         <div className={s.notFound}>
           <h1>Estamos buscando lo que necesitas!</h1>
           <h2>En caso de no cargar te recomendamos refrescar la página...</h2>
-          <img src={messiNotFound} alt="img"></img>
+          <img src={"https://i.makeagif.com/media/11-11-2015/AAP2zs.gif"} width="200px" alt="img"></img>
         </div>
       )}
       <Paginado

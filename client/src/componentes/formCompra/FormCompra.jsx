@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import Navbar2 from '../navbar/navBar2';
 import style from './FormCompra.module.css';
 

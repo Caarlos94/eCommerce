@@ -42,6 +42,23 @@ const Details = () => {
   let { id } = useParams();
 
   useEffect(() => {
+    user && dispatch(getFavorites(user.email))
+    dispatch(limpiarState());
+    dispatch(getDetails(id));
+    dispatch(getReviews(id));
+    /* return function () {
+      dispatch(getProducts());
+    }; */
+
+    if (user) {
+      setInput({
+        email: user.email,
+        productoId: id,
+      });
+    }
+  }, [dispatch, id, user]);
+
+  useEffect(() => {
     const checkForAdminRole = async () => {
       if (isAuthenticated) {
         const accessToken = await getAccessTokenSilently();
@@ -53,15 +70,8 @@ const Details = () => {
         }
       }
     };
-
-    if (user) {
-      setInput({
-        email: user.email,
-        productoId: id,
-      });
-    }
-
     checkForAdminRole();
+
     if (user) {
       fetch(`http://localhost:3001/favoritos/${user.email}`)
         .then((data) => data.json())
@@ -70,18 +80,10 @@ const Details = () => {
           setClienteId(data.clienteId);
         });
     }
-    dispatch(limpiarState());
-    dispatch(getDetails(id));
-    dispatch(getReviews(id));
-    user && dispatch(getFavorites(user.email))
-    return function () {
-      dispatch(getProducts());
-    };
-  }, [dispatch, id, user, isAuthenticated, getAccessTokenSilently]);
-
+    console.log(user);
+  }, [user, isAuthenticated, getAccessTokenSilently]);
 
   const handleDelete = () => {
-    // console.log("hello");
     fetch(`http://localhost:3001/favoritos/${clienteId}/${id}`, {
       method: 'DELETE',
       headers: {
@@ -127,7 +129,7 @@ const Details = () => {
     <div>
       <Navbar2 />
       <div>
-        {details.length ? (
+        {(user && details.length) ? (
           <div className={s['parent-container']}>
             <div className={s.detailCont}>
               <div className={s.imgCont}>
@@ -140,17 +142,24 @@ const Details = () => {
               </div>
               <div className={s.textCont}>
                 <div className={s.productDesc}>
-                  <h2 className={s.h2}>{details[0].nombre.toUpperCase()}</h2>
-                  <h3>${details[0].precio}</h3>
-                  <h5>Marca: {details[0].marca}</h5>
-                  <h5>Color: {details[0].color}</h5>
-                  <h5>Talla: {details[0].talla.toUpperCase()}</h5>
+                  <p className={s.marca}>{details[0].marca}</p>
+                  <p className={s.nombre}>{details[0].nombre}</p>
+                  <p className={s.precio}>${details[0].precio}</p>
+                  <p className={s.categoria}>Categoria</p>
+                  <p className={s.color}>Color: {details[0].color}</p>
+                  <p className={s.talla}>Talla: {details[0].talla.toUpperCase()}</p>
+                  {/* <button className={s.buttonTalle}>XS</button>
+                  <button className={s.buttonTalle}>S</button>
+                  <button className={s.buttonTalle}>M</button>
+                  <button className={s.buttonTalle}>L</button>
+                  <button className={s.buttonTalle}>XL</button>
+                  <button className={s.buttonTalle}>XXL</button> */}
                   {details[0].stock > 0 ? (
-                    <h5>Stock: {details[0].stock}</h5>
+                    <p className={s.stock}>Stock: {details[0].stock}</p>
                   ) : (
-                    <h5>
+                    <p>
                       Producto no disponible! Stock agotado momentáneamente...
-                    </h5>
+                    </p>
                   )}
                 </div>
                 {!isAdmin ? (
@@ -164,7 +173,6 @@ const Details = () => {
                     </button>
                     {user ? (
                       <>
-                        { }
                         <div
                           className={actual.length > 0 ? s.current : s.fav}
                           onClick={() => handleAdd(id)}
@@ -205,15 +213,18 @@ const Details = () => {
             </div>
           </div>
         ) : (
-          <div className={s.spinner}>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        )}
+          ""
+        )} {
+          (!user || !details.length) ?
+            (<div className={s.spinner}>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>) : ("")
+        }
         <Footer />
       </div>
       <Toaster

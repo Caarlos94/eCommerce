@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   getFavorites,
   getProducts,
-  importUser,
+  importUser
 } from '../../redux/actions/actions.js';
 import { useAuth0 } from '@auth0/auth0-react';
 import jwt_decode from 'jwt-decode';
@@ -71,7 +71,8 @@ const Navbar = ({ setPages }) => {
       });
   }, [user]);
 
-  // {console.log(user)}
+  
+  user && dispatch(importUser(user));
 
   return (
     <div className={style.div}>
@@ -202,20 +203,12 @@ const Navbar = ({ setPages }) => {
               )}
 
               {user ? (
-                <>
                   <NavLink to={`/favoritos/${user.email}`}>
                     <div className={style.btn}>
                       {favoritos.length > 0 && <h6>{favoritos.length}</h6>}
                       <img src={heart} alt=""></img>
                     </div>
                   </NavLink>
-
-                  {/* <div className={style.historial}>
-                    <NavLink to="/historial" style={{ textDecoration: "none" }}>
-                      <button>Historial de Compras</button>
-                    </NavLink>
-                  </div> */}
-                </>
               ) : (
                 <NavLink to="/">
                   <div className={style.btn}>

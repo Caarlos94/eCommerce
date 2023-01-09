@@ -17,7 +17,7 @@ const Carrito = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const [usuarioid, setUsuaruioId] = useState('');
+  const [, setUsuaruioId] = useState('');
 
   useEffect(async () => {
     if (isAuthenticated === true) {
