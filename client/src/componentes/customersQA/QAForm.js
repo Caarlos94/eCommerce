@@ -9,26 +9,21 @@ const QAForm = (props) => {
   const [data, setData] = useState({ newQuestion: "", email: "" });
   const [didSaveEmail, setDidSaveEmail] = useState(false);
   const [emailIsValid, setEmailIsValid] = useState("");
-  const [timer, setTimer] = useState(null);
 
   const handleChange = (e) => {
     setData((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
+    console.log(data);
 
-    clearTimeout(timer); // reinicia el timer
-
-    const newTimer = setTimeout(() => {
-      // todo: no notificar validez si no hay un correo en el input de correo
-      if (e.target.name === "email") {
+    if (e.target.name === "email") {
+      if (
         // eslint-disable-next-line
-        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)) {
-          setEmailIsValid(true);
-        } else {
-          setEmailIsValid(false);
-        }
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value)
+      ) {
+        setEmailIsValid(true);
+      } else {
+        setEmailIsValid(false);
       }
-    }, 700);
-
-    setTimer(newTimer);
+    }
   };
 
   const { user } = useAuth0();
@@ -103,10 +98,7 @@ const QAForm = (props) => {
 
         <button
           className={classes["submit-button"]}
-          // disabled={
-          //   (!email && !data.newQuestion.length && true) ||
-          //   (!email && !emailIsValid && true)
-          // }
+          disabled={emailIsValid === false && data.email.length && true}
           type="submit"
         >
           Enviar pregunta
