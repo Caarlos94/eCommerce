@@ -18,10 +18,6 @@ export default function Footer() {
           </a>
         </div>
 
-        {/* <div className={style.contacto}>
-            <h6>suprasportspf@gmail.com</h6>
-            <h6>+54 3516853857</h6>
-        </div> */}
       </div>
     </div>
   );
