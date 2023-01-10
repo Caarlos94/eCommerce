@@ -14,10 +14,11 @@ const Favorites = () => {
   const { user } = useAuth0();
 
   useEffect(() => {
-    if (user) {
+    if (user && user.hasOwnProperty("email")) {
       fetch(`http://localhost:3001/favoritos/${user.email}`)
         .then((data) => data.json())
         .then((data) => {
+          console.log(data);
           setFavoritos(data.productos);
           setClienteId(data.clienteId);
         });

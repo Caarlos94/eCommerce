@@ -1,30 +1,18 @@
-import React, { useState, useDispatch } from 'react';
-import Navbar2 from '../navbar/navBar2';
+import React, { useState } from 'react';
 import style from './FormCompra.module.css';
-import { updateClient } from '../../redux/actions/actions.js';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useValidateUser } from '../../customHooks/validate-user';
 
 export default function FormCompra({ handle }) {
-
-    // const [ isAuthenticated, isAdmin, accessToken, userId ] =  useValidateUser()
 
     const { user } = useAuth0();
     console.log(user.email);
 
-    // console.log(userId);
-
-    const dispatch = useDispatch();
-
-    // const history = useHistory();
     const [input, setInput] = useState({
         ciudad: "",
         cp: "",
         direc: "",
         cel: "",
     });
-
-    // const { user } = useAuth0();
 
     const handlerChange = (e) => {
         setInput({
@@ -36,8 +24,6 @@ export default function FormCompra({ handle }) {
     const handlerSubmit = (e) => {
         e.preventDefault();
         console.log(input);
-        // console.log(userId);
-        // dispatch(updateClient(input));
         alert("Datos de envío guardados con éxito! Estás listo para la instancia de pago.");
         setInput({
             ciudad: "",

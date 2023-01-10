@@ -6,11 +6,12 @@ import {
   limpiarState,
   addToCart,
   addToFavorite,
-  getProducts,
   getReviews,
   getFavorites,
+  deleteProd,
+  removeOneFromCart,
 } from '../../redux/actions/actions.js';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useHistory, useParams } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
 import trash from '../../img/trash.png';
 import edit from '../../img/edit.png';
@@ -23,6 +24,7 @@ import Reviews from '../Reviews/Reviews';
 import { Toaster, toast } from 'react-hot-toast';
 
 const Details = () => {
+  const history = useHistory()
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews);
   const details = useSelector((state) => state.details);
@@ -40,12 +42,29 @@ const Details = () => {
   let { id } = useParams();
 
   useEffect(() => {
+    user && dispatch(getFavorites(user.email))
+    dispatch(limpiarState());
+    dispatch(getDetails(id));
+    dispatch(getReviews(id));
+    /* return function () {
+      dispatch(getProducts());
+    }; */
+
+    if (user) {
+      setInput({
+        email: user.email,
+        productoId: id,
+      });
+    }
+  }, [dispatch, id, user]);
+
+  useEffect(() => {
     const checkForAdminRole = async () => {
       if (isAuthenticated) {
         const accessToken = await getAccessTokenSilently();
         let decoded = jwt_decode(accessToken);
 
-        if (decoded.permissions.includes('read:admin')) {
+        if (decoded.permissions.includes("read:admin")) {
           // verificación principalmente estética. No brinda seguridad.
           setIsAdmin(true);
         }
@@ -68,18 +87,10 @@ const Details = () => {
           setClienteId(data.clienteId);
         });
     }
-    dispatch(limpiarState());
-    dispatch(getDetails(id));
-    dispatch(getReviews(id));
-    user && dispatch(getFavorites(user.email))
-    return function () {
-      dispatch(getProducts());
-    };
-  }, [dispatch, id, user, isAuthenticated, getAccessTokenSilently]);
-
+    /* console.log(user); */
+  }, [id, user, isAuthenticated, getAccessTokenSilently]);
 
   const handleDelete = () => {
-    // console.log("hello");
     fetch(`http://localhost:3001/favoritos/${clienteId}/${id}`, {
       method: 'DELETE',
       headers: {
@@ -94,24 +105,40 @@ const Details = () => {
   };
 
   const favoritos = useSelector((state) => state.favorites);
-  let actual = favoritos.filter(fav => fav.id === id)
+  let actualInFav = favoritos.filter(fav => fav.id === id);
+  const carrito = useSelector((state) => state.cart);
+  let actualInCart = carrito.filter(prod => prod.id === id);
 
   const handleAdd = () => {
     user && dispatch(getFavorites(user.email))
-    if (actual.length === 0) {
+    if (actualInFav.length === 0) {
       dispatch(addToFavorite(input));
-      toast.success('El producto se agrego a favoritos');
+      toast.success('El producto se agrego a favoritos.');
       user && dispatch(getFavorites(user.email))
     } else {
       handleDelete()
-      toast.error('El producto se elimino de favoritos');
+      toast.error('El producto se quitó de favoritos.');
       user && dispatch(getFavorites(user.email))
     }
   };
+  const handleDeleteProd = (id) => {
+    console.log(id + ' ELIMINADO');
+    dispatch(deleteProd(id)).then(
+      toast('Producto eliminado con éxito! Se te redirigirá al inicio...')
+    );
+    history.push('/');
+  };
 
   const handleSubmit = (id) => {
-    dispatch(addToCart(id));
-    toast.success('El producto fue añadido al carrito');
+    if (actualInCart.length === 0) {
+      dispatch(addToCart(id));
+      toast.success('El producto fue añadido al carrito.');
+    } else {
+      dispatch(removeOneFromCart(id))
+      toast.error('El producto se quitó de favoritos.');
+    }
+
+    console.log(actualInCart);
   };
 
   return (
@@ -125,16 +152,16 @@ const Details = () => {
                 <div className={s.img11}>
                 <div
                   className={s.img111}
-                  style={{ backgroundImage: `url(${details[0].images[0].URL[0]})` }}
+                  style={{ backgroundImage: `url(${details[0].URL})` }}
                 ></div>
-                  <div
+                  {/* <div
                   className={s.img111}
                   style={{ backgroundImage: `url(${details[0].images[0].URL[1]})` }}
                 ></div>
                   <div
                   className={s.img111}
                   style={{ backgroundImage: `url(${details[0].images[0].URL[2]})` }}
-                ></div>
+                ></div> */}
                 </div>
               </div>
               <div className={s.textCont}>
@@ -157,15 +184,14 @@ const Details = () => {
                     <button
                       disabled={details[0].stock === 0}
                       onClick={() => handleSubmit(id)}
-                      className={s.añadirCart}
+                      className={actualInCart.length > 0 ? s.añadido : s.añadirCart}
                     >
                       AÑADIR AL CARRITO
                     </button>
                     {user ? (
                       <>
-                        { }
                         <div
-                          className={actual.length > 0 ? s.current : s.fav}
+                          className={actualInFav.length > 0 ? s.current : s.fav}
                           onClick={() => handleAdd(id)}
                         >
                           <img src={heart} alt=""></img>

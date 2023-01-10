@@ -1,8 +1,6 @@
 {
   "dependencies": {
     "bootstrap": "^5.2.3",
-    "reactstrap": "^9.1.5",
-    "cors": "^2.8.5",
-    "react-hot-toast": "^2.4.0"
+    "reactstrap": "^9.1.5"
   }
 }

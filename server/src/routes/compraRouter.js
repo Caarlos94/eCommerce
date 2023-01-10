@@ -94,6 +94,7 @@ let idFront = 1;
  Arr.forEach(async (elem) => {
 
   const result = await Compra_Producto.findAll({ where : {CompraId : elem.id}})
+  // console.log(result);
 
   result.forEach(async (elem)=>{
   
@@ -112,7 +113,8 @@ let idFront = 1;
       obj.estado = compra.dataValues.enviado;
       obj.fecha =new Date(compra.dataValues.fecha).toLocaleDateString();
       obj.localizador = compra.dataValues.localizador;
-      obj.idFront = idFront++
+      obj.idFront = idFront++;
+      obj.cantidad = elem.dataValues.cantidad
    
       
       arregloDeCompras.push(obj)

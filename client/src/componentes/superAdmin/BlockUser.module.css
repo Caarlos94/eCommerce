@@ -1,6 +1,6 @@
 .blocking-container {
   margin-top: 5.1rem;
-  border: solid black 1px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   height: 28rem;
   display: flex;
   justify-content: center;

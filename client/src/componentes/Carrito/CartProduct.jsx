@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import s from './CartProduct.module.css';
 
 const CartProduct = ({
@@ -20,12 +21,14 @@ const CartProduct = ({
         style={{ backgroundImage: `url(${URL})` }}
       ></div>
       <div className={s.info}>
-        <p className={s.nombre}>{nombre}</p>
-        <p className={s.stock}>Stock: {--stock}</p>
-        <p className={s.talla}>Talle: {talla}</p>
-        <p className={s.cantidad}>
+        <NavLink to={`details/${id}`} style={{ textDecoration: 'none' }}>
+          <p className={s.nombre}>{nombre}</p>
+        </NavLink>
+        <p className={s.precio}>
           ${precio} x {cantidad} = ${precio*cantidad}
         </p>
+        <p className={s.stock}>Stock: {--stock}</p>
+        <p className={s.talla}>Talle: {talla}</p>
       </div>
       <div className={s.btns}>
         <button onClick={() => handleDelete(id)}>-1</button>

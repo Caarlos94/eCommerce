@@ -14,7 +14,7 @@ const Home = () => {
 
   // allProducts.forEach(producto => producto.images = producto.images.split(","))
   // console.log(allProducts)
-  
+
   useEffect(() => {
     dispatch(getImages());
     dispatch(getProducts());
@@ -40,6 +40,7 @@ const Home = () => {
   return (
     <div className={s.divaHome}>
       <Navbar setPages={setCurrentPage} />
+      <img src="../../img/messi.jpg" alt="" className={s.imgH}/>
       <div className={s.hero}>
         <div className={s.textoHero}>
           <h1>Supra Sports</h1>
@@ -68,29 +69,33 @@ const Home = () => {
       ></Paginado>
 
       {allProducts.length > 0 ? (
-          <div>
-            <div className={s.section}>
-              {currentProducts.map((card) => parseInt(card.stock) > 0 && (
-                <div key={card.id}>
-                  <Card
-                    nombre={card.nombre}
-                    URL={card.URL}
-                    marca={card.marca}
-                    precio={card.precio}
-                    color={card.color}
-                    talla={card.talla}
-                    categoria={card.categoria}
-                    id={card.id}
-                  />
-                </div>
-              ))}
-            </div>
+        <div>
+          <div className={s.section}>
+            {currentProducts.map((card) => parseInt(card.stock) > 0 && (
+              <div key={card.id}>
+                <Card
+                  nombre={card.nombre}
+                  URL={card.URL}
+                  marca={card.marca}
+                  precio={card.precio}
+                  color={card.color}
+                  talla={card.talla}
+                  categoria={card.categoria}
+                  id={card.id}
+                />
+              </div>
+            ))}
           </div>
+        </div>
       ) : (
         <div className={s.notFound}>
           <h1>Estamos buscando lo que necesitas!</h1>
           <h2>En caso de no cargar te recomendamos refrescar la página...</h2>
-          <img src={"https://i.makeagif.com/media/11-11-2015/AAP2zs.gif"} width="200px" alt="img"></img>
+          <img
+            src={'https://i.makeagif.com/media/11-11-2015/AAP2zs.gif'}
+            width="200px"
+            alt="img"
+          ></img>
         </div>
       )}
       <Paginado
