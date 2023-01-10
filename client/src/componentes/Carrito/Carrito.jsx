@@ -88,7 +88,7 @@ const Carrito = () => {
     <div className={s.cont}>
       <Navbar2 />
       <div className={s.cartCont}>
-        <h1>Carrito</h1>
+        <p className={s.titulo}>TU CARRITO</p>
         <button onClick={() => handleClear()} className={s.limpiar}>
           Limpiar
         </button>
