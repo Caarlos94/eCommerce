@@ -10,7 +10,6 @@ import {
 } from '../../redux/actions/actions';
 import style from './ProductCreate.module.css';
 import Navbar2 from '../navbar/navBar2';
-import Footer from '../Footer/Footer';
 
 const validate = (input, prods) => {
   let errors = {};
@@ -123,6 +122,7 @@ export default function ProdCreate() {
     e.preventDefault();
     console.log(input);
     dispatch(postProd(input));
+    /* dispatch(postCategory(input)); */
     setTimeout(() => dispatch(getProducts2()), 100);
     alert('Producto publicado con éxito! Se te redirigirá al inicio...');
     setInput({
@@ -143,7 +143,6 @@ export default function ProdCreate() {
       <Navbar2 />
       <div className={style.createCont}>
         <h1>Crear Producto</h1>
-
         <div className={style.forms}>
           <form onSubmit={(e) => handlerSubmit(e)}>
             <div className={style.inputI}>
@@ -193,6 +192,7 @@ export default function ProdCreate() {
                 name="color"
                 onChange={(e) => handlerChange(e)}
               ></input>
+
               {errors.color && <p className={style.errors}>{errors.color}</p>}
             </div>
 
@@ -269,7 +269,6 @@ export default function ProdCreate() {
           </form>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

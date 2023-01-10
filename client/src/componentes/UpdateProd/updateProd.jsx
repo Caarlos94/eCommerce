@@ -65,8 +65,6 @@ export default function UpdateProd() {
         dispatch(getProducts());
     }, [dispatch]);
 
-
-    console.log(id);
     const history = useHistory();
     const [errors, setErrors] = useState({});
     const [input, setInput] = useState({

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import  { Component } from 'react';
 import Portal from './Portal';
 import s from './Modal.module.css';
 
