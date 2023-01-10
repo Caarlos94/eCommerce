@@ -19,6 +19,7 @@ import {
   REMOVE_FROM_FAVORITE,
   GET_REVIEWS,
   GET_FAVORITES,
+  GET_CARRITO
 } from '../actions/actions.js';
 
 const initialState = {
@@ -94,6 +95,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         details: [],
+      };
+    case GET_CARRITO:
+      return {
+        ...state,
+        cart: action.payload,
       };
 
     case GET_FAVORITES:

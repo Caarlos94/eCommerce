@@ -1,14 +1,14 @@
 const { Router } = require('express');
 const { Producto } = require('../db.js');
 
-const productRouter = require('./productRouter.js');
-const userRouter = require('./userRouter.js');
-const customerQARouter = require('./customerQARouter');
-const adminQARouter = require('./adminQARouter');
-const categoryRouter = require('./categoryRouter');
-const compraRouter = require('./compraRouter');
-const axios = require('axios');
-const favoritosRouter = require('./favoritosRouter');
+const productRouter = require("./productRouter.js");
+const userRouter = require("./userRouter.js");
+const customerQARouter = require("./customerQARouter");
+const adminQARouter = require("./adminQARouter");
+const categoryRouter = require("./categoryRouter");
+const compraRouter = require("./compraRouter");
+const favoritosRouter = require("./favoritosRouter");
+const superAdminRouter = require("./superAdminRouter");
 
 const router = Router();
 const mercadopago = require('mercadopago');
@@ -16,16 +16,14 @@ const express = require('express');
 
 router.use(express.json());
 
-router.use('/products', productRouter);
-router.use('/users', userRouter);
-router.use('/customerQA', customerQARouter);
-router.use('/adminQA', adminQARouter);
-router.use('/category', categoryRouter);
-router.use('/favoritos', favoritosRouter);
-
-router.use('/compras', compraRouter);
-
-router.use('/compras', compraRouter);
+router.use("/products", productRouter);
+router.use("/users", userRouter);
+router.use("/customerQA", customerQARouter);
+router.use("/adminQA", adminQARouter);
+router.use("/category", categoryRouter);
+router.use("/favoritos", favoritosRouter);
+router.use("/compras", compraRouter);
+router.use("/superAdmin", superAdminRouter);
 
 mercadopago.configure({
   access_token:
@@ -121,11 +119,5 @@ router.get('/redirect', async (req, res) => {
     }
   }
 });
-
-router.use('/products', productRouter);
-router.use('/user', userRouter);
-
-// Configurar los routers
-// Ejemplo: router.use('/auth', authRouter);
 
 module.exports = router;

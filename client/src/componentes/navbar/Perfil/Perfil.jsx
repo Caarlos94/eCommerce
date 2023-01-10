@@ -53,9 +53,10 @@ const Perfil = () => {
           </div>
         )}
       </div>
+      <hr />
 
       <div className={style.relacionados}>
-        <h2>Productos recomendados para vos!</h2>
+        <h4>Productos recomendados para vos!</h4>
         <div className={style.section}>
           {allProducts.map(
             (card) =>

@@ -22,6 +22,7 @@ const Navbar2 = ({ setPages }) => {
   const carrito = useSelector((state) => state.cart);
 
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
 
   const {
     user,
@@ -46,6 +47,9 @@ const Navbar2 = ({ setPages }) => {
           // verificación principalmente estética. No brinda seguridad.
           setIsAdmin(true);
         }
+        if (decoded.permissions.includes('read:users')) {
+          setIsSuperAdmin(true);
+        }
       }
     };
     checkForAdminRole();
@@ -56,7 +60,6 @@ const Navbar2 = ({ setPages }) => {
 
   const [isOpen, SetOpen] = useState(false);
   isAuthenticated && dispatch(importUser(user));
-  // isAuthenticated && dispatch(getFavorites(email));
 
   return (
     <div className={style.div}>
@@ -154,11 +157,20 @@ const Navbar2 = ({ setPages }) => {
                   </div>
                 </NavLink>
               </div>
-              {/* <div className={style.historialV}>
-                <NavLink to="/sales" style={{ textDecoration: 'none' }}>
+              {/* <div className={style.publicar}>
+                <NavLink to="/sales" style={{ textDecoration: "none" }}>
                   <button>Historial de Ventas</button>
                 </NavLink>
               </div> */}
+              {isSuperAdmin ? (
+                <div className={style.historial}>
+                  <NavLink to="/superAdmin" style={{ textDecoration: 'none' }}>
+                    <button>admins</button>
+                  </NavLink>
+                </div>
+              ) : (
+                ''
+              )}
             </div>
           ) : (
             <>

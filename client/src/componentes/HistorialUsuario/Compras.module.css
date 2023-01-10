@@ -17,9 +17,17 @@
 
 .imgCont img {
   object-fit: cover;
-  object-position: center;
-  min-width: 90%;
-  min-height: 90%;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.itemImg {
+  width: 250px;
+  height: 220px;
+  /* margin-right: 20px; */
+  background-size: cover;
+  background-position: center;
+  border-radius: 5px;
 }
 
 .textCont {
@@ -62,9 +70,17 @@
 
   .imgCont img {
     object-fit: cover;
-    object-position: center;
-    min-width: 70%;
-    min-height: 70%;
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+  .itemImg {
+    width: 200px;
+    height: 150px;
+    margin-left: 20px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 5px;
   }
 
   .textCont {

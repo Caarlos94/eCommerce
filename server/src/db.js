@@ -78,7 +78,6 @@ const Compra_Producto = sequelize.define(
 );
 
 const Favorito = sequelize.define('Favorito', {}, { timestamps: false });
-
 Cliente.belongsToMany(Producto, { through: Favorito });
 Producto.belongsToMany(Cliente, { through: Favorito });
 

@@ -32,26 +32,33 @@ adminQARouter.get('/', validateAccessToken, validateAdmin, async (req, res) => {
   }
 });
 
-adminQARouter.put('/', validateAccessToken, validateAdmin, async (req, res) => {
-  try {
-    const { questionId, answer } = req.body;
+adminQARouter.put(
+  '/',
+  /*validateAccessToken, validateAdmin,*/ async (req, res) => {
+    try {
+      const { questionId, answer } = req.body;
+      Pregunta.findByPk(questionId).then((question) => {
+        question.answer = answer;
+        question.save();
+      });
+      const pregunta = await Pregunta.findOne({
+        where: { id: questionId },
+        include: Producto,
+        raw: true,
+      });
 
-    Pregunta.findByPk(questionId).then((question) => {
-      question.answer = answer;
-      question.save();
-    });
+      let productName = pregunta['producto.nombre'];
+      let email = pregunta.email;
 
-    const pregunta = await Pregunta.findOne({
-      where: { id: questionId },
-      include: Producto,
-      raw: true,
-    });
+      if (!pregunta.email) {
+        return res
+          .status(200)
+          .json({ error: false, msg: 'La respuesta fue enviada' });
+      }
 
-    let productName = pregunta['producto.nombre'];
-
-    let email = pregunta.email;
-
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+        return res.status(400).json({ error: true, msg: 'Email inválido' });
+      }
       let transporter = nodemailer.createTransport({
         host: EMAIL_HOST,
         port: EMAIL_PORT,
@@ -61,33 +68,27 @@ adminQARouter.put('/', validateAccessToken, validateAdmin, async (req, res) => {
           pass: EMAIL_PASSWORD,
         },
       });
-
       const mailOptions = {
         from: 'suprasportspf@outlook.com',
         to: email,
         subject: 'Respuesta a tu pregunta',
-        text: `La tienda respondió tu pregunta sobre el producto ${productName}: 
-        
+        text: `La tienda respondió tu pregunta sobre el producto ${productName}:
         ${answer}`,
       };
-
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
-          throw new Error(error);
+          return res.status(400).json({ error: true, msg: error.message });
         } else {
-          console.log('Email sent: ' + info.response);
+          return res
+            .status(200)
+            .json(`El correo ${email} fue notificado de la respuesta`);
         }
       });
-    } else {
-      console.log('email inválido');
+    } catch (error) {
+      res.status(400).json({ error: true, msg: error.message });
     }
-
-    res.status(200).json('La respuesta fue enviada');
-    return;
-  } catch (error) {
-    res.status(400).json({ error: true, msg: error.message });
   }
-});
+);
 
 adminQARouter.delete(
   '/:id',
