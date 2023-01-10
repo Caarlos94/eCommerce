@@ -1,47 +1,47 @@
-import axios from 'axios';
-export const GET_PRODUCTS = 'GET_PRODUCTS';
-export const GET_CATEGORYS = 'GET_CATEGORYS';
-export const SEARCHxMARCA = 'SEARCHxMARCA';
-export const SEARCHxPRECIO = 'SEARCHxPRECIO';
-export const SEARCHxTALLA = 'SEARCHxTALLA';
-export const SEARCHxNAME = 'SEARCHxNAME';
-export const GET_DETAILS = 'GET_DETAILS';
-export const LIMPIAR_SATE = 'LIMPIAR_SATE';
-export const SEARCHxCATEGORIA = 'SEARCHxCATEGORIA';
-export const EMPTY_ERROR = 'EMPTY_ERROR';
-export const ORDER_PRECIO = 'ORDER_PRECIO';
-export const GET_USER = 'GET_USER';
-export const POST_PROD = 'POST_PROD';
-export const ADD_TO_CART = 'ADD_TO_CART';
-export const ADD_ONE_TO_CART = 'ADD_ONE_TO_CART';
-export const REMOVE_ONE_FROM_CART = 'REMOVE_ONE_FROM_CART';
-export const REMOVE_ALL_FROM_CART = 'REMOVE_ALL_FROM_CART';
-export const CLEAR_CART = 'CLEAR_CART';
-export const REMOVE_FROM_FAVORITE = 'REMOVE_FROM_FAVORITE';
-export const GET_REVIEWS = 'GET_REVIEWS';
-export const GET_FAVORITES = 'GET_FAVORITES';
-export const EMAIL = 'EMAIL'
-export const GET_CARRITO = 'GET_CARRITO'
+import axios from "axios";
+export const GET_PRODUCTS = "GET_PRODUCTS";
+export const GET_CATEGORYS = "GET_CATEGORYS";
+export const SEARCHxMARCA = "SEARCHxMARCA";
+export const SEARCHxPRECIO = "SEARCHxPRECIO";
+export const SEARCHxTALLA = "SEARCHxTALLA";
+export const SEARCHxNAME = "SEARCHxNAME";
+export const GET_DETAILS = "GET_DETAILS";
+export const LIMPIAR_SATE = "LIMPIAR_SATE";
+export const SEARCHxCATEGORIA = "SEARCHxCATEGORIA";
+export const EMPTY_ERROR = "EMPTY_ERROR";
+export const ORDER_PRECIO = "ORDER_PRECIO";
+export const GET_USER = "GET_USER";
+export const POST_PROD = "POST_PROD";
+export const ADD_TO_CART = "ADD_TO_CART";
+export const ADD_ONE_TO_CART = "ADD_ONE_TO_CART";
+export const REMOVE_ONE_FROM_CART = "REMOVE_ONE_FROM_CART";
+export const REMOVE_ALL_FROM_CART = "REMOVE_ALL_FROM_CART";
+export const CLEAR_CART = "CLEAR_CART";
+export const REMOVE_FROM_FAVORITE = "REMOVE_FROM_FAVORITE";
+export const GET_REVIEWS = "GET_REVIEWS";
+export const GET_FAVORITES = "GET_FAVORITES";
+export const EMAIL = "EMAIL";
+export const GET_CARRITO = "GET_CARRITO";
 
 export const getProducts = () => {
   return async function (dispatch) {
-    const response = await fetch('http://localhost:3001/products');
+    const response = await fetch("http://localhost:3001/products");
     console.log(response);
     const data = await response.json();
     return dispatch({
       type: GET_PRODUCTS,
-      payload: [data, 'dejar todo como esta'],
+      payload: [data, "dejar todo como esta"],
     });
   };
 };
 
 export const getProducts2 = () => {
   return async function (dispatch) {
-    const response = await fetch('http://localhost:3001/products');
+    const response = await fetch("http://localhost:3001/products");
     const data = await response.json();
     return dispatch({
       type: GET_PRODUCTS,
-      payload: [data, 'volver a cargar los productos'],
+      payload: [data, "volver a cargar los productos"],
     });
   };
 };
@@ -49,9 +49,9 @@ export const getProducts2 = () => {
 export function updateProduct(data, id) {
   return function () {
     fetch(`http://localhost:3001/products/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
@@ -61,7 +61,7 @@ export function updateProduct(data, id) {
 export function postProd(payload) {
   return async function () {
     const response = await axios.post(
-      'http://localhost:3001/products',
+      "http://localhost:3001/products",
       payload
     );
     return response;
@@ -70,7 +70,7 @@ export function postProd(payload) {
 
 export function getCategorys() {
   return async function (dispatch) {
-    await fetch('http://localhost:3001/category')
+    await fetch("http://localhost:3001/category")
       .then((response) => response.json())
       .then((data) => dispatch({ type: GET_CATEGORYS, payload: data }));
   };
@@ -88,20 +88,22 @@ export function getUserInfo() {
 
 export function getReviews(id) {
   return async function (dispatch) {
-    const response = await axios.get(`http://localhost:3001/compras/reviews/${id}`)
+    const response = await axios.get(
+      `http://localhost:3001/compras/reviews/${id}`
+    );
     return dispatch({
       type: GET_REVIEWS,
       payload: response.data,
     });
-  }
+  };
 }
 
 export function importUser(user) {
   return function () {
-    fetch('http://localhost:3001/users', {
-      method: 'POST',
+    fetch("http://localhost:3001/users", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
     });
@@ -111,7 +113,7 @@ export function importUser(user) {
 export function postCategory(payload) {
   return async function () {
     const response = await axios.post(
-      'http://localhost:3001/category',
+      "http://localhost:3001/category",
       payload
     );
     return response;
@@ -121,17 +123,17 @@ export function postCategory(payload) {
 export function deleteCategory(nombre) {
   return async function () {
     await axios.delete(`http://localhost:3001/category/${nombre}`);
-  }
+  };
 }
 
 export function deleteProd(id) {
   return async function (dispatch) {
     await axios.delete(`http://localhost:3001/products/${id}`);
     return dispatch({
-      type: 'DELETE_PROD',
+      type: "DELETE_PROD",
       payload: id,
-    })
-  }
+    });
+  };
 }
 
 export function getDetails(id) {
@@ -174,7 +176,7 @@ export const searchXmarca = (marca) => {
 export const searchXprecio = (precio) => {
   //precio llega como un string
   //lo convierto en un arreglo con el metodo split
-  const arr = precio.split(',');
+  const arr = precio.split(",");
   //los valores del arreglo anterior siguen siendo string
   //mapeo el arreglo anterior y cada indice se convierte en number
   const arr2 = arr.map((element) => parseInt(element));
@@ -229,18 +231,18 @@ export function clearCart() {
 }
 export function getFavorites(email) {
   return async function (dispatch) {
-    const response = await axios.get(`http://localhost:3001/favoritos/${email}`)
-    return dispatch({
-      type: GET_FAVORITES,
-      payload: response.data,
-    });
-  }
+    // const response = await axios.get(`http://localhost:3001/favoritos/${email}`)
+    // return dispatch({
+    //   type: GET_FAVORITES,
+    //   payload: response.data,
+    // });
+  };
 }
 
 export function addToFavorite(payload) {
   return async function () {
     const response = await axios.post(
-      'http://localhost:3001/favoritos',
+      "http://localhost:3001/favoritos",
       payload
     );
     return response;
@@ -256,20 +258,17 @@ export function removeFromFavorite(id) {
 
 export function getCarrito(email) {
   return async function (dispatch) {
-    const response = await axios.get(`http://localhost:3001/carrito/${email}`)
+    const response = await axios.get(`http://localhost:3001/carrito/${email}`);
     return dispatch({
       type: GET_CARRITO,
       payload: response.data,
     });
-  }
+  };
 }
 
 export function addToCarrito(payload) {
   return async function () {
-    const response = await axios.post(
-      'http://localhost:3001/carrito',
-      payload
-    );
+    const response = await axios.post("http://localhost:3001/carrito", payload);
     return response;
   };
 }

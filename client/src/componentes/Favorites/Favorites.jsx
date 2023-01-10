@@ -1,7 +1,7 @@
-import React from 'react';
-import s from './Favorites.module.css';
+import React from "react";
+import s from "./Favorites.module.css";
 // import { useSelector, useDispatch } from "react-redux";
-import FavoriteProduct from './FavoriteProduct';
+import FavoriteProduct from "./FavoriteProduct";
 // import { removeFromFavorite } from "../../redux/actions/actions";
 import Navbar2 from "../navbar/navBar2";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -9,15 +9,16 @@ import { useEffect, useState } from "react";
 
 const Favorites = () => {
   const [favoritos, setFavoritos] = useState([]);
-  const [clienteId, setClienteId] = useState('');
+  const [clienteId, setClienteId] = useState("");
 
   const { user } = useAuth0();
 
   useEffect(() => {
-    if (user) {
+    if (user && user.hasOwnProperty("email")) {
       fetch(`http://localhost:3001/favoritos/${user.email}`)
         .then((data) => data.json())
         .then((data) => {
+          console.log(data);
           setFavoritos(data.productos);
           setClienteId(data.clienteId);
         });
@@ -40,7 +41,7 @@ const Favorites = () => {
               cantidad={c.cantidad}
               URL={c.URL}
               clienteId={clienteId}
-            // handleDelete={() => handleDelete(clienteId, c.id)}
+              // handleDelete={() => handleDelete(clienteId, c.id)}
             />
           ))
         ) : (
