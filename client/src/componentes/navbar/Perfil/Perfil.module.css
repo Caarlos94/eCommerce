@@ -41,16 +41,24 @@
 }
 
 .relacionados {
-    width: 100%;
-    height: 50%;
-    background-color: rgba(94, 94, 94, 0.699);
+  width: 100%;
+  height: 50%;
+  background-color: white;
+}
+.relacionados h4 {
+  font-weight: bold;
+  font-size: 26px;
+  padding-top: 30px;
+  margin-left: 20px;
 }
 
 .section {
-    justify-content: space-between;
-    display: flex;
-    align-items: center;
-    height: 100%;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100%;
+  padding: 20px;
 }
 
 .select:hover {

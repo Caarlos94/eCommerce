@@ -99,10 +99,10 @@ const Filtros = ({ setPages }) => {
             Precio
           </option>
           <option value={[0, 0]}>Todos</option>
-          <option value={[10, 15]}>10 a 15 usd$</option>
-          <option value={[15, 20]}>15 a 20 usd$</option>
-          <option value={[20, 25]}>20 a 25 usd$</option>
-          <option value={[25, 30]}>25 a 30 usd$</option>
+          <option value={[1000, 5000]}>$1.000 a $5.000</option>
+          <option value={[5000, 10000]}>$5.000 a $10.000</option>
+          <option value={[10000, 15000]}>$10.000 a $15.000</option>
+          <option value={[15000, 20000]}>$15.000 a $20.000</option>
         </select>
 
         <select onChange={(e) => fn4(e)} className={style.select} id="fn4">

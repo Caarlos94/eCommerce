@@ -54,7 +54,7 @@ const Navbar = ({ setPages }) => {
     };
     checkForAdminRole();
     user && dispatch(getFavorites(email));
-  }, [isAuthenticated, getAccessTokenSilently, dispatch, email]);
+  }, [user, isAuthenticated, getAccessTokenSilently, dispatch, email]);
 
   const favoritos = useSelector((state) => state.favorites);
 
@@ -139,7 +139,7 @@ const Navbar = ({ setPages }) => {
                         to="/historial"
                         style={{ textDecoration: 'none' }}
                       >
-                        <button>Historial de Compras</button>
+                        <button>Mis Compras</button>
                       </NavLink>
                     </div>
                   )}

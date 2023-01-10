@@ -31,7 +31,7 @@ const QAAnsweredQuestions = ({ productId }) => {
     return () => (isSubscribed = false);
   }, [productId]);
 
-/*   console.log(questions); */
+  /*   console.log(questions); */
   let num = 2;
   return (
     <div className={classes['questions-container']}>
@@ -41,7 +41,7 @@ const QAAnsweredQuestions = ({ productId }) => {
       ) : (
         <div>
           {questions.map((quest, index) => {
-            if (index >= num) return;
+            if (index >= num) return '';
             return (
               <div className={classes['qContainer']} key={quest.questionId}>
                 <p className={classes['question']}>{quest.question}</p>

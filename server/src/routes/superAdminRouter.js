@@ -31,6 +31,9 @@ superAdminRouter.post(
         data: { roles: [ADMIN_ROLE_ID] },
       };
 
+    let resopuesta = [];
+
+    
       axios
         .request(options)
         .then(function (response) {

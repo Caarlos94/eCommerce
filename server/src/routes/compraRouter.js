@@ -9,47 +9,38 @@ const { DATE } = require("sequelize");
 require("dotenv").config();
 const { EMAIL_PASSWORD, EMAIL_HOST, EMAIL_PORT, EMAIL_USER } = process.env;
 
-
-
 compraRouter.post("/", async (req, res) => {
   try {
-    const { clienteId, productos } = req.body;
+    const { email, productos, input } = req.body;
 
     const cliente = await Cliente.findOne({
-      where: {
-        id: clienteId,
-      },
+      where: { email: email, }
     });
 
-    if (!cliente) {
-      throw new Error("El cliente no se encuentra en la base de datos");
-    }
+    if (!cliente) throw new Error("El cliente no se encuentra en la base de datos"); 
 
     const nuevaCompra = await Compra.create({ raw: true });
-
-    nuevaCompra.clienteId = clienteId;
+    nuevaCompra.clienteId = cliente.id;
+    nuevaCompra.direccion = input.direc
+    nuevaCompra.cel = input.cel
+    nuevaCompra.cp = input.cp
+    nuevaCompra.ciudad = input.ciudad
     nuevaCompra.save();
 
     productos.forEach(async (producto) => {
-      const foundProduct = await Producto.findByPk(producto.prodId);
-
-      nuevaCompra.addProducto(foundProduct, {
-        through: { cantidad: producto.cantidad },
-      });
+      const foundProduct = await Producto.findByPk(producto.id);
+      nuevaCompra.addProducto(foundProduct, { through: { cantidad: producto.cantidad } });
     });
     res.status(200).json("Compra creada");
+
   } catch (error) {
     res.status(400).json({ error: true, msg: error.message });
   }
 });
 
-
-
 compraRouter.post('/obtenerId', async(req,res) => {
 
   const { User }  = req.body;
-
-
   try {
 ///hacemos una busqueda de cliente cuyo nickname sea el igual al que llego por body desde el front
        const usuario = await Cliente.findOne({ where : {
@@ -74,7 +65,6 @@ compraRouter.post("/historial", async (req, res) => {
   try {
     const { clienteId } = req.body;
 
-    
     // busco el cliente con el clienteId que me llega por body
     // con el metodo includes incluyo todas las compras que este realizo
     const cliente = await Cliente.findAll({ where : {
@@ -94,7 +84,6 @@ compraRouter.post("/historial", async (req, res) => {
     Arr.push(elem.dataValues)
   })
  
- 
 //recorremos el arreglo Arr con la info de la compras
 //en cada iteracion obtenemos la relacion Compra_Producto pasandole elem.id para que encuentre la relacion
 //recorremos cada uno de los indices de result(todas las compras que realizo el usuario) 
@@ -105,6 +94,7 @@ let idFront = 1;
  Arr.forEach(async (elem) => {
 
   const result = await Compra_Producto.findAll({ where : {CompraId : elem.id}})
+  // console.log(result);
 
   result.forEach(async (elem)=>{
   
@@ -123,7 +113,8 @@ let idFront = 1;
       obj.estado = compra.dataValues.enviado;
       obj.fecha =new Date(compra.dataValues.fecha).toLocaleDateString();
       obj.localizador = compra.dataValues.localizador;
-      obj.idFront = idFront++
+      obj.idFront = idFront++;
+      obj.cantidad = elem.dataValues.cantidad
    
       
       arregloDeCompras.push(obj)
@@ -156,15 +147,10 @@ setTimeout(() => {
  } catch (error) {
   res.status(400).json(error.message);  
  }
-});
+}); 
 
 
-
-compraRouter.get(
-  "/adminSales/",
-  validateAccessToken,
-  validateAdmin,
-  async (req, res) => {
+compraRouter.get( "/adminSales/" /*, validateAccessToken, validateAdmin, */, async (req, res) => {
     try {
       const { order, enviado } = req.query; // aceptar query para traer en orden ASC o DESC, también enviado false o true. TODOS LOS QUERIES VIENEN COMO STRING
 
@@ -201,13 +187,17 @@ compraRouter.get(
             clienteId: purchase.cliente.id,
             nickname: purchase.cliente.nickname,
             email: purchase.cliente.email,
-            address: purchase.cliente.direction,
-            cel: purchase.cliente.cel,
-            zipCode: purchase.cliente.cp,
+            ciudad: purchase.ciudad,
+            direccion: purchase.direccion,
+            cel: purchase.cel,
+            cp: purchase.cp,
           },
           productos: mappedProducts,
         });
       });
+
+      // console.log("********************************");
+      // console.log(mappedPurchases);
 
       if (enviado === "false") {
         mappedPurchases = mappedPurchases.filter(
@@ -228,11 +218,7 @@ compraRouter.get(
   }
 );
 
-compraRouter.put(
-  "/adminSales/:purchaseId",
-  validateAccessToken,
-  validateAdmin,
-  async (req, res) => {
+compraRouter.put( "/adminSales/:purchaseId", validateAccessToken, validateAdmin, async (req, res) => {
     try {
       const { purchaseId } = req.params;
       const { trackingNumber, clienteEmail } = req.body;

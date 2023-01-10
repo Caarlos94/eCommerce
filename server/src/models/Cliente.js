@@ -12,27 +12,17 @@ module.exports = (sequelize) => {
         primaryKey: true,
         alowNull: false,
       },
-      nickname: {
-        // 🎇
+      nickname: {// 🎇
         type: DataTypes.STRING,
-        // allowNull: false,
       },
-      email: {
-        // 🎇
+      email: {// 🎇
         type: DataTypes.STRING,
-        // allowNull: false,
-        // unique: true,
       },
       email_Verified: {
         // 🎇
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
-      /* password: { // ?????
-      type: DataTypes.STRING,
-      // allowNull: false,
-      unique: true,
-    }, */
       picture: {
         // 🎇
         type: DataTypes.STRING,
@@ -43,25 +33,6 @@ module.exports = (sequelize) => {
       auth0Id: {
         type: DataTypes.STRING,
       },
-      // direction: {  // POST
-      //   type: DataTypes.STRING,
-      //   // allowNull: false,
-      // },
-      // cel: {  // POST
-      //   type: DataTypes.STRING,
-      //   // allowNull: false,
-      // },
-      // cp: {  // POST
-      //   type: DataTypes.STRING,
-      //   // allowNull: false,
-      // },
-      // purchase_history: {  //PENDIENTE
-      //   type: DataTypes.STRING
-      // },
-      // admin: {
-      //   type: DataTypes.BOOLEAN,
-      //   defaultValue: false
-      // }
     },
     { timestamps: false }
   );
