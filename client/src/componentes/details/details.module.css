@@ -83,6 +83,8 @@
 .img111 {
   width: 40%;
   height: 90%;
+  /* background-position: center;
+  background-size: calc(120% - 80px); */
   background-position: center;
   background-size: calc(120% - 80px);
   background-repeat: no-repeat;
@@ -101,7 +103,6 @@
 .textCont h2 {
   font-size: 40px;
 }
-
 
 .productDesc {
   margin-bottom: 150px;
@@ -284,6 +285,7 @@
   align-items: center;
   cursor: pointer;
   transition: all 0.3s;
+  border-radius: 5px;
 }
 
 .current img {

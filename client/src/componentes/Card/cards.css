@@ -8,7 +8,7 @@
 
 .card-title {
   color: black;
-  
+
   font-size: 1.3rem;
   font-family: 'Poppins', sans-serif;
 }
@@ -24,8 +24,6 @@
   height: 240px;
   margin-left: 5%;
 }
-
-
 
 .overflow {
   overflow: hidden;
@@ -46,24 +44,23 @@
   transform: scale(1.25);
 }
 
-.cuotas{
+.cuotas {
   color: rgb(170, 169, 169);
   font-size: 0.9rem;
   font-family: 'Poppins', sans-serif;
 }
 
 .h55 {
-    font-size: 15px;
-    font-family: 'Poppins', sans-serif;
-    color: grey;
-
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  color: grey;
 }
 
-  .h44 {
-    font-size: 1.3rem;
-    font-family: 'Poppins', sans-serif;
-    color: rgb(214, 49, 49);
-  }
+.h44 {
+  font-size: 1.3rem;
+  font-family: 'Poppins', sans-serif;
+  color: #4894ec;
+}
 
 @media (max-width: 768px) {
   .card {
@@ -72,7 +69,7 @@
   }
 
   .card-title {
-    font-size: 20px;
+    font-size: 16px;
     font-family: 'Poppins', sans-serif;
   }
 
@@ -80,7 +77,6 @@
     font-size: 15px;
     font-family: 'Poppins', sans-serif;
     color: black;
-
   }
 
   .h44 {
@@ -98,10 +94,14 @@
     padding: 5px;
     font-family: 'Poppins', sans-serif;
   }
+
+  .cuotas {
+    font-size: 0.8rem;
+  }
 }
 
 @media (min-width: 769px) and (max-width: 1200px) {
   .card {
-    width: 70%;
+    width: 100%;
   }
 }
