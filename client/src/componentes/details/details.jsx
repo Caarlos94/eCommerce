@@ -139,7 +139,7 @@ const Details = () => {
                   {details[0].stock > 0 ? (
                     <p className={s.stock}>Stock: {details[0].stock}</p>
                   ) : (
-                    <p>
+                    <p className={s.stock}>
                       Producto no disponible! Stock agotado momentáneamente...
                     </p>
                   )}
