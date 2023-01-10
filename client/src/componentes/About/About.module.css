@@ -45,12 +45,12 @@
     /* background: linear-gradient(to top, #0a3394, #4286f4); */
    }
 
-   .card_imag3{
+   .card_image3{
     height: 100%;
     width: 100%;
     position: absolute;
     transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1);
-    background: url('./alejandro.jpg');
+    background: url('./carlos_medero.jpg');
     background-size: cover;
 
     /* background: linear-gradient(to top, #0a3394, #4286f4); */
