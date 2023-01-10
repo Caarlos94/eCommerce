@@ -50,7 +50,7 @@ export default function About() {
    <div className={style.card}>
      <div className={style.card_image5}></div>
      <div className={style.card_description}>
-      <p className={style.text_title}> cesar </p>
+      <p className={style.text_title}> cesar zegarra </p>
       <p  className={style.text_body}></p>
      </div>
    </div>
@@ -58,7 +58,7 @@ export default function About() {
    <div className={style.card}>
      <div className={style.card_image6}></div>
      <div className={style.card_description}>
-      <p className={style.text_title}>beli </p>
+      <p className={style.text_title}>belisario Davalos </p>
       <p  className={style.text_body} ></p>
      </div>
    </div>

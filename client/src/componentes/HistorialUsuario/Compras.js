@@ -35,6 +35,7 @@ const Compras = (props) => {
         <h5>Fecha: {props.fecha}</h5>
         <h5>Precio: {props.precio}</h5>
         <h5>Talla: {props.talla}</h5>
+        <h5>cantidad: {props.cantidad}</h5>
         <h5>Numero de envio: {props.localizador}</h5>
       </div>
       {enviado && !didReview ? (

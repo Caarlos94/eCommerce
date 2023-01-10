@@ -19,20 +19,26 @@ const Carrito = () => {
   const cart = useSelector((state) => state.cart);
   const [usuarioid, setUsuaruioId] = useState('');
 
-  useEffect(async () => {
-    if (isAuthenticated === true) {
-      if (cart.length) {
-        const idUsuariodb = await axios.post(
-          'http://localhost:3001/compras/obtenerId',
-          {
-            User: user.nickname,
-          }
-        );
-
-        if (idUsuariodb) setUsuaruioId(idUsuariodb.data);
+  useEffect(() => {
+    const fetchUserId = async () => {
+      if (isAuthenticated === true) {
+        if (cart.length) {
+          const idUsuariodb = await axios.post(
+            'http://localhost:3001/compras/obtenerId',
+            {
+              User: user.nickname,
+            }
+          );
+  
+          if (idUsuariodb)setUsuaruioId(idUsuariodb.data); 
+        
       }
     }
-  }, []);
+  }
+    fetchUserId();
+  }, [user]);
+
+
 
   const handleDelete = (id, all = false) => {
     //console.log(id, all);

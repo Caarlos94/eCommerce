@@ -68,7 +68,7 @@ router.post('/pagosMeli', async (req, res) => {
   };
 
   obj = items;
-
+ console.log(obj);
   GuardarComprasDB.clienteId = idUsuario;
 
   GuardarComprasDB.clienteId = idUsuario;
@@ -83,7 +83,7 @@ router.post('/pagosMeli', async (req, res) => {
 
   GuardarComprasDB.productos = arr;
 
-  console.log(obj);
+
   console.log(GuardarComprasDB);
 
   mercadopago.preferences
@@ -98,18 +98,19 @@ router.post('/pagosMeli', async (req, res) => {
 
 router.get('/redirect', async (req, res) => {
   let { status } = req.query;
-
+  console.log(obj);
+   
   if (status === 'approved') {
     obj.forEach(async (producto) => {
       let productStock = await Producto.findByPk(producto.id);
       let rest = productStock.stock - producto.cantidad;
-
+ log(rest)
       const modifiedProduct = await Producto.update(
         { stock: rest },
         { where: { id: producto.id } }
       );
     });
-    console.log(obj);
+  
 
     try {
       const ComprasGuardadas = await axios.post(
