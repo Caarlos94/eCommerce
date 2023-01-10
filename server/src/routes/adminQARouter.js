@@ -32,9 +32,7 @@ adminQARouter.get('/', validateAccessToken, validateAdmin, async (req, res) => {
   }
 });
 
-adminQARouter.put(
-  '/',
-  /*validateAccessToken, validateAdmin,*/ async (req, res) => {
+adminQARouter.put("/", /*validateAccessToken, validateAdmin,*/ async (req, res) => {
     try {
       const { questionId, answer } = req.body;
       Pregunta.findByPk(questionId).then((question) => {

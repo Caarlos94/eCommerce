@@ -16,10 +16,7 @@ const BlockUser = ({ accessToken, block }) => {
   const postBlockedUserUrl = "http://localhost:3001/superAdmin/blockUser";
 
   const [users, setUsers] = useState([]);
-  const [blockedUser, setBlockedUser] = useState({
-    email: "",
-    idType: "googleId",
-  });
+  const [blockedUser, setBlockedUser] = useState({});
   const [didBlock, setDidBlock] = useState(false);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [filteredValue, setFilteredValue] = useState("");
@@ -53,7 +50,7 @@ const BlockUser = ({ accessToken, block }) => {
   }, [didBlock, fetchUsers]);
 
   useEffect(() => {
-    setBlockedUser(users[0]);
+    users.length && setBlockedUser(users[0]);
   }, [users]);
 
   useEffect(() => {
@@ -63,6 +60,7 @@ const BlockUser = ({ accessToken, block }) => {
   }, [filteredValue, users]);
 
   const handleChange = (e) => {
+    console.log(e.target.value);
     setBlockedUser(JSON.parse(e.target.value));
   };
 
@@ -108,7 +106,10 @@ const BlockUser = ({ accessToken, block }) => {
             <br />
             {users.length && !filteredValue ? (
               <select onChange={handleChange} name="email">
-                {/*mapear users aqui. object en index user será el valor*/}
+                {/*mapear users aqui. object en index user será el valor*/}{" "}
+                <option disabled={true} defaultValue={true} value="">
+                  Seleccionar correo
+                </option>
                 {users.map((user) => (
                   <option value={JSON.stringify(user)} key={newId()}>
                     {user.email} | {user.idType}

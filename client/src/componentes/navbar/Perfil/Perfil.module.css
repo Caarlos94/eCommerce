@@ -1,43 +1,43 @@
 .cont {
-  background-color: #edeff0;
-  height: 50vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-items: center;
+    background-color: #edeff0;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
 }
 
 .allInfo {
-  padding-top: 50px;
-  width: 40%;
-  height: 70%;
-  display: flex;
-  flex-direction: column;
-  /* align-items: center; */
+    padding-top: 50px;
+    width: 40%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
 }
 
 .info {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  width: 100%;
-  position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+    position: relative;
 }
 
 .info h5 {
-  font-weight: bold;
-  margin-right: 30px;
+    font-weight: bold;
+    margin-right: 30px;
 }
 
 .info h2 {
-  margin: 10px;
-  display: flex;
-  align-items: center;
+    margin: 10px;
+    display: flex;
+    align-items: center;
 }
 
 .info img {
-  margin: 10px;
-  border-radius: 100%;
+    margin: 10px;
+    border-radius: 100%;
 }
 
 .relacionados {
@@ -62,8 +62,8 @@
 }
 
 .select:hover {
-  color: var(--hover-text);
-  transform: translate(-0.25rem, -0.25rem);
-  background: var(--hover-bg);
-  box-shadow: 0.25rem 0.25rem var(--bg);
+    color: var(--hover-text);
+    transform: translate(-0.25rem, -0.25rem);
+    background: var(--hover-bg);
+    box-shadow: 0.25rem 0.25rem var(--bg);
 }

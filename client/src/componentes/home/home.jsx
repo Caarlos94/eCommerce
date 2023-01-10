@@ -35,6 +35,8 @@ const Home = () => {
 
   const paginateNext = (nextPage) => setCurrentPage(nextPage);
 
+
+
   return (
     <div className={s.divaHome}>
       <Navbar setPages={setCurrentPage} />

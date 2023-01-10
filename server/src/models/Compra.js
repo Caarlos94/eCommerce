@@ -31,7 +31,7 @@ module.exports = (sequelize) => {
         alowNull: true,
       },
       cel: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         alowNull: true,
       },
     },

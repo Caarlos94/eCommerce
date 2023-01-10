@@ -27,7 +27,7 @@ const CartProduct = ({
         <h5>Stock: {--stock}</h5>
         <p>{talla}</p>
         <p>
-          ${precio} x {cantidad} = ${precio * cantidad}
+          ${precio} x {cantidad} = ${precio*cantidad}
         </p>
       </div>
       <div className={s.btns}>
