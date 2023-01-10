@@ -50,7 +50,7 @@ const Compras = (props) => {
               state: { producto: props, clienteId },
             }}
           >
-            <button>aca va la logica del review</button>
+            <button>Dejar reseña.</button>
           </Link>
         ) : (
           ''

@@ -91,7 +91,7 @@ const AddAdmin = ({ accessToken }) => {
               <label htmlFor="email">Usuarios sin role Admin:</label>
               <br />
               <select onChange={handleChange} name="email">
-                {/*mapear nonadmins aqui. object en index user será el valor*/}
+                {/*mapear nonadmins aqui. object en index user serÃ¡ el valor*/}
                 {nonAdmins.length && !filteredValue
                   ? nonAdmins.map((user) => (
                       <option value={JSON.stringify(user)} key={user.id}>
