@@ -1,6 +1,5 @@
 import { NavLink } from 'react-router-dom';
 import style from './Footer.module.css';
-import instagram from '../../img/insta.png';
 import github from '../../img/github.png';
 
 export default function Footer() {
@@ -14,15 +13,15 @@ export default function Footer() {
 
         <div className={style.redes}>
           <h4>Redes: </h4>
-          <a href="https://github.com/Caarlos94/eCommerce" target="_blank">
-            <img src={github} alt="" />
+          <a href="https://github.com/Caarlos94/eCommerce" target="_blank" rel="noreferrer">
+            <img src={github} alt="github" />
           </a>
         </div>
 
         {/* <div className={style.contacto}>
-                    <h6>suprasportspf@gmail.com</h6>
-                    <h6>+54 3516853857</h6>
-                </div> */}
+            <h6>suprasportspf@gmail.com</h6>
+            <h6>+54 3516853857</h6>
+        </div> */}
       </div>
     </div>
   );

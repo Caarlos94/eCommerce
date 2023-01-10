@@ -37,6 +37,5 @@ export const useValidateUser = () => {
     user,
   };
 };
-
 // isAuthenticated PERMITE VERIFICAR SI EL USUARIO INICIO SESION
 // isAdmin PERMITE VERIFICAR SI EL USUARIO DEBE TENER ACCESO A RECURSOS DEL ADMIN

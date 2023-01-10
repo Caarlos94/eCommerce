@@ -17,12 +17,15 @@ const SuperAdmin = (props) => {
 
   const { accessToken, isSuperAdmin } = useValidateUser();
 
-  useEffect(async () => {
-    const result = await axios.get(
-      'http://localhost:3001/superAdmin/fetchRoles'
-    );
+  useEffect(() => {
+    const funct = async () => {
+      const result = await axios.get(
+        'http://localhost:3001/superAdmin/fetchRoles'
+      );
 
-    setAdmins(result.data);
+      setAdmins(result.data);
+    }
+    funct()
   }, []);
 
   const deleteAd = (params) => {

@@ -41,7 +41,7 @@ const QAAnsweredQuestions = ({ productId }) => {
       ) : (
         <div>
           {questions.map((quest, index) => {
-            if (index >= num) return;
+            if (index >= num) return '';
             return (
               <div className={classes['qContainer']} key={quest.questionId}>
                 <p className={classes['question']}>{quest.question}</p>

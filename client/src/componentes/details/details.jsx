@@ -89,7 +89,7 @@ const Details = () => {
         });
     }
     /* console.log(user); */
-  }, [user, isAuthenticated, getAccessTokenSilently]);
+  }, [id, user, isAuthenticated, getAccessTokenSilently]);
 
   const handleDelete = () => {
     fetch(`http://localhost:3001/favoritos/${clienteId}/${id}`, {
