@@ -11,7 +11,7 @@ import {
   deleteProd,
   removeOneFromCart,
 } from '../../redux/actions/actions.js';
-import { NavLink, useParams, useHistory } from 'react-router-dom';
+import { NavLink, useHistory, useParams } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
 import trash from '../../img/trash.png';
 import edit from '../../img/edit.png';
@@ -24,8 +24,8 @@ import Reviews from '../Reviews/Reviews';
 import { Toaster, toast } from 'react-hot-toast';
 
 const Details = () => {
+  const history = useHistory()
   const dispatch = useDispatch();
-  const history = useHistory();
   const reviews = useSelector((state) => state.reviews);
   const details = useSelector((state) => state.details);
 
@@ -70,6 +70,14 @@ const Details = () => {
         }
       }
     };
+
+    if (user) {
+      setInput({
+        email: user.email,
+        productoId: id,
+      });
+    }
+
     checkForAdminRole();
 
     if (user) {
@@ -143,10 +151,18 @@ const Details = () => {
             <div className={s.detailCont}>
               <div className={s.imgCont}>
                 <div className={s.img11}>
+                <div
+                  className={s.img111}
+                  style={{ backgroundImage: `url(${details[0].images[0].URL[0]})` }}
+                ></div>
                   <div
-                    className={s.img111}
-                    style={{ backgroundImage: `url(${details[0].URL})` }}
-                  ></div>
+                  className={s.img111}
+                  style={{ backgroundImage: `url(${details[0].images[0].URL[1]})` }}
+                ></div>
+                  <div
+                  className={s.img111}
+                  style={{ backgroundImage: `url(${details[0].images[0].URL[2]})` }}
+                ></div>
                 </div>
               </div>
               <div className={s.textCont}>
