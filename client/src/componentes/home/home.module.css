@@ -23,6 +23,17 @@
   justify-content: center;
   grid-template-columns: 400px 400px 400px;
   grid-template-rows: auto;
+  margin-left: 5%;
+
+  
+/*  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto; 
+  grid-gap: 1rem;
+  margin-left: 2.5%;
+  margin-top: 2.5%;
+  padding-bottom: 2%; */
+
 }
 
 .notFound {
