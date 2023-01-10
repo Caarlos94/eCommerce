@@ -17,7 +17,7 @@ import {
 import { useAuth0 } from '@auth0/auth0-react';
 import jwt_decode from 'jwt-decode';
 
-const Navbar2 = ({ setPages }) => {
+const Navbar2 = () => {
   const dispatch = useDispatch();
   const carrito = useSelector((state) => state.cart);
 
@@ -79,8 +79,9 @@ const Navbar2 = ({ setPages }) => {
           </div>
         </NavLink>
 
+
         <div className={style.searchBar}>
-          <SearchBar setPages={setPages} />
+          <SearchBar />
         </div>
 
         <div className={style.btns}>

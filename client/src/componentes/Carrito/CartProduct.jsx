@@ -18,7 +18,7 @@ const CartProduct = ({
     <div className={s.item}>
       <div
         className={s.itemImg}
-        style={{ backgroundImage: `url(${URL})` }}
+        style={{ backgroundImage: `url(${URL[0]})` }}
       ></div>
       <div className={s.info}>
         <NavLink to={`details/${id}`} style={{ textDecoration: 'none' }}>

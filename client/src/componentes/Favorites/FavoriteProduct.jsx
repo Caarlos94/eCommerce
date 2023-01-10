@@ -50,7 +50,7 @@ const FavoriteProduct = ({
             >
               <div
                 className={s.itemImg}
-                style={{ backgroundImage: `url(${URL})` }}
+                style={{ backgroundImage: `url(${URL[0]})` }}
               ></div>
             </NavLink>
             <div className={s.info}>
