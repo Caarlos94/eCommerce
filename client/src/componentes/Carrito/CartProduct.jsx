@@ -20,10 +20,10 @@ const CartProduct = ({
         style={{ backgroundImage: `url(${URL})` }}
       ></div>
       <div className={s.info}>
-        <h2>{nombre}</h2>
-        <h5>Stock: {--stock}</h5>
-        <p>{talla}</p>
-        <p>
+        <p className={s.nombre}>{nombre}</p>
+        <p className={s.stock}>Stock: {--stock}</p>
+        <p className={s.talla}>Talle: {talla}</p>
+        <p className={s.cantidad}>
           ${precio} x {cantidad} = ${precio*cantidad}
         </p>
       </div>
