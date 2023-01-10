@@ -34,10 +34,11 @@ const getProductsFireBase = async () => {
     `https://supra-sports-default-rtdb.firebaseio.com/.json`
   ); 
   let commits = await response.json();
+  console.log(commits);
     commits.Productos.forEach(async (e) => {
       const [instance, created] = await Producto.findOrCreate({where: { nombre:e.nombre }, 
         defaults: {
-          URL: e.URL,
+          URL: e.URL[0],
           color: e.color,
           marca: e.marca, 
           talla: e.talla,
@@ -50,10 +51,10 @@ const getProductsFireBase = async () => {
       });
       await instance.addCategoria(DatabaseCategory)
 
-      let DatabaseImage = await Images.findOne({
+      /* let DatabaseImage = await Images.findOne({
         where: { nombre: e.nombre },
       });
-      await instance.addImage(DatabaseImage)
+      await instance.addImage(DatabaseImage) */
   })
 
   let allProductsDB = await Producto.findAll({ 
@@ -63,10 +64,10 @@ const getProductsFireBase = async () => {
       attributes: ["nombre"], 
       through: { attributes: [] }, 
     },
-    { 
+    /* { 
       model: Images, 
       attributes: ["URL"],
-    } 
+    }  */
   ]})  
 
     allProductsDB.forEach(async (e) => {
@@ -112,7 +113,7 @@ const getDataBaseClient = async () => {
 };
 
 // Get images FROM firebase and save then into DB
-const getImages = async () => {
+/* const getImages = async () => {
     const response = await fetch( 'https://supra-sports-images-default-rtdb.firebaseio.com/.json' );
     let commits = await response.json();
 
@@ -125,12 +126,12 @@ const getImages = async () => {
 
       let imagesDB = await Images.findAll() 
       return imagesDB
-}; 
+}; */ 
  
 module.exports = {  
   getProductsFireBase,
   getCategories,
   // getDataBaseProducts,
   getDataBaseClient,
-  getImages
+ /*  getImages */
 };

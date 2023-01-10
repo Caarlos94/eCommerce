@@ -77,14 +77,6 @@ export function getCategorys() {
   };
 }
 
-export function getImages() {
-  return async function () {
-    await fetch('http://localhost:3001/images')
-      // .then((response) => response.json())
-      // .then((data) => dispatch({ type: GET_IMAGES, payload: data }));
-  };
-}
-
 export function getUserInfo() {
   return function (dispatch) {
     const response = axios.get(`http://localhost:3001/users`);

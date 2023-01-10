@@ -151,18 +151,18 @@ const Details = () => {
             <div className={s.detailCont}>
               <div className={s.imgCont}>
                 <div className={s.img11}>
-                <div
+                  <div
                   className={s.img111}
-                  style={{ backgroundImage: `url(${details[0].URL})` }}
-                ></div>
-                  {/* <div
-                  className={s.img111}
-                  style={{ backgroundImage: `url(${details[0].images[0].URL[1]})` }}
+                  style={{ backgroundImage: `url(${details[0].URL[0]})` }}
                 ></div>
                   <div
                   className={s.img111}
-                  style={{ backgroundImage: `url(${details[0].images[0].URL[2]})` }}
-                ></div> */}
+                  style={{ backgroundImage: `url(${details[0].URL[1]})` }}
+                ></div>
+                  <div
+                  className={s.img111}
+                  style={{ backgroundImage: `url(${details[0].URL[2]})` }}
+                ></div>
                 </div>
               </div>
               <div className={s.textCont}>

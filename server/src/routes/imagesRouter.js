@@ -1,4 +1,4 @@
-const { Router } = require("express");
+/* const { Router } = require("express");
 const { Images } = require('../db.js')
 const { getImages } = require("./functions");
 const imagesRouter = Router();
@@ -11,4 +11,4 @@ imagesRouter.get("/", async (req, res) => {
     }
 })
 
-module.exports = imagesRouter;
+module.exports = imagesRouter; */

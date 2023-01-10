@@ -31,7 +31,7 @@ const Compras = (props) => {
       <div className={style.imgCont}>
 
         <div className={style.itemImg}>
-          <img src={props.URL} alt="imagen de producto" />
+          <img src={props.URL[0]} alt="imagen de producto" />
         </div>
       </div>
       <div className={style.textCont}>
