@@ -129,7 +129,7 @@ const Details = () => {
     <div>
       <Navbar2 />
       <div>
-        {(user && details.length) ? (
+        {details.length ? (
           <div className={s['parent-container']}>
             <div className={s.detailCont}>
               <div className={s.imgCont}>
@@ -213,18 +213,15 @@ const Details = () => {
             </div>
           </div>
         ) : (
-          ""
-        )} {
-          (!user || !details.length) ?
-            (<div className={s.spinner}>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>) : ("")
-        }
+          <div className={s.spinner}>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        )}
         <Footer />
       </div>
       <Toaster
