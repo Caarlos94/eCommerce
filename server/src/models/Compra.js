@@ -11,35 +11,29 @@ module.exports = (sequelize) => {
         primaryKey: true,
         alowNull: false,
       },
-
       enviado: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
-
       localizador: {
         type: DataTypes.STRING,
       },
-
-/*       ciudad: {
+      ciudad: {
         type: DataTypes.STRING,
         alowNull: true,
       },
-
       cp: {
         type: DataTypes.INTEGER,
         alowNull: true,
       },
-      
-      direc: {
+      direccion: {
         type: DataTypes.STRING,
         alowNull: true,
       },
-      
       cel: {
         type: DataTypes.INTEGER,
         alowNull: true,
-      }, */
+      },
     },
     {
       timestamps: true,

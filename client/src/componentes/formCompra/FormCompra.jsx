@@ -1,16 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useDispatch } from 'react';
 import Navbar2 from '../navbar/navBar2';
 import style from './FormCompra.module.css';
+import { updateClient } from '../../redux/actions/actions.js';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useValidateUser } from '../../customHooks/validate-user';
 
-export default function FormCompra() {
-    /* const dispatch = useDispatch();
-    const history = useHistory(); */
+export default function FormCompra({ handle }) {
+
+    // const [ isAuthenticated, isAdmin, accessToken, userId ] =  useValidateUser()
+
+    const { user } = useAuth0();
+    console.log(user.email);
+
+    // console.log(userId);
+
+    const dispatch = useDispatch();
+
+    // const history = useHistory();
     const [input, setInput] = useState({
         ciudad: "",
         cp: "",
         direc: "",
         cel: "",
     });
+
+    // const { user } = useAuth0();
 
     const handlerChange = (e) => {
         setInput({
@@ -22,24 +36,24 @@ export default function FormCompra() {
     const handlerSubmit = (e) => {
         e.preventDefault();
         console.log(input);
-        /* dispatch(updateProduct(input)); */
+        // console.log(userId);
+        // dispatch(updateClient(input));
         alert("Datos de envío guardados con éxito! Estás listo para la instancia de pago.");
         setInput({
             ciudad: "",
             cp: "",
             direc: "",
             cel: "",
-        });
+        }); 
     };
 
     return (
         <div>
-            <Navbar2 />
             <div className={style.cont}>
                 <h1>Formulario de Envío</h1>
 
                 <div className={style.forms}>
-                    <form /* onSubmit={(e) => handlerSubmit(e)} */>
+                    <form onSubmit={(e) => handlerSubmit(e)}>
                         <div className={style.inputI}>
                             <label>Ciudad: </label>
                             <input
@@ -64,7 +78,7 @@ export default function FormCompra() {
                             <label>Dirección: </label>
                             <input
                                 type="text"
-                                value={input.direccion}
+                                value={input.direc}
                                 name="direc"
                                 onChange={(e) => handlerChange(e)}
                             ></input>
@@ -81,7 +95,7 @@ export default function FormCompra() {
                         </div>
 
                         <div className={style.publicar}>
-                            <button type="submit">
+                            <button onClick={()=> handle( input, user.email )} type="submit">
                                 Guardar datos para envío...
                             </button>
                         </div>

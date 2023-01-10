@@ -5,8 +5,7 @@ const categoryRouter = Router();
 
 categoryRouter.get("/", async (req, res) => {
     try {
-        let categoria = await getCategories()
-        res.status(200).json(categoria)
+        res.status(200).json(await getCategories())
     } catch (error) {
         res.status(400).send(error.message)
     }

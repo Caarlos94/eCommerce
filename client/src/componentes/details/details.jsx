@@ -9,9 +9,8 @@ import {
   getProducts,
   getReviews,
   getFavorites,
-  deleteProd,
 } from '../../redux/actions/actions.js';
-import { NavLink, useParams, useHistory } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
 import trash from '../../img/trash.png';
 import edit from '../../img/edit.png';
@@ -25,7 +24,6 @@ import { Toaster, toast } from 'react-hot-toast';
 
 const Details = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const reviews = useSelector((state) => state.reviews);
   const details = useSelector((state) => state.details);
 
@@ -42,23 +40,6 @@ const Details = () => {
   let { id } = useParams();
 
   useEffect(() => {
-    user && dispatch(getFavorites(user.email))
-    dispatch(limpiarState());
-    dispatch(getDetails(id));
-    dispatch(getReviews(id));
-    /* return function () {
-      dispatch(getProducts());
-    }; */
-
-    if (user) {
-      setInput({
-        email: user.email,
-        productoId: id,
-      });
-    }
-  }, [dispatch, id, user]);
-
-  useEffect(() => {
     const checkForAdminRole = async () => {
       if (isAuthenticated) {
         const accessToken = await getAccessTokenSilently();
@@ -70,8 +51,15 @@ const Details = () => {
         }
       }
     };
-    checkForAdminRole();
 
+    if (user) {
+      setInput({
+        email: user.email,
+        productoId: id,
+      });
+    }
+
+    checkForAdminRole();
     if (user) {
       fetch(`http://localhost:3001/favoritos/${user.email}`)
         .then((data) => data.json())
@@ -80,10 +68,18 @@ const Details = () => {
           setClienteId(data.clienteId);
         });
     }
-    console.log(user);
-  }, [user, isAuthenticated, getAccessTokenSilently]);
+    dispatch(limpiarState());
+    dispatch(getDetails(id));
+    dispatch(getReviews(id));
+    user && dispatch(getFavorites(user.email))
+    return function () {
+      dispatch(getProducts());
+    };
+  }, [dispatch, id, user, isAuthenticated, getAccessTokenSilently]);
+
 
   const handleDelete = () => {
+    // console.log("hello");
     fetch(`http://localhost:3001/favoritos/${clienteId}/${id}`, {
       method: 'DELETE',
       headers: {
@@ -112,13 +108,6 @@ const Details = () => {
       user && dispatch(getFavorites(user.email))
     }
   };
-  const handleDeleteProd = (id) => {
-    console.log(id + ' ELIMINADO');
-    dispatch(deleteProd(id)).then(
-      alert('Producto eliminado con éxito! Se te redirigirá al inicio...')
-    );
-    history.push('/');
-  };
 
   const handleSubmit = (id) => {
     dispatch(addToCart(id));
@@ -134,32 +123,33 @@ const Details = () => {
             <div className={s.detailCont}>
               <div className={s.imgCont}>
                 <div className={s.img11}>
+                <div
+                  className={s.img111}
+                  style={{ backgroundImage: `url(${details[0].images[0].URL[0]})` }}
+                ></div>
                   <div
-                    className={s.img111}
-                    style={{ backgroundImage: `url(${details[0].URL})` }}
-                  ></div>
+                  className={s.img111}
+                  style={{ backgroundImage: `url(${details[0].images[0].URL[1]})` }}
+                ></div>
+                  <div
+                  className={s.img111}
+                  style={{ backgroundImage: `url(${details[0].images[0].URL[2]})` }}
+                ></div>
                 </div>
               </div>
               <div className={s.textCont}>
                 <div className={s.productDesc}>
-                  <p className={s.marca}>{details[0].marca}</p>
-                  <p className={s.nombre}>{details[0].nombre}</p>
-                  <p className={s.precio}>${details[0].precio}</p>
-                  <p className={s.categoria}>Categoria</p>
-                  <p className={s.color}>Color: {details[0].color}</p>
-                  <p className={s.talla}>Talla: {details[0].talla.toUpperCase()}</p>
-                  {/* <button className={s.buttonTalle}>XS</button>
-                  <button className={s.buttonTalle}>S</button>
-                  <button className={s.buttonTalle}>M</button>
-                  <button className={s.buttonTalle}>L</button>
-                  <button className={s.buttonTalle}>XL</button>
-                  <button className={s.buttonTalle}>XXL</button> */}
+                  <h2 className={s.h2}>{details[0].nombre.toUpperCase()}</h2>
+                  <h3>${details[0].precio}</h3>
+                  <h5>Marca: {details[0].marca}</h5>
+                  <h5>Color: {details[0].color}</h5>
+                  <h5>Talla: {details[0].talla.toUpperCase()}</h5>
                   {details[0].stock > 0 ? (
-                    <p className={s.stock}>Stock: {details[0].stock}</p>
+                    <h5>Stock: {details[0].stock}</h5>
                   ) : (
-                    <p className={s.stock}>
+                    <h5>
                       Producto no disponible! Stock agotado momentáneamente...
-                    </p>
+                    </h5>
                   )}
                 </div>
                 {!isAdmin ? (
@@ -173,6 +163,7 @@ const Details = () => {
                     </button>
                     {user ? (
                       <>
+                        { }
                         <div
                           className={actual.length > 0 ? s.current : s.fav}
                           onClick={() => handleAdd(id)}
@@ -190,7 +181,7 @@ const Details = () => {
                   <div className={s.btns}>
                     <button
                       /* value={categ} */
-                      onClick={() => handleDeleteProd(id)}
+                      onClick={() => handleDelete(id)}
                     >
                       <img src={trash} alt=""></img>
                     </button>

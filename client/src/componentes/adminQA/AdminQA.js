@@ -11,6 +11,8 @@ const AdminQA = () => {
   const { isAdmin, accessToken } = useValidateUser();
 
   useEffect(() => {
+    console.log(accessToken);
+    
     accessToken &&
       fetch("http://localhost:3001/adminQA", {
         method: "GET",

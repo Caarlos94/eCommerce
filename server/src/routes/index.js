@@ -1,4 +1,4 @@
-const { Router } = require('express');
+const { Router } = require("express");
 const { Producto } = require('../db.js');
 
 const productRouter = require("./productRouter.js");
@@ -11,8 +11,9 @@ const favoritosRouter = require("./favoritosRouter");
 const superAdminRouter = require("./superAdminRouter");
 
 const router = Router();
-const mercadopago = require('mercadopago');
-const express = require('express');
+const mercadopago = require("mercadopago");
+const express = require("express");
+
 
 router.use(express.json());
 
@@ -27,7 +28,7 @@ router.use("/superAdmin", superAdminRouter);
 
 mercadopago.configure({
   access_token:
-    'APP_USR-8763313892706046-121400-b6b39cc901e4f87d36ca35efbd37f52c-1263181426',
+    "APP_USR-8763313892706046-121400-b6b39cc901e4f87d36ca35efbd37f52c-1263181426",
   /* access_token: "TEST-8763313892706046-121400-1f81130c8eea6eec0631d629769666b3-1263181426", PREGUNTAR ALEJANDRO*/
 });
 
@@ -65,22 +66,22 @@ router.post('/pagosMeli', async (req, res) => {
 
   obj = items;
 
-  GuardarComprasDB.clienteId = idUsuario;
+  // GuardarComprasDB.clienteId = idUsuario;
 
-  GuardarComprasDB.clienteId = idUsuario;
+  // GuardarComprasDB.clienteId = idUsuario;
 
-  let arr = [];
+  // let arr = [];
 
-  items.forEach((elem) => {
-    const obj = {};
-    (obj.prodId = elem.id), (obj.cantidad = elem.cantidad);
-    arr.push(obj);
-  });
+  // items.forEach((elem) => {
+  //   const obj = {};
+  //   (obj.prodId = elem.id), (obj.cantidad = elem.cantidad);
+  //   arr.push(obj);
+  // });
 
-  GuardarComprasDB.productos = arr;
+  // GuardarComprasDB.productos = arr;
 
-  console.log(obj);
-  console.log(GuardarComprasDB);
+  // console.log(obj);
+  // console.log(GuardarComprasDB);
 
   mercadopago.preferences
     .create(preference)
@@ -91,33 +92,25 @@ router.post('/pagosMeli', async (req, res) => {
       console.log(error);
     });
 });
-
-router.get('/redirect', async (req, res) => {
-  let { status } = req.query;
-
-  if (status === 'approved') {
-    obj.forEach(async (producto) => {
-      let productStock = await Producto.findByPk(producto.id);
-      let rest = productStock.stock - producto.cantidad;
+router.get("/redirect", async (req, res) => {
+  let { status } = req.query
+  try {
+  if (status === "approved") {
+    obj.forEach(async producto => {  
+ 
+      let productStock = await Producto.findByPk(producto.id)
+      let rest = productStock.stock - producto.cantidad
 
       const modifiedProduct = await Producto.update(
         { stock: rest },
-        { where: { id: producto.id } }
-      );
-    });
-    console.log(obj);
-
-    try {
-      const ComprasGuardadas = await axios.post(
-        'http://localhost:3001/compras',
-        GuardarComprasDB
-      );
-
-      res.redirect('http://localhost:3000');
-    } catch (error) {
-      res.status(400).send(error.message);
+        { where: { id: producto.id } }); 
+    })    
+      res.redirect('http://localhost:3000')
+    }} catch (error) {
+      res.status(400).send(error.message)
     }
   }
-});
+  ) 
+ 
 
-module.exports = router;
+module.exports = router
