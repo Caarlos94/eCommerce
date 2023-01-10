@@ -63,14 +63,13 @@ const Carrito = () => {
     dispatch(clearCart());
   };
 
-  const handleBuy = ( input, email ) => {
+  const handleBuy = (input, email) => {
     if (!isAuthenticated) {
       loginWithRedirect();
       return;
     }
 
     if (!cart.length) return; // manejar mejor la respuesta al intentar comprar con un carrito vacio?
-
     fetch('http://localhost:3001/pagosMeli', {
       method: 'POST',
       headers: {
@@ -83,15 +82,19 @@ const Carrito = () => {
         if (data.error) console.log(data); // manejar caso de error
         window.open(data, '_self');
         /* console.log(data); */
-              fetch("http://localhost:3001/compras", {
+        fetch("http://localhost:3001/compras", {
           method: "POST",
           headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ input, email: email, productos: cart }),
+          },
+          body: JSON.stringify({ input, email: email, productos: cart }),
         })
+        dispatch(clearCart())
       });
   };
+
+
+
   let totalProd = 0;
   cart.map((prod) => (totalProd += prod.cantidad * prod.precio));
 
@@ -154,9 +157,9 @@ const Carrito = () => {
         </div>
       </div>}
       {
-        click &&  <FormCompra
-                    handle = {handleBuy}/>
-      } 
+        click && <FormCompra
+          handle={handleBuy} />
+      }
     </>
   );
 };

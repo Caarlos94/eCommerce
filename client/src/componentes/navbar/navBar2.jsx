@@ -98,13 +98,6 @@ const Navbar2 = ({ setPages }) => {
                       Perfil
                     </Link>
                   </div>
-                  {!isAdmin && ( 
-                    <div>
-                      <Link to="/historial" style={{ textDecoration: "none" }} className={style.button}>
-                        Historial
-                      </Link>
-                    </div> )
-                  } 
                   <div>
                     <button onClick={() => logout()} className={style.button}>
                       Cerrar sesión
@@ -137,7 +130,7 @@ const Navbar2 = ({ setPages }) => {
                         to="/historial"
                         style={{ textDecoration: 'none' }}
                       >
-                        <button>Historial de Compras</button>
+                        <button>Mis Compras</button>
                       </NavLink>
                     </div>
                   )}

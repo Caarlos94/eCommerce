@@ -139,7 +139,7 @@ const Navbar = ({ setPages }) => {
                         to="/historial"
                         style={{ textDecoration: 'none' }}
                       >
-                        <button>Historial de Compras</button>
+                        <button>Mis Compras</button>
                       </NavLink>
                     </div>
                   )}
