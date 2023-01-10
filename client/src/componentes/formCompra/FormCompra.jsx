@@ -3,12 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import Navbar2 from '../navbar/navBar2';
 import style from './FormCompra.module.css';
 import { updateClient } from '../../redux/actions/actions.js';
-// import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth0 } from '@auth0/auth0-react';
 import { useValidateUser } from '../../customHooks/validate-user';
 
 export default function FormCompra({ handle }) {
 
-    const { isAuthenticated, isAdmin, accessToken, userId } =  useValidateUser()
+    // const [ isAuthenticated, isAdmin, accessToken, userId ] =  useValidateUser()
+
+    const { user } = useAuth0();
+    console.log(user.email);
+
+    // console.log(userId);
 
     const dispatch = useDispatch();
 
@@ -31,7 +36,8 @@ export default function FormCompra({ handle }) {
 
     const handlerSubmit = (e) => {
         e.preventDefault();
-        console.log(input, userId);
+        console.log(input);
+        // console.log(userId);
         // dispatch(updateClient(input));
         alert("Datos de envío guardados con éxito! Estás listo para la instancia de pago.");
         setInput({
@@ -90,7 +96,7 @@ export default function FormCompra({ handle }) {
                         </div>
 
                         <div className={style.publicar}>
-                            <button onClick={()=> handle( input, userId )} type="submit">
+                            <button onClick={()=> handle( input, user.email )} type="submit">
                                 Guardar datos para envío...
                             </button>
                         </div>

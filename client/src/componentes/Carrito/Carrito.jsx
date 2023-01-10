@@ -16,7 +16,7 @@ const Carrito = () => {
   const cart = useSelector((state) => state.cart);
   const [usuarioid, setUsuaruioId] = useState('');
 
-  console.log(cart);
+  // console.log(cart);
 
   const [click, setClick] = useState(false)
 
@@ -59,7 +59,7 @@ const Carrito = () => {
     dispatch(clearCart());
   };
 
-  const handleBuy = ( input, userId ) => {
+  const handleBuy = ( input, email ) => {
     if (!isAuthenticated) {
       loginWithRedirect();
       return;
@@ -79,13 +79,13 @@ const Carrito = () => {
         if (data.error) console.log(data); // manejar caso de error
         window.open(data, '_self');
         /* console.log(data); */
-        //       fetch("http://localhost:3001/compras", {
-        //   method: "POST",
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        // },
-        // body: JSON.stringify({ input, clienteId: userId, productos: cart }),
-        // })
+              fetch("http://localhost:3001/compras", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ input, email: email, productos: cart }),
+        })
       });
     // handleStock()
   };
@@ -147,7 +147,7 @@ const Carrito = () => {
           <div className={s.total2}>
             <p>Total: ${totalProd}</p>
           </div>
-          <button className={s.pagar2} onClick={() => handleBuy()}>
+          <button className={s.pagar2} onClick={() => setClick(true)}>
             Pagar ahora
           </button>
         </div>

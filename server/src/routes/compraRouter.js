@@ -10,42 +10,32 @@ require("dotenv").config();
 const { EMAIL_PASSWORD, EMAIL_HOST, EMAIL_PORT, EMAIL_USER } = process.env;
 
 compraRouter.post("/", async (req, res) => {
-  // try {
-    const { clienteId, productos, input } = req.body;
+  try {
+    const { email, productos, input } = req.body;
 
-    // console.log(req.body);
+    const cliente = await Cliente.findOne({
+      where: { email: email, }
+    });
 
-  //   const cliente = await Cliente.findOne({
-  //     where: {
-  //       id: clienteId,
-  //     },
-  //   });
+    if (!cliente) throw new Error("El cliente no se encuentra en la base de datos"); 
 
-  //   if (!cliente) {
-  //     throw new Error("El cliente no se encuentra en la base de datos"); 
-  //   }
+    const nuevaCompra = await Compra.create({ raw: true });
+    nuevaCompra.clienteId = cliente.id;
+    nuevaCompra.direccion = input.direc
+    nuevaCompra.cel = input.cel
+    nuevaCompra.cp = input.cp
+    nuevaCompra.ciudad = input.ciudad
+    nuevaCompra.save();
 
-  //   const nuevaCompra = await Compra.create({ raw: true });
+    productos.forEach(async (producto) => {
+      const foundProduct = await Producto.findByPk(producto.id);
+      nuevaCompra.addProducto(foundProduct, { through: { cantidad: producto.cantidad } });
+    });
+    res.status(200).json("Compra creada");
 
-  //   nuevaCompra.clienteId = clienteId;
-  //   nuevaCompra.direccion = input.direccion  **************************************************************************+
-  //   nuevaCompra.cel = input.cel  **************************************************************************************+
-  //   nuevaCompra.cp = input.cp  ****************************************************************************************+
-  //   nuevaCompra.ciudad = input.ciudad  ********************************************************************************+
-  //  
-  //   nuevaCompra.save();
-
-  //   productos.forEach(async (producto) => {
-  //     const foundProduct = await Producto.findByPk(producto.prodId);
-
-  //     nuevaCompra.addProducto(foundProduct, {
-  //       through: { cantidad: producto.cantidad },
-  //     });
-  //   });
-  //   res.status(200).json("Compra creada");
-  // } catch (error) {
-  //   res.status(400).json({ error: true, msg: error.message });
-  // }
+  } catch (error) {
+    res.status(400).json({ error: true, msg: error.message });
+  }
 });
 
 compraRouter.post('/obtenerId', async(req,res) => {
@@ -75,7 +65,6 @@ compraRouter.post("/historial", async (req, res) => {
   try {
     const { clienteId } = req.body;
 
-    
     // busco el cliente con el clienteId que me llega por body
     // con el metodo includes incluyo todas las compras que este realizo
     const cliente = await Cliente.findAll({ where : {
@@ -94,7 +83,6 @@ compraRouter.post("/historial", async (req, res) => {
   compras.forEach(elem =>{ 
     Arr.push(elem.dataValues)
   })
- 
  
 //recorremos el arreglo Arr con la info de la compras
 //en cada iteracion obtenemos la relacion Compra_Producto pasandole elem.id para que encuentre la relacion
@@ -160,7 +148,7 @@ setTimeout(() => {
 }); 
 
 
-compraRouter.get( "/adminSales/", validateAccessToken, validateAdmin, async (req, res) => {
+compraRouter.get( "/adminSales/" /*, validateAccessToken, validateAdmin, */, async (req, res) => {
     try {
       const { order, enviado } = req.query; // aceptar query para traer en orden ASC o DESC, también enviado false o true. TODOS LOS QUERIES VIENEN COMO STRING
 
@@ -197,13 +185,17 @@ compraRouter.get( "/adminSales/", validateAccessToken, validateAdmin, async (req
             clienteId: purchase.cliente.id,
             nickname: purchase.cliente.nickname,
             email: purchase.cliente.email,
-            address: purchase.cliente.direction,
-            cel: purchase.cliente.cel,
-            zipCode: purchase.cliente.cp,
+            ciudad: purchase.ciudad,
+            direccion: purchase.direccion,
+            cel: purchase.cel,
+            cp: purchase.cp,
           },
           productos: mappedProducts,
         });
       });
+
+      // console.log("********************************");
+      // console.log(mappedPurchases);
 
       if (enviado === "false") {
         mappedPurchases = mappedPurchases.filter(

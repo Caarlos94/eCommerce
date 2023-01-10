@@ -59,18 +59,6 @@ export function updateProduct(data, id) {
   };
 }
 
-// export function updateClient(data, userID) {
-//   return function () {
-//     fetch(`http://localhost:3001/user/${userID}`, {
-//       method: 'PUT',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(data),
-//     });
-//   };
-// }
-
 export function postProd(payload) {
   return async function () {
     const response = await axios.post(
