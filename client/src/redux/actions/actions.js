@@ -20,7 +20,7 @@ export const CLEAR_CART = 'CLEAR_CART';
 export const REMOVE_FROM_FAVORITE = 'REMOVE_FROM_FAVORITE';
 export const GET_REVIEWS = 'GET_REVIEWS';
 export const GET_FAVORITES = 'GET_FAVORITES';
-export const EMAIL = 'EMAIL'
+export const EMAIL = 'EMAIL';
 
 export const getProducts = () => {
   return async function (dispatch) {
@@ -87,12 +87,14 @@ export function getUserInfo() {
 
 export function getReviews(id) {
   return async function (dispatch) {
-    const response = await axios.get(`http://localhost:3001/compras/reviews/${id}`)
+    const response = await axios.get(
+      `http://localhost:3001/compras/reviews/${id}`
+    );
     return dispatch({
       type: GET_REVIEWS,
       payload: response.data,
     });
-  }
+  };
 }
 
 export function importUser(user) {
@@ -120,7 +122,7 @@ export function postCategory(payload) {
 export function deleteCategory(nombre) {
   return async function () {
     await axios.delete(`http://localhost:3001/category/${nombre}`);
-  }
+  };
 }
 
 export function deleteProd(id) {
@@ -129,8 +131,8 @@ export function deleteProd(id) {
     return dispatch({
       type: 'DELETE_PROD',
       payload: id,
-    })
-  }
+    });
+  };
 }
 
 export function getDetails(id) {
@@ -228,12 +230,14 @@ export function clearCart() {
 }
 export function getFavorites(email) {
   return async function (dispatch) {
-    const response = await axios.get(`http://localhost:3001/favoritos/${email}`)
+    const response = await axios.get(
+      `http://localhost:3001/favoritos/${email}`
+    );
     return dispatch({
       type: GET_FAVORITES,
       payload: response.data,
     });
-  }
+  };
 }
 
 export function addToFavorite(payload) {

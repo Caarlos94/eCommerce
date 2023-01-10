@@ -33,6 +33,8 @@ const QAAnsweredQuestions = ({ productId }) => {
 
   console.log(questions);
 
+  let num = 2;
+
   return (
     <div className={classes['questions-container']}>
       <div className={classes['titulo-preguntas']}>Últimas preguntas: </div>
@@ -40,14 +42,16 @@ const QAAnsweredQuestions = ({ productId }) => {
         <p>Aún no se han hecho preguntas sobre este producto</p>
       ) : (
         <div>
-          <div className={classes['qContainer']}>
-            <p className={classes['question']}>{questions[0].question}</p>
-            <p>{questions[0].answer}</p>
-          </div>
-          <div className={classes['qContainer']}>
-            <p className={classes['question']}>{questions[1].question}</p>
-            <p>{questions[1].answer}</p>
-          </div>
+          {questions.map((quest, index) => {
+            if (index >= num) return;
+            return (
+              <div className={classes['qContainer']} key={quest.questionId}>
+                <p className={classes['question']}>{quest.question}</p>
+                <p>{quest.answer}</p>
+              </div>
+            );
+          })}
+
           <button className={classes['btn-QA']} onClick={toggle}>
             Ver todas las preguntas
           </button>
@@ -61,11 +65,6 @@ const QAAnsweredQuestions = ({ productId }) => {
           <QAAnsweredQuestion key={q.questionId} questionData={q} />
         ))}
       </Modal>
-      {/* {!questions.length ? (
-        <p>Aún no se han hecho preguntas sobre este producto</p>
-      ) : (
-        ''
-      )} */}
     </div>
   );
 };
