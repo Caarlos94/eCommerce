@@ -54,7 +54,7 @@ const Navbar = ({ setPages }) => {
     };
     checkForAdminRole();
     user && dispatch(getFavorites(email));
-  }, [isAuthenticated, getAccessTokenSilently, dispatch, email]);
+  }, [isAuthenticated, getAccessTokenSilently, dispatch, email, user]);
 
   const favoritos = useSelector((state) => state.favorites);
 
