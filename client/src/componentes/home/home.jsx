@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { getCategorys, getProducts, getImages } from "../../redux/actions/actions.js";
+import { getCategorys, getProducts } from "../../redux/actions/actions.js";
 import s from "./home.module.css";
 import Navbar from "../navbar/navbar.jsx";
 import { useDispatch, useSelector } from "react-redux";

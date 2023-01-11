@@ -17,7 +17,7 @@ const Carrito = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const [, setUsuaruioId] = useState('');
+  const [usuarioId, setUsuaruioId] = useState('');
 
   // console.log(cart);
 
@@ -39,7 +39,7 @@ const Carrito = () => {
         }
       }
     }
-    
+
     user && user.hasOwnProperty("nickname") && fetchUserId();
   }, [user, cart.length, isAuthenticated]);
 
@@ -75,6 +75,7 @@ const Carrito = () => {
       loginWithRedirect();
       return;
     }
+    /* console.log(cart); */
 
     if (!cart.length) return; // manejar mejor la respuesta al intentar comprar con un carrito vacio?
     fetch('http://localhost:3001/pagosMeli', {
@@ -82,7 +83,7 @@ const Carrito = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ items: cart }),
+      body: JSON.stringify({ items: cart, idUsuario: usuarioId }),
     })
       .then((data) => data.json())
       .then((data) => {

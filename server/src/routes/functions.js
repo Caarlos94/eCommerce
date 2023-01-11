@@ -38,7 +38,7 @@ const getProductsFireBase = async () => {
     commits.Productos.forEach(async (e) => {
       const [instance, created] = await Producto.findOrCreate({where: { nombre:e.nombre }, 
         defaults: {
-          URL: e.URL[0],
+          URL: e.URL,
           color: e.color,
           marca: e.marca, 
           talla: e.talla,

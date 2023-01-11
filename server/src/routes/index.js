@@ -51,7 +51,7 @@ router.post('/pagosMeli', async (req, res) => {
         id: item.id,
         title: item.nombre,
         currency_id: 'ARS',
-        picture_url: item.URL,
+        picture_url: item.URL[0],
         quantity: items[0].cantidad,
         unit_price: parseInt(item.precio),
       })
