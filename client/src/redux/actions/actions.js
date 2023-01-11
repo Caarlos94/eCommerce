@@ -1,32 +1,31 @@
-import axios from 'axios';
-export const GET_PRODUCTS = 'GET_PRODUCTS';
-export const GET_CATEGORYS = 'GET_CATEGORYS';
-export const SEARCHxMARCA = 'SEARCHxMARCA';
-export const SEARCHxPRECIO = 'SEARCHxPRECIO';
-export const SEARCHxTALLA = 'SEARCHxTALLA';
-export const SEARCHxNAME = 'SEARCHxNAME';
-export const GET_DETAILS = 'GET_DETAILS';
-export const LIMPIAR_SATE = 'LIMPIAR_SATE';
-export const SEARCHxCATEGORIA = 'SEARCHxCATEGORIA';
-export const EMPTY_ERROR = 'EMPTY_ERROR';
-export const ORDER_PRECIO = 'ORDER_PRECIO';
-export const GET_USER = 'GET_USER';
-export const POST_PROD = 'POST_PROD';
-export const ADD_TO_CART = 'ADD_TO_CART';
-export const ADD_ONE_TO_CART = 'ADD_ONE_TO_CART';
-export const REMOVE_ONE_FROM_CART = 'REMOVE_ONE_FROM_CART';
-export const REMOVE_ALL_FROM_CART = 'REMOVE_ALL_FROM_CART';
-export const CLEAR_CART = 'CLEAR_CART';
-export const REMOVE_FROM_FAVORITE = 'REMOVE_FROM_FAVORITE';
-export const GET_REVIEWS = 'GET_REVIEWS';
-export const GET_FAVORITES = 'GET_FAVORITES';
-export const EMAIL = 'EMAIL'
-export const GET_CARRITO = 'GET_CARRITO'
-export const GET_IMAGES = "GET_IMAGES"
+import axios from "axios";
+export const GET_PRODUCTS = "GET_PRODUCTS";
+export const GET_CATEGORYS = "GET_CATEGORYS";
+export const SEARCHxMARCA = "SEARCHxMARCA";
+export const SEARCHxPRECIO = "SEARCHxPRECIO";
+export const SEARCHxTALLA = "SEARCHxTALLA";
+export const SEARCHxNAME = "SEARCHxNAME";
+export const GET_DETAILS = "GET_DETAILS";
+export const LIMPIAR_SATE = "LIMPIAR_SATE";
+export const SEARCHxCATEGORIA = "SEARCHxCATEGORIA";
+export const EMPTY_ERROR = "EMPTY_ERROR";
+export const ORDER_PRECIO = "ORDER_PRECIO";
+export const GET_USER = "GET_USER";
+export const POST_PROD = "POST_PROD";
+export const ADD_TO_CART = "ADD_TO_CART";
+export const ADD_ONE_TO_CART = "ADD_ONE_TO_CART";
+export const REMOVE_ONE_FROM_CART = "REMOVE_ONE_FROM_CART";
+export const REMOVE_ALL_FROM_CART = "REMOVE_ALL_FROM_CART";
+export const CLEAR_CART = "CLEAR_CART";
+export const REMOVE_FROM_FAVORITE = "REMOVE_FROM_FAVORITE";
+export const GET_REVIEWS = "GET_REVIEWS";
+export const GET_FAVORITES = "GET_FAVORITES";
+export const EMAIL = "EMAIL";
+export const GET_CARRITO = "GET_CARRITO";
 
 export const getProducts = () => {
   return async function (dispatch) {
-    const response = await fetch('http://localhost:3001/products');
+    const response = await fetch("http://localhost:3001/products");
     // console.log(response);
     const data = await response.json();
     return dispatch({

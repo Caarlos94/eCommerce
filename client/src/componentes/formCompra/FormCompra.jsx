@@ -5,7 +5,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 export default function FormCompra({ handle }) {
 
     const { user } = useAuth0();
-    console.log(user.email);
+/*     console.log(user.email); */
 
     const [input, setInput] = useState({
         ciudad: "",

@@ -27,6 +27,7 @@ router.use("/compras", compraRouter);
 router.use("/superAdmin", superAdminRouter);
 
 
+
 mercadopago.configure({
   access_token:
     'APP_USR-8763313892706046-121400-b6b39cc901e4f87d36ca35efbd37f52c-1263181426',
@@ -51,7 +52,7 @@ router.post('/pagosMeli', async (req, res) => {
         id: item.id,
         title: item.nombre,
         currency_id: 'ARS',
-        picture_url: item.URL,
+        picture_url: item.URL[0],
         quantity: items[0].cantidad,
         unit_price: parseInt(item.precio),
       })

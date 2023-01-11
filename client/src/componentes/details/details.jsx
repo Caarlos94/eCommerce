@@ -170,7 +170,7 @@ const Details = () => {
                   <p className={s.marca}>{details[0].marca}</p>
                   <p className={s.nombre}>{details[0].nombre}</p>
                   <p className={s.precio}>${details[0].precio}</p>
-                  <p className={s.categoria}>Categoria</p>
+                  {/* <p className={s.categoria}>Categoría: {details[0].color}</p> */}
                   <p className={s.color}>Color: {details[0].color}</p>
                   <p className={s.talla}>Talla: {details[0].talla.toUpperCase()}</p>
                   {/* <button className={s.buttonTalle}>XS</button>

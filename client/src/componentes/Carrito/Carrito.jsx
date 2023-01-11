@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import s from './Carrito.module.css';
-import { useSelector, useDispatch } from 'react-redux';
-import CartProduct from './CartProduct';
-import { useAuth0 } from '@auth0/auth0-react';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import s from "./Carrito.module.css";
+import { useSelector, useDispatch } from "react-redux";
+import CartProduct from "./CartProduct";
+import { useAuth0 } from "@auth0/auth0-react";
 import {
   clearCart,
   removeAllFromCart,
@@ -17,7 +17,7 @@ const Carrito = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const [, setUsuaruioId] = useState('');
+  const [usuarioId, setUsuaruioId] = useState('');
 
   // console.log(cart);
 
@@ -39,7 +39,7 @@ const Carrito = () => {
         }
       }
     }
-    
+
     user && user.hasOwnProperty("nickname") && fetchUserId();
   }, [user, cart.length, isAuthenticated]);
 
@@ -75,19 +75,20 @@ const Carrito = () => {
       loginWithRedirect();
       return;
     }
+    /* console.log(cart); */
 
     if (!cart.length) return; // manejar mejor la respuesta al intentar comprar con un carrito vacio?
     fetch('http://localhost:3001/pagosMeli', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ items: cart }),
+      body: JSON.stringify({ items: cart, idUsuario: usuarioId }),
     })
       .then((data) => data.json())
       .then((data) => {
         if (data.error) console.log(data); // manejar caso de error
-        window.open(data, '_self');
+        window.open(data, "_self");
         /* console.log(data); */
         fetch("http://localhost:3001/compras", {
           method: "POST",
