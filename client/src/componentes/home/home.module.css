@@ -17,6 +17,37 @@
   align-items: center;
 }
 
+.divCarrusel{
+  
+  position: relative;
+  top: 60px;
+}
+
+.divCarruselH2{
+border: 3px solid whitesmoke;
+width: 32%;
+/* width: 580px; */
+ position: relative;
+  top: -180px;
+  left: 66%;
+}
+
+.CarruselH2{
+  font-size: 220%;
+  font-family:  Ginebra;
+  position: relative;
+  left: 2%;
+  color: white;
+  display: block;
+  width: 100%;
+}
+
+
+
+.imgGif{
+  min-width: 400px;
+  min-height: 250px;
+}
 .section {
   display: grid;
   padding: 20px 20px 20px 20px;
@@ -233,17 +264,18 @@
   }
 }
 
+
 @media (min-width: 769px) and (max-width: 1500px) {
   .messi {
     position: relative;
     left: 50%;
   }
 
-  .img1 {
+  /* .img1 {
   }
 
   .img11 {
-  }
+  } */
 
   .img2 {
     width: 307px;
@@ -267,3 +299,84 @@
     grid-gap: 20px;
   }
 }
+
+@media (max-width: 1830px)  {
+ 
+.divCarruselH2{
+  border: 3px solid whitesmoke;
+  /* width: 32%; */
+  width: 580px;
+   position: relative;
+    top: -180px;
+    left: 56%;
+  }
+}
+
+@media (max-width: 1360px)  {
+ 
+  .divCarruselH2{
+    border: 3px solid black;
+    width: 50%;
+    /* width: 580px; */
+     position: relative;
+      top: 10px;
+      left: 25%;
+    }
+
+    
+.CarruselH2{
+  font-size: 170%;
+  font-family:  Ginebra;
+  position: relative;
+  left: 2%;
+  color: rgb(9, 9, 9);
+  display: block;
+  width: 100%;
+}
+
+.divSeparador{
+  height: 100px;
+}
+}
+
+
+@media (max-width: 835px)  {
+ 
+  .divCarruselH2{
+    border: 3px solid black;
+    width: 50%;
+    /* width: 580px; */
+     position: relative;
+      top: 10px;
+      left: 25%;
+    }
+
+    
+.CarruselH2{
+  font-size: 130%;
+  font-family:  Ginebra;
+  position: relative;
+  left: 2%;
+  color: rgb(9, 9, 9);
+  display: block;
+  width: 100%;
+}
+
+.divSeparador{
+  height: 100px;
+}
+}
+
+@media (max-width: 500px)  {
+ 
+  .divCarruselH2{
+    border: 3px solid black;
+    width: 50%;
+    /* width: 580px; */
+     position: relative;
+      top: 10px;
+      left: 25%;
+    }
+
+}
+

@@ -172,11 +172,14 @@ const Navbar = ({ setPages }) => {
                 </NavLink>
               </div> */}
               {isSuperAdmin ? (
-                <div className={style.historial}>
-                  <NavLink to="/superAdmin" style={{ textDecoration: "none" }}>
-                    <button>admins</button>
-                  </NavLink>
-                </div>
+                 <NavLink to="/superAdmin" style={{ textDecoration: "none" }}>
+                  <button className={style.btnSuperAdmin}> admins </button>
+                </NavLink>                
+                // <div className={style.historial}>
+                //   <NavLink to="/superAdmin" style={{ textDecoration: "none" }}>
+                //     <button>admins</button>
+                //   </NavLink>
+                // </div>
               ) : (
                 ""
               )}

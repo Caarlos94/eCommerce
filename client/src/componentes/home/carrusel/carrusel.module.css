@@ -1,11 +1,6 @@
 
-/* .img{
-width: 100%;
+.img{
+    min-width: 100%;
+    min-height: 590px;
+    /* opacity: .6; */
 }
-
-.next{
-position: relative;
-top: -300px;
-width: 40%;
-opacity: 1;
-} */
