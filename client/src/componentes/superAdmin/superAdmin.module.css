@@ -1,7 +1,8 @@
 .divPadre {
   text-align: center;
-  /* border: 3px solid blue; */
+  /* border: 3px solid green; */
   padding-bottom: 12rem;
+  height: 100%;
 }
 
 .divAdmins {
@@ -10,10 +11,16 @@
   width: 35rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   position: relative;
-  top: 85px;
-  left: 1%;
+  margin-top: 4rem;
+  border-radius: 10px;
   padding: 20px;
   margin-bottom: 30px;
+}
+.divAdmins p {
+  margin-top: 1.7rem;
+  font-weight: bold;
+  font-size: 1.6rem;
+  padding-bottom: 1.5rem;
 }
 
 .admin {
@@ -59,11 +66,18 @@
 
 .options-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
-.right-side {
-  padding-left: 22px;
+.left-side-superadmin {
+  /* border: 3px solid blue; */
+  height: 60rem;
+}
+
+.right-side-superadmin {
+  margin-left: 3rem;
+  /* border: 3px solid red; */
+  height: 60rem;
 }

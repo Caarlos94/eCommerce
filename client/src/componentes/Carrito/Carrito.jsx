@@ -18,7 +18,7 @@ const Carrito = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const [, setUsuaruioId] = useState('');
+  const [usuarioId, setUsuaruioId] = useState('');
 
   // console.log(cart);
 
@@ -40,7 +40,8 @@ const Carrito = () => {
         }
       }
     }
-    user && user.hasOwnProperty('nickname') && fetchUserId();
+
+    user && user.hasOwnProperty("nickname") && fetchUserId();
   }, [user, cart.length, isAuthenticated]);
 
 
@@ -75,19 +76,20 @@ const Carrito = () => {
       loginWithRedirect();
       return;
     }
+    /* console.log(cart); */
 
     if (!cart.length) return; // manejar mejor la respuesta al intentar comprar con un carrito vacio?
     fetch('http://localhost:3001/pagosMeli', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ items: cart }),
+      body: JSON.stringify({ items: cart, idUsuario: usuarioId }),
     })
       .then((data) => data.json())
       .then((data) => {
         if (data.error) console.log(data); // manejar caso de error
-        window.open(data, '_self');
+        window.open(data, "_self");
         /* console.log(data); */
         fetch("http://localhost:3001/compras", {
           method: "POST",
@@ -106,7 +108,7 @@ const Carrito = () => {
   cart.map((prod) => (totalProd += prod.cantidad * prod.precio));
 
   return (
-    <div className={s.cont}>
+    <div>
       <Navbar2 />
       <div className={s.cartCont}>
         <p className={s.titulo}>TU CARRITO</p>

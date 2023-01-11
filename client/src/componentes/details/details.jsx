@@ -150,29 +150,36 @@ const Details = () => {
             <div className={s.detailCont}>
               <div className={s.imgCont}>
                 <div className={s.img11}>
-                <div
+                  <div
                   className={s.img111}
-                  style={{ backgroundImage: `url(${details[0].URL})` }}
-                ></div>
-                  {/* <div
-                  className={s.img111}
-                  style={{ backgroundImage: `url(${details[0].images[0].URL[1]})` }}
+                  style={{ backgroundImage: `url(${details[0].URL[0]})` }}
                 ></div>
                   <div
                   className={s.img111}
-                  style={{ backgroundImage: `url(${details[0].images[0].URL[2]})` }}
-                ></div> */}
+                  style={{ backgroundImage: `url(${details[0].URL[1]})` }}
+                ></div>
+                  <div
+                  className={s.img111}
+                  style={{ backgroundImage: `url(${details[0].URL[2]})` }}
+                ></div>
                 </div>
               </div>
               <div className={s.textCont}>
                 <div className={s.productDesc}>
-                  <h2 className={s.h2}>{details[0].nombre.toUpperCase()}</h2>
-                  <h3>${details[0].precio}</h3>
-                  <h5>Marca: {details[0].marca}</h5>
-                  <h5>Color: {details[0].color}</h5>
-                  <h5>Talla: {details[0].talla.toUpperCase()}</h5>
+                  <p className={s.marca}>{details[0].marca}</p>
+                  <p className={s.nombre}>{details[0].nombre}</p>
+                  <p className={s.precio}>${details[0].precio}</p>
+                  {/* <p className={s.categoria}>Categoría: {details[0].color}</p> */}
+                  <p className={s.color}>Color: {details[0].color}</p>
+                  <p className={s.talla}>Talla: {details[0].talla.toUpperCase()}</p>
+                  {/* <button className={s.buttonTalle}>XS</button>
+                  <button className={s.buttonTalle}>S</button>
+                  <button className={s.buttonTalle}>M</button>
+                  <button className={s.buttonTalle}>L</button>
+                  <button className={s.buttonTalle}>XL</button>
+                  <button className={s.buttonTalle}>XXL</button> */}
                   {details[0].stock > 0 ? (
-                    <h5>Stock: {details[0].stock}</h5>
+                    <p className={s.stock}>Stock: {details[0].stock}</p>
                   ) : (
                     <h5>
                       Producto no disponible! Stock agotado momentáneamente...

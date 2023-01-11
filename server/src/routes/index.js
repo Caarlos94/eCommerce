@@ -9,7 +9,6 @@ const categoryRouter = require("./categoryRouter");
 const compraRouter = require("./compraRouter");
 const favoritosRouter = require("./favoritosRouter");
 const superAdminRouter = require("./superAdminRouter");
-const imagesRouter = require("./imagesRouter");
 
 const router = Router();
 const mercadopago = require('mercadopago');
@@ -26,7 +25,7 @@ router.use("/category", categoryRouter);
 router.use("/favoritos", favoritosRouter);
 router.use("/compras", compraRouter);
 router.use("/superAdmin", superAdminRouter);
-router.use("/images", imagesRouter);
+
 
 
 mercadopago.configure({
@@ -53,7 +52,7 @@ router.post('/pagosMeli', async (req, res) => {
         id: item.id,
         title: item.nombre,
         currency_id: 'ARS',
-        picture_url: item.URL,
+        picture_url: item.URL[0],
         quantity: items[0].cantidad,
         unit_price: parseInt(item.precio),
       })

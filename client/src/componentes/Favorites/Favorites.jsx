@@ -29,7 +29,8 @@ const Favorites = () => {
     <div>
       <Navbar2 />
       <div className={s.favoriteCont}>
-        <h1>Favoritos</h1>
+        <p className={s.titulo}>TUS FAVORITOS</p>
+        <div className={s.favgrid}>
         {favoritos ? (
           favoritos.map((c) => (
             <FavoriteProduct
@@ -47,6 +48,8 @@ const Favorites = () => {
         ) : (
           <p>No tienes productos en tu lista de favoritos</p>
         )}
+        </div>
+        
       </div>
     </div>
   );
