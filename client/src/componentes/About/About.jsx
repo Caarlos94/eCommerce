@@ -3,7 +3,7 @@ import Navbar2 from '../navbar/navBar2'
 import Footer from '../Footer/Footer'
 import gitHub from './assets/github.png'
 import linkedIn from './assets/linkedIn.png'
-import DiLeoCV from './assets/DiLeo_CV.pdf'
+/* import DiLeoCV from './assets/DiLeo_CV.pdf' */
 
 
 export default function About() {

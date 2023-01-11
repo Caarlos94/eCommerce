@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Paginado from "../Paginate/Paginate.jsx";
 import Card from "../Card/Card.js";
 import Footer from "../Footer/Footer";
+import Carrusel from "./carrusel/carrusel.jsx";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -57,6 +58,17 @@ const Home = () => {
         </div>
       </div>
 
+    <div className={s.divCarrusel}>
+      <Carrusel></Carrusel>
+      <div className={s.divCarruselH2}>
+         <h2 className={s.CarruselH2}> _   contamos con envios a todo el pais</h2>
+         <h2 className={s.CarruselH2}> _   los mejores productos de calidad</h2>
+         <h2 className={s.CarruselH2}> _   todo desde la comodidad de tu casa</h2>
+      </div>
+      <div className={s.divSeparador}>
+
+      </div>
+    </div>
       <Paginado
         productsPerPage={productsPerPage} // pupsPerPage
         totalProducts={allProducts.length} // totalPups
@@ -88,12 +100,13 @@ const Home = () => {
         </div>
       ) : (
         <div className={s.notFound}>
-          <h1>Estamos buscando lo que necesitas!</h1>
-          <h2>En caso de no cargar te recomendamos refrescar la página...</h2>
+          <h3>Estamos buscando lo que necesitas!</h3>
+          <h3>En caso de no cargar te recomendamos refrescar la página...</h3>
           <img
-            src={'https://i.makeagif.com/media/11-11-2015/AAP2zs.gif'}
-            width="200px"
+            src={'https://i0.wp.com/i.pinimg.com/originals/bf/ea/4c/bfea4c915788805180111c4b93643c83.gif?resize=160,120'}
+            // min-width="200px"
             alt="img"
+            className={s.imgGif}
           ></img>
         </div>
       )}
