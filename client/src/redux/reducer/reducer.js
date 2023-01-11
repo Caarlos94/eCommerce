@@ -555,20 +555,6 @@ const rootReducer = (state = initialState, action) => {
       localStorage.setItem("cart", JSON.stringify(state.cart));
       return state;
 
-    /* case ADD_TO_FAVORITE:
-      let newFavorite = state.details.find(
-        (product) => product.id === action.payload
-      );
-      let productInFavorite = state.favorites.find(
-        (product) => product.id === newFavorite.id
-      );
-      return productInFavorite
-        ? { ...state }
-        : {
-          ...state,
-          favorites: [...state.favorites, newFavorite],
-        }; */
-
     case REMOVE_FROM_FAVORITE:
       let productToRemove = state.favorites.find(
         (product) => product.id === action.payload

@@ -1,27 +1,27 @@
-const { Router } = require("express");
+const { Router } = require('express');
 const adminQARouter = Router();
-const { Producto, Pregunta } = require("../db");
-const { validateAdmin } = require("./middleware/validateAdmin");
-const { validateAccessToken } = require("./middleware/validateAccessToken");
-const { errorHandler } = require("./middleware/error.middleware");
-const nodemailer = require("nodemailer");
-require("dotenv").config();
+const { Producto, Pregunta } = require('../db');
+const { validateAdmin } = require('./middleware/validateAdmin');
+const { validateAccessToken } = require('./middleware/validateAccessToken');
+const { errorHandler } = require('./middleware/error.middleware');
+const nodemailer = require('nodemailer');
+require('dotenv').config();
 const { EMAIL_PASSWORD, EMAIL_HOST, EMAIL_PORT, EMAIL_USER } = process.env;
 
-adminQARouter.get("/", validateAccessToken, validateAdmin, async (req, res) => {
+adminQARouter.get('/', validateAccessToken, validateAdmin, async (req, res) => {
   try {
     const allQuestions = await Pregunta.findAll({
       raw: true,
-      include: [{ model: Producto }],
+      include: [{ model: Producto }], 
     });
 
     let questionsArr = allQuestions.map((q) => ({
       questionId: q.id,
       question: q.question,
       answer: q.answer,
-      productId: q["producto.id"],
-      productName: q["producto.nombre"],
-      productUrl: q["producto.URL"],
+      productId: q['producto.id'],
+      productName: q['producto.nombre'],
+      productUrl: q['producto.URL'],
     }));
 
     res.status(200).json(questionsArr);
@@ -32,9 +32,7 @@ adminQARouter.get("/", validateAccessToken, validateAdmin, async (req, res) => {
   }
 });
 
-adminQARouter.put(
-  "/",
-  /*validateAccessToken, validateAdmin,*/ async (req, res) => {
+adminQARouter.put("/", /*validateAccessToken, validateAdmin,*/ async (req, res) => {
     try {
       const { questionId, answer } = req.body;
       Pregunta.findByPk(questionId).then((question) => {
@@ -47,17 +45,17 @@ adminQARouter.put(
         raw: true,
       });
 
-      let productName = pregunta["producto.nombre"];
+      let productName = pregunta['producto.nombre'];
       let email = pregunta.email;
 
       if (!pregunta.email) {
         return res
           .status(200)
-          .json({ error: false, msg: "La respuesta fue enviada" });
+          .json({ error: false, msg: 'La respuesta fue enviada' });
       }
 
       if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-        return res.status(400).json({ error: true, msg: "Email inválido" });
+        return res.status(400).json({ error: true, msg: 'Email inválido' });
       }
       let transporter = nodemailer.createTransport({
         host: EMAIL_HOST,
@@ -69,9 +67,9 @@ adminQARouter.put(
         },
       });
       const mailOptions = {
-        from: "suprasportspf@outlook.com",
+        from: 'suprasportspf@outlook.com',
         to: email,
-        subject: "Respuesta a tu pregunta",
+        subject: 'Respuesta a tu pregunta',
         text: `La tienda respondió tu pregunta sobre el producto ${productName}:
         ${answer}`,
       };
@@ -91,7 +89,7 @@ adminQARouter.put(
 );
 
 adminQARouter.delete(
-  "/:id",
+  '/:id',
   validateAccessToken,
   validateAdmin,
   async (req, res) => {
@@ -99,11 +97,11 @@ adminQARouter.delete(
       const { id } = req.params;
       Pregunta.findByPk(id).then((pregunta) => {
         if (!pregunta) {
-          throw new Error("Pregunta inexistente");
+          throw new Error('Pregunta inexistente');
         }
         pregunta.destroy();
       });
-      res.status(200).json("La pregunta fue eliminada");
+      res.status(200).json('La pregunta fue eliminada');
     } catch (error) {
       res.status(400).json({ error: true, msg: error.message });
     }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import classes from "./BlockUser.module.css";
 
-const BlockUser = ({ accessToken, block }) => {
+const BlockUser = ({ accessToken, block, handler, cue }) => {
   let lastId = 0;
 
   const newId = () => {
@@ -42,8 +42,9 @@ const BlockUser = ({ accessToken, block }) => {
   }, [block, accessToken]);
 
   useEffect(() => {
+    console.log(cue);
     fetchUsers();
-  }, [fetchUsers]);
+  }, [fetchUsers, cue]);
 
   useEffect(() => {
     didBlock && fetchUsers();
@@ -81,6 +82,9 @@ const BlockUser = ({ accessToken, block }) => {
       .then((response) => response.json())
       .then((response) => {
         setResponse(response);
+        setTimeout(() => {
+          handler();
+        }, 200);
 
         if (!response.error) {
           setDidBlock(true);

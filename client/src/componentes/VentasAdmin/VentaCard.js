@@ -11,6 +11,8 @@ const VentaCard = ({ data, accessToken }) => {
     feedback: '',
   });
 
+  /* console.log(data); */
+
   const [responseError, setResponseError] = useState({
     error: false,
     msg: '',
@@ -99,10 +101,13 @@ const VentaCard = ({ data, accessToken }) => {
           <p className={classes['info']}>Correo: {cliente.email || 'null'}</p>
           <p className={classes['info']}>Teléfono: {cliente.cel || 'null'}</p>
           <p className={classes['info']}>
-            Dirección: {cliente.address || 'null'}
+            Ciudad: {cliente.ciudad || 'null'}
           </p>
           <p className={classes['info']}>
-            Código postal: {cliente.zipCode || 'null'}
+            Dirección: {cliente.direccion || 'null'}
+          </p>
+          <p className={classes['info']}>
+            Código postal: {cliente.cp || 'null'}
           </p>
         </div>
         <div className={classes['mark-sent-container']}>

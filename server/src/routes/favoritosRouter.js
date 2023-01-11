@@ -1,8 +1,8 @@
-const { Router } = require("express");
+const { Router } = require('express');
 const favoritosRouter = Router();
-const { Cliente, Producto, Favorito } = require("../db");
+const { Cliente, Producto, Favorito } = require('../db');
 
-favoritosRouter.post("/", async (req, res) => {
+favoritosRouter.post('/', async (req, res) => {
   try {
     const { email, productoId } = req.body;
 
@@ -14,13 +14,13 @@ favoritosRouter.post("/", async (req, res) => {
     const producto = await Producto.findByPk(productoId);
     // console.log(cliente, producto.id);
     cliente.addProducto(producto);
-    return res.status(200).json("se añadio a favoritos");
+    return res.status(200).json('se añadio a favoritos');
   } catch (error) {
     res.status(400).json({ error: true, msj: error.message });
   }
 });
 
-favoritosRouter.get("/:email", async (req, res) => {
+favoritosRouter.get('/:email', async (req, res) => {
   try {
     const { email } = req.params;
     const cliente = await Cliente.findOne({ where: { email }, raw: true });
@@ -46,7 +46,7 @@ favoritosRouter.get("/:email", async (req, res) => {
   }
 });
 
-favoritosRouter.delete("/:clienteId/:productoId", async (req, res) => {
+favoritosRouter.delete('/:clienteId/:productoId', async (req, res) => {
   try {
     const { clienteId, productoId } = req.params;
     const favorito = await Favorito.findOne({

@@ -22,11 +22,12 @@ export const GET_REVIEWS = "GET_REVIEWS";
 export const GET_FAVORITES = "GET_FAVORITES";
 export const EMAIL = "EMAIL";
 export const GET_CARRITO = "GET_CARRITO";
+export const GET_IMAGES = "GET_IMAGES";
 
 export const getProducts = () => {
   return async function (dispatch) {
     const response = await fetch("http://localhost:3001/products");
-    console.log(response);
+    // console.log(response);
     const data = await response.json();
     return dispatch({
       type: GET_PRODUCTS,
@@ -73,6 +74,14 @@ export function getCategorys() {
     await fetch("http://localhost:3001/category")
       .then((response) => response.json())
       .then((data) => dispatch({ type: GET_CATEGORYS, payload: data }));
+  };
+}
+
+export function getImages() {
+  return async function () {
+    await fetch("http://localhost:3001/images");
+    // .then((response) => response.json())
+    // .then((data) => dispatch({ type: GET_IMAGES, payload: data }));
   };
 }
 
@@ -231,11 +240,13 @@ export function clearCart() {
 }
 export function getFavorites(email) {
   return async function (dispatch) {
-    // const response = await axios.get(`http://localhost:3001/favoritos/${email}`)
-    // return dispatch({
-    //   type: GET_FAVORITES,
-    //   payload: response.data,
-    // });
+    const response = await axios.get(
+      `http://localhost:3001/favoritos/${email}`
+    );
+    return dispatch({
+      type: GET_FAVORITES,
+      payload: response.data,
+    });
   };
 }
 

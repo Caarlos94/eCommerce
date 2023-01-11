@@ -14,16 +14,24 @@ import BlockUser from "./BlockUser.js";
 const SuperAdmin = (props) => {
   const [deleteAdmins, DeleteAdmins] = useState([]);
   const [admins, setAdmins] = useState([]);
+  const [cueParentUpdate, setCueParentUpdate] = useState(Math.random());
+  const [cueChildUpdate, setCueChildUpdate] = useState(Math.random());
+  const [cueBlock, setCueBlock] = useState(Math.random());
+  const [cueUnblock, setCueUnblock] = useState(Math.random());
 
   const { accessToken, isSuperAdmin } = useValidateUser();
 
-  useEffect(async () => {
-    const result = await axios.get(
-      "http://localhost:3001/superAdmin/fetchRoles"
-    );
+  useEffect(() => {
+    console.log("Actualizacion de padre", cueParentUpdate, cueChildUpdate);
+    const funct = async () => {
+      const result = await axios.get(
+        "http://localhost:3001/superAdmin/fetchRoles"
+      );
 
-    setAdmins(result.data);
-  }, []);
+      setAdmins(result.data);
+    };
+    funct();
+  }, [cueParentUpdate, cueChildUpdate]);
 
   const deleteAd = (params) => {
     DeleteAdmins([...deleteAdmins, params]);
@@ -31,23 +39,24 @@ const SuperAdmin = (props) => {
 
   const Delete = async () => {
     //NECESITA PASAR TOKEN DE ACCESSO
-    const adminsdeletes = await axios.post(
-      "http://localhost:3001/superAdmin/removeAdmin",
-      deleteAdmins
-    );
+    axios
+      .post("http://localhost:3001/superAdmin/removeAdmin", deleteAdmins)
+      .then((data) => data.data)
+      .then(() =>
+        setTimeout(() => {
+          setCueParentUpdate(cueParentUpdate + 1);
+        }, 200)
+      ); // lo pasé a promesas porque necesito actualizar a partir de la respuesta
 
-    // Probar implementarlo de esta forma
-    // axios trae respuesta de vuelta. respuesta actualiza estado de variable. cambio variable activa useEffect que vuelve a traer los roles
+    // if (adminsdeletes.data) {
+    //   setTimeout(async () => {
+    //     const result = await axios.get(
+    //       "http://localhost:3001/superAdmin/fetchRoles"
+    //     );
 
-    if (adminsdeletes.data) {
-      setTimeout(async () => {
-        const result = await axios.get(
-          "http://localhost:3001/superAdmin/fetchRoles"
-        );
-
-        setAdmins(result.data);
-      }, 100);
-    }
+    //     setAdmins(result.data);
+    //   }, 100);
+    // }
   };
 
   return (
@@ -57,7 +66,7 @@ const SuperAdmin = (props) => {
           <Navbar2></Navbar2>
           <div className={style["options-container"]}>
             <div className={style.divAdmins}>
-              <h2>usuarios con rol admin</h2>
+              <h2>Usuarios con rol admin</h2>
               <div>
                 {admins?.map((element) => {
                   return (
@@ -68,25 +77,43 @@ const SuperAdmin = (props) => {
                         onClick={() => deleteAd(element.user_id)}
                         className={style.buttonAdmins}
                       >
-                        eliminar admin
+                        Eliminar admin
                       </button>
                     </div>
                   );
                 })}
                 <button onClick={() => Delete()} className={style.admins}>
-                  delete admins
+                  Delete admins
                 </button>
               </div>
             </div>
             <div className={style["right-side"]}>
               <div className={style["add-container"]}>
-                <AddAdmin accessToken={accessToken} />
+                <AddAdmin
+                  cueHandler={() => setCueChildUpdate(Math.random())}
+                  cueParentUpdate={cueParentUpdate}
+                  accessToken={accessToken}
+                />
               </div>
               <div className={style["blocking-options"]}>
-                <BlockUser accessToken={accessToken} block={true} />
+                <BlockUser
+                  handler={() => setCueUnblock()}
+                  cueHandler={() => setCueChildUpdate(Math.random())}
+                  cueParentUpdate={cueParentUpdate}
+                  accessToken={accessToken}
+                  block={true}
+                  cue={cueBlock}
+                />
               </div>
               <div className={style["blocking-options"]}>
-                <BlockUser accessToken={accessToken} block={false} />
+                <BlockUser
+                  handler={() => setCueBlock()}
+                  cueHandler={() => setCueChildUpdate(Math.random())}
+                  cueParentUpdate={cueParentUpdate}
+                  accessToken={accessToken}
+                  block={false}
+                  cue={cueUnblock}
+                />
               </div>
             </div>
           </div>

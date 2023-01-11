@@ -47,6 +47,7 @@ const Perfil = () => {
           </div>
         )}
       </div>
+      <hr />
 
       <div className={style.relacionados}>
         <h4>Productos recomendados para vos!</h4>

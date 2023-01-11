@@ -47,7 +47,7 @@ const Navbar2 = ({ setPages }) => {
           // verificación principalmente estética. No brinda seguridad.
           setIsAdmin(true);
         }
-        if (decoded.permissions.includes("read:users")) {
+        if (decoded.permissions.includes('read:users')) {
           setIsSuperAdmin(true);
         }
       }
@@ -130,7 +130,7 @@ const Navbar2 = ({ setPages }) => {
                         to="/historial"
                         style={{ textDecoration: 'none' }}
                       >
-                        <button>Historial de Compras</button>
+                        <button>Mis Compras</button>
                       </NavLink>
                     </div>
                   )}
@@ -164,12 +164,12 @@ const Navbar2 = ({ setPages }) => {
               </div> */}
               {isSuperAdmin ? (
                 <div className={style.historial}>
-                  <NavLink to="/superAdmin" style={{ textDecoration: "none" }}>
+                  <NavLink to="/superAdmin" style={{ textDecoration: 'none' }}>
                     <button>admins</button>
                   </NavLink>
                 </div>
               ) : (
-                ""
+                ''
               )}
             </div>
           ) : (
