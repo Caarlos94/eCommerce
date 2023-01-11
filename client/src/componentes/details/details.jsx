@@ -138,9 +138,11 @@ const Details = () => {
       dispatch(removeOneFromCart(id))
       toast.error('El producto se quitó de favoritos.');
     }
-
-    console.log(actualInCart);
+    /* console.log(actualInCart); */
   };
+  const handleNoFav = () => {
+    if (!user) { toast.error('Necesita iniciar sesión para guardar en favoritos.') }
+  }
 
   return (
     <div>
@@ -152,17 +154,17 @@ const Details = () => {
               <div className={s.imgCont}>
                 <div className={s.img11}>
                   <div
-                  className={s.img111}
-                  style={{ backgroundImage: `url(${details[0].URL[0]})` }}
-                ></div>
+                    className={s.img111}
+                    style={{ backgroundImage: `url(${details[0].URL[0]})` }}
+                  ></div>
                   <div
-                  className={s.img111}
-                  style={{ backgroundImage: `url(${details[0].URL[1]})` }}
-                ></div>
+                    className={s.img111}
+                    style={{ backgroundImage: `url(${details[0].URL[1]})` }}
+                  ></div>
                   <div
-                  className={s.img111}
-                  style={{ backgroundImage: `url(${details[0].URL[2]})` }}
-                ></div>
+                    className={s.img111}
+                    style={{ backgroundImage: `url(${details[0].URL[2]})` }}
+                  ></div>
                 </div>
               </div>
               <div className={s.textCont}>
@@ -206,7 +208,7 @@ const Details = () => {
                         </div>
                       </>
                     ) : (
-                      <div className={s.fav}>
+                      <div className={s.fav} onClick={()=>handleNoFav()}>
                         <img src={heart} alt=""></img>
                       </div>
                     )}
@@ -248,7 +250,7 @@ const Details = () => {
             <div></div>
           </div>
         )}
-       
+
       </div>
       <Toaster
         toastOptions={{

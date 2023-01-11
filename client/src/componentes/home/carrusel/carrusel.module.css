@@ -1,6 +1,6 @@
 
 .img{
     min-width: 100%;
-    min-height: 630px;
+    max-height: 60vw;
     /* opacity: .6; */
 }

@@ -34,7 +34,7 @@ const getProductsFireBase = async () => {
     `https://supra-sports-default-rtdb.firebaseio.com/.json`
   ); 
   let commits = await response.json();
-  console.log(commits);
+  /* console.log(commits); */
     commits.Productos.forEach(async (e) => {
       const [instance, created] = await Producto.findOrCreate({where: { nombre:e.nombre }, 
         defaults: {

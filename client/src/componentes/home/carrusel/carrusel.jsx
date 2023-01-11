@@ -12,7 +12,7 @@ const items = [
     src: "https://img.freepik.com/foto-gratis/repartidor-tiro-medio_23-2149035872.jpg?w=2000",
     // altText: 'ENVIOS A TODO EL PAIS',
     caption: 'ENVIOS A TODO EL PAIS',
-    caption2:'PAGA HASTA EN 12 CUOTAS'
+    caption2:'PAGA HASTA EN 24 CUOTAS'
   },
   {
     src: 'https://blog.printsome.es/wp-content/uploads/sites/3/camisetas-al-por-mayor-header.jpg',
