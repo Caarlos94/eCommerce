@@ -155,11 +155,11 @@ const Details = () => {
                   style={{ backgroundImage: `url(${details[0].URL[0]})` }}
                 ></div>
                   <div
-                  className={s.img111}
+                  className={s.img112}
                   style={{ backgroundImage: `url(${details[0].URL[1]})` }}
                 ></div>
                   <div
-                  className={s.img111}
+                  className={s.img113}
                   style={{ backgroundImage: `url(${details[0].URL[2]})` }}
                 ></div>
                 </div>
@@ -181,9 +181,9 @@ const Details = () => {
                   {details[0].stock > 0 ? (
                     <p className={s.stock}>Stock: {details[0].stock}</p>
                   ) : (
-                    <h5>
+                    <p className={s.stock}>
                       Producto no disponible! Stock agotado momentáneamente...
-                    </h5>
+                    </p>
                   )}
                 </div>
                 {!isAdmin ? (

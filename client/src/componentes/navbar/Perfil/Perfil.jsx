@@ -25,24 +25,24 @@ const Perfil = () => {
       <div className={style.cont}>
         {isAuthenticated && (
           <div className={style.allInfo}>
-            <div className={style.info}>
-              <img src={user.picture} alt={user.name} />
-              <h2>{user.name}</h2>
+            <div className={style.infoName}>
+              {/* <img src={user.picture} alt={user.name} /> */}
+              <p>{user.name}</p>
             </div>
             <div className={style.info}>
-              <h4>Correo: {user.email}</h4>
+              <p>Correo: {user.email}</p>
             </div >
 
             <div className={style.info}>
-              <h4>Email verificado: {user.email_verified === true
+              <p>Email verificado: {user.email_verified === true
                 ? 'Si'
-                : 'No, verificar por favor.'}</h4>
+                : 'No, verificar por favor.'}</p>
             </div >
 
             <div className={style.info}>
-              <h4>Rol: {user.nickname === 'suprasportspf'
+              <p>Rol: {user.nickname === 'suprasportspf'
                 ? 'Administrador'
-                : 'Usuario'}</h4>
+                : 'Usuario'}</p>
             </div >
           </div>
         )}
@@ -53,8 +53,9 @@ const Perfil = () => {
         <h4>Productos recomendados para vos!</h4>
         <div className={style.section}>
           {allProducts.map((card) => card.categoria === 'Camperas' && (
-            <div key={card.id}>
+            <div className={style.cardCont} key={card.id}>
               <Card
+                className={style.card}
                 nombre={card.nombre}
                 URL={card.URL}
                 marca={card.marca}

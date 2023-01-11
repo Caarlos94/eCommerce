@@ -19,11 +19,10 @@
 
 .section {
   display: grid;
-  padding: 20px 20px 20px 20px;
-  justify-content: center;
-  grid-template-columns: 400px 400px 400px;
-  grid-template-rows: auto;
-  margin-left: 5%;
+    padding: 20px;
+    justify-content: center;
+    grid-template-columns: 400px 400px 400px;
+    grid-template-rows: auto;
 
   
 /*  display: grid;
@@ -231,11 +230,10 @@
   }
 
   .section {
-    justify-content: center;
-    display: grid;
-    grid-template-columns: 160px 160px;
-    grid-template-rows: auto;
-    grid-gap: 20px;
+    display: flex;
+    padding: 10px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
   }
 
   .hero {
@@ -244,16 +242,20 @@
   }
 }
 
-@media (min-width: 769px) and (max-width: 1500px) {
+@media (min-width: 769px) and (max-width: 1200px) {
+  .section {
+    display: grid;
+    padding: 10px;
+    gap: 15px;
+    justify-content: center;
+    grid-template-columns: 320px 320px 320px;
+    grid-template-rows: auto;
+        
+    }
+
   .messi {
     position: relative;
     left: 50%;
-  }
-
-  .img1 {
-  }
-
-  .img11 {
   }
 
   .img2 {
@@ -266,15 +268,5 @@
 
   .img3 {
     display: none;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1200px) {
-  .section {
-    justify-content: center;
-    display: grid;
-    grid-template-columns: 350px 350px;
-    grid-template-rows: auto;
-    grid-gap: 20px;
   }
 }
