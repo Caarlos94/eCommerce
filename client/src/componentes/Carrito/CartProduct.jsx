@@ -20,21 +20,40 @@ const CartProduct = ({
         className={s.itemImg}
         style={{ backgroundImage: `url(${URL})` }}
       ></div>
+
       <div className={s.info}>
         <NavLink to={`details/${id}`} style={{ textDecoration: 'none' }}>
           <p className={s.nombre}>{nombre}</p>
+          <p className={s.talle}>Talle: {talla}</p>
         </NavLink>
+      </div>
+      <div className={s.preciodiv}>
+        <p className={s.precioTitle}>Precio</p>
+        <p className={s.precio}>${precio}</p>
+      </div> 
+      {/* <div>
+        <p className={s.stock}>Stock: {--stock}</p>
+      </div> 
+
         <p className={s.precio}>
           ${precio} x {cantidad} = ${precio*cantidad}
         </p>
-        <p className={s.stock}>Stock: {--stock}</p>
-        <p className={s.talla}>Talle: {talla}</p>
-      </div>
+      */}
       <div className={s.btns}>
         <button onClick={() => handleDelete(id)}>-1</button>
+        <span className={s.span}>{cantidad}</span>
         <button onClick={() => handleAdd(id)} disabled={stock <= 0}>+1</button>
-        <button onClick={() => handleDelete(id, true)}>Eliminar todos</button>
       </div>
+
+      <div className={s.stdiv}>
+        <p className={s.stTitle}>Subtotal</p>
+        <p className={s.stotal}>${precio*cantidad}</p>
+      </div>
+
+      <div className={s.btnX}>
+        <button onClick={() => handleDelete(id, true)}>X</button>
+      </div>
+      
     </div>
   );
 };

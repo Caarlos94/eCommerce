@@ -40,8 +40,8 @@ const Carrito = () => {
         }
       }
     }
-    fetchUserId();
-  }, [user, user.nickname, cart.length, isAuthenticated]);
+    user && user.hasOwnProperty('nickname') && fetchUserId();
+  }, [user, cart.length, isAuthenticated]);
 
 
 
