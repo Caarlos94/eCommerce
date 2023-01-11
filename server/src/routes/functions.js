@@ -1,6 +1,6 @@
 const fetch = (...args) =>
 import('node-fetch').then(({ default: fetch }) => fetch(...args));
-const { Categoria, Producto, Cliente, Images } = require('../db.js');
+const { Categoria, Producto, Cliente } = require('../db.js');
  
 // Get categories FROM firebase and save then into DB
 const getCategories = async () => {
@@ -85,6 +85,31 @@ const getProductsFireBase = async () => {
 //     } 
 //   ], 
 //   }); 
+
+//   // allProductsDB.forEach(async (e) => {
+//   //   let newArr = e.dataValues.categoria.map((e) => e.nombre);
+//   //   e.dataValues.categoria = newArr.join(", ");
+//   // });
+
+//   return allProductsDB;
+// };
+
+// Get Created Products from DB
+// const getDataBaseProducts = async () => {
+//   // await getProductsFireBase()
+//   let allProductsDB = await Producto.findAll({
+//     include: [
+//     {
+//       model: Categoria,
+//       attributes: ["nombre"],
+//       through: { attributes: [] },
+//     },
+//     {
+//       model: Images,
+//       attributes: ["URL"],
+//     }
+//   ],
+//   });
 
 //   // allProductsDB.forEach(async (e) => {
 //   //   let newArr = e.dataValues.categoria.map((e) => e.nombre);

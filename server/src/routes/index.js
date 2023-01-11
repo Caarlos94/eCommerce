@@ -27,6 +27,7 @@ router.use("/compras", compraRouter);
 router.use("/superAdmin", superAdminRouter);
 
 
+
 mercadopago.configure({
   access_token:
     'APP_USR-8763313892706046-121400-b6b39cc901e4f87d36ca35efbd37f52c-1263181426',

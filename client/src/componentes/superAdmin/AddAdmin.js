@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import classes from "./AddAdmin.module.css";
 
-const AddAdmin = ({ accessToken }) => {
+const AddAdmin = ({ accessToken, cueParentUpdate, cueHandler }) => {
   const postAdminUrl = "http://localhost:3001/superAdmin/addAdminRole";
   const getNonAdminsUrl = "http://localhost:3001/superAdmin/fetchNonAdmins";
   const [nonAdmins, setNonAdmins] = useState([]);
@@ -31,8 +31,9 @@ const AddAdmin = ({ accessToken }) => {
   }, [accessToken]);
 
   useEffect(() => {
+    console.log("padre actualizó add", cueParentUpdate);
     fetchNonAdmins();
-  }, [fetchNonAdmins]);
+  }, [fetchNonAdmins, cueParentUpdate]);
 
   useEffect(() => {
     didAdd && fetchNonAdmins();
@@ -68,6 +69,10 @@ const AddAdmin = ({ accessToken }) => {
     })
       .then((response) => response.json())
       .then((response) => {
+        setTimeout(() => {
+          cueHandler();
+        }, 200);
+
         setResponse(response);
 
         if (!response.error) {

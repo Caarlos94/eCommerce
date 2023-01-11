@@ -29,7 +29,6 @@ productRouter.get("/:id", async (req, res) => {
             id: r.id,
             nombre: r.nombre,
             URL: r.URL,
-            /* images: r.images, */
             marca: r.marca,
             precio: r.precio,
             color: r.color,
