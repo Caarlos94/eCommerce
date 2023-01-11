@@ -132,23 +132,34 @@ export function importUser(user) {
   };
 }
 
-export function postCategory(payload) {
+export function postCategory(payload, token) {
   // necesita token
 
   return async function () {
     const response = await axios.post(
       "http://localhost:3001/category",
-      payload
+      payload,
+      {
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     return response;
   };
 }
 
-export function deleteCategory(nombre) {
+export function deleteCategory(nombre, accessToken) {
   // necesita token
 
   return async function () {
-    await axios.delete(`http://localhost:3001/category/${nombre}`);
+    await axios.delete(`http://localhost:3001/category/${nombre}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
   };
 }
 
