@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { getCategorys, getProducts, getImages } from "../../redux/actions/actions.js";
+import {
+  getCategorys,
+  getProducts,
+  getImages,
+} from "../../redux/actions/actions.js";
 import s from "./home.module.css";
 import Navbar from "../navbar/navbar.jsx";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,20 +31,26 @@ const Home = () => {
   const firstIndex = lastIndex - productsPerPage; // 8 - 8 = 0
   const currentProducts = allProducts.slice(firstIndex, lastIndex);
 
-  const fnPaginado = (page) => {  // FUNCIÓN PARA MODIFICAR EL ESTADO LOCAL PAGE
+  const fnPaginado = (page) => {
+    // localStorage.setItem("currentPage", JSON.stringify(page));
+    // FUNCIÓN PARA MODIFICAR EL ESTADO LOCAL PAGE
     setCurrentPage(page);
   };
 
-  const paginatePrev = (prevPage) => setCurrentPage(prevPage);
+  const paginatePrev = (prevPage) => {
+    // localStorage.setItem("currentPage", JSON.stringify(prevPage));
+    setCurrentPage(prevPage);
+  };
 
-  const paginateNext = (nextPage) => setCurrentPage(nextPage);
-
-
+  const paginateNext = (nextPage) => {
+    // localStorage.setItem("currentPage", JSON.stringify(nextPage));
+    setCurrentPage(nextPage);
+  };
 
   return (
     <div className={s.divaHome}>
       <Navbar setPages={setCurrentPage} />
-      <img src="../../img/messi.jpg" alt="" className={s.imgH}/>
+      <img src="../../img/messi.jpg" alt="" className={s.imgH} />
       <div className={s.hero}>
         <div className={s.textoHero}>
           <h1>Supra Sports</h1>
@@ -71,20 +81,23 @@ const Home = () => {
       {allProducts.length > 0 ? (
         <div>
           <div className={s.section}>
-            {currentProducts.map((card) => parseInt(card.stock) > 0 && (
-              <div key={card.id}>
-                <Card
-                  nombre={card.nombre}
-                  URL={card.URL}
-                  marca={card.marca}
-                  precio={card.precio}
-                  color={card.color}
-                  talla={card.talla}
-                  categoria={card.categoria}
-                  id={card.id}
-                />
-              </div>
-            ))}
+            {currentProducts.map(
+              (card) =>
+                parseInt(card.stock) > 0 && (
+                  <div key={card.id}>
+                    <Card
+                      nombre={card.nombre}
+                      URL={card.URL}
+                      marca={card.marca}
+                      precio={card.precio}
+                      color={card.color}
+                      talla={card.talla}
+                      categoria={card.categoria}
+                      id={card.id}
+                    />
+                  </div>
+                )
+            )}
           </div>
         </div>
       ) : (
@@ -92,7 +105,7 @@ const Home = () => {
           <h1>Estamos buscando lo que necesitas!</h1>
           <h2>En caso de no cargar te recomendamos refrescar la página...</h2>
           <img
-            src={'https://i.makeagif.com/media/11-11-2015/AAP2zs.gif'}
+            src={"https://i.makeagif.com/media/11-11-2015/AAP2zs.gif"}
             width="200px"
             alt="img"
           ></img>

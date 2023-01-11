@@ -45,7 +45,7 @@
 
 .clear button {
   width: 160px;
-  height: 3rem;
+  /* height: 3rem; */
   position: relative;
   overflow: hidden;
   transition: all 0.3s;
@@ -54,7 +54,7 @@
   box-shadow: 0 2px 0 2px #000;
   font-size: 15px;
   margin-left: 30px;
-  padding-bottom: 3rem;
+  /* padding-bottom: 3rem; */
 }
 
 .clear button:before {

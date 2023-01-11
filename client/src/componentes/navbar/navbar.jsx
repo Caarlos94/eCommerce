@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import SearchBar from './searchBar/searchBar.jsx';
-import Filtros from './filtros/filtros.jsx';
-import style from './navbar.module.css';
-import './navbarr.css';
-import { Link, NavLink } from 'react-router-dom';
-import heart from '../../img/heart-regular.svg';
-import usuario from '../../img/user.svg';
-import shopping from '../../img/shopping.png';
-import answers from '../../img/answ.png';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import SearchBar from "./searchBar/searchBar.jsx";
+import Filtros from "./filtros/filtros.jsx";
+import style from "./navbar.module.css";
+import "./navbarr.css";
+import { Link, NavLink } from "react-router-dom";
+import heart from "../../img/heart-regular.svg";
+import usuario from "../../img/user.svg";
+import shopping from "../../img/shopping.png";
+import answers from "../../img/answ.png";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getFavorites,
   getProducts,
-  importUser
-} from '../../redux/actions/actions.js';
-import { useAuth0 } from '@auth0/auth0-react';
-import jwt_decode from 'jwt-decode';
+  importUser,
+} from "../../redux/actions/actions.js";
+import { useAuth0 } from "@auth0/auth0-react";
+import jwt_decode from "jwt-decode";
 
 const Navbar = ({ setPages }) => {
   const dispatch = useDispatch();
@@ -71,7 +71,6 @@ const Navbar = ({ setPages }) => {
       });
   }, [user]);
 
-  
   user && dispatch(importUser(user));
 
   return (
@@ -108,7 +107,13 @@ const Navbar = ({ setPages }) => {
                     </Link>
                   </div>
                   <div>
-                    <button onClick={() => logout()} className={style.button}>
+                    <button
+                      onClick={() => {
+                        localStorage.setItem("cart", JSON.stringify([]));
+                        logout();
+                      }}
+                      className={style.button}
+                    >
                       Cerrar sesión
                     </button>
                   </div>
@@ -120,14 +125,14 @@ const Navbar = ({ setPages }) => {
                   {isAdmin ? (
                     <div className={style.adminn}>
                       <div className={style.historialV}>
-                        <NavLink to="/sales" style={{ textDecoration: 'none' }}>
+                        <NavLink to="/sales" style={{ textDecoration: "none" }}>
                           <button>Historial de Ventas</button>
                         </NavLink>
                       </div>
                       <div className={style.publicar}>
                         <NavLink
                           to="/product"
-                          style={{ textDecoration: 'none' }}
+                          style={{ textDecoration: "none" }}
                         >
                           <button>Publicar un Producto</button>
                         </NavLink>
@@ -137,7 +142,7 @@ const Navbar = ({ setPages }) => {
                     <div className={style.historialC}>
                       <NavLink
                         to="/historial"
-                        style={{ textDecoration: 'none' }}
+                        style={{ textDecoration: "none" }}
                       >
                         <button>Mis Compras</button>
                       </NavLink>
@@ -187,7 +192,7 @@ const Navbar = ({ setPages }) => {
                 <NavLink
                   to="/cart"
                   className={style.carro}
-                  style={{ textDecoration: 'none' }}
+                  style={{ textDecoration: "none" }}
                 >
                   <div className={style.btn}>
                     <h6>{carrito.length}</h6>
@@ -203,12 +208,12 @@ const Navbar = ({ setPages }) => {
               )}
 
               {user ? (
-                  <NavLink to={`/favoritos/${user.email}`}>
-                    <div className={style.btn}>
-                      {favoritos.length > 0 && <h6>{favoritos.length}</h6>}
-                      <img src={heart} alt=""></img>
-                    </div>
-                  </NavLink>
+                <NavLink to={`/favoritos/${user.email}`}>
+                  <div className={style.btn}>
+                    {favoritos.length > 0 && <h6>{favoritos.length}</h6>}
+                    <img src={heart} alt=""></img>
+                  </div>
+                </NavLink>
               ) : (
                 <NavLink to="/">
                   <div className={style.btn}>

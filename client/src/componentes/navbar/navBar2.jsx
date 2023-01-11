@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import SearchBar from './searchBar/searchBar.jsx';
-import style from './navBar2.module.css';
-import './navBar2.css';
-import { Link, NavLink } from 'react-router-dom';
-import heart from '../../img/heart-regular.svg';
-import usuario from '../../img/user.svg';
-import back from '../../img/back.png';
-import shopping from '../../img/shopping.png';
-import answers from '../../img/answ.png';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import SearchBar from "./searchBar/searchBar.jsx";
+import style from "./navBar2.module.css";
+import "./navBar2.css";
+import { Link, NavLink } from "react-router-dom";
+import heart from "../../img/heart-regular.svg";
+import usuario from "../../img/user.svg";
+import back from "../../img/back.png";
+import shopping from "../../img/shopping.png";
+import answers from "../../img/answ.png";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getFavorites,
   getProducts,
   importUser,
-} from '../../redux/actions/actions.js';
-import { useAuth0 } from '@auth0/auth0-react';
-import jwt_decode from 'jwt-decode';
+} from "../../redux/actions/actions.js";
+import { useAuth0 } from "@auth0/auth0-react";
+import jwt_decode from "jwt-decode";
 
 const Navbar2 = ({ setPages }) => {
   const dispatch = useDispatch();
@@ -43,11 +43,11 @@ const Navbar2 = ({ setPages }) => {
         const accessToken = await getAccessTokenSilently();
         let decoded = jwt_decode(accessToken);
 
-        if (decoded.permissions.includes('read:admin')) {
+        if (decoded.permissions.includes("read:admin")) {
           // verificación principalmente estética. No brinda seguridad.
           setIsAdmin(true);
         }
-        if (decoded.permissions.includes('read:users')) {
+        if (decoded.permissions.includes("read:users")) {
           setIsSuperAdmin(true);
         }
       }
@@ -71,8 +71,8 @@ const Navbar2 = ({ setPages }) => {
         </div>
       </div>
 
-      <div className={`white2 ${isOpen && 'open'}`}>
-        <NavLink to="/" style={{ textDecoration: 'none' }}>
+      <div className={`white2 ${isOpen && "open"}`}>
+        <NavLink to="/" style={{ textDecoration: "none" }}>
           <div className={style.backHome}>
             <img src={back} alt=""></img>
             Inicio
@@ -92,14 +92,20 @@ const Navbar2 = ({ setPages }) => {
                   <div>
                     <Link
                       to="/profile"
-                      style={{ textDecoration: 'none' }}
+                      style={{ textDecoration: "none" }}
                       className={style.button}
                     >
                       Perfil
                     </Link>
                   </div>
                   <div>
-                    <button onClick={() => logout()} className={style.button}>
+                    <button
+                      onClick={() => {
+                        localStorage.setItem("cart", JSON.stringify([]));
+                        logout();
+                      }}
+                      className={style.button}
+                    >
                       Cerrar sesión
                     </button>
                   </div>
@@ -111,14 +117,14 @@ const Navbar2 = ({ setPages }) => {
                   {isAdmin ? (
                     <div className={style.adminn}>
                       <div className={style.historialV}>
-                        <NavLink to="/sales" style={{ textDecoration: 'none' }}>
+                        <NavLink to="/sales" style={{ textDecoration: "none" }}>
                           <button>Historial de Ventas</button>
                         </NavLink>
                       </div>
                       <div className={style.publicar}>
                         <NavLink
                           to="/product"
-                          style={{ textDecoration: 'none' }}
+                          style={{ textDecoration: "none" }}
                         >
                           <button>Publicar un Producto</button>
                         </NavLink>
@@ -128,7 +134,7 @@ const Navbar2 = ({ setPages }) => {
                     <div className={style.historialC}>
                       <NavLink
                         to="/historial"
-                        style={{ textDecoration: 'none' }}
+                        style={{ textDecoration: "none" }}
                       >
                         <button>Mis Compras</button>
                       </NavLink>
@@ -164,12 +170,12 @@ const Navbar2 = ({ setPages }) => {
               </div> */}
               {isSuperAdmin ? (
                 <div className={style.historial}>
-                  <NavLink to="/superAdmin" style={{ textDecoration: 'none' }}>
+                  <NavLink to="/superAdmin" style={{ textDecoration: "none" }}>
                     <button>admins</button>
                   </NavLink>
                 </div>
               ) : (
-                ''
+                ""
               )}
             </div>
           ) : (
@@ -178,7 +184,7 @@ const Navbar2 = ({ setPages }) => {
                 <NavLink
                   to="/cart"
                   className={style.carro}
-                  style={{ textDecoration: 'none' }}
+                  style={{ textDecoration: "none" }}
                 >
                   <div className={style.btn}>
                     <h6>{carrito.length}</h6>
