@@ -83,33 +83,37 @@
   filter: invert(100%);
 }
 
-.info p {
-  width: 250px;
+.info{
+  width: 300px;
   height: 50px;
-  margin-left: -20px ;
-  
-  clear: both;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .nombre{
-  width: 250px;
+  width: 300px;
   height: 50px;
   font-family:  Arial, Helvetica, sans-serif;
   font-size: 20px;
   font-weight: 500;
   color: black;
-  line-height: -20px;
+  
 }
 
 .talle{
   width: 250px;
   height: 50px;
-  margin-left: -20px ;
   font-family:  Arial, Helvetica, sans-serif;
   font-size: 20px;
   font-weight: 500;
   color: black;
-  line-height: 25px;
+}
+
+.preciodiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .precio{
@@ -139,11 +143,7 @@
   align-items: center;
 }
 
-.preciodiv{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+
 
 .stotal{
   font-family:  Arial, Helvetica, sans-serif;

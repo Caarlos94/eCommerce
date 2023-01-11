@@ -31,6 +31,10 @@ const CartProduct = ({
         <p className={s.precioTitle}>Precio</p>
         <p className={s.precio}>${precio}</p>
       </div> 
+
+      {/* <div>
+        <p className={s.stock}>Stock: {--stock}</p>
+      </div>  */}
       {/* <div>
         <p className={s.stock}>Stock: {--stock}</p>
       </div> 
