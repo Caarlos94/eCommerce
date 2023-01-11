@@ -52,6 +52,7 @@ const getProductsFireBase = async () => {
 
       let DatabaseImage = await Images.findOne({
         where: { nombre: e.nombre },
+        // where: { id: e.id },
       });
       await instance.addImage(DatabaseImage)
   })

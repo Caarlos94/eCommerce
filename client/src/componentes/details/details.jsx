@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import s from './details.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getDetails,
-  limpiarState,
-  addToCart,
-  addToFavorite,
-  getProducts,
-  getReviews,
-  getFavorites,
-} from '../../redux/actions/actions.js';
+import { getDetails, limpiarState, addToCart, addToFavorite, getProducts, getReviews, getFavorites } from '../../redux/actions/actions.js';
 import { NavLink, useParams } from 'react-router-dom';
 import heart from '../../img/heart-regular.svg';
 import trash from '../../img/trash.png';

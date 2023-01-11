@@ -74,7 +74,7 @@ const Home = () => {
                 <div key={card.id}>
                   <Card
                     nombre={card.nombre}
-                    URL={card.images[0].URL[0]}
+                    URL={card.URL}
                     marca={card.marca}
                     precio={card.precio}
                     color={card.color}
