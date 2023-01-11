@@ -9,7 +9,7 @@ const { DATE } = require("sequelize");
 require("dotenv").config();
 const { EMAIL_PASSWORD, EMAIL_HOST, EMAIL_PORT, EMAIL_USER } = process.env;
 
-compraRouter.post("/", async (req, res) => {
+compraRouter.post("/", validateAccessToken, async (req, res) => {
   try {
     const { email, productos, input } = req.body;
 

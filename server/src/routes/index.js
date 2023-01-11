@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Producto } = require('../db.js');
+const { Producto } = require("../db.js");
 
 const productRouter = require("./productRouter.js");
 const userRouter = require("./userRouter.js");
@@ -12,9 +12,10 @@ const superAdminRouter = require("./superAdminRouter");
 const imagesRouter = require("./imagesRouter");
 
 const router = Router();
-const mercadopago = require('mercadopago');
-const express = require('express');
-
+const mercadopago = require("mercadopago");
+const express = require("express");
+const { errorHandler } = require("./middleware/error.middleware");
+const { validateAccessToken } = require("./middleware/validateAccessToken");
 
 router.use(express.json());
 
@@ -28,20 +29,19 @@ router.use("/compras", compraRouter);
 router.use("/superAdmin", superAdminRouter);
 router.use("/images", imagesRouter);
 
-
 mercadopago.configure({
   access_token:
-    'APP_USR-8763313892706046-121400-b6b39cc901e4f87d36ca35efbd37f52c-1263181426',
+    "APP_USR-8763313892706046-121400-b6b39cc901e4f87d36ca35efbd37f52c-1263181426",
   /* access_token: "TEST-8763313892706046-121400-1f81130c8eea6eec0631d629769666b3-1263181426", PREGUNTAR ALEJANDRO*/
 });
 
 let obj = {};
 let GuardarComprasDB = {
-  clienteId: '',
+  clienteId: "",
   productos: [],
 };
 
-router.post('/pagosMeli', async (req, res) => {
+router.post("/pagosMeli", async (req, res) => {
   let items = req.body.items;
   let idUsuario = req.body.idUsuario;
 
@@ -52,7 +52,7 @@ router.post('/pagosMeli', async (req, res) => {
       itemsArr.push({
         id: item.id,
         title: item.nombre,
-        currency_id: 'ARS',
+        currency_id: "ARS",
         picture_url: item.URL,
         quantity: items[0].cantidad,
         unit_price: parseInt(item.precio),
@@ -63,7 +63,7 @@ router.post('/pagosMeli', async (req, res) => {
   let preference = {
     items: itemsArr,
     back_urls: {
-      success: 'http://localhost:3001/redirect',
+      success: "http://localhost:3001/redirect",
     },
   };
 
@@ -96,24 +96,23 @@ router.post('/pagosMeli', async (req, res) => {
     });
 });
 router.get("/redirect", async (req, res) => {
-  let { status } = req.query
+  let { status } = req.query;
   try {
-  if (status === "approved") {
-    obj.forEach(async producto => {  
- 
-      let productStock = await Producto.findByPk(producto.id)
-      let rest = productStock.stock - producto.cantidad
+    if (status === "approved") {
+      obj.forEach(async (producto) => {
+        let productStock = await Producto.findByPk(producto.id);
+        let rest = productStock.stock - producto.cantidad;
 
-      const modifiedProduct = await Producto.update(
-        { stock: rest },
-        { where: { id: producto.id } }); 
-    })    
-      res.redirect('http://localhost:3000')
-    }} catch (error) {
-      res.status(400).send(error.message)
+        const modifiedProduct = await Producto.update(
+          { stock: rest },
+          { where: { id: producto.id } }
+        );
+      });
+      res.redirect("http://localhost:3000");
     }
+  } catch (error) {
+    res.status(400).send(error.message);
   }
-  ) 
- 
+});
 
 module.exports = router;
