@@ -62,62 +62,66 @@ const SuperAdmin = (props) => {
   return (
     <>
       {isSuperAdmin ? (
-        <div className={style.divPadre}>
+        <>
           <Navbar2></Navbar2>
-          <div className={style["options-container"]}>
-            <div className={style.divAdmins}>
-              <h2>Usuarios con rol admin</h2>
-              <div>
-                {admins?.map((element) => {
-                  return (
-                    <div className={style.admin} key={element.user_id}>
-                      <h5>{element.email}</h5>
-                      <h5>{element.name}</h5>
-                      <button
-                        onClick={() => deleteAd(element.user_id)}
-                        className={style.buttonAdmins}
-                      >
-                        Eliminar admin
-                      </button>
-                    </div>
-                  );
-                })}
-                <button onClick={() => Delete()} className={style.admins}>
-                  Delete admins
-                </button>
+          <div className={style.divPadre}>
+            <div className={style["options-container"]}>
+              <div className={style["left-side-superadmin"]}>
+                <div className={style["add-container"]}>
+                  <AddAdmin
+                    cueHandler={() => setCueChildUpdate(Math.random())}
+                    cueParentUpdate={cueParentUpdate}
+                    accessToken={accessToken}
+                  />
+                </div>
+                <div className={style.divAdmins}>
+                  <p>Usuarios con rol admin</p>
+                  <div>
+                    {admins?.map((element) => {
+                      return (
+                        <div className={style.admin} key={element.user_id}>
+                          <h5>{element.email}</h5>
+                          <h5>{element.name}</h5>
+                          <button
+                            onClick={() => deleteAd(element.user_id)}
+                            className={style.buttonAdmins}
+                          >
+                            Eliminar admin
+                          </button>
+                        </div>
+                      );
+                    })}
+                    <button onClick={() => Delete()} className={style.admins}>
+                      Delete admins
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className={style["right-side"]}>
-              <div className={style["add-container"]}>
-                <AddAdmin
-                  cueHandler={() => setCueChildUpdate(Math.random())}
-                  cueParentUpdate={cueParentUpdate}
-                  accessToken={accessToken}
-                />
-              </div>
-              <div className={style["blocking-options"]}>
-                <BlockUser
-                  handler={() => setCueUnblock()}
-                  cueHandler={() => setCueChildUpdate(Math.random())}
-                  cueParentUpdate={cueParentUpdate}
-                  accessToken={accessToken}
-                  block={true}
-                  cue={cueBlock}
-                />
-              </div>
-              <div className={style["blocking-options"]}>
-                <BlockUser
-                  handler={() => setCueBlock()}
-                  cueHandler={() => setCueChildUpdate(Math.random())}
-                  cueParentUpdate={cueParentUpdate}
-                  accessToken={accessToken}
-                  block={false}
-                  cue={cueUnblock}
-                />
+              <div className={style["right-side-superadmin"]}>
+                <div className={style["blocking-options"]}>
+                  <BlockUser
+                    handler={() => setCueUnblock()}
+                    cueHandler={() => setCueChildUpdate(Math.random())}
+                    cueParentUpdate={cueParentUpdate}
+                    accessToken={accessToken}
+                    block={true}
+                    cue={cueBlock}
+                  />
+                </div>
+                <div className={style["blocking-options"]}>
+                  <BlockUser
+                    handler={() => setCueBlock()}
+                    cueHandler={() => setCueChildUpdate(Math.random())}
+                    cueParentUpdate={cueParentUpdate}
+                    accessToken={accessToken}
+                    block={false}
+                    cue={cueUnblock}
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </>
       ) : (
         "Sólo disponible para usuarios con role de Super Admin"
       )}

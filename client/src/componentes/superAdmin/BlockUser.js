@@ -42,7 +42,7 @@ const BlockUser = ({ accessToken, block, handler, cue }) => {
   }, [block, accessToken]);
 
   useEffect(() => {
-    console.log(cue);
+    console.log(cue); // no eliminar cue
     fetchUsers();
   }, [fetchUsers, cue]);
 

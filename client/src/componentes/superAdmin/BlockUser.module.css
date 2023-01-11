@@ -1,11 +1,13 @@
 .blocking-container {
-  margin-top: 5.1rem;
+  /* margin-top: 5.1rem; */
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   height: 28rem;
   display: flex;
   justify-content: center;
   width: 35rem;
   padding-bottom: 1rem;
+  margin-top: 4rem;
+  border-radius: 10px;
 }
 
 .blocking-container p {
