@@ -27,7 +27,8 @@ const Paginado = ({
     <>
       <div className={style.paginadoContainer}>
         <div /* className={style.paginadoBotonContainer} */>
-          <button onClick={handlePrev} disabled={currentPage === 1} className={style.numberList}>
+          <button onClick={handlePrev}
+          disabled={currentPage === 1} className={style.numberList}>
             Anterior
           </button>
           {numberOfPages.map((num) => {

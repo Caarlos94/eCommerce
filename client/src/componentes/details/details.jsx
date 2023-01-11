@@ -236,6 +236,7 @@ const Details = () => {
             <div className={s.valoraciones}>
               <Reviews reviews={reviews} />
             </div>
+            <Footer />
           </div>
         ) : (
           <div className={s.spinner}>
@@ -247,7 +248,7 @@ const Details = () => {
             <div></div>
           </div>
         )}
-        <Footer />
+       
       </div>
       <Toaster
         toastOptions={{

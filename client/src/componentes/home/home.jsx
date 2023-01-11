@@ -30,12 +30,17 @@ const Home = () => {
 
   const fnPaginado = (page) => {  // FUNCIÓN PARA MODIFICAR EL ESTADO LOCAL PAGE
     setCurrentPage(page);
+    // console.log(currentProducts);
   };
 
-  const paginatePrev = (prevPage) => setCurrentPage(prevPage);
-
-  const paginateNext = (nextPage) => setCurrentPage(nextPage);
-
+  const paginatePrev = (prevPage) =>{
+    setCurrentPage(prevPage);
+    // console.log(currentProducts);
+  }
+  const paginateNext = (nextPage) =>{
+    setCurrentPage(nextPage);
+    // console.log(currentProducts);
+  }
 
 
   return (
@@ -61,16 +66,17 @@ const Home = () => {
 
     <div className={s.divCarrusel}>
       <Carrusel></Carrusel>
-      <div className={s.divCarruselH2}>
+      {/* <div className={s.divCarruselH2}>
          <h2 className={s.CarruselH2}> _   contamos con envios a todo el pais</h2>
          <h2 className={s.CarruselH2}> _   los mejores productos de calidad</h2>
          <h2 className={s.CarruselH2}> _   todo desde la comodidad de tu casa</h2>
-      </div>
-      <div className={s.divSeparador}>
-
-      </div>
+      </div> */}
+      
+      {/* <div className={s.divSeparador}></div> */}
     </div>
-      <Paginado
+
+    <div className={s.divSeparadorPaginado}>
+    <Paginado
         productsPerPage={productsPerPage} // pupsPerPage
         totalProducts={allProducts.length} // totalPups
         paginate={fnPaginado} //paginate
@@ -78,8 +84,9 @@ const Home = () => {
         currentPage={currentPage}
         paginateNext={paginateNext}
         key={allProducts.id}
-      ></Paginado>
-
+  ></Paginado>
+  
+  
       {allProducts.length > 0 ? (
         <div>
           <div className={s.section}>
@@ -121,7 +128,13 @@ const Home = () => {
         key={allProducts.id}
       ></Paginado>
 
-      <Footer />
+
+      <div className={s.divSeparador} ></div>
+
+     <Footer />
+     </div >
+
+      
     </div>
   );
 };
