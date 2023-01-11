@@ -10,15 +10,21 @@ import style from './carrusel.module.css'
 const items = [
   {
     src: "https://img.freepik.com/foto-gratis/repartidor-tiro-medio_23-2149035872.jpg?w=2000",
-
+    // altText: 'ENVIOS A TODO EL PAIS',
+    caption: 'ENVIOS A TODO EL PAIS',
+    caption2:'PAGA HASTA EN 12 CUOTAS'
   },
   {
     src: 'https://blog.printsome.es/wp-content/uploads/sites/3/camisetas-al-por-mayor-header.jpg',
- 
+    // altText: 'LOS MEJORES PRODUCTOS DE CALIDAD',
+    caption: 'LOS MEJORES PRODUCTOS DE CALIDAD',
+    caption2:'LOS ENCONTRAS EN SUPRA SPORTS'
   },
   {
     src: 'https://uvn-brightspot.s3.amazonaws.com/assets/vixes/p/pareja-sentada-en-sofa-9.jpg',
-
+    // altText: 'TODO DESDE LA COMODIDAD DE TU CASA',
+    caption: 'TODO DESDE LA COMODIDAD DE TU CASA',
+    caption2:'SUPRA SPORTS'
   }
 ];
 
@@ -70,7 +76,7 @@ class Carrusel extends Component {
           key={item.src}
         >
           <img src={item.src} alt={item.altText}  className={style.img}/>
-          <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+          <CarouselCaption captionText={item.caption2} captionHeader={item.caption} />
         </CarouselItem>
       
       );

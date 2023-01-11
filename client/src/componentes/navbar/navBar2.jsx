@@ -16,6 +16,7 @@ import {
 } from '../../redux/actions/actions.js';
 import { useAuth0 } from '@auth0/auth0-react';
 import jwt_decode from 'jwt-decode';
+// import s from './navbar.module.css';
 
 const Navbar2 = () => {
   const dispatch = useDispatch();
@@ -166,7 +167,7 @@ const Navbar2 = () => {
               {isSuperAdmin ? (
                 <div className={style.historial}>
                   <NavLink to="/superAdmin" style={{ textDecoration: 'none' }}>
-                    <button>admins</button>
+                    <button className={style.btnSuperAdmin}>admins</button>
                   </NavLink>
                 </div>
               ) : (

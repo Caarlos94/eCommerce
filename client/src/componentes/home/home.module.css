@@ -26,7 +26,6 @@
 .divCarruselH2{
 border: 3px solid whitesmoke;
 width: 32%;
-/* width: 580px; */
  position: relative;
   top: -180px;
   left: 66%;
@@ -41,7 +40,16 @@ width: 32%;
   display: block;
   width: 100%;
 }
+.divSeparador{
+  border:1px solid white;
+  height: 140px;
+}
 
+.divSeparadorPaginado{
+  position: relative;
+  top: 100px;
+
+}
 
 
 .imgGif{
