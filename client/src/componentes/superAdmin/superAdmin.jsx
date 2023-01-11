@@ -25,23 +25,33 @@ const SuperAdmin = (props) => {
     console.log("Actualizacion de padre", cueParentUpdate, cueChildUpdate);
     const funct = async () => {
       const result = await axios.get(
-        "http://localhost:3001/superAdmin/fetchRoles"
+        "http://localhost:3001/superAdmin/fetchRoles",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
       );
 
       setAdmins(result.data);
     };
     funct();
-  }, [cueParentUpdate, cueChildUpdate]);
+  }, [cueParentUpdate, cueChildUpdate, accessToken]);
 
   const deleteAd = (params) => {
     DeleteAdmins([...deleteAdmins, params]);
   };
 
   const Delete = async () => {
-    //NECESITA PASAR TOKEN DE ACCESSO
-    axios
-      .post("http://localhost:3001/superAdmin/removeAdmin", deleteAdmins)
-      .then((data) => data.data)
+    fetch(`http://localhost:3001/superAdmin/removeAdmin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(deleteAdmins),
+    })
+      .then((data) => data.json())
       .then(() =>
         setTimeout(() => {
           setCueParentUpdate(cueParentUpdate + 1);
