@@ -68,7 +68,7 @@ router.post("/pagosMeli", validateAccessToken, async (req, res) => {
   let preference = {
     items: itemsArr,
     back_urls: {
-      success: "http://localhost:3001/redirect",
+      success: "https://suprasports.up.railway.app/redirect",
     },
   };
 
@@ -114,12 +114,12 @@ router.get("/redirect", async (req, res) => {
         );
       });
 
-      axios.post("http://localhost:3001/compras", {
+      axios.post("https://suprasports.up.railway.app/compras", {
         input: datosDestinatario.input,
         email: datosDestinatario.email,
         productos: obj,
       });
-      res.redirect("http://localhost:3000");
+      res.redirect("https://suprasportsclient-production.up.railway.app/");
     }
   } catch (error) {
     res.status(400).send(error.message);

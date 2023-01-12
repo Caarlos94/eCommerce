@@ -21,7 +21,7 @@ const VentasAdmin = () => {
   useEffect(() => {
     accessToken &&
       fetch(
-        `http://localhost:3001/compras/adminSales?order=${filters.order}&enviado=${filters.show}`,
+        `https://suprasports.up.railway.app/compras/adminSales?order=${filters.order}&enviado=${filters.show}`,
         {
           method: "GET",
           headers: {
