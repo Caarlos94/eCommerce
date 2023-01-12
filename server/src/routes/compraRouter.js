@@ -13,12 +13,21 @@ compraRouter.post("/", validateAccessToken, async (req, res) => {
   try {
     const { email, productos, input } = req.body;
 
+    const { nombre, apellido, DNI } = input;
+
+    console.log(nombre, apellido, DNI);
+
     const cliente = await Cliente.findOne({
       where: { email: email },
     });
 
     if (!cliente)
       throw new Error("El cliente no se encuentra en la base de datos");
+
+    cliente.nombre = nombre;
+    cliente.apellido = apellido;
+    cliente.DNI = DNI;
+    cliente.save();
 
     const nuevaCompra = await Compra.create({ raw: true });
     nuevaCompra.clienteId = cliente.id;
@@ -186,6 +195,9 @@ compraRouter.get(
             direccion: purchase.direccion,
             cel: purchase.cel,
             cp: purchase.cp,
+            nombre: purchase.cliente.nombre,
+            apellido: purchase.cliente.apellido,
+            dni: purchase.cliente.DNI,
           },
           productos: mappedProducts,
         });

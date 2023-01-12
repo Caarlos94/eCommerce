@@ -12,10 +12,12 @@ module.exports = (sequelize) => {
         primaryKey: true,
         alowNull: false,
       },
-      nickname: {// 🎇
+      nickname: {
+        // 🎇
         type: DataTypes.STRING,
       },
-      email: {// 🎇
+      email: {
+        // 🎇
         type: DataTypes.STRING,
       },
       email_Verified: {
@@ -33,6 +35,9 @@ module.exports = (sequelize) => {
       auth0Id: {
         type: DataTypes.STRING,
       },
+      nombre: { type: DataTypes.STRING },
+      apellido: { type: DataTypes.STRING },
+      DNI: { type: DataTypes.STRING },
     },
     { timestamps: false }
   );
