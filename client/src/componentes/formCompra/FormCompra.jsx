@@ -13,6 +13,7 @@ export default function FormCompra({ handle }) {
     cel: "",
     nombre: "",
     apellido: "",
+    DNI: "",
   });
 
   const handlerChange = (e) => {
@@ -35,6 +36,7 @@ export default function FormCompra({ handle }) {
       cel: "",
       nombre: "",
       apellido: "",
+      DNI: "",
     });
   };
 

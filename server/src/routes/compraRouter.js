@@ -9,13 +9,13 @@ const { DATE } = require("sequelize");
 require("dotenv").config();
 const { EMAIL_PASSWORD, EMAIL_HOST, EMAIL_PORT, EMAIL_USER } = process.env;
 
-compraRouter.post("/", validateAccessToken, async (req, res) => {
+compraRouter.post("/", async (req, res) => {
   try {
     const { email, productos, input } = req.body;
 
     const { nombre, apellido, DNI } = input;
 
-    console.log(nombre, apellido, DNI);
+    // console.log(nombre, apellido, DNI, productos);
 
     const cliente = await Cliente.findOne({
       where: { email: email },

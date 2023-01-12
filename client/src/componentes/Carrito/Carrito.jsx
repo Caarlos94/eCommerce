@@ -85,21 +85,22 @@ const Carrito = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ items: cart }),
+      body: JSON.stringify({ items: cart, input, email: email, token }),
     })
       .then((data) => data.json())
       .then((data) => {
         if (data.error) console.log(data); // manejar caso de error
         window.open(data, "_self");
         /* console.log(data); */
-        fetch("http://localhost:3001/compras", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ input, email: email, productos: cart }),
-        });
+
+        // fetch("http://localhost:3001/compras", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     Authorization: `Bearer ${token}`,
+        //   },
+        //   body: JSON.stringify({ input, email: email, productos: cart }),
+        // });
         dispatch(clearCart());
       });
   };

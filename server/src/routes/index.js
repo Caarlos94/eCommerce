@@ -10,6 +10,7 @@ const compraRouter = require("./compraRouter");
 const favoritosRouter = require("./favoritosRouter");
 const superAdminRouter = require("./superAdminRouter");
 const imagesRouter = require("./imagesRouter");
+const axios = require("axios");
 
 const router = Router();
 const mercadopago = require("mercadopago");
@@ -36,13 +37,20 @@ mercadopago.configure({
 });
 
 let obj = {};
-let GuardarComprasDB = {
-  clienteId: "",
-  productos: [],
-};
+// let GuardarComprasDB = {
+//   clienteId: "",
+//   productos: [],
+// };
+let datosDestinatario = { input: "", email: "", token: "" };
 
 router.post("/pagosMeli", async (req, res) => {
   let items = req.body.items;
+  let { input, email: email, token } = req.body;
+
+  datosDestinatario.input = input;
+  datosDestinatario.email = email;
+  datosDestinatario.token = token;
+
   let idUsuario = req.body.idUsuario;
 
   // obj = items
@@ -107,6 +115,12 @@ router.get("/redirect", async (req, res) => {
           { stock: rest },
           { where: { id: producto.id } }
         );
+      });
+
+      axios.post("http://localhost:3001/compras", {
+        input: datosDestinatario.input,
+        email: datosDestinatario.email,
+        productos: obj,
       });
       res.redirect("http://localhost:3000");
     }
