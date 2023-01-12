@@ -11,7 +11,7 @@ const Compras = (props) => {
   useEffect(() => {
     if (!clienteId || !productId) return;
     fetch(
-      `http://localhost:3001/compras/review-match?clienteId=${clienteId}&productoId=${productId}`
+      `https://suprasports.up.railway.app/compras/review-match?clienteId=${clienteId}&productoId=${productId}`
     )
       .then((data) => data.json())
       .then((data) => {

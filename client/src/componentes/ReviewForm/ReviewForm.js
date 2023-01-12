@@ -61,7 +61,7 @@ const ReviewForm = () => {
       return;
     }
 
-    fetch('http://localhost:3001/compras/review', {
+    fetch('https://suprasports.up.railway.app/compras/review', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -2,8 +2,8 @@ import React, { useEffect, useState, useCallback } from "react";
 import classes from "./AddAdmin.module.css";
 
 const AddAdmin = ({ accessToken, cueParentUpdate, cueHandler }) => {
-  const postAdminUrl = "http://localhost:3001/superAdmin/addAdminRole";
-  const getNonAdminsUrl = "http://localhost:3001/superAdmin/fetchNonAdmins";
+  const postAdminUrl = "https://suprasports.up.railway.app/superAdmin/addAdminRole";
+  const getNonAdminsUrl = "https://suprasports.up.railway.app/superAdmin/fetchNonAdmins";
   const [nonAdmins, setNonAdmins] = useState([]);
   const [newAdmin, setNewAdmin] = useState({ email: "", idType: "googleId" });
   const [didAdd, setDidAdd] = useState(false);

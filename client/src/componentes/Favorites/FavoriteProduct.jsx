@@ -21,7 +21,7 @@ const FavoriteProduct = ({
 
   const handleDelete = () => {
     // console.log("hello");
-    fetch(`http://localhost:3001/favoritos/${clienteId}/${productoId}`, {
+    fetch(`https://suprasports.up.railway.app/favoritos/${clienteId}/${productoId}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json',
