@@ -135,17 +135,12 @@ const Details = () => {
 
   const handleSubmit = (id) => {
     if (actualInCart.length === 0) {
-      dispatch(addToCart(id));
-      toast.success("El producto fue añadido al carrito.");
+      dispatch(addToCart(id)) && toast.success("El producto fue añadido al carrito.");
     } else {
-      dispatch(removeOneFromCart(id));
-      toast.error("El producto se quitó de favoritos.");
+      dispatch(removeOneFromCart(id)) && toast.error("El producto se quitó del carrito.");
     }
     /* console.log(actualInCart); */
   };
-  const handleNoFav = () => {
-    if (!user) { toast.error('Necesita iniciar sesión para guardar en favoritos.') }
-  }
 
   return (
     <div>
@@ -215,7 +210,7 @@ const Details = () => {
                         </div>
                       </>
                     ) : (
-                      <div className={s.fav} onClick={()=>handleNoFav()}>
+                      <div className={s.fav} /* onClick={toast.error('Necesita iniciar sesión para guardar en favoritos.')} */>
                         <img src={heart} alt=""></img>
                       </div>
                     )}
@@ -257,13 +252,13 @@ const Details = () => {
             <div></div>
           </div>
         )}
-
       </div>
+
       <Toaster
         toastOptions={{
           // Define default options
           className: "",
-          duration: 3000,
+          duration: 1000,
           style: {
             background: "#fff",
             color: "#000",

@@ -16,7 +16,6 @@ import {
 } from "../../redux/actions/actions.js";
 import { useAuth0 } from "@auth0/auth0-react";
 import jwt_decode from "jwt-decode";
-import { Toaster, toast } from "react-hot-toast";
 
 const Navbar = ({ setPages }) => {
   const dispatch = useDispatch();
@@ -71,10 +70,6 @@ const Navbar = ({ setPages }) => {
         body: JSON.stringify(user),
       });
   }, [user]);
-
-  const handlerNoUser = () => {
-    if (!user) { toast.error('Necesita iniciar sesión para utilizar esta sección.') }
-  }
 
   user && dispatch(importUser(user));
 
@@ -199,13 +194,13 @@ const Navbar = ({ setPages }) => {
               ) : (
                 <>
                   <div className={style.carro}>
-                    <div className={style.btn} onClick={() => handlerNoUser()}>
+                    <div className={style.btn} onClick={() => loginWithRedirect()}>
                       {carrito.length > 0 && <h6>{carrito.length}</h6>}
                       <img src={shopping} alt=""></img>
                     </div>
                   </div>
                   <div>
-                    <div className={style.btn} onClick={() => handlerNoUser()}>
+                    <div className={style.btn} onClick={() => loginWithRedirect()}>
                       <img src={heart} alt=""></img>
                     </div>
                   </div>
@@ -215,17 +210,7 @@ const Navbar = ({ setPages }) => {
           )}
         </div>
       </div>
-      <Toaster
-        toastOptions={{
-          // Define default options
-          className: "",
-          duration: 3000,
-          style: {
-            background: "#fff",
-            color: "#000",
-          },
-        }}
-      />
+      
     </div>
   );
 };
