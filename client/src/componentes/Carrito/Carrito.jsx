@@ -153,7 +153,7 @@ const Carrito = () => {
                 stock={c.stock}
                 precio={c.precio}
                 cantidad={c.cantidad}
-                URL={c.URL[0]}
+                URL={c.URL}
                 handleDelete={handleDelete}
                 handleAdd={handleAdd}
               />

@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import React, { useEffect, useState } from "react";
 import {
-  getProducts,
   getProducts2,
   updateProduct,
 } from "../../redux/actions/actions";
@@ -68,25 +67,20 @@ const validate = (input, prods) => {
 export default function UpdateProd() {
   const { getAccessTokenSilently } = useAuth0();
   const [token, setToken] = useState("");
+  const prods = useSelector((state) => state.products);
+  const dispatch = useDispatch();
+  const { id } = useParams();
 
   useEffect(() => {
     getAccessTokenSilently().then((data) => setToken(data));
   }, [getAccessTokenSilently]);
-
-  const dispatch = useDispatch();
-  const prods = useSelector((state) => state.products);
-  const { id } = useParams();
-
-  useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
 
   const history = useHistory();
   const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
     id: id,
     nombre: "",
-    URL: "",
+    URL: '',
     precio: "",
     color: "",
     talla: "",
@@ -100,26 +94,23 @@ export default function UpdateProd() {
       [e.target.name]: e.target.value,
     });
     setErrors(
-      validate(
-        {
-          ...input,
-          [e.target.name]: e.target.value,
-        },
-        prods
-      )
-    );
+      validate({
+        ...input,
+        [e.target.name]: e.target.value,
+      }, prods
+      ));
   };
 
   const handlerSubmit = (e) => {
     e.preventDefault();
     console.log(input);
-    dispatch(updateProduct(input, id, token));
+    dispatch(updateProduct(input, id));
     setTimeout(() => dispatch(getProducts2()), 100);
     alert("Producto actualizado con éxito! Se te redirigirá al inicio...");
     setInput({
       id: id,
       nombre: "",
-      URL: "",
+      URL: '',
       precio: "",
       color: "",
       talla: "",
@@ -134,10 +125,7 @@ export default function UpdateProd() {
       <Navbar2 />
       <div className={style.content}>
         <h1>Editor de Productos</h1>
-        <h5>
-          (Deje el cuadro vacío en caso de querer el valor previamente
-          establecido.)
-        </h5>
+        <h5>(Deje el cuadro vacío en caso de querer el valor previamente establecido.)</h5>
         <div className={style.forms}>
           <form onSubmit={(e) => handlerSubmit(e)}>
             <div className={style.inputI}>
@@ -155,19 +143,14 @@ export default function UpdateProd() {
             <div className={style.inputI}>
               <label>Imagen: </label>
               <input
-                /* placeholder={`Anterior: ${detail.URL}`} */
-                type="text"
+                type="url"
                 value={input.URL}
                 name="URL"
                 onChange={(e) => handlerChange(e)}
               ></input>
-              {errors.URL ? (
-                <p className={style.errors}>{errors.URL}</p>
-              ) : input.URL ? (
-                <img src={input.URL} alt="img"></img>
-              ) : (
-                ""
-              )}
+              {errors.URL
+                ? (<p className={style.errors}>{errors.URL}</p>)
+                : (input.URL) ? (<img src={input.URL} alt='img'></img>) : ("")}
             </div>
 
             <div className={style.inputI}>
@@ -231,12 +214,14 @@ export default function UpdateProd() {
             </div>
 
             <div className={style.publicar}>
-              <button type="submit">Publicar Producto!</button>
+              <button type="submit">
+                Publicar Producto!
+              </button>
             </div>
           </form>
         </div>
-      </div>
+      </div >
       <Footer />
-    </div>
+    </div >
   );
-}
+};

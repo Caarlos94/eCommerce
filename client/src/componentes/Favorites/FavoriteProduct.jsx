@@ -43,7 +43,7 @@ const FavoriteProduct = ({
           <div className={s.item}>
             <div
               className={s.itemImg}
-              style={{ backgroundImage: `url(${URL[0]})` }}
+              style={{ backgroundImage: `url(${URL})` }}
             ></div>
 
             <div className={s.info}>

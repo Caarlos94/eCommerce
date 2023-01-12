@@ -138,7 +138,6 @@ const Details = () => {
     } else {
       dispatch(removeOneFromCart(id)) && toast.error("El producto se quitó del carrito.");
     }
-    /* console.log(actualInCart); */
   };
 
   return (
@@ -152,15 +151,7 @@ const Details = () => {
                 <div className={s.img11}>
                   <div
                     className={s.img111}
-                    style={{ backgroundImage: `url(${details[0].URL[0]})` }}
-                  ></div>
-                  <div
-                    className={s.img111}
-                    style={{ backgroundImage: `url(${details[0].URL[1]})` }}
-                  ></div>
-                  <div
-                    className={s.img111}
-                    style={{ backgroundImage: `url(${details[0].URL[2]})` }}
+                    style={{ backgroundImage: `url(${details[0].URL})` }}
                   ></div>
                 </div>
               </div>

@@ -82,7 +82,7 @@ const UnansweredQuestion = ({ question, accessToken }) => {
           </div>
         </div>
         <div className={classes['imgProd']}>
-          <img src={question.productUrl[0]} alt="nombre del producto" />
+          <img src={question.productUrl} alt="nombre del producto" />
         </div>
       </div>
       <form onSubmit={handleSubmit}>

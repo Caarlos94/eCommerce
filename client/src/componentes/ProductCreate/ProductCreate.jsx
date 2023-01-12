@@ -25,7 +25,19 @@ const validate = (input, prods) => {
       errors.nombre = "Este producto ya existe!";
     }
   }
-  if (input.URL) {
+  if (input.URL[0]) {
+    if (!/(https?:\/\/.*\.(?:png|jpg|jpeg))/i.test(input.URL)) {
+      errors.URL =
+        'Este dato es obligatorio, solo permite imágenes de tipo .jpg/.png/.jpeg';
+    }
+  }
+  if (input.URL[1]) {
+    if (!/(https?:\/\/.*\.(?:png|jpg|jpeg))/i.test(input.URL)) {
+      errors.URL =
+        'Este dato es obligatorio, solo permite imágenes de tipo .jpg/.png/.jpeg';
+    }
+  }
+  if (input.URL[2]) {
     if (!/(https?:\/\/.*\.(?:png|jpg|jpeg))/i.test(input.URL)) {
       errors.URL =
         "Este dato es obligatorio, solo permite imágenes de tipo .jpg/.png/.jpeg";
@@ -86,14 +98,14 @@ export default function ProdCreate() {
   const history = useHistory();
   const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
-    nombre: "",
-    URL: ['', '', ''],
-    precio: "",
-    color: "",
-    talla: "",
-    marca: "",
-    categoria: "",
-    stock: "",
+    nombre: '',
+    URL: '',
+    precio: '',
+    color: '',
+    talla: '',
+    marca: '',
+    categoria: '',
+    stock: '',
   });
 
   useEffect(() => {
@@ -102,43 +114,21 @@ export default function ProdCreate() {
   }, [dispatch]);
 
   const handlerChange = (e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-    setErrors(
-      validate(
-        {
-          ...input,
-          [e.target.name]: e.target.value,
-        },
-        prods
-      )
-    );
+    setInput({ ...input, [e.target.name]: e.target.value });
+    setErrors(validate({ ...input, [e.target.name]: e.target.value }, prods))
   };
 
   const handlerSelectCateg = (e) => {
     if (!input.categoria.includes(e.target.value)) {
-      setInput({
-        ...input,
-        categoria: e.target.value,
-      });
+      setInput({ ...input, categoria: e.target.value })
     }
   };
 
-  const handleImages = (e) => {
-    if (!input.URL.includes(e.target.value)) {
-      setInput({ ...input, URL: [...input.URL, e.target.value] });
-    }/* setErrors(
-      validate(
-        {
-          ...input,
-          [e.target.name]: e.target.value,
-        },
-        prods
-      )
-    ); */
-  }
+ /*  const handlerImg = (e) => {
+    setInput({ ...input, URL: [e.target.value] });
+    setErrors(validate({ ...input, URL: [e.target.value] }, prods))
+    console.log(input);
+  }; */
 
   const handlerSubmit = (e) => {
     e.preventDefault();
@@ -148,14 +138,14 @@ export default function ProdCreate() {
     setTimeout(() => dispatch(getProducts2()), 100);
     alert("Producto publicado con éxito! Se te redirigirá al inicio...");
     setInput({
-      nombre: "",
-      URL: [],
-      precio: "",
-      color: "",
-      talla: "",
-      marca: "",
-      categoria: "",
-      stock: "",
+      nombre: '',
+      URL: '',
+      precio: '',
+      color: '',
+      talla: '',
+      marca: '',
+      categoria: '',
+      stock: '',
     });
     history.push("/"); //manda al home
   };
@@ -179,51 +169,15 @@ export default function ProdCreate() {
             </div>
 
             <div className={style.inputI}>
-              <label>Imagen 1: </label>
+              <label>Imagen: </label>
               <input
-                type="text"
-                value={input.URL}
+                type="url"
                 name="URL"
-                onChange={(e) => handleImages(e)}
+                onChange={(e) => handlerChange(e)}
               ></input>
-              {/* {errors.URL ? (
+              {errors.URL ? (
                 <p className={style.errors}>{errors.URL}</p>
-              ) :  */}
-              {input.URL ? (
-                <img src={input.URL} alt="img"></img>
-              ) : (
-                ""
-              )}
-            </div>
-
-            <div className={style.inputI}>
-              <label>Imagen 2: </label>
-              <input
-                type="text"
-                value={input.URL}
-                name="URL"
-                onChange={(e) => handleImages(e)}
-              ></input>
-              {input.URL ? (
-                <img src={input.URL} alt="img"></img>
-              ) : (
-                ""
-              )}
-            </div>
-
-            <div className={style.inputI}>
-              <label>Imagen 3: </label>
-              <input
-                type="text"
-                value={input.URL}
-                name="URL"
-                onChange={(e) => handleImages(e)}
-              ></input>
-              {input.URL ? (
-                <img src={input.URL} alt="img"></img>
-              ) : (
-                ""
-              )}
+              ) : (input.URL) ? (<img src={input.URL} alt="img"></img>) : ('')}
             </div>
 
             <div className={style.inputI}>
@@ -306,22 +260,22 @@ export default function ProdCreate() {
             <div className={style.publicar}>
               <button
                 type="submit"
-                disabled={
-                  !input.nombre ||
-                  errors.nombre ||
-                  errors.precio ||
-                  errors.color ||
-                  errors.talla ||
-                  errors.marca ||
-                  !input.categoria
-                }
+              // disabled={
+              //   !input.nombre ||
+              //   errors.nombre ||
+              //   errors.precio ||
+              //   errors.color ||
+              //   errors.talla ||
+              //   errors.marca ||
+              //   !input.categoria
+              // }
               >
                 Publicar Producto!
               </button>
             </div>
           </form>
-        </div>
-      </div>
-    </div>
+        </div >
+      </div >
+    </div >
   );
 }
