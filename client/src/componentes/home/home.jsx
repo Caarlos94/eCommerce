@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { getCategorys, getProducts, getImages } from "../../redux/actions/actions.js";
+import { getCategorys, getProducts } from "../../redux/actions/actions.js";
 import s from "./home.module.css";
 import Navbar from "../navbar/navbar.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import Paginado from "../Paginate/Paginate.jsx";
 import Card from "../Card/Card.js";
-import messiNotFound from "../../img/messiNotFound.gif";
-import Footer from '../Footer/Footer'
+import Footer from "../Footer/Footer";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -15,9 +14,8 @@ const Home = () => {
 
   // allProducts.forEach(producto => producto.images = producto.images.split(","))
   // console.log(allProducts)
-  
+
   useEffect(() => {
-    dispatch(getImages());
     dispatch(getProducts());
     dispatch(getCategorys());
   }, [dispatch]);
@@ -36,9 +34,12 @@ const Home = () => {
 
   const paginateNext = (nextPage) => setCurrentPage(nextPage);
 
+
+
   return (
     <div className={s.divaHome}>
       <Navbar setPages={setCurrentPage} />
+      <img src="../../img/messi.jpg" alt="" className={s.imgH}/>
       <div className={s.hero}>
         <div className={s.textoHero}>
           <h1>Supra Sports</h1>
@@ -66,31 +67,34 @@ const Home = () => {
         key={allProducts.id}
       ></Paginado>
 
-
       {allProducts.length > 0 ? (
         <div>
-            <div className={s.section}>
-              {currentProducts.map((card) => parseInt(card.stock) > 0 && (
-                <div key={card.id}>
-                  <Card
-                    nombre={card.nombre}
-                    URL={card.URL}
-                    marca={card.marca}
-                    precio={card.precio}
-                    color={card.color}
-                    talla={card.talla}
-                    categoria={card.categoria}
-                    id={card.id}
-                  />
-                </div>
-              ))}
-            </div>
+          <div className={s.section}>
+            {currentProducts.map((card) => parseInt(card.stock) > 0 && (
+              <div key={card.id}>
+                <Card
+                  nombre={card.nombre}
+                  URL={card.URL}
+                  marca={card.marca}
+                  precio={card.precio}
+                  color={card.color}
+                  talla={card.talla}
+                  categoria={card.categoria}
+                  id={card.id}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       ) : (
         <div className={s.notFound}>
           <h1>Estamos buscando lo que necesitas!</h1>
           <h2>En caso de no cargar te recomendamos refrescar la página...</h2>
-          <img src={messiNotFound} alt="img"></img>
+          <img
+            src={'https://i.makeagif.com/media/11-11-2015/AAP2zs.gif'}
+            width="200px"
+            alt="img"
+          ></img>
         </div>
       )}
       <Paginado

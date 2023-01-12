@@ -5,13 +5,14 @@ const productRouter = require("./productRouter.js");
 const userRouter = require("./userRouter.js");
 const customerQARouter = require("./customerQARouter");
 const adminQARouter = require("./adminQARouter");
-const categoryRouter = require("./categoryRouter")
+const categoryRouter = require("./categoryRouter");
 const compraRouter = require("./compraRouter");
-const imagesRouter = require("./imagesRouter");
+const favoritosRouter = require("./favoritosRouter");
+const superAdminRouter = require("./superAdminRouter");
 
 const router = Router();
-const mercadopago = require("mercadopago");
-const express = require("express");
+const mercadopago = require('mercadopago');
+const express = require('express');
 
 
 router.use(express.json());
@@ -20,14 +21,16 @@ router.use("/products", productRouter);
 router.use("/users", userRouter);
 router.use("/customerQA", customerQARouter);
 router.use("/adminQA", adminQARouter);
-router.use("/category", categoryRouter)
+router.use("/category", categoryRouter);
+router.use("/favoritos", favoritosRouter);
 router.use("/compras", compraRouter);
-router.use("/images", imagesRouter);
+router.use("/superAdmin", superAdminRouter);
+
 
 
 mercadopago.configure({
   access_token:
-    "APP_USR-8763313892706046-121400-b6b39cc901e4f87d36ca35efbd37f52c-1263181426",
+    'APP_USR-8763313892706046-121400-b6b39cc901e4f87d36ca35efbd37f52c-1263181426',
   /* access_token: "TEST-8763313892706046-121400-1f81130c8eea6eec0631d629769666b3-1263181426", PREGUNTAR ALEJANDRO*/
 });
 
@@ -49,7 +52,7 @@ router.post('/pagosMeli', async (req, res) => {
         id: item.id,
         title: item.nombre,
         currency_id: 'ARS',
-        picture_url: item.URL,
+        picture_url: item.URL[0],
         quantity: items[0].cantidad,
         unit_price: parseInt(item.precio),
       })
@@ -112,4 +115,4 @@ router.get("/redirect", async (req, res) => {
   ) 
  
 
-module.exports = router
+module.exports = router;

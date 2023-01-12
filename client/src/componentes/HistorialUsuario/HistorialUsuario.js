@@ -10,20 +10,22 @@ const HistorialUsuario = () => {
   const { user } = useAuth0();
   const [clienteId, setClienteId] = useState('');
 
-  useEffect(async () => {
+  
+  useEffect(() => {
     const fetchUserId = async () => {
       axios
         .post('http://localhost:3001/compras/obtenerId', {
           User: user.nickname,
         })
         .then((data) => {
+          // console.log(data.data);
           setClienteId(data.data);
           return data.data;
         });
     };
 
     fetchUserId();
-  }, [user.nickname]);
+  }, [user, user.nickname]);
 
   useEffect(() => {
     if (!clienteId) return;
@@ -43,7 +45,7 @@ const HistorialUsuario = () => {
 
   return (
     <div>
-      <Navbar2></Navbar2>
+      <Navbar2/>
 
       <div className={style.divPadre}>
         <h2>Historial de compras</h2>
@@ -62,7 +64,9 @@ const HistorialUsuario = () => {
               id={elem.id}
               enviado={elem.estado}
               key={elem.id}
+              cantidad={elem.cantidad}
               clienteId={clienteId}
+              localizador={elem.localizador}
             />
           );
         })}

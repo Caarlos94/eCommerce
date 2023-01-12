@@ -89,7 +89,7 @@ const ReviewForm = () => {
           <p className={classes.nombre}>{producto.nombre}</p>
           <div className={classes["review-container"]}>
             <div className={classes["left-side"]}>
-              <img src={producto.URL} alt={producto.nombre} />
+              <img src={producto.URL[0]} alt={producto.nombre} />
             </div>
             <div className={classes["right-side"]}>
               <div className={classes["rating-container"]}>
@@ -100,8 +100,9 @@ const ReviewForm = () => {
                   <StarRating handleRating={handleRating} />
                 </div>
                 <div
-                  className={`${classes["rating-name"]} ${ratingColor && classes[ratingColor]
-                    }`}
+                  className={`${classes["rating-name"]} ${
+                    ratingColor && classes[ratingColor]
+                  }`}
                 >
                   {ratingNameValue}
                 </div>

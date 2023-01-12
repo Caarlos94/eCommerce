@@ -31,7 +31,7 @@ module.exports = (sequelize) => {
         alowNull: true,
       },
       cel: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         alowNull: true,
       },
     },
@@ -39,7 +39,6 @@ module.exports = (sequelize) => {
       timestamps: true,
       createdAt: "fecha",
       updatedAt: false,
-    },
-    
+    }
   );
 };

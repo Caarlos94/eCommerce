@@ -11,7 +11,7 @@ const VentaCard = ({ data, accessToken }) => {
     feedback: '',
   });
 
-  console.log(data);
+  /* console.log(data); */
 
   const [responseError, setResponseError] = useState({
     error: false,

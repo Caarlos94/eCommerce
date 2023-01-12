@@ -65,22 +65,18 @@ export default function UpdateProd() {
         dispatch(getProducts());
     }, [dispatch]);
 
-
-    console.log(id);
     const history = useHistory();
     const [errors, setErrors] = useState({});
     const [input, setInput] = useState({
         id: id,
         nombre: "",
-        URL: "",
+        URL: [],
         precio: "",
         color: "",
         talla: "",
         marca: "",
         stock: "",
     });
-
-
 
     const handlerChange = (e) => {
         setInput({
@@ -94,6 +90,13 @@ export default function UpdateProd() {
             }, prods
             ));
     };
+
+    
+  const handlerImg = (e) => {
+    setInput(   { ...input, URL:[...input.URL, e.target.value] });
+    setErrors(validate({...input, URL: [...input.URL, e.target.value]}, prods)) 
+    console.log(input);
+};
 
     const handlerSubmit = (e) => {
         e.preventDefault();
@@ -135,20 +138,45 @@ export default function UpdateProd() {
                         </div>
 
                         <div className={style.inputI}>
-                            <label>Imagen: </label>
+                            <label>Imagen 1: </label>
                             <input
                                 /* placeholder={`Anterior: ${detail.URL}`} */
-                                type="text"
-                                value={input.URL}
+                                type="url"
+                                // value={input.URL}
                                 name="URL"
-                                onChange={(e) => handlerChange(e)}
+                                onChange={(e) => handlerImg(e)}
+                            ></input>
+                            {errors.URL
+                                ? ( <p className={style.errors}>{errors.URL}</p> )
+                                : (input.URL.length) ? ( <img src={input.URL[0]} alt='img'></img> ) : ("")}
+                        </div>
+
+                        <div className={style.inputI}>
+                            <label>Imagen 2: </label>
+                            <input
+                                /* placeholder={`Anterior: ${detail.URL}`} */
+                                type="url"
+                                // value={input.URL}
+                                name="URL"
+                                onChange={(e) => handlerImg(e)}
                             ></input>
                             {errors.URL
                                 ? <p className={style.errors}>{errors.URL}</p>
-                                : input.URL
-                                    ? <img src={input.URL} alt='img'></img>
-                                    : ""
-                            }
+                                : (input.URL.length) ? <img src={input.URL[1]} alt='img'></img> : ("")}
+                        </div>
+
+                        <div className={style.inputI}>
+                            <label>Imagen 3: </label>
+                            <input
+                                /* placeholder={`Anterior: ${detail.URL}`} */
+                                type="url"
+                                // value={input.URL}
+                                name="URL"
+                                onChange={(e) => handlerImg(e)}
+                            ></input>
+                            {errors.URL
+                                ? <p className={style.errors}>{errors.URL}</p>
+                                : (input.URL.length) ? <img src={input.URL[2]} alt='img'></img> : ("")}
                         </div>
 
                         <div className={style.inputI}>

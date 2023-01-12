@@ -1,40 +1,51 @@
-import React, { useEffect, useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
-import axios from 'axios';
-import s from './Carrito.module.css';
-import { useSelector, useDispatch } from 'react-redux';
-import CartProduct from './CartProduct';
-import { clearCart, removeAllFromCart, removeOneFromCart, addOneToCart } from '../../redux/actions/actions';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import s from "./Carrito.module.css";
+import { useSelector, useDispatch } from "react-redux";
+import CartProduct from "./CartProduct";
+import { useAuth0 } from "@auth0/auth0-react";
+import {
+  clearCart,
+  removeAllFromCart,
+  removeOneFromCart,
+  addOneToCart,
+} from '../../redux/actions/actions';
 import Navbar2 from '../navbar/navBar2';
-import { NavLink } from 'react-router-dom';
-import { Link } from 'react-router-dom'
 import FormCompra from '../formCompra/FormCompra';
 
 const Carrito = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const [usuarioid, setUsuaruioId] = useState('');
+  const [usuarioId, setUsuaruioId] = useState('');
 
   // console.log(cart);
 
   const [click, setClick] = useState(false)
 
-  useEffect(async () => {
-    if (isAuthenticated === true) {
-      if (cart.length) {
-        const idUsuariodb = await axios.post(
-          'http://localhost:3001/compras/obtenerId',
-          {
-            User: user.nickname,
-          }
-        );
+  useEffect(() => {
+    const fetchUserId = async () => {
+      if (isAuthenticated === true) {
+        if (cart.length) {
+          const idUsuariodb = await axios.post(
+            'http://localhost:3001/compras/obtenerId',
+            {
+              User: user.nickname,
+            }
+          );
 
-        if (idUsuariodb) setUsuaruioId(idUsuariodb.data);
+          if (idUsuariodb) setUsuaruioId(idUsuariodb.data);
+
+        }
       }
     }
-  }, []);
 
+    user && user.hasOwnProperty("nickname") && fetchUserId();
+  }, [user, cart.length, isAuthenticated]);
+
+
+
+  /* const { isAuthenticated, loginWithRedirect } = useAuth0() */
   const handleDelete = (id, all = false) => {
     //console.log(id, all);
     if (all) {
@@ -59,40 +70,41 @@ const Carrito = () => {
     dispatch(clearCart());
   };
 
-  const handleBuy = ( input, email ) => {
+  const handleBuy = (input, email) => {
     if (!isAuthenticated) {
       loginWithRedirect();
       return;
     }
+    /* console.log(cart); */
 
     if (!cart.length) return; // manejar mejor la respuesta al intentar comprar con un carrito vacio?
-
     fetch('http://localhost:3001/pagosMeli', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ items: cart, idUsuario: usuarioid }),
+      body: JSON.stringify({ items: cart, idUsuario: usuarioId }),
     })
       .then((data) => data.json())
       .then((data) => {
         if (data.error) console.log(data); // manejar caso de error
-        window.open(data, '_self');
+        window.open(data, "_self");
         /* console.log(data); */
-              fetch("http://localhost:3001/compras", {
+        fetch("http://localhost:3001/compras", {
           method: "POST",
           headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ input, email: email, productos: cart }),
+          },
+          body: JSON.stringify({ input, email: email, productos: cart }),
         })
+        dispatch(clearCart())
       });
-    // handleStock()
   };
+
+
+
   let totalProd = 0;
   cart.map((prod) => (totalProd += prod.cantidad * prod.precio));
-
-  // console.log(usuarioid);
 
   return (
     <>
@@ -153,9 +165,9 @@ const Carrito = () => {
         </div>
       </div>}
       {
-        click &&  <FormCompra
-                    handle = {handleBuy}/>
-      } 
+        click && <FormCompra
+          handle={handleBuy} />
+      }
     </>
   );
 };

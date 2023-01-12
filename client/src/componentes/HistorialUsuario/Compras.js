@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import style from './Compras.module.css';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Compras = (props) => {
   const { enviado } = props;
@@ -15,6 +15,8 @@ const Compras = (props) => {
     )
       .then((data) => data.json())
       .then((data) => {
+
+        console.log(props);
         if (data.error === true) {
           setDidReview(true);
         } else {
@@ -22,34 +24,42 @@ const Compras = (props) => {
         }
         // console.log(data);
       });
-  }, [clienteId, productId]);
+  }, [props, clienteId, productId]);
 
   return (
     <div key={props.nombre} className={style.div}>
       <div className={style.imgCont}>
-        <img src={props.URL} alt="imagen de producto" />
+
+        <div className={style.itemImg}>
+          <img src={props.URL[0]} alt="imagen de producto" />
+        </div>
       </div>
       <div className={style.textCont}>
-        <h4>{props.nombre}</h4>
+        <NavLink to={`/details/${productId}`} style={{ textDecoration: 'none' }}>
+          <h4>{props.nombre}</h4>
+        </NavLink>
         <h5>Marca: {props.marca}</h5>
         <h5>Fecha: {props.fecha}</h5>
         <h5>Precio: {props.precio}</h5>
         <h5>Talla: {props.talla}</h5>
+        <h5>cantidad: {props.cantidad}</h5>
         <h5>Numero de envio: {props.localizador}</h5>
       </div>
-      {enviado && !didReview ? (
-        <Link
-          to={{
-            pathname: '/review-form',
-            state: { producto: props, clienteId },
-          }}
-        >
-          <button>aca va la logica del review</button>
-        </Link>
-      ) : (
-        ''
-      )}
-    </div>
+      {
+        enviado && !didReview ? (
+          <Link
+            to={{
+              pathname: '/review-form',
+              state: { producto: props, clienteId },
+            }}
+          >
+            <button>Dejar reseña.</button>
+          </Link>
+        ) : (
+          ''
+        )
+      }
+    </div >
   );
 };
 

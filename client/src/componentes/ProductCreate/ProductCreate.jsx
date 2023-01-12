@@ -10,7 +10,6 @@ import {
 } from '../../redux/actions/actions';
 import style from './ProductCreate.module.css';
 import Navbar2 from '../navbar/navBar2';
-import Footer from '../Footer/Footer';
 
 const validate = (input, prods) => {
   let errors = {};
@@ -25,7 +24,19 @@ const validate = (input, prods) => {
       errors.nombre = 'Este producto ya existe!';
     }
   }
-  if (input.URL) {
+  if (input.URL[0]) {
+    if (!/(https?:\/\/.*\.(?:png|jpg|jpeg))/i.test(input.URL)) {
+      errors.URL =
+        'Este dato es obligatorio, solo permite imágenes de tipo .jpg/.png/.jpeg';
+    }
+  }
+  if (input.URL[1]) {
+    if (!/(https?:\/\/.*\.(?:png|jpg|jpeg))/i.test(input.URL)) {
+      errors.URL =
+        'Este dato es obligatorio, solo permite imágenes de tipo .jpg/.png/.jpeg';
+    }
+  }
+  if (input.URL[2]) {
     if (!/(https?:\/\/.*\.(?:png|jpg|jpeg))/i.test(input.URL)) {
       errors.URL =
         'Este dato es obligatorio, solo permite imágenes de tipo .jpg/.png/.jpeg';
@@ -80,7 +91,7 @@ export default function ProdCreate() {
   const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
     nombre: '',
-    URL: '',
+    URL: [],
     precio: '',
     color: '',
     talla: '',
@@ -95,39 +106,42 @@ export default function ProdCreate() {
   }, [dispatch]);
 
   const handlerChange = (e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-    setErrors(
-      validate(
-        {
-          ...input,
-          [e.target.name]: e.target.value,
-        },
-        prods
-      )
-    );
-  };
+    setInput({ ...input, [e.target.name]: e.target.value });
+    setErrors( validate({ ...input, [e.target.name]: e.target.value }, prods))};
 
   const handlerSelectCateg = (e) => {
     if (!input.categoria.includes(e.target.value)) {
-      setInput({
-        ...input,
-        categoria: e.target.value,
-      });
-    }
+      setInput({ ...input, categoria: e.target.value })}
   };
+
+  const handlerImg = (e) => {
+      setInput(   { ...input, URL:[e.target.value] });
+      setErrors(validate({...input, URL: [...input.URL, e.target.value]}, prods)) 
+      console.log(input);
+  };
+
+//   const handlerImg2 = (e) => {
+//     setInput({ ...input, URL:[e.target.value] });
+//     setErrors(validate({...input, URL: [...input.URL, e.target.value]}, prods)) 
+//     console.log(input);
+// };
+
+//   const handlerImg3 = (e) => {
+//     setInput({ ...input, [e.target.name]: [e.target.value] });
+//     setErrors(validate({...input, URL: [...input.URL, e.target.value]}, prods)) 
+//     console.log(input);
+//   };
 
   const handlerSubmit = (e) => {
     e.preventDefault();
     console.log(input);
     dispatch(postProd(input));
+    /* dispatch(postCategory(input)); */
     setTimeout(() => dispatch(getProducts2()), 100);
     alert('Producto publicado con éxito! Se te redirigirá al inicio...');
     setInput({
       nombre: '',
-      URL: '',
+      URL: [],
       precio: '',
       color: '',
       talla: '',
@@ -143,7 +157,6 @@ export default function ProdCreate() {
       <Navbar2 />
       <div className={style.createCont}>
         <h1>Crear Producto</h1>
-
         <div className={style.forms}>
           <form onSubmit={(e) => handlerSubmit(e)}>
             <div className={style.inputI}>
@@ -158,20 +171,39 @@ export default function ProdCreate() {
             </div>
 
             <div className={style.inputI}>
-              <label>Imagen: </label>
+              <label>Imagen 1: </label>
               <input
-                type="text"
-                value={input.URL}
+                type="url"
                 name="URL"
-                onChange={(e) => handlerChange(e)}
+                onChange={(e) => handlerImg(e)}
               ></input>
               {errors.URL ? (
                 <p className={style.errors}>{errors.URL}</p>
-              ) : input.URL ? (
-                <img src={input.URL} alt="img"></img>
-              ) : (
-                ''
-              )}
+              ) : (input.URL.length) ? ( <img src={input.URL[0]} alt="img"></img> ) : ('')}
+            </div>
+
+            <div className={style.inputI}>
+              <label>Imagen 2: </label>
+              <input
+                type="url"
+                name="URL"
+                onChange={(e) => handlerImg(e)}
+              ></input>
+              {errors.URL ? (
+                <p className={style.errors}>{errors.URL}</p>
+              ) : (input.URL.length) ? ( <img src={input.URL[1]} alt="img"></img> ) : ('')}
+            </div>
+
+            <div className={style.inputI}>
+              <label>Imagen 3: </label>
+              <input
+                type="url"
+                name="URL"
+                onChange={(e) => handlerImg(e)}
+              ></input>
+              {errors.URL ? (
+                <p className={style.errors}>{errors.URL}</p>
+              ) : (input.URL.length) ? ( <img src={input.URL[2]} alt="img"></img> ) : ('')}
             </div>
 
             <div className={style.inputI}>
@@ -193,6 +225,7 @@ export default function ProdCreate() {
                 name="color"
                 onChange={(e) => handlerChange(e)}
               ></input>
+
               {errors.color && <p className={style.errors}>{errors.color}</p>}
             </div>
 
@@ -253,15 +286,15 @@ export default function ProdCreate() {
             <div className={style.publicar}>
               <button
                 type="submit"
-                disabled={
-                  !input.nombre ||
-                  errors.nombre ||
-                  errors.precio ||
-                  errors.color ||
-                  errors.talla ||
-                  errors.marca ||
-                  !input.categoria
-                }
+                // disabled={
+                //   !input.nombre ||
+                //   errors.nombre ||
+                //   errors.precio ||
+                //   errors.color ||
+                //   errors.talla ||
+                //   errors.marca ||
+                //   !input.categoria
+                // }
               >
                 Publicar Producto!
               </button>
@@ -269,7 +302,6 @@ export default function ProdCreate() {
           </form>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

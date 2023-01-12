@@ -29,7 +29,6 @@ productRouter.get("/:id", async (req, res) => {
             id: r.id,
             nombre: r.nombre,
             URL: r.URL,
-            images: r.images,
             marca: r.marca,
             precio: r.precio,
             color: r.color,
@@ -53,8 +52,7 @@ productRouter.post("/", async (req, res) => {
   try {
     const data = req.body;
     const { categoria } = req.body;
-
-    console.log(data);
+    // console.log(data);
 
     const newProduct = await Producto.create(data);
     const DatabaseCategory = await Categoria.findAll({
@@ -66,7 +64,7 @@ productRouter.post("/", async (req, res) => {
       nombre: data.nombre,
       // URL: data.URL 
     })
-    console.log(newImage);
+    // console.log(newImage);
 
     res.status(200).json(newProduct);
   } catch (error) {
@@ -104,16 +102,9 @@ productRouter.put("/:id", async (req, res) => {
 
   try {
 
-      let im = await Images.update({
-  //      nombre: nombre.data,
-        URL: [data.URL, data.URL, data.URL]
-      },
-      { where: { nombre: producto.nombre } }
-    )
-
     let productoUp = await Producto.update({
         nombre: data.nombre || producto.nombre,
-        URL: data.URL || producto.URL,
+        URL: data.URL[0] || producto.URL[0],
         precio: data.precio || producto.precio,
         color: data.color || producto.color,
         talla: data.talla || producto.talla,

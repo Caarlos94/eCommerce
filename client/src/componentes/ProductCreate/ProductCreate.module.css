@@ -9,7 +9,7 @@
 
 .createCont {
   background-color: #edeff0;
-  height: 200vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,7 +18,6 @@
 .createCont h1 {
   font-weight: bold;
   font-size: 60px;
-  margin-left: -3%;
 }
 
 .forms {
