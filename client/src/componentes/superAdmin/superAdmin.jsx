@@ -25,38 +25,38 @@ const SuperAdmin = (props) => {
     console.log("Actualizacion de padre", cueParentUpdate, cueChildUpdate);
     const funct = async () => {
       const result = await axios.get(
-        "http://localhost:3001/superAdmin/fetchRoles"
+        "http://localhost:3001/superAdmin/fetchRoles",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
       );
 
       setAdmins(result.data);
     };
     funct();
-  }, [cueParentUpdate, cueChildUpdate]);
+  }, [cueParentUpdate, cueChildUpdate, accessToken]);
 
   const deleteAd = (params) => {
     DeleteAdmins([...deleteAdmins, params]);
   };
 
   const Delete = async () => {
-    //NECESITA PASAR TOKEN DE ACCESSO
-    axios
-      .post("http://localhost:3001/superAdmin/removeAdmin", deleteAdmins)
-      .then((data) => data.data)
+    fetch(`http://localhost:3001/superAdmin/removeAdmin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(deleteAdmins),
+    })
+      .then((data) => data.json())
       .then(() =>
         setTimeout(() => {
           setCueParentUpdate(cueParentUpdate + 1);
         }, 200)
       ); // lo pasé a promesas porque necesito actualizar a partir de la respuesta
-
-    // if (adminsdeletes.data) {
-    //   setTimeout(async () => {
-    //     const result = await axios.get(
-    //       "http://localhost:3001/superAdmin/fetchRoles"
-    //     );
-
-    //     setAdmins(result.data);
-    //   }, 100);
-    // }
   };
 
   return (
@@ -78,21 +78,26 @@ const SuperAdmin = (props) => {
                   <p>Usuarios con rol admin</p>
                   <div>
                     {admins?.map((element) => {
+                      console.log(element);
                       return (
                         <div className={style.admin} key={element.user_id}>
                           <h5>{element.email}</h5>
-                          <h5>{element.name}</h5>
+                          <h5>
+                            {element.user_id.includes("google")
+                              ? "GoogleID"
+                              : "Auth0ID"}
+                          </h5>
                           <button
                             onClick={() => deleteAd(element.user_id)}
                             className={style.buttonAdmins}
                           >
-                            Eliminar admin
+                            Seleccionar admin
                           </button>
                         </div>
                       );
                     })}
                     <button onClick={() => Delete()} className={style.admins}>
-                      Delete admins
+                      Eliminar admins
                     </button>
                   </div>
                 </div>

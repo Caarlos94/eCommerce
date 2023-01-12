@@ -22,6 +22,8 @@ export const GET_REVIEWS = "GET_REVIEWS";
 export const GET_FAVORITES = "GET_FAVORITES";
 export const EMAIL = "EMAIL";
 export const GET_CARRITO = "GET_CARRITO";
+export const GET_TOKEN = "GET_TOKEN";
+export const ADD_PAGINATE = "ADD_PAGINATE";
 
 export const getProducts = () => {
   return async function (dispatch) {
@@ -46,23 +48,33 @@ export const getProducts2 = () => {
   };
 };
 
-export function updateProduct(data, id) {
+export function updateProduct(data, id, accessToken) {
+  // necesita token
   return function () {
     fetch(`http://localhost:3001/products/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(data),
     });
   };
 }
 
-export function postProd(payload) {
+export function postProd(payload, accessToken) {
+  // necesita token
+
   return async function () {
     const response = await axios.post(
       "http://localhost:3001/products",
-      payload
+      payload,
+      {
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     );
     return response;
   };
@@ -99,6 +111,8 @@ export function getReviews(id) {
 }
 
 export function importUser(user) {
+  // necesita token
+
   return function () {
     fetch("http://localhost:3001/users", {
       method: "POST",
@@ -110,25 +124,47 @@ export function importUser(user) {
   };
 }
 
-export function postCategory(payload) {
+export function postCategory(payload, token) {
+  // necesita token
+
   return async function () {
     const response = await axios.post(
       "http://localhost:3001/category",
-      payload
+      payload,
+      {
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     return response;
   };
 }
 
-export function deleteCategory(nombre) {
+export function deleteCategory(nombre, accessToken) {
+  // necesita token
+
   return async function () {
-    await axios.delete(`http://localhost:3001/category/${nombre}`);
+    await axios.delete(`http://localhost:3001/category/${nombre}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
   };
 }
 
-export function deleteProd(id) {
+export function deleteProd(id, accessToken) {
+  // necesita token
+
   return async function (dispatch) {
-    await axios.delete(`http://localhost:3001/products/${id}`);
+    await axios.delete(`http://localhost:3001/products/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     return dispatch({
       type: "DELETE_PROD",
       payload: id,
@@ -242,6 +278,8 @@ export function getFavorites(email) {
 }
 
 export function addToFavorite(payload) {
+  // necesita token
+
   return async function () {
     const response = await axios.post(
       'http://localhost:3001/favoritos',
@@ -252,32 +290,41 @@ export function addToFavorite(payload) {
 }
 
 export function removeFromFavorite(id) {
+  // necesita token
+
   return {
     type: REMOVE_FROM_FAVORITE,
     payload: id,
   };
 }
 
-export function getCarrito(email) {
-  return async function (dispatch) {
-    const response = await axios.get(`http://localhost:3001/carrito/${email}`);
-    return dispatch({
-      type: GET_CARRITO,
-      payload: response.data,
-    });
-  };
-}
-
+// export function getCarrito(email) {
+//   return async function (dispatch) {
+//     const response = await axios.get(`http://localhost:3001/carrito/${email}`);
+//     return dispatch({
+//       type: GET_CARRITO,
+//       payload: response.data,
+//     });
+//   };
+// }
+/* 
 export function addToCarrito(payload) {
   return async function () {
     const response = await axios.post('http://localhost:3001/carrito', payload);
     return response;
   };
-}
+} */
 
 export function removeFromCarrito(id) {
   return {
     type: REMOVE_FROM_FAVORITE,
     payload: id,
+  };
+}
+
+export function AddPaginate(num) {
+  return {
+    type: ADD_PAGINATE,
+    payload: num,
   };
 }

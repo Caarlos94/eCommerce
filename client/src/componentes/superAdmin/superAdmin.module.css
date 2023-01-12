@@ -1,8 +1,13 @@
 .divPadre {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  flex-direction: column;
   /* border: 3px solid green; */
   padding-bottom: 12rem;
   height: 100%;
+  margin-bottom: 12rem;
 }
 
 .divAdmins {
@@ -14,7 +19,6 @@
   margin-top: 4rem;
   border-radius: 10px;
   padding: 20px;
-  margin-bottom: 30px;
 }
 .divAdmins p {
   margin-top: 1.7rem;
@@ -80,4 +84,26 @@
   margin-left: 3rem;
   /* border: 3px solid red; */
   height: 60rem;
+}
+
+@media (max-width: 768px) {
+  .divAdmins {
+    width: 90%;
+  }
+
+  .add-container {
+    width: 90%;
+  }
+
+  .blocking-options {
+    width: 90%;
+  }
+
+  .admin h5 {
+    font-size: 17px;
+  }
+
+  .admins {
+    width: 60%;
+  }
 }

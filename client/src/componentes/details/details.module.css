@@ -83,21 +83,36 @@
 .img111 {
   width: 40%;
   height: 90%;
-  /* background-position: center;
-  background-size: calc(120% - 80px); */
   background-position: center;
-  background-size: calc(120% - 80px);
+  background-size: 90%;
   background-repeat: no-repeat;
 }
+
+.img112 {
+  width: 40%;
+  height: 90%;
+  background-position: center;
+  background-size: 90%;
+  background-repeat: no-repeat;
+}
+
+.img113 {
+  width: 40%;
+  height: 90%;
+  background-position: center;
+  background-size: 90%;
+  background-repeat: no-repeat;
+}
+
 
 .textCont {
   background-color: #edeff0;
   height: 100%;
-  width: 45%;
+  width: 35%;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   flex-direction: column;
-  align-items: center;
 }
 
 .textCont h2 {
@@ -106,7 +121,7 @@
 
 .productDesc {
   margin-bottom: 150px;
-  margin-left: -10%;
+  margin-left: 50px;
 }
 
 .productDesc h2 {
@@ -116,14 +131,14 @@
 }
 
 .marca {
-  font-size: 15px;
+  font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .nombre {
   font-size: 30px;
   font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
+
 }
 
 .categoria {
@@ -134,20 +149,21 @@
 .precio {
   font-size: 35px;
   font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
 }
 
 .color {
-  font-size: 15px;
+  font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .talla {
-  font-size: 15px;
+  font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .stock {
-  font-size: 15px;
+  font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -237,10 +253,6 @@
   left: 0%;
 }
 
-.textCont h3 {
-  font-weight: bold;
-}
-
 .productDesc {
   width: 500px;
   height: 300px;
@@ -312,6 +324,7 @@
 }
 
 .btns img {
+  width: 45px;
   transition: all 0.4s;
 }
 
@@ -380,37 +393,35 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px) and (min-width: 909px) {
   .detailCont {
     flex-direction: column;
     align-items: center;
   }
 
-  .imgCont {
-    height: 400px;
-  }
 
-  .img1 {
-    width: 60%;
+
+  .imgCont {
+    height: 500%;
+
   }
 
   .img111 {
     width: 80%;
   }
 
-  .textCont {
-    width: 100%;
-    height: 60%;
-    position: relative;
-  }
-
-  .textCont h2 {
-    font-size: 28px;
+  .img112 {
     width: 80%;
   }
 
-  .textCont h3 {
-    font-weight: bold;
+  .img113 {
+    width: 80%;
+  }
+
+  .textCont {
+    width: 100%;
+    height: 3000px;
+    position: relative;
   }
 
   .textCont h5 {
@@ -423,7 +434,7 @@
   }
 
   .btns img {
-    width: 50px;
+    width: 41px;
   }
 
   .productDesc {
@@ -433,9 +444,12 @@
   }
 
   .botones {
-    width: 90%;
-    position: absolute;
+    width: 45%;
     bottom: 10%;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 140px;
+
   }
 
   .spinner {
@@ -445,39 +459,124 @@
   }
 }
 
-@media (min-width: 769px) and (max-width: 1380px) {
+@media (min-width: 1250px) and (max-width: 1440px) {
   .textCont {
     background-color: #edeff0;
     height: 100%;
-    width: 45%;
+    width: 35%;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    margin-top: -100px;
   }
 
-  .textCont h2 {
-    font-size: 30px;
-    margin-left: 5%;
+  .botones {
+    width: 65%;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin-top: -50px;
+    margin-left: -130px;
   }
 
-  .textCont h3 {
-    font-size: 20px;
-    margin-left: 5%;
+  .añadirCart {
+    width: 230px;
   }
 
-  .textCont h5 {
-    font-size: 18px;
-    margin-left: 5%;
+  .productDesc {
+    margin-top: 150px;
+    width: 500px;
+    height: 300px;
+    margin-left: 15px;
+  }
+
+  .marca {
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .nombre {
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+
+  }
+
+  .categoria {
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+}
+
+@media (min-width: 910px) and (max-width: 1024px) {
+  .textCont {
+    background-color: #edeff0;
+    height: 100%;
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -50px;
   }
 
   .botones {
     width: 100%;
     justify-content: space-around;
+    align-items: flex-start;
+    margin-top: -150px;
+  }
+
+  .añadirCart {
+    width: 230px;
+  }
+
+  .productDesc {
+    margin-top: 150px;
+    width: 500px;
+    height: 300px;
+    margin-left: 150px;
+  }
+
+  .marca {
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .nombre {
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+
+  }
+
+  .categoria {
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .precio {
+    font-size: 35px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+  }
+
+  .color {
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .talla {
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .stock {
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
   }
 }
 
-@media (min-width: 769px) and (max-width: 990px) {
+/* @media (min-width: 769px) and (max-width: 990px) {
   .detailCont {
     flex-direction: column;
     align-items: center;
@@ -520,7 +619,7 @@
   }
 
   .btns img {
-    width: 50px;
+    width: 43px;
   }
 
   .productDesc {
@@ -541,3 +640,4 @@
     left: 35%;
   }
 }
+ */

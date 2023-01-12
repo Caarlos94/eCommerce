@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Producto } = require('../db.js');
+const { Producto } = require("../db.js");
 
 const productRouter = require("./productRouter.js");
 const userRouter = require("./userRouter.js");
@@ -9,39 +9,45 @@ const categoryRouter = require("./categoryRouter");
 const compraRouter = require("./compraRouter");
 const favoritosRouter = require("./favoritosRouter");
 const superAdminRouter = require("./superAdminRouter");
+const axios = require("axios");
 
 const router = Router();
-const mercadopago = require('mercadopago');
-const express = require('express');
-
+const mercadopago = require("mercadopago");
+const express = require("express");
+const { validateAccessToken } = require("./middleware/validateAccessToken");
 
 router.use(express.json());
 
-router.use("/products", productRouter);
-router.use("/users", userRouter);
-router.use("/customerQA", customerQARouter);
-router.use("/adminQA", adminQARouter);
-router.use("/category", categoryRouter);
-router.use("/favoritos", favoritosRouter);
-router.use("/compras", compraRouter);
-router.use("/superAdmin", superAdminRouter);
-
-
+router.use('/products', productRouter);
+router.use('/users', userRouter);
+router.use('/customerQA', customerQARouter);
+router.use('/adminQA', adminQARouter);
+router.use('/category', categoryRouter);
+router.use('/favoritos', favoritosRouter);
+router.use('/compras', compraRouter);
+router.use('/superAdmin', superAdminRouter);
 
 mercadopago.configure({
   access_token:
-    'APP_USR-8763313892706046-121400-b6b39cc901e4f87d36ca35efbd37f52c-1263181426',
+    "APP_USR-8763313892706046-121400-b6b39cc901e4f87d36ca35efbd37f52c-1263181426",
   /* access_token: "TEST-8763313892706046-121400-1f81130c8eea6eec0631d629769666b3-1263181426", PREGUNTAR ALEJANDRO*/
 });
 
 let obj = {};
-let GuardarComprasDB = {
-  clienteId: '',
-  productos: [],
-};
+// let GuardarComprasDB = {
+//   clienteId: "",
+//   productos: [],
+// };
+let datosDestinatario = { input: "", email: "", token: "" };
 
-router.post('/pagosMeli', async (req, res) => {
+router.post("/pagosMeli", validateAccessToken, async (req, res) => {
   let items = req.body.items;
+  let { input, email: email, token } = req.body;
+
+  datosDestinatario.input = input;
+  datosDestinatario.email = email;
+  datosDestinatario.token = token;
+
   let idUsuario = req.body.idUsuario;
 
   // obj = items
@@ -62,7 +68,7 @@ router.post('/pagosMeli', async (req, res) => {
   let preference = {
     items: itemsArr,
     back_urls: {
-      success: 'http://localhost:3001/redirect',
+      success: "http://localhost:3001/redirect",
     },
   };
 
@@ -95,24 +101,29 @@ router.post('/pagosMeli', async (req, res) => {
     });
 });
 router.get("/redirect", async (req, res) => {
-  let { status } = req.query
+  let { status } = req.query;
   try {
-  if (status === "approved") {
-    obj.forEach(async producto => {  
- 
-      let productStock = await Producto.findByPk(producto.id)
-      let rest = productStock.stock - producto.cantidad
+    if (status === "approved") {
+      obj.forEach(async (producto) => {
+        let productStock = await Producto.findByPk(producto.id);
+        let rest = productStock.stock - producto.cantidad;
 
-      const modifiedProduct = await Producto.update(
-        { stock: rest },
-        { where: { id: producto.id } }); 
-    })    
-      res.redirect('http://localhost:3000')
-    }} catch (error) {
-      res.status(400).send(error.message)
+        const modifiedProduct = await Producto.update(
+          { stock: rest },
+          { where: { id: producto.id } }
+        );
+      });
+
+      axios.post("http://localhost:3001/compras", {
+        input: datosDestinatario.input,
+        email: datosDestinatario.email,
+        productos: obj,
+      });
+      res.redirect("http://localhost:3000");
     }
+  } catch (error) {
+    res.status(400).send(error.message);
   }
-  ) 
- 
+});
 
 module.exports = router;

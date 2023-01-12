@@ -8,7 +8,7 @@ userRouter.post("/", async (req, res) => {
     const data = req.body;
     // const { product } = req.body
     // const newUser = await Cliente.create(data)
-    console.log(data);
+    // console.log(data);
     const { sub } = data;
 
     const [instance, created] = await Cliente.findOrCreate({

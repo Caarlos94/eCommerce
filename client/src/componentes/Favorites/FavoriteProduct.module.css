@@ -1,46 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+.conteiner{
+  width: 630px;
+  height: 180px;
+}
+
 .item {
-  width: 60%;
-  height: 200px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 15px;
+  border-radius: 5px;
   margin-top: 40px;
   display: flex;
   align-items: center;
   position: relative;
-  z-index: 10;
-}
-
-.itemmm {
-  width: 30%;
-}
-
-.itemm {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  position: relative;
+  
 }
 
 .itemImg {
-  border: 0.5px solid rgb(143, 143, 143);
-  width: 35%;
-  height: 180px;
+  width: 150px;
+  height: 150px;
   margin-right: 20px;
-  background-size: cover;
+  background-size: 70%;
+  background-repeat: no-repeat;
   background-position: center;
   border-radius: 5px;
+  float: left;
 }
 
-.info {
-  color: black;
-  position: absolute;
-  left: 40%;
+.info{
+  width: 300px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  
 }
 
-.info p {
+.nombre{
+  font-family:  Arial, Helvetica, sans-serif;
+  font-size: 20px;
   font-weight: 500;
+  color: black;
+  margin-top: 30px;
 }
+
+.talle{
+  font-family:  Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: black;
+}
+
+.precio{
+  font-family:  Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 35px;
+  color: black;
+  float: left;
+}
+
+.precioTitle{
+  font-family:  Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  margin-left: 35px;
+  color: black;
+}
+
 
 .itemm button {
   background-color: rgba(255, 62, 62, 0.966);
@@ -52,6 +77,30 @@
   right: 1%;
   top: 5%;
   z-index: 100;
+}
+
+.btnX {
+  background-color: white;
+  color: white;
+  border-radius: 5px;
+  /* padding: 3px 10px; */
+  font-weight: bolder;
+  position: absolute;
+  right: 1%;
+  top: 5%;
+}
+
+.btnX button {
+  border-radius: 5px;
+  margin-left: 10px;
+  font-weight: 500;
+  transition: all 0.3s;
+  background-color: white;
+  float: left;
+}
+
+.btnX button:hover {
+  filter: invert(100%);
 }
 
 @media (max-width: 768px) {

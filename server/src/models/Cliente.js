@@ -12,10 +12,12 @@ module.exports = (sequelize) => {
         primaryKey: true,
         alowNull: false,
       },
-      nickname: {// 🎇
+      nickname: {
+        // 🎇
         type: DataTypes.STRING,
       },
-      email: {// 🎇
+      email: {
+        // 🎇
         type: DataTypes.STRING,
       },
       email_Verified: {

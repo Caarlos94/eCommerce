@@ -4,13 +4,13 @@ import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch } from "react-redux";
 import { getFavorites } from "../../redux/actions/actions";
-import { Toaster, toast } from 'react-hot-toast';
 
 const FavoriteProduct = ({
   nombre,
   talla,
   precio,
   URL,
+  stock,
   id: productoId,
   clienteId,
 }) => {
@@ -32,8 +32,6 @@ const FavoriteProduct = ({
         console.log(response);
         setDidDelete(true);
       });
-
-    toast.error('Producto eliminado de favoritos');
   };
 
   user && dispatch(getFavorites(user.email));
@@ -41,36 +39,29 @@ const FavoriteProduct = ({
   return (
     <>
       {!didDelete ? (
-        <div className={s.itemm}>
+        <div className={s.conteiner}>
           <div className={s.item}>
-            <NavLink
-              to={`/details/${productoId}`}
-              style={{ textDecoration: 'none' }}
-              className={s.itemmm}
-            >
-              <div
-                className={s.itemImg}
-                style={{ backgroundImage: `url(${URL[0]})` }}
-              ></div>
-            </NavLink>
+            <div
+              className={s.itemImg}
+              style={{ backgroundImage: `url(${URL})` }}
+            ></div>
+
             <div className={s.info}>
-              <h2>{nombre}</h2>
-              <p>{talla}</p>
-              <p>${precio}</p>
+              <NavLink to={`/details/${productoId}`} style={{ textDecoration: 'none' }}>
+                <p className={s.nombre}>{nombre}</p>
+                <p className={s.talle}>Talle: {talla}</p>
+              </NavLink>
             </div>
-            <button onClick={handleDelete}>X</button>
+
+            <div className={s.preciodiv}>
+              <p className={s.precioTitle}>Precio</p>
+              <p className={s.precio}>${precio}</p>
+            </div>
+
+            <div className={s.btnX}>
+              <button onClick={handleDelete}>X</button>
+            </div>
           </div>
-          <Toaster
-            toastOptions={{
-              // Define default options
-              className: '',
-              duration: 3000,
-              style: {
-                background: '#fff',
-                color: '#000',
-              },
-            }}
-          />
         </div>
       ) : (
         ''
