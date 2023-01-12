@@ -27,7 +27,7 @@ server.use((req, res, next) => {
 });
 server.use(
   cors({
-    origin: "https://suprasportsclient-production.up.railway.app/",
+    origin: "*",
     methods: ["GET", "PUT", "POST", "DELETE"],
     allowedHeaders: ["Authorization", "Content-Type"],
     maxAge: 86400,
