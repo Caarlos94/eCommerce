@@ -15,7 +15,7 @@ const Favorites = () => {
 
   useEffect(() => {
     if (user && user.hasOwnProperty("email")) {
-      fetch(`http://localhost:3001/favoritos/${user.email}`)
+      fetch(`https://suprasports.up.railway.app/favoritos/${user.email}`)
         .then((data) => data.json())
         .then((data) => {
           console.log(data);

@@ -53,7 +53,7 @@ const VentaCard = ({ data, accessToken }) => {
       didClick: false,
     }));
 
-    fetch(`http://localhost:3001/compras/adminSales/${data.purchaseId}`, {
+    fetch(`https://suprasports.up.railway.app/compras/adminSales/${data.purchaseId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
