@@ -23,6 +23,7 @@ export const GET_FAVORITES = "GET_FAVORITES";
 export const EMAIL = "EMAIL";
 export const GET_CARRITO = "GET_CARRITO";
 export const GET_TOKEN = "GET_TOKEN";
+export const ADD_PAGINATE = "ADD_PAGINATE";
 
 export const getProducts = () => {
   return async function (dispatch) {
@@ -314,9 +315,16 @@ export function addToCarrito(payload) {
   };
 } */
 
-// export function removeFromCarrito(id) {
-//   return {
-//     type: REMOVE_FROM_FAVORITE,
-//     payload: id,
-//   };
-// }
+export function removeFromCarrito(id) {
+  return {
+    type: REMOVE_FROM_FAVORITE,
+    payload: id,
+  };
+}
+
+export function AddPaginate(num) {
+  return {
+    type: ADD_PAGINATE,
+    payload: num,
+  };
+}
