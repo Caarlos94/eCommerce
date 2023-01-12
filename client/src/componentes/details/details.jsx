@@ -154,14 +154,6 @@ const Details = () => {
                   className={s.img111}
                   style={{ backgroundImage: `url(${details[0].URL[0]})` }}
                 ></div>
-                  <div
-                  className={s.img112}
-                  style={{ backgroundImage: `url(${details[0].URL[1]})` }}
-                ></div>
-                  <div
-                  className={s.img113}
-                  style={{ backgroundImage: `url(${details[0].URL[2]})` }}
-                ></div>
                 </div>
               </div>
               <div className={s.textCont}>
