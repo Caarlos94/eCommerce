@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import React, { useEffect, useState } from "react";
 import {
+  getDetails,
   getProducts2,
   updateProduct,
 } from "../../redux/actions/actions";
 import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from "react-router-dom";
 
 const validate = (input, prods) => {
   let errors = {};
@@ -68,12 +70,18 @@ export default function UpdateProd() {
   const { getAccessTokenSilently } = useAuth0();
   const [token, setToken] = useState("");
   const prods = useSelector((state) => state.products);
+  const details = useSelector((state) => state.details);
   const dispatch = useDispatch();
   const { id } = useParams();
+  const categs = useSelector((state) => state.categorys);
 
   useEffect(() => {
     getAccessTokenSilently().then((data) => setToken(data));
   }, [getAccessTokenSilently]);
+
+  useEffect(() => {
+    dispatch(getDetails(id));
+  }, [dispatch, id])
 
   const history = useHistory();
   const [errors, setErrors] = useState({});
@@ -86,6 +94,7 @@ export default function UpdateProd() {
     talla: "",
     marca: "",
     stock: "",
+    categoria: ""
   });
 
   const handlerChange = (e) => {
@@ -99,6 +108,12 @@ export default function UpdateProd() {
         [e.target.name]: e.target.value,
       }, prods
       ));
+  };
+
+  const handlerSelectCateg = (e) => {
+    if (!input.categoria.includes(e.target.value)) {
+      setInput({ ...input, categoria: e.target.value })
+    }
   };
 
   const handlerSubmit = (e) => {
@@ -116,9 +131,11 @@ export default function UpdateProd() {
       talla: "",
       marca: "",
       stock: "",
+      categoria: ""
     });
     history.push("/");
   };
+  console.log(details);
 
   return (
     <div>
@@ -126,100 +143,126 @@ export default function UpdateProd() {
       <div className={style.content}>
         <h1>Editor de Productos</h1>
         <h5>(Deje el cuadro vacío en caso de querer el valor previamente establecido.)</h5>
-        <div className={style.forms}>
-          <form onSubmit={(e) => handlerSubmit(e)}>
-            <div className={style.inputI}>
-              <label>Nombre: </label>
-              <input
-                /* placeholder={`Anterior: ${detail.nombre}`} */
-                type="text"
-                name="nombre"
-                value={input.nombre}
-                onChange={(e) => handlerChange(e)}
-              ></input>
-              {errors.nombre && <p className={style.errors}>{errors.nombre}</p>}
-            </div>
 
-            <div className={style.inputI}>
-              <label>Imagen: </label>
-              <input
-                type="url"
-                value={input.URL}
-                name="URL"
-                onChange={(e) => handlerChange(e)}
-              ></input>
-              {errors.URL
-                ? (<p className={style.errors}>{errors.URL}</p>)
-                : (input.URL) ? (<img src={input.URL} alt='img'></img>) : ("")}
-            </div>
+        {details.length && (
+          <div className={style.forms}>
+            <form onSubmit={(e) => handlerSubmit(e)}>
+              <div className={style.inputI}>
+                <label>Nombre: </label>
+                <input
+                  placeholder={`Anterior: ${details[0].nombre}`}
+                  type="text"
+                  name="nombre"
+                  value={input.nombre}
+                  onChange={(e) => handlerChange(e)}
+                ></input>
+                {errors.nombre && <p className={style.errors}>{errors.nombre}</p>}
+              </div>
 
-            <div className={style.inputI}>
-              <label>Precio </label>
-              <input
-                /* placeholder={`Anterior: ${detail.precio}`} */
-                type="number"
-                value={input.precio}
-                name="precio"
-                onChange={(e) => handlerChange(e)}
-              ></input>
-              {errors.precio && <p className={style.errors}>{errors.precio}</p>}
-            </div>
+              <div className={style.inputI}>
+                <label>Imagen: </label>
+                <input
+                  placeholder={`Anterior: ${details[0].URL}`}
+                  type="url"
+                  value={input.URL}
+                  name="URL"
+                  onChange={(e) => handlerChange(e)}
+                ></input>
+                {errors.URL
+                  ? (<p className={style.errors}>{errors.URL}</p>)
+                  : (input.URL) ? (<img src={input.URL} alt='img'></img>) : ("")}
+              </div>
 
-            <div className={style.inputI}>
-              <label>Color: </label>
-              <input
-                /* placeholder={`Anterior: ${detail.color}`} */
-                type="text"
-                value={input.color}
-                name="color"
-                onChange={(e) => handlerChange(e)}
-              ></input>
-              {errors.color && <p className={style.errors}>{errors.color}</p>}
-            </div>
+              <div className={style.inputI}>
+                <label>Precio </label>
+                <input
+                  placeholder={`Anterior: ${details[0].precio}`}
+                  type="number"
+                  value={input.precio}
+                  name="precio"
+                  onChange={(e) => handlerChange(e)}
+                ></input>
+                {errors.precio && <p className={style.errors}>{errors.precio}</p>}
+              </div>
 
-            <div className={style.inputI}>
-              <label>Talla: </label>
-              <input
-                /* placeholder={`Anterior: ${detail.talla}`} */
-                type="text"
-                value={input.talla}
-                name="talla"
-                onChange={(e) => handlerChange(e)}
-              ></input>
-              {errors.talla && <p className={style.errors}>{errors.talla}</p>}
-            </div>
+              <div className={style.inputI}>
+                <label>Color: </label>
+                <input
+                  placeholder={`Anterior: ${details[0].color}`}
+                  type="text"
+                  value={input.color}
+                  name="color"
+                  onChange={(e) => handlerChange(e)}
+                ></input>
+                {errors.color && <p className={style.errors}>{errors.color}</p>}
+              </div>
 
-            <div className={style.inputI}>
-              <label>Marca: </label>
-              <input
-                /* placeholder={`Anterior: ${detail.marca}`} */
-                type="text"
-                value={input.marca}
-                name="marca"
-                onChange={(e) => handlerChange(e)}
-              ></input>
-              {errors.marca && <p className={style.errors}>{errors.marca}</p>}
-            </div>
+              <div className={style.inputI}>
+                <label>Talla: </label>
+                <input
+                  placeholder={`Anterior: ${details[0].talla}`}
+                  type="text"
+                  value={input.talla}
+                  name="talla"
+                  onChange={(e) => handlerChange(e)}
+                ></input>
+                {errors.talla && <p className={style.errors}>{errors.talla}</p>}
+              </div>
 
-            <div className={style.inputI}>
-              <label>Stock: </label>
-              <input
-                /* placeholder={`Anterior: ${detail.stock}`} */
-                type="number"
-                value={input.stock}
-                name="stock"
-                onChange={(e) => handlerChange(e)}
-              ></input>
-              {errors.stock && <p className={style.errors}>{errors.stock}</p>}
-            </div>
+              <div className={style.inputI}>
+                <label>Marca: </label>
+                <input
+                  placeholder={`Anterior: ${details[0].marca}`}
+                  type="text"
+                  value={input.marca}
+                  name="marca"
+                  onChange={(e) => handlerChange(e)}
+                ></input>
+                {errors.marca && <p className={style.errors}>{errors.marca}</p>}
+              </div>
 
-            <div className={style.publicar}>
-              <button type="submit">
-                Publicar Producto!
-              </button>
-            </div>
-          </form>
-        </div>
+              <div className={style.inputI}>
+                <label>Stock: </label>
+                <input
+                  placeholder={`Anterior: ${details[0].nombre}`}
+                  type="number"
+                  value={input.stock}
+                  name="stock"
+                  onChange={(e) => handlerChange(e)}
+                ></input>
+                {errors.stock && <p className={style.errors}>{errors.stock}</p>}
+              </div>
+
+              <div className={style.catDiv}>
+                <div className={style.category}>
+                  <label>Categoría: </label>
+                  <select onChange={(e) => handlerSelectCateg(e)}>
+                    <option hidden>Seleccione una...</option>
+                    {categs.map((c) => (
+                      <option value={c} key={categs.indexOf(c)}>
+                        {c}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <Link
+                  to="/modifCateg"
+                  style={{ textDecoration: "none" }}
+                  className={style.button}
+                >
+                  Administrar Categorías
+                </Link>
+              </div>
+
+
+              <div className={style.publicar}>
+                <button type="submit">
+                  Publicar Producto!
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
       </div >
       <Footer />
     </div >

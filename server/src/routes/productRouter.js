@@ -99,14 +99,11 @@ productRouter.put(
   async (req, res) => {
     const data = req.body;
     const { id } = req.params;
+    const { categoria } = req.body;
 
     const producto = await Producto.findOne({
       where: { id: id }
-    })
-
-    console.log(data);
-    console.log(producto);
-
+    });
     try {
       let productoUp = await Producto.update({
         nombre: data.nombre || producto.nombre,
@@ -119,7 +116,15 @@ productRouter.put(
       },
         { where: { id: id } }
       );
+      if (categoria) {
+        const DatabaseCategory = await Categoria.findAll({
+          where: { nombre: categoria },
+        });
+        let newProd = await Producto.findOne({ where: { id: id } })
 
+        await newProd.setCategoria(DatabaseCategory);
+        console.log(newProd);
+      }+
       res.status(200).send("el producto se modificó");
     } catch (error) {
       res.status(404).send(error.message);

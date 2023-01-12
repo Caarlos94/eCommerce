@@ -12,14 +12,13 @@ import {
 } from '../../redux/actions/actions';
 import Navbar2 from '../navbar/navBar2';
 import FormCompra from '../formCompra/FormCompra';
-import { NavLink } from "react-router-dom";
 
 const Carrito = () => {
 
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const [usuarioId, setUsuaruioId] = useState('');
+  const [, setUsuaruioId] = useState('');
 
   const { getAccessTokenSilently } = useAuth0();
   const [token, setToken] = useState("");
