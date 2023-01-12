@@ -22,7 +22,16 @@ export default function About() {
             </div>
             <div className={style.card_description}>
               <p className={style.text_title}>Carlos islas</p>
-              <p className={style.text_body} ></p>
+              <p className={style.text_body} >
+              <div className={style.contacto}>
+                  <a href="https://github.com/Caarlos94" target="_blank" rel="noreferrer">
+                    <img src={gitHub} alt="github" />
+                  </a>
+                  <a href='https://www.linkedin.com/mwlite/in/juan-carlos-islas-lopez' target="_blank" rel="noreferrer">
+                    <img src={linkedIn} alt="cv" />
+                  </a>
+                </div>
+              </p>
             </div>
           </div>
 
@@ -31,7 +40,14 @@ export default function About() {
             <div className={style.card_description}>
               <p className={style.text_title}>Alejandro mocse</p>
               <p className={style.text_body} >
-
+              <div className={style.contacto}>
+                  <a href="https://github.com/alej-mocse1" target="_blank" rel="noreferrer">
+                    <img src={gitHub} alt="github" />
+                  </a>
+                  <a href='https://www.linkedin.com/in/alejandro-mocse-1329b8251/' target="_blank" rel="noreferrer">
+                    <img src={linkedIn} alt="cv" />
+                  </a>
+                </div>
               </p>
             </div>
           </div>
@@ -41,7 +57,14 @@ export default function About() {
             <div className={style.card_description}>
               <p className={style.text_title}>Carlos Medero</p>
               <p className={style.text_body} >
-
+                <div className={style.contacto}>
+                  <a href="https://github.com/mederocc" target="_blank" rel="noreferrer">
+                    <img src={gitHub} alt="github" />
+                  </a>
+                  <a href='https://www.linkedin.com/in/carlos-medero-546239107' target="_blank" rel="noreferrer">
+                    <img src={linkedIn} alt="cv" />
+                  </a>
+                </div>
               </p>
             </div>
           </div>
@@ -69,15 +92,33 @@ export default function About() {
             <div className={style.card_image5}></div>
             <div className={style.card_description}>
               <p className={style.text_title}>Cesar Zegarra </p>
-              <p className={style.text_body}></p>
+              <p className={style.text_body}>
+              <div className={style.contacto}>
+                  <a href="https://github.com/cesarzv" target="_blank" rel="noreferrer">
+                    <img src={gitHub} alt="github" />
+                  </a>
+                  <a href='https://www.linkedin.com/in/cesar-zegarra-b55061255/' target="_blank" rel="noreferrer">
+                    <img src={linkedIn} alt="cv" />
+                  </a>
+                </div>
+              </p>
             </div>
           </div>
 
           <div className={style.card}>
             <div className={style.card_image6}></div>
             <div className={style.card_description}>
-              <p className={style.text_title}>belisario Davalos </p>
-              <p className={style.text_body} ></p>
+              <p className={style.text_title}>Belisario Davalos </p>
+              <p className={style.text_body} >
+              <div className={style.contacto}>
+                  <a href="https://github.com/belidavalos11" target="_blank" rel="noreferrer">
+                    <img src={gitHub} alt="github" />
+                  </a>
+                  <a href='https://www.linkedin.com/in/belisario-davalos-704827192/' target="_blank" rel="noreferrer">
+                    <img src={linkedIn} alt="cv" />
+                  </a>
+                </div>
+              </p>
             </div>
           </div>
         </div>

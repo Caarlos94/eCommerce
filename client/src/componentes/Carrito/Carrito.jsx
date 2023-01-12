@@ -19,6 +19,13 @@ const Carrito = () => {
   const cart = useSelector((state) => state.cart);
   const [usuarioId, setUsuaruioId] = useState('');
 
+  const { getAccessTokenSilently } = useAuth0();
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    getAccessTokenSilently().then((data) => setToken(data));
+  }, [getAccessTokenSilently]);
+
   // console.log(cart);
 
   const [click, setClick] = useState(false)
@@ -93,7 +100,8 @@ const Carrito = () => {
         fetch("http://localhost:3001/compras", {
           method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ input, email: email, productos: cart }),
         })

@@ -3,6 +3,7 @@
   /* border: 3px solid green; */
   padding-bottom: 12rem;
   height: 100%;
+  margin-bottom: 12rem;
 }
 
 .divAdmins {
@@ -14,7 +15,6 @@
   margin-top: 4rem;
   border-radius: 10px;
   padding: 20px;
-  margin-bottom: 30px;
 }
 .divAdmins p {
   margin-top: 1.7rem;

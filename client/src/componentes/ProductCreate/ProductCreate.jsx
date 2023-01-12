@@ -1,76 +1,84 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import {
   getCategorys,
   getProducts,
   getProducts2,
   postProd,
   /* postCategory */
-} from '../../redux/actions/actions';
-import style from './ProductCreate.module.css';
-import Navbar2 from '../navbar/navBar2';
+} from "../../redux/actions/actions";
+import style from "./ProductCreate.module.css";
+import Navbar2 from "../navbar/navBar2";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const validate = (input, prods) => {
   let errors = {};
   if (input.nombre) {
     if (!/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(input.nombre)) {
       errors.nombre =
-        'Este dato es incorrecto... Es obligatorio, no se permiten caracteres especiales o números.';
+        "Este dato es incorrecto... Es obligatorio, no se permiten caracteres especiales o números.";
     }
     if (
       prods.some((e) => e.nombre.toUpperCase() === input.nombre.toUpperCase())
     ) {
-      errors.nombre = 'Este producto ya existe!';
+      errors.nombre = "Este producto ya existe!";
     }
   }
   if (input.URL) {
     if (!/(https?:\/\/.*\.(?:png|jpg|jpeg))/i.test(input.URL)) {
       errors.URL =
-        'Este dato es obligatorio, solo permite imágenes de tipo .jpg/.png/.jpeg';
+        "Este dato es obligatorio, solo permite imágenes de tipo .jpg/.png/.jpeg";
     }
   }
   if (input.precio) {
     if (input.precio < 1) {
       errors.precio =
-        'Este dato es obligatorio, solo permite números mayores a uno.';
+        "Este dato es obligatorio, solo permite números mayores a uno.";
     }
   }
   if (input.color) {
     if (!/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(input.color)) {
       errors.color =
-        'Este dato es obligatorio, no se permiten caracteres especiales, números o espacios.';
+        "Este dato es obligatorio, no se permiten caracteres especiales, números o espacios.";
     }
   }
   if (input.talla) {
     if (
       !(
-        input.talla === 'S' ||
-        input.talla === 'M' ||
-        input.talla === 'L' ||
-        input.talla === 'XL' ||
-        input.talla === 'XXL'
+        input.talla === "S" ||
+        input.talla === "M" ||
+        input.talla === "L" ||
+        input.talla === "XL" ||
+        input.talla === "XXL"
       )
     ) {
-      errors.talla = 'Solo se permiten los talles S-M-L-XL-XXL.';
+      errors.talla = "Solo se permiten los talles S-M-L-XL-XXL.";
     }
   }
   if (input.marca) {
     if (!/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/.test(input.marca)) {
       errors.marca =
-        'Este dato es obligatorio, no se permiten caracteres especiales o números.';
+        "Este dato es obligatorio, no se permiten caracteres especiales o números.";
     }
   }
   if (input.stock) {
     if (input.stock < 0 || !/^[0-9]+$/.test(input.stock)) {
       errors.stock =
-        'Este dato es obligatorio, solo permite números entero y mayor o igual 0.';
+        "Este dato es obligatorio, solo permite números entero y mayor o igual 0.";
     }
   }
   return errors;
 };
 
 export default function ProdCreate() {
+  const { getAccessTokenSilently } = useAuth0();
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    getAccessTokenSilently().then((data) => setToken(data));
+  }, [getAccessTokenSilently]);
+
   const dispatch = useDispatch();
   const prods = useSelector((state) => state.products);
   const categs = useSelector((state) => state.categorys);
@@ -78,14 +86,14 @@ export default function ProdCreate() {
   const history = useHistory();
   const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
-    nombre: '',
-    URL: '',
-    precio: '',
-    color: '',
-    talla: '',
-    marca: '',
-    categoria: '',
-    stock: '',
+    nombre: "",
+    URL: ['', '', ''],
+    precio: "",
+    color: "",
+    talla: "",
+    marca: "",
+    categoria: "",
+    stock: "",
   });
 
   useEffect(() => {
@@ -118,24 +126,38 @@ export default function ProdCreate() {
     }
   };
 
+  const handleImages = (e) => {
+    if (!input.URL.includes(e.target.value)) {
+      setInput({ ...input, URL: [...input.URL, e.target.value] });
+    }/* setErrors(
+      validate(
+        {
+          ...input,
+          [e.target.name]: e.target.value,
+        },
+        prods
+      )
+    ); */
+  }
+
   const handlerSubmit = (e) => {
     e.preventDefault();
     console.log(input);
-    dispatch(postProd(input));
+    dispatch(postProd(input, token));
     /* dispatch(postCategory(input)); */
     setTimeout(() => dispatch(getProducts2()), 100);
-    alert('Producto publicado con éxito! Se te redirigirá al inicio...');
+    alert("Producto publicado con éxito! Se te redirigirá al inicio...");
     setInput({
-      nombre: '',
-      URL: '',
-      precio: '',
-      color: '',
-      talla: '',
-      marca: '',
-      categoria: '',
-      stock: '',
+      nombre: "",
+      URL: [],
+      precio: "",
+      color: "",
+      talla: "",
+      marca: "",
+      categoria: "",
+      stock: "",
     });
-    history.push('/'); //manda al home
+    history.push("/"); //manda al home
   };
 
   return (
@@ -157,19 +179,50 @@ export default function ProdCreate() {
             </div>
 
             <div className={style.inputI}>
-              <label>Imagen: </label>
+              <label>Imagen 1: </label>
               <input
                 type="text"
                 value={input.URL}
                 name="URL"
-                onChange={(e) => handlerChange(e)}
+                onChange={(e) => handleImages(e)}
               ></input>
-              {errors.URL ? (
+              {/* {errors.URL ? (
                 <p className={style.errors}>{errors.URL}</p>
-              ) : input.URL ? (
+              ) :  */}
+              {input.URL ? (
                 <img src={input.URL} alt="img"></img>
               ) : (
-                ''
+                ""
+              )}
+            </div>
+
+            <div className={style.inputI}>
+              <label>Imagen 2: </label>
+              <input
+                type="text"
+                value={input.URL}
+                name="URL"
+                onChange={(e) => handleImages(e)}
+              ></input>
+              {input.URL ? (
+                <img src={input.URL} alt="img"></img>
+              ) : (
+                ""
+              )}
+            </div>
+
+            <div className={style.inputI}>
+              <label>Imagen 3: </label>
+              <input
+                type="text"
+                value={input.URL}
+                name="URL"
+                onChange={(e) => handleImages(e)}
+              ></input>
+              {input.URL ? (
+                <img src={input.URL} alt="img"></img>
+              ) : (
+                ""
               )}
             </div>
 
@@ -243,7 +296,7 @@ export default function ProdCreate() {
               </div>
               <Link
                 to="/modifCateg"
-                style={{ textDecoration: 'none' }}
+                style={{ textDecoration: "none" }}
                 className={style.button}
               >
                 Administrar Categorías
