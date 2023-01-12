@@ -1,9 +1,10 @@
-import { useState } from "react";
-import classes from "./UnansweredQuestion.module.css";
-import { NavLink } from 'react-router-dom'
+import { useState } from 'react';
+import classes from './UnansweredQuestion.module.css';
+import { NavLink } from 'react-router-dom';
+import defaultImg from '../../img/SupraLogo.jpg';
 
 const UnansweredQuestion = ({ question, accessToken }) => {
-  const [answer, setAnswer] = useState("");
+  const [answer, setAnswer] = useState('');
   const [didSubmit, setDidSubmit] = useState(false);
   const [didDelete, setDidDelete] = useState(false);
 
@@ -13,10 +14,10 @@ const UnansweredQuestion = ({ question, accessToken }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3001/adminQA", {
-      method: "PUT",
+    fetch('http://localhost:3001/adminQA', {
+      method: 'PUT',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify({ questionId: question.questionId, answer }),
@@ -26,7 +27,7 @@ const UnansweredQuestion = ({ question, accessToken }) => {
         console.log(data);
         setDidDelete(true);
 
-        alert(data);
+        /* alert(data); */
       })
       .catch((error) => {
         if (error.error) {
@@ -35,16 +36,16 @@ const UnansweredQuestion = ({ question, accessToken }) => {
         }
       });
     setDidSubmit(true);
-    alert("Respuesta enviada con éxito! Se reflejará en el detalle del producto al actualizar la página...")
+    // alert("Respuesta enviada con éxito! Se reflejará en el detalle del producto al actualizar la página...")
   };
 
   const handleDelete = () => {
     setDidDelete(true);
 
     fetch(`http://localhost:3001/adminQA/${question.questionId}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${accessToken}`,
       },
     })
@@ -68,26 +69,28 @@ const UnansweredQuestion = ({ question, accessToken }) => {
   // }
 
   return !question.answer && !didSubmit && !didDelete ? (
-    <div className={classes["admin-question"]}>
-      <div className={classes["nombre-imagen"]}>
-        <div className={classes["name-delete-container"]}>
+    <div className={classes['admin-question']}>
+      <div className={classes['nombre-imagen']}>
+        <div className={classes['name-delete-container']}>
           <NavLink
             to={`details/${question.productId}`}
-            style={{ textDecoration: "none" }}
+            style={{ textDecoration: 'none' }}
           >
-            <p className={classes["card-name"]}>{question.productName}</p>
+            <p className={classes['card-name']}>{question.productName}</p>
           </NavLink>
           <div>
             <button onClick={handleDelete}>X</button>
           </div>
         </div>
-        <div className={classes["imgProd"]}>
-          <img src={question.productUrl} alt="nombre del producto" />
+        <div className={classes['imgProd']}>
+          <img
+            src={question.productUrl[0] ? question.productUrl[0] : defaultImg}
+            alt="nombre del producto"
+          />
         </div>
       </div>
       <form onSubmit={handleSubmit}>
         <label className={classes.label} htmlFor="respuesta">
-          {/* <p>Pregunta: </p> */}
           {question.question}
         </label>
         <br />
@@ -99,13 +102,13 @@ const UnansweredQuestion = ({ question, accessToken }) => {
           type="text"
           value={answer}
         />
-        <button disabled={!answer.length} type="submit"  >
+        <button disabled={!answer.length} type="submit">
           Enviar respuesta
         </button>
       </form>
-    </div >
+    </div>
   ) : (
-    ""
+    ''
   );
 };
 

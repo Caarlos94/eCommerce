@@ -11,6 +11,8 @@ const VentaCard = ({ data, accessToken }) => {
     feedback: "",
   });
 
+  /* console.log(data); */
+
   const [responseError, setResponseError] = useState({
     error: false,
     msg: "",
@@ -84,17 +86,31 @@ const VentaCard = ({ data, accessToken }) => {
         </div>
         <div className={classes["products-container"]}>
           {data.productos.map((producto) => (
-            <ProductCard key={producto.productoId} data={producto} />
+            <ProductCard
+              key={producto.productoId}
+              data={producto}
+              clienteId={cliente.clienteId} // solo de prueba
+              enviado={data.enviado} // solo de prueba
+            />
           ))}
         </div>
       </div>
       <div className={classes["right-side-container"]}>
         <div className={classes["client-container"]}>
-          <p className={classes["bold-text"]}>{cliente.nickname}</p>
-          <p>Correo: {cliente.email || "null"}</p>
-          <p>Teléfono: {cliente.cel || "null"}</p>
-          <p>Dirección: {cliente.address || "null"}</p>
-          <p>Código postal: {cliente.zipCode || "null"}</p>
+          <p className={classes["bold-text"]}>
+            {cliente.nombre} {cliente.apellido}
+          </p>
+          <p className={classes["info"]}>Correo: {cliente.email || "null"}</p>
+          <p className={classes["info"]}>DNI: {cliente.dni || "null"}</p>
+
+          <p className={classes["info"]}>Teléfono: {cliente.cel || "null"}</p>
+          <p className={classes["info"]}>Ciudad: {cliente.ciudad || "null"}</p>
+          <p className={classes["info"]}>
+            Dirección: {cliente.direccion || "null"}
+          </p>
+          <p className={classes["info"]}>
+            Código postal: {cliente.cp || "null"}
+          </p>
         </div>
         <div className={classes["mark-sent-container"]}>
           {!sent.didNotify && !sent.didClick ? (
@@ -132,7 +148,11 @@ const VentaCard = ({ data, accessToken }) => {
           ) : (
             ""
           )}
-          {trackingError.error ? <p>{trackingError.msg}</p> : ""}
+          {trackingError.error && sent.trackingNumber.length ? (
+            <p>{trackingError.msg}</p>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

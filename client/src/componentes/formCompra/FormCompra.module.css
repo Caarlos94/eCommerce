@@ -1,0 +1,113 @@
+.cont {
+  background-color: white;
+  height: 200vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cont h1 {
+  font-weight: bold;
+  font-size: 60px;
+}
+
+.forms {
+  padding-top: 50px;
+  width: 40%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputI {
+  margin-top: 40px;
+  width: 400px;
+  position: relative;
+  padding-bottom: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.inputI p {
+  position: absolute;
+  right: 0;
+  top: 25px;
+  width: 100%;
+}
+
+.inputI input {
+  position: absolute;
+  right: 30px;
+}
+
+.inputI label {
+  font-weight: bold;
+  margin-right: 30px;
+}
+
+.publicar {
+  display: flex;
+  justify-content: center;
+}
+
+.publicar button {
+  margin-top: 50px;
+  padding: 15px 25px;
+  border: unset;
+  border-radius: 15px;
+  color: #212121;
+  z-index: 1;
+  background: #e8e8e8;
+  position: relative;
+  font-weight: 1000;
+  font-size: 17px;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.publicar button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-color: #212121;
+  z-index: -1;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+}
+
+.publicar button:hover {
+  color: #e8e8e8;
+}
+
+.publicar button:hover::before {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .cont h1 {
+    font-weight: bold;
+    font-size: 35px;
+    margin-top: 20px;
+  }
+
+  .publicar button {
+    width: 70%;
+  }
+
+  .inputI {
+    border: 2px solid yellow;
+  }
+
+  .inputI label {
+    margin-left: 15px;
+  }
+}

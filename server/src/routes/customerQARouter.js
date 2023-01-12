@@ -4,15 +4,22 @@ const { Producto, Pregunta } = require("../db");
 
 customerQARouter.post("/", async (req, res) => {
   try {
-    const { productId, newQuestion } = req.body;
+    const { productId, newQuestion, email } = req.body;
+    console.log(email);
 
     const product = await Producto.findByPk(productId);
 
     // console.log(product.productId);
 
-    const question = await Pregunta.create({ question: newQuestion });
+    if (email) {
+      const question = await Pregunta.create({ question: newQuestion, email });
+      question.setProducto(product);
+    }
 
-    question.setProducto(product);
+    if (!email) {
+      const question = await Pregunta.create({ question: newQuestion });
+      question.setProducto(product);
+    }
 
     return res.status(200).json("La pregunta fue enviada!");
   } catch (error) {

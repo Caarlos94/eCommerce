@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useValidateUser } from "../../customHooks/validate-user";
 import classes from "./VentasAdmin.module.css";
 import VentaCard from "./VentaCard";
-import Navbar2 from '../navbar/navBar2'
-import Footer from '../Footer/Footer'
+import Navbar2 from "../navbar/navBar2";
+// import Footer from "../Footer/Footer";
+import { useValidateUser } from "../../customHooks/validate-user";
 
 const VentasAdmin = () => {
-  const [, /*isAuthenticated*/ isAdmin, accessToken] = useValidateUser();
+  const { isAdmin, accessToken } = useValidateUser();
   const [error, setError] = useState({});
   const [data, setData] = useState();
   const [filters, setFilters] = useState({ order: "DESC", show: "all" });
@@ -33,6 +33,7 @@ const VentasAdmin = () => {
         .then((response) => response.json())
         .then((response) => {
           if (response.error) return setError(response);
+          console.log(response);
           setData(response);
         });
   }, [accessToken, filters]);
@@ -62,21 +63,28 @@ const VentasAdmin = () => {
             </div>
           </div>
           <div className={classes["ventas-cards"]}>
-            {data && !data.error && data.length
-              ? data.map((el) => (
-                <VentaCard
-                  accessToken={accessToken}
-                  key={el.purchaseId}
-                  data={el}
-                />
-              ))
-              : ""}
+            {
+              data && !data.error && data.length
+                ? data.map((el) => (
+                    <VentaCard
+                      accessToken={accessToken}
+                      key={el.purchaseId}
+                      data={el}
+                    />
+                  ))
+                : ""
+              //(
+              //   <p className={classes["bold-text"]}>
+              //     Actualmente, no hay ventas registradas.
+              //   </p>
+              // )
+            }
           </div>
         </div>
       ) : (
         ""
       )}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

@@ -1,0 +1,118 @@
+.div {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin: 25px;
+  text-align: center;
+  width: 50%;
+  height: 250px;
+  display: flex;
+  position: relative;
+}
+
+.imgCont {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imgCont img {
+  object-fit: cover;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.itemImg {
+  width: 250px;
+  height: 220px;
+  /* margin-right: 20px; */
+  background-size: cover;
+  background-position: center;
+  border-radius: 5px;
+}
+
+.textCont {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  justify-content: center;
+  padding-left: 50px;
+}
+
+.textCont h4 {
+  font-weight: bold;
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.textCont h5 {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.btnReview {
+  border: 1px solid black;
+  display: flex;
+  padding: 5px;
+  color: black;
+  background-color: white;
+  font-weight: bold;
+  transition: all 0.4s;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  position: absolute;
+  top: 40%;
+  right: 3%;
+}
+
+.btnReview:hover {
+  filter: invert(100%);
+}
+
+@media (max-width: 1070px) {
+  .div {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    text-align: center;
+    width: 100%;
+    height: 200px;
+    display: flex;
+  }
+
+  .imgCont {
+    width: 30%;
+  }
+
+  .imgCont img {
+    object-fit: cover;
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+  .itemImg {
+    width: 200px;
+    height: 150px;
+    margin-left: 20px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 5px;
+  }
+
+  .textCont {
+    width: 70%;
+  }
+
+  .textCont h4 {
+    font-weight: bold;
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .textCont h5 {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+  }
+}

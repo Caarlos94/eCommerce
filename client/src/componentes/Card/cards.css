@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
 .card {
   width: 350px;
   height: 600px;
@@ -6,36 +8,31 @@
 
 .card-title {
   color: black;
-  font-weight: bold;
-}
-
-.card h4,
-h5 {
-  color: black;
-  font-weight: 500;
+  font-size: 1.3rem;
+  font-family: 'Poppins', sans-serif;
 }
 
 .card:hover {
   box-shadow: 5px 10px 20px 1px gray !important;
   transition: all 0.3s linear;
+  transform: translateY(-8px);
 }
 
 .card-body {
   padding: 2rem 0 !important;
   height: 240px;
-}
-
-.card-text {
-  padding: 0.3rem 1rem;
-  font-size: 0.9rem;
+  margin-left: 5%;
 }
 
 .overflow {
   overflow: hidden;
   width: 100%;
-  height: 300px;
+  height: 350px;
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
+  align-items: center;
+  justify-content: center;
 }
 
 .card-img-top {
@@ -46,6 +43,24 @@ h5 {
   transform: scale(1.25);
 }
 
+.cuotas {
+  color: rgb(170, 169, 169);
+  font-size: 0.9rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.h55 {
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  color: grey;
+}
+
+.h44 {
+  font-size: 1.3rem;
+  font-family: 'Poppins', sans-serif;
+  color: #4894ec;
+}
+
 @media (max-width: 768px) {
   .card {
     width: 100%;
@@ -53,15 +68,19 @@ h5 {
   }
 
   .card-title {
-    font-size: 20px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
   }
 
   .h55 {
     font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    color: black;
   }
 
   .h44 {
-    font-size: 15px;
+    font-size: 1.3rem;
+    font-family: 'Poppins', sans-serif;
   }
 
   .overflow {
@@ -72,5 +91,16 @@ h5 {
 
   .card-body {
     padding: 5px;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .cuotas {
+    font-size: 0.8rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .card {
+    width: 100%;
   }
 }

@@ -1,0 +1,109 @@
+.divPadre {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  /* border: 3px solid green; */
+  padding-bottom: 12rem;
+  height: 100%;
+  margin-bottom: 12rem;
+}
+
+.divAdmins {
+  /* border: 3px solid red; */
+  text-align: center;
+  width: 35rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  position: relative;
+  margin-top: 4rem;
+  border-radius: 10px;
+  padding: 20px;
+}
+.divAdmins p {
+  margin-top: 1.7rem;
+  font-weight: bold;
+  font-size: 1.6rem;
+  padding-bottom: 1.5rem;
+}
+
+.admin {
+  font-size: 16px;
+  margin: 10px;
+  background-color: #edeff0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.buttonAdmins {
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+  transition: all 0.4s;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonAdmins:hover {
+  filter: invert(100%);
+}
+
+.admins {
+  width: 98%;
+  height: 50px;
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+  font-size: 20px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  transition: all 0.4s;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+}
+
+.admins:hover {
+  filter: invert(100%);
+}
+
+.options-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.left-side-superadmin {
+  /* border: 3px solid blue; */
+  height: 60rem;
+}
+
+.right-side-superadmin {
+  margin-left: 3rem;
+  /* border: 3px solid red; */
+  height: 60rem;
+}
+
+@media (max-width: 768px) {
+  .divAdmins {
+    width: 90%;
+  }
+
+  .add-container {
+    width: 90%;
+  }
+
+  .blocking-options {
+    width: 90%;
+  }
+
+  .admin h5 {
+    font-size: 17px;
+  }
+
+  .admins {
+    width: 60%;
+  }
+}

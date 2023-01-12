@@ -9,6 +9,9 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true,
       alowNull: false,
+      // type: DataTypes.INTEGER,
+      // primaryKey: true,
+      // autoIncrement: true
     },
     nombre: {
       type: DataTypes.STRING,
@@ -16,7 +19,6 @@ module.exports = (sequelize) => {
     },
     URL: {
       type: DataTypes.STRING,
-      // allowNull: false,
     },
     precio: {
       type: DataTypes.STRING,
@@ -27,7 +29,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     talla: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING, 
       allowNull: false,
     },
     marca: {

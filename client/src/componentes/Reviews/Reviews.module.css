@@ -1,0 +1,48 @@
+.revCont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.revCont h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.revs {
+  margin-bottom: 1.5rem;
+}
+
+.revBox {
+  background-color: #edeff0;
+  border-radius: 15px;
+  width: 30rem;
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+}
+
+.revBox h5 {
+  font-size: 17px;
+}
+
+.revBox label {
+  display: flex;
+  justify-content: right;
+}
+
+@media (max-width: 768px) {
+  .revs {
+    border: 1px solid red;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .revBox {
+    width: 90%;
+  }
+}
