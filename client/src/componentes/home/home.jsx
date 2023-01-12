@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { getCategorys, getProducts, getImages } from "../../redux/actions/actions.js";
+import { getCategorys, getProducts, getImages, AddPaginate} from "../../redux/actions/actions.js";
 import s from "./home.module.css";
 import Navbar from "../navbar/navbar.jsx";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,34 +12,50 @@ import Carrusel from "./carrusel/carrusel.jsx";
 const Home = () => {
   const dispatch = useDispatch();
   let allProducts = useSelector((state) => state.productsHome);
+  let paginateNum = useSelector((state) => state.paginate);
 
   // allProducts.forEach(producto => producto.images = producto.images.split(","))
   // console.log(allProducts)
+  const [currentPage, setCurrentPage] = useState(1); // DEBERIA SER UN REDUCER
+  const productsPerPage = 9;
+  const lastIndex = currentPage * productsPerPage; // 1 * 8 = 8
+  const firstIndex = lastIndex - productsPerPage; // 8 - 8 = 0
+  let currentProducts = allProducts.slice(firstIndex, lastIndex);
 
   useEffect(() => {
     dispatch(getImages());
     dispatch(getProducts());
     dispatch(getCategorys());
-  }, [dispatch]);
+    setCurrentPage(paginateNum);
+  }, [dispatch , paginateNum]);
 
-  const [currentPage, setCurrentPage] = useState(1); // DEBERIA SER UN REDUCER
-  const productsPerPage = 9;
-  const lastIndex = currentPage * productsPerPage; // 1 * 8 = 8
-  const firstIndex = lastIndex - productsPerPage; // 8 - 8 = 0
-  const currentProducts = allProducts.slice(firstIndex, lastIndex);
+ 
 
   const fnPaginado = (page) => {  // FUNCIÓN PARA MODIFICAR EL ESTADO LOCAL PAGE
     setCurrentPage(page);
-    // console.log(currentProducts);
+    //  console.log(currentProducts); hacer un dispatch
+    dispatch(AddPaginate(page));
+    // setTimeout(() => {
+    //   console.log('hola soy paginate num ' + paginateNum);
+    // }, 500);
   };
 
   const paginatePrev = (prevPage) =>{
     setCurrentPage(prevPage);
-    // console.log(currentProducts);
+    //  console.log(currentProducts); hacer un dispatch
+    dispatch(AddPaginate(prevPage));
+    // setTimeout(() => {
+    //   console.log('hola soy paginate num ' + paginateNum);
+    // }, 500);
   }
+
   const paginateNext = (nextPage) =>{
     setCurrentPage(nextPage);
-    // console.log(currentProducts);
+    //  console.log(currentProducts); hacer un dispatch
+    dispatch(AddPaginate(nextPage));
+    // setTimeout(() => {
+    //   console.log('hola soy paginate num ' + paginateNum);
+    // }, 500);
   }
 
 

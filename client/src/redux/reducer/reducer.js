@@ -20,6 +20,7 @@ import {
   GET_REVIEWS,
   GET_FAVORITES,
   GET_CARRITO,
+  ADD_PAGINATE
 } from "../actions/actions.js";
 
 const initialState = {
@@ -38,6 +39,7 @@ const initialState = {
   precio: [0, 0],
   error: false,
   page: 1,
+  paginate : 1
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -555,6 +557,14 @@ const rootReducer = (state = initialState, action) => {
       localStorage.setItem("cart", JSON.stringify(state.cart));
       return state;
 
+      case ADD_PAGINATE:
+        state = {
+          ...state,
+          paginate : action.payload
+        };
+    
+  
+        return state;
 
     case REMOVE_FROM_FAVORITE:
       let productToRemove = state.favorites.find(
