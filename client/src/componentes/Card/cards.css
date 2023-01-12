@@ -64,7 +64,7 @@
 @media (max-width: 768px) {
   .card {
     width: 100%;
-    height: 350px !important;
+    height: 450px !important;
   }
 
   .card-title {
@@ -86,7 +86,7 @@
   .overflow {
     overflow: hidden;
     width: 100%;
-    height: 200px;
+    height: 250px;
   }
 
   .card-body {
