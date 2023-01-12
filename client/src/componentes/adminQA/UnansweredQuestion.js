@@ -84,7 +84,7 @@ const UnansweredQuestion = ({ question, accessToken }) => {
         </div>
         <div className={classes['imgProd']}>
           <img
-            src={question.productUrl[0] ? question.productUrl[0] : defaultImg}
+            src={question.productUrl ? question.productUrl : defaultImg}
             alt="nombre del producto"
           />
         </div>
