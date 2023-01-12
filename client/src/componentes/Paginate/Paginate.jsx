@@ -47,7 +47,7 @@ const Paginado = ({
             disabled={currentPage === numberOfPages.length}
             className={style.numberList}
           >
-            Siguiente
+            Siguiente 
           </button>
         </div>
       </div>

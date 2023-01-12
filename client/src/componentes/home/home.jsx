@@ -66,7 +66,6 @@ const Home = () => {
       <div className={s.hero}>
         <div className={s.textoHero}>
           <h1>Supra Sports</h1>
-          <button>Ver coleccion</button>
         </div>
         <div className={s.imgHero}>
           <div className={s.messi}>

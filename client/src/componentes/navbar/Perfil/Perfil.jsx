@@ -11,7 +11,7 @@ import Footer from "../../Footer/Footer";
 const Perfil = () => {
   const dispatch = useDispatch();
 
-/*   const allProducts = useSelector((state) => state.productsHome); */
+  /*   const allProducts = useSelector((state) => state.productsHome); */
   const { user, isAuthenticated, } = useAuth0();
 
   useEffect(() => {
@@ -39,11 +39,6 @@ const Perfil = () => {
                 : 'No, verificar por favor.'}</h4>
             </div >
 
-            <div className={style.info}>
-              <h4>Rol: {user.nickname === 'suprasportspf'
-                ? 'Administrador'
-                : 'Usuario'}</h4>
-            </div >
           </div>
         )}
       </div>
@@ -67,7 +62,7 @@ const Perfil = () => {
           ))}
         </div>
       </div> */}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   )
 }

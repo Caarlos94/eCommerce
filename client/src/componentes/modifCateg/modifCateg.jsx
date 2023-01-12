@@ -70,8 +70,8 @@ export default function ModifCateg() {
   const handlerSubmit = (e) => {
     e.preventDefault();
     console.log(input.nombre + " CREADO");
-    dispatch(postCategory(input, token)) //needs token
-      .then(dispatch(getCategorys()));
+    dispatch(postCategory(input, token))
+    dispatch(getCategorys()).then(dispatch(getCategorys()));
     setInput({
       nombre: "",
     });
