@@ -81,7 +81,6 @@ const Details = () => {
     }
 
     checkForAdminRole();
-
     if (user) {
       fetch(`http://localhost:3001/favoritos/${user.email}`)
         .then((data) => data.json())
@@ -184,7 +183,7 @@ const Details = () => {
                   {details[0].stock > 0 ? (
                     <p className={s.stock}>Stock: {details[0].stock}</p>
                   ) : (
-                    <p>
+                    <p className={s.stock}>
                       Producto no disponible! Stock agotado momentáneamente...
                     </p>
                   )}

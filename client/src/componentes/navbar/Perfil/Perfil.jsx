@@ -47,9 +47,8 @@ const Perfil = () => {
           </div>
         )}
       </div>
-      <hr />
 
-      <div className={style.relacionados}>
+      {/* <div className={style.relacionados}>
         <h4>Productos recomendados para vos!</h4>
         <div className={style.section}>
           {allProducts.map((card) => card.categoria === 'Camperas' && (
@@ -67,7 +66,7 @@ const Perfil = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
       <Footer />
     </div>
   )

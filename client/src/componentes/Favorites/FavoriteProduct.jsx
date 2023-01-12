@@ -10,6 +10,7 @@ const FavoriteProduct = ({
   talla,
   precio,
   URL,
+  stock,
   id: productoId,
   clienteId,
 }) => {
@@ -38,26 +39,29 @@ const FavoriteProduct = ({
   return (
     <>
       {!didDelete ? (
-        <div className={s.itemm}>
+        <div className={s.conteiner}>
           <div className={s.item}>
-            <NavLink
-              to={`/details/${productoId}`}
-              style={{ textDecoration: 'none' }}
-              className={s.itemmm}
-            >
-              <div
-                className={s.itemImg}
-                style={{ backgroundImage: `url(${URL[0]})` }}
-              ></div>
-            </NavLink>
-            <div className={s.info}>
-              <h2>{nombre}</h2>
-              <p>{talla}</p>
-              <p>${precio}</p>
-            </div>
-            <button onClick={handleDelete}>X</button>
-          </div>
+            <div
+              className={s.itemImg}
+              style={{ backgroundImage: `url(${URL[0]})` }}
+            ></div>
 
+            <div className={s.info}>
+              <NavLink to={`/details/${productoId}`} style={{ textDecoration: 'none' }}>
+                <p className={s.nombre}>{nombre}</p>
+                <p className={s.talle}>Talle: {talla}</p>
+              </NavLink>
+            </div>
+
+            <div className={s.preciodiv}>
+              <p className={s.precioTitle}>Precio</p>
+              <p className={s.precio}>${precio}</p>
+            </div>
+
+            <div className={s.btnX}>
+              <button onClick={handleDelete}>X</button>
+            </div>
+          </div>
         </div>
       ) : (
         ''
