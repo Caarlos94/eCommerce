@@ -88,10 +88,15 @@ const SuperAdmin = (props) => {
                   <p>Usuarios con rol admin</p>
                   <div>
                     {admins?.map((element) => {
+                      console.log(element);
                       return (
                         <div className={style.admin} key={element.user_id}>
                           <h5>{element.email}</h5>
-                          <h5>{element.name}</h5>
+                          <h5>
+                            {element.user_id.includes("google")
+                              ? "GoogleID"
+                              : "Auth0ID"}
+                          </h5>
                           <button
                             onClick={() => deleteAd(element.user_id)}
                             className={style.buttonAdmins}
