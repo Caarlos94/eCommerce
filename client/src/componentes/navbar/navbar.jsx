@@ -43,11 +43,11 @@ const Navbar = ({ setPages }) => {
         const accessToken = await getAccessTokenSilently();
         let decoded = jwt_decode(accessToken);
 
-        if (decoded.permissions.includes("read:admin")) {
+        if (decoded.permissions.includes('read:admin')) {
           // verificación principalmente UX. No brinda seguridad.
           setIsAdmin(true);
         }
-        if (decoded.permissions.includes("read:users")) {
+        if (decoded.permissions.includes('read:users')) {
           setIsSuperAdmin(true);
         }
       }
@@ -62,10 +62,10 @@ const Navbar = ({ setPages }) => {
 
   useEffect(() => {
     user &&
-      fetch("http://localhost:3001/users", {
-        method: "POST",
+      fetch('http://localhost:3001/users', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(user),
       });
@@ -82,7 +82,7 @@ const Navbar = ({ setPages }) => {
           <span className="span"></span>
         </div>
       </div>
-      <div className={`white ${isOpen && "open"}`}>
+      <div className={`white ${isOpen && 'open'}`}>
         <div className={style.filtros}>
           <Filtros setPages={setPages} />
         </div>
@@ -100,7 +100,7 @@ const Navbar = ({ setPages }) => {
                   <div>
                     <Link
                       to="/profile"
-                      style={{ textDecoration: "none" }}
+                      style={{ textDecoration: 'none' }}
                       className={style.button}
                     >
                       Perfil
@@ -117,11 +117,6 @@ const Navbar = ({ setPages }) => {
                       Cerrar sesión
                     </button>
                   </div>
-                  {/* <div className={style.historialC}>
-                    <NavLink to="/historial" style={{ textDecoration: 'none' }}>
-                      <button>Historial de Compras</button>
-                    </NavLink>
-                  </div> */}
                   {isAdmin ? (
                     <div className={style.adminn}>
                       <div className={style.historialV}>
@@ -137,6 +132,18 @@ const Navbar = ({ setPages }) => {
                           <button>Publicar un Producto</button>
                         </NavLink>
                       </div>
+                      {isSuperAdmin ? (
+                        <div className={style.btnAdmin}>
+                          <NavLink
+                            to="/superAdmin"
+                            style={{ textDecoration: 'none' }}
+                          >
+                            <button>Admins</button>
+                          </NavLink>
+                        </div>
+                      ) : (
+                        ''
+                      )}
                     </div>
                   ) : (
                     <div className={style.historialC}>
@@ -166,13 +173,15 @@ const Navbar = ({ setPages }) => {
                   </div>
                 </NavLink>
               </div>
-              {isSuperAdmin ? (
-                <NavLink to="/superAdmin" style={{ textDecoration: "none" }}>
-                  <button className={style.btnSuperAdmin}> admins </button>
-                </NavLink>
+              {/* {isSuperAdmin ? (
+                <div className={style.historial}>
+                  <NavLink to="/superAdmin" style={{ textDecoration: 'none' }}>
+                    <button>admins</button>
+                  </NavLink>
+                </div>
               ) : (
-                ""
-              )}
+                ''
+              )} */}
             </div>
           ) : (
             <>

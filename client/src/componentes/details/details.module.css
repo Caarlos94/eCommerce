@@ -131,14 +131,14 @@
 }
 
 .marca {
-  font-size: 15px;
+  font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .nombre {
   font-size: 30px;
   font-family: Arial, Helvetica, sans-serif;
-  
+
 }
 
 .categoria {
@@ -153,17 +153,17 @@
 }
 
 .color {
-  font-size: 15px;
+  font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .talla {
-  font-size: 15px;
+  font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .stock {
-  font-size: 15px;
+  font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -324,6 +324,7 @@
 }
 
 .btns img {
+  width: 45px;
   transition: all 0.4s;
 }
 
@@ -392,17 +393,17 @@
   }
 }
 
-@media (max-width: 768px) and (min-width: 909px){
+@media (max-width: 768px) and (min-width: 909px) {
   .detailCont {
     flex-direction: column;
     align-items: center;
   }
 
-  
+
 
   .imgCont {
-    height:500%;
-    
+    height: 500%;
+
   }
 
   .img111 {
@@ -421,6 +422,19 @@
     width: 100%;
     height: 3000px;
     position: relative;
+  }
+
+  .textCont h5 {
+    font-size: 18px;
+  }
+
+  .btns {
+    position: absolute;
+    top: 90%;
+  }
+
+  .btns img {
+    width: 41px;
   }
 
   .productDesc {
@@ -445,7 +459,7 @@
   }
 }
 
-@media (min-width: 1250px) and (max-width: 1440px){
+@media (min-width: 1250px) and (max-width: 1440px) {
   .textCont {
     background-color: #edeff0;
     height: 100%;
@@ -468,7 +482,7 @@
   .añadirCart {
     width: 230px;
   }
-  
+
   .productDesc {
     margin-top: 150px;
     width: 500px;
@@ -480,18 +494,18 @@
     font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
   }
-  
+
   .nombre {
     font-size: 25px;
     font-family: Arial, Helvetica, sans-serif;
-    
+
   }
-  
+
   .categoria {
     font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
   }
-  
+
 }
 
 @media (min-width: 910px) and (max-width: 1024px) {
@@ -516,7 +530,7 @@
   .añadirCart {
     width: 230px;
   }
-  
+
   .productDesc {
     margin-top: 150px;
     width: 500px;
@@ -528,34 +542,34 @@
     font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
   }
-  
+
   .nombre {
     font-size: 25px;
     font-family: Arial, Helvetica, sans-serif;
-    
+
   }
-  
+
   .categoria {
     font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
   }
-  
+
   .precio {
     font-size: 35px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
   }
-  
+
   .color {
     font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
   }
-  
+
   .talla {
     font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
   }
-  
+
   .stock {
     font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
@@ -605,7 +619,7 @@
   }
 
   .btns img {
-    width: 50px;
+    width: 43px;
   }
 
   .productDesc {

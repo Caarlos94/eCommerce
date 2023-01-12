@@ -302,6 +302,20 @@
   color: #2c96cf;
 }
 
+.btnAdmin button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: 0;
+  color: white;
+  transition: all 0.4s;
+}
+
+.btnAdmin button:hover {
+  color: #2c96cf;
+}
+
 @media (max-width: 768px) {
   .backHome {
     position: absolute;

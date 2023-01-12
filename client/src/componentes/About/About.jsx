@@ -23,7 +23,7 @@ export default function About() {
             <div className={style.card_description}>
               <p className={style.text_title}>Carlos islas</p>
               <p className={style.text_body} >
-              <div className={style.contacto}>
+                <div className={style.contacto}>
                   <a href="https://github.com/Caarlos94" target="_blank" rel="noreferrer">
                     <img src={gitHub} alt="github" />
                   </a>
@@ -40,7 +40,7 @@ export default function About() {
             <div className={style.card_description}>
               <p className={style.text_title}>Alejandro mocse</p>
               <p className={style.text_body} >
-              <div className={style.contacto}>
+                <div className={style.contacto}>
                   <a href="https://github.com/alej-mocse1" target="_blank" rel="noreferrer">
                     <img src={gitHub} alt="github" />
                   </a>
@@ -93,7 +93,7 @@ export default function About() {
             <div className={style.card_description}>
               <p className={style.text_title}>Cesar Zegarra </p>
               <p className={style.text_body}>
-              <div className={style.contacto}>
+                <div className={style.contacto}>
                   <a href="https://github.com/cesarzv" target="_blank" rel="noreferrer">
                     <img src={gitHub} alt="github" />
                   </a>
@@ -110,7 +110,7 @@ export default function About() {
             <div className={style.card_description}>
               <p className={style.text_title}>Belisario Davalos </p>
               <p className={style.text_body} >
-              <div className={style.contacto}>
+                <div className={style.contacto}>
                   <a href="https://github.com/belidavalos11" target="_blank" rel="noreferrer">
                     <img src={gitHub} alt="github" />
                   </a>

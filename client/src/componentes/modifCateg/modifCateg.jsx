@@ -110,7 +110,7 @@ export default function ModifCateg() {
                   onClick={(e) => handleDelete(e)}
                   className={style.x}
                 >
-                  Borrar
+                  X
                 </button>
               </div>
             )

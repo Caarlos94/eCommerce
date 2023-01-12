@@ -34,19 +34,14 @@ const Home = () => {
     // console.log(currentProducts);
   };
 
-  const paginatePrev = (prevPage) =>{
-    setCurrentPage(prevPage);
-    // console.log(currentProducts);
-  }
-  const paginateNext = (nextPage) =>{
-    setCurrentPage(nextPage);
-    // console.log(currentProducts);
-  }
+  const paginatePrev = (prevPage) => setCurrentPage(prevPage);
+
+  const paginateNext = (nextPage) => setCurrentPage(nextPage);
 
   return (
     <div className={s.divaHome}>
       <Navbar setPages={setCurrentPage} />
-      <img src="../../img/messi.jpg" alt="" className={s.imgH} />
+      {/* <img src="../../img/messi.jpg" alt="" className={s.imgH}/> */}
       <div className={s.hero}>
         <div className={s.textoHero}>
           <h1>Supra Sports</h1>

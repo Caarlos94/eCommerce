@@ -79,7 +79,6 @@ const Navbar2 = () => {
           </div>
         </NavLink>
 
-
         <div className={style.searchBar}>
           <SearchBar />
         </div>
@@ -110,11 +109,6 @@ const Navbar2 = () => {
                       Cerrar sesión
                     </button>
                   </div>
-                  {/* <div className={style.historialC}>
-                    <NavLink to="/historial" style={{ textDecoration: 'none' }}>
-                      <button>Historial de Compras</button>
-                    </NavLink>
-                  </div> */}
                   {isAdmin ? (
                     <div className={style.adminn}>
                       <div className={style.historialV}>
@@ -130,6 +124,18 @@ const Navbar2 = () => {
                           <button>Publicar un Producto</button>
                         </NavLink>
                       </div>
+                      {isSuperAdmin ? (
+                        <div className={style.btnAdmin}>
+                          <NavLink
+                            to="/superAdmin"
+                            style={{ textDecoration: 'none' }}
+                          >
+                            <button>Admins</button>
+                          </NavLink>
+                        </div>
+                      ) : (
+                        ''
+                      )}
                     </div>
                   ) : (
                     <div className={style.historialC}>

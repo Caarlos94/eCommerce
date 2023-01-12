@@ -66,7 +66,7 @@ const Details = () => {
         setToken(accessToken);
         let decoded = jwt_decode(accessToken);
 
-        if (decoded.permissions.includes("read:admin")) {
+        if (decoded.permissions.includes('read:admin')) {
           // verificación principalmente estética. No brinda seguridad.
           setIsAdmin(true);
         }
@@ -136,7 +136,8 @@ const Details = () => {
     if (actualInCart.length === 0) {
       dispatch(addToCart(id)) && toast.success("El producto fue añadido al carrito.");
     } else {
-      dispatch(removeOneFromCart(id)) && toast.error("El producto se quitó del carrito.");
+      dispatch(removeOneFromCart(id));
+      toast.error('El producto se quitó del carrito.');
     }
   };
 

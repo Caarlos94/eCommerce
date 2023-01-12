@@ -9,11 +9,10 @@
 .divAdmins {
   /* border: 3px solid red; */
   text-align: center;
-  width: 35rem;
+  width: 40%;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   position: relative;
-  margin-top: 4rem;
-  border-radius: 10px;
+  top: 85px;
   padding: 20px;
 }
 .divAdmins p {
@@ -21,6 +20,14 @@
   font-weight: bold;
   font-size: 1.6rem;
   padding-bottom: 1.5rem;
+}
+
+.add-container {
+  width: 40%;
+}
+
+.blocking-options {
+  width: 40%;
 }
 
 .admin {
@@ -80,4 +87,26 @@
   margin-left: 3rem;
   /* border: 3px solid red; */
   height: 60rem;
+}
+
+@media (max-width: 768px) {
+  .divAdmins {
+    width: 90%;
+  }
+
+  .add-container {
+    width: 90%;
+  }
+
+  .blocking-options {
+    width: 90%;
+  }
+
+  .admin h5 {
+    font-size: 17px;
+  }
+
+  .admins {
+    width: 60%;
+  }
 }
