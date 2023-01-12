@@ -13,7 +13,6 @@ const CartProduct = ({
   id,
   stock,
 }) => {
-
   return (
     <div className={s.item}>
       <div
@@ -27,37 +26,28 @@ const CartProduct = ({
           <p className={s.talle}>Talle: {talla}</p>
         </NavLink>
       </div>
-      <div className={s.preciodiv}>
-        <p className={s.precioTitle}>Precio</p>
-        <p className={s.precio}>${precio}</p>
-      </div> 
+      <div className={s.precios}>
+        <div className={s.preciodiv}>
+          <p className={s.precioTitle}>Precio</p>
+          <p className={s.precio}>${precio}</p>
+        </div>
+        <div className={s.btns}>
+          <button onClick={() => handleDelete(id)}>-1</button>
+          <span className={s.span}>{cantidad}</span>
+          <button onClick={() => handleAdd(id)} disabled={stock <= 0}>
+            +1
+          </button>
+        </div>
 
-      {/* <div>
-        <p className={s.stock}>Stock: {--stock}</p>
-      </div>  */}
-      {/* <div>
-        <p className={s.stock}>Stock: {--stock}</p>
-      </div> 
-
-        <p className={s.precio}>
-          ${precio} x {cantidad} = ${precio*cantidad}
-        </p>
-      */}
-      <div className={s.btns}>
-        <button onClick={() => handleDelete(id)}>-1</button>
-        <span className={s.span}>{cantidad}</span>
-        <button onClick={() => handleAdd(id)} disabled={stock <= 0}>+1</button>
-      </div>
-
-      <div className={s.stdiv}>
-        <p className={s.stTitle}>Subtotal</p>
-        <p className={s.stotal}>${precio*cantidad}</p>
+        <div className={s.stdiv}>
+          <p className={s.stTitle}>Subtotal</p>
+          <p className={s.stotal}>${precio * cantidad}</p>
+        </div>
       </div>
 
       <div className={s.btnX}>
         <button onClick={() => handleDelete(id, true)}>X</button>
       </div>
-      
     </div>
   );
 };

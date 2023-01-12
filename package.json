@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "bootstrap": "^5.2.3",
-    "kill-port": "^2.0.1",
-    "reactstrap": "^9.1.5"
-  }
-}

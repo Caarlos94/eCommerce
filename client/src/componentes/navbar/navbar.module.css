@@ -226,6 +226,40 @@
   flex-direction: column;
 }
 
+.btnSuperAdmin {
+ margin-left: 4px;
+ margin-top: 7px;
+ border: none;
+ color: #fff;
+ background-image: linear-gradient(30deg, #0400ff, #4ce3f7);
+ border-radius: 20px;
+ background-size: 100% auto;
+ font-family: inherit;
+ font-size: 17px;
+ padding: 0.6em 1.5em;
+}
+
+.btnSuperAdmin:hover {
+ background-position: right center;
+ background-size: 200% auto;
+ -webkit-animation: pulse 2s infinite;
+ animation: pulse512 1.5s infinite;
+}
+
+@keyframes pulse512 {
+ 0% {
+  box-shadow: 0 0 0 0 #05bada66;
+ }
+
+ 70% {
+  box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+ }
+
+ 100% {
+  box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+ }
+}
+
 .publicar button {
   display: flex;
   align-items: center;
@@ -265,6 +299,20 @@
 }
 
 .historialV button:hover {
+  color: #2c96cf;
+}
+
+.btnAdmin button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: 0;
+  color: white;
+  transition: all 0.4s;
+}
+
+.btnAdmin button:hover {
   color: #2c96cf;
 }
 
@@ -375,6 +423,12 @@
     display: flex;
     filter: invert(100%);
   }
+
+  .btnSuperAdmin {
+    position: relative;
+    left: 35px;
+
+   }
 }
 
 @media (min-width: 769px) and (max-width: 1200px) {
@@ -392,6 +446,7 @@
     width: 100%;
   }
 
+ 
   .Hamburguesa {
     display: flex !important;
     flex-direction: column;
@@ -477,4 +532,10 @@
     left: 25%;
     filter: invert(100%);
   }
+  
+  .btnSuperAdmin {
+    position: relative;
+    left: 50px;
+
+   }
 }

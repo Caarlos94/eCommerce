@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch } from "react-redux";
 import { getFavorites } from "../../redux/actions/actions";
-import { Toaster, toast } from 'react-hot-toast';
 
 const FavoriteProduct = ({
   nombre,
@@ -33,8 +32,6 @@ const FavoriteProduct = ({
         console.log(response);
         setDidDelete(true);
       });
-
-    toast.error('Producto eliminado de favoritos');
   };
 
   user && dispatch(getFavorites(user.email));
@@ -46,36 +43,25 @@ const FavoriteProduct = ({
           <div className={s.item}>
             <div
               className={s.itemImg}
-              style={{ backgroundImage: `url(${URL[0]})` }}
-          ></div>
+              style={{ backgroundImage: `url(${URL})` }}
+            ></div>
 
-          <div className={s.info}>
-            <NavLink to={`/details/${productoId}`} style={{ textDecoration: 'none' }}>
-              <p className={s.nombre}>{nombre}</p>
-              <p className={s.talle}>Talle: {talla}</p>
-            </NavLink>
-          </div>
+            <div className={s.info}>
+              <NavLink to={`/details/${productoId}`} style={{ textDecoration: 'none' }}>
+                <p className={s.nombre}>{nombre}</p>
+                <p className={s.talle}>Talle: {talla}</p>
+              </NavLink>
+            </div>
 
-          <div className={s.preciodiv}>
-            <p className={s.precioTitle}>Precio</p>
-            <p className={s.precio}>${precio}</p>
-          </div> 
+            <div className={s.preciodiv}>
+              <p className={s.precioTitle}>Precio</p>
+              <p className={s.precio}>${precio}</p>
+            </div>
 
             <div className={s.btnX}>
               <button onClick={handleDelete}>X</button>
             </div>
-        </div>
-          <Toaster
-            toastOptions={{
-              // Define default options
-              className: '',
-              duration: 3000,
-              style: {
-                background: '#fff',
-                color: '#000',
-              },
-            }}
-          />
+          </div>
         </div>
       ) : (
         ''

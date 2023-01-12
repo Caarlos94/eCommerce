@@ -5,24 +5,33 @@ import github from '../../img/github.png';
 export default function Footer() {
   return (
     <div className={style.div}>
-      <h2>SupraSports</h2>
+      <div className={style.contenedor}>
+    
       <div className={style.links}>
+    
+    <div className={style.divLink}>
         <NavLink to="/about" style={{ textDecoration: 'none' }}>
-          <h4>Nosotros</h4>
+          <h4 className={style.nosotros}>Nosotros</h4>
         </NavLink>
+    </div>
 
+    <div className={style.divLink}>
         <div className={style.redes}>
-          <h4>Redes: </h4>
           <a href="https://github.com/Caarlos94/eCommerce" target="_blank" rel="noreferrer">
-            <img src={github} alt="github" />
+            <img src={github} alt="github" className={style.img}/>
           </a>
         </div>
+    </div>
 
-        {/* <div className={style.contacto}>
-            <h6>suprasportspf@gmail.com</h6>
-            <h6>+54 3516853857</h6>
-        </div> */}
+    <div className={style.divLink}>
+        <NavLink to="/" style={{ textDecoration: 'none' }}>
+          <h2 className={style.h2}>SupraSports</h2>
+        </NavLink>
+    </div>
       </div>
+    </div>
+
+    <h5 className={style.copyrigth}>©2023~ – Todos los derechos reservados</h5>
     </div>
   );
 }

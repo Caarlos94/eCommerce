@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import classes from './UnansweredQuestion.module.css';
 import { NavLink } from 'react-router-dom';
+import defaultImg from '../../img/SupraLogo.jpg';
 
 const UnansweredQuestion = ({ question, accessToken }) => {
   const [answer, setAnswer] = useState('');
@@ -26,7 +27,7 @@ const UnansweredQuestion = ({ question, accessToken }) => {
         console.log(data);
         setDidDelete(true);
 
-        alert(data);
+        /* alert(data); */
       })
       .catch((error) => {
         if (error.error) {
@@ -82,7 +83,10 @@ const UnansweredQuestion = ({ question, accessToken }) => {
           </div>
         </div>
         <div className={classes['imgProd']}>
-          <img src={question.productUrl[0]} alt="nombre del producto" />
+          <img
+            src={question.productUrl[0] ? question.productUrl[0] : defaultImg}
+            alt="nombre del producto"
+          />
         </div>
       </div>
       <form onSubmit={handleSubmit}>

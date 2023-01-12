@@ -24,7 +24,7 @@ const ProductCard = ({ data /*clienteId, enviado*/ }) => {
   return (
     <div className={classes['product-card']}>
       <div className={classes['img-container']}>
-        <img src={data.url[0]} alt={data.name}></img>
+        <img src={data.url} alt={data.name}></img>
       </div>
       <div className={classes['product-info-container']}>
         <p className={classes['bold-text']}>{data.nombre}</p>

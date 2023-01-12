@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import style from './Perfil.module.css'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 //import { getUserInfo, importUser, postUser } from "../../../redux/actions/actions";
-import Card from "../../Card/Card";
+/* import Card from "../../Card/Card"; */
 import { getProducts } from "../../../redux/actions/actions";
 import Navbar2 from "../navBar2";
 import Footer from "../../Footer/Footer";
@@ -11,7 +11,7 @@ import Footer from "../../Footer/Footer";
 const Perfil = () => {
   const dispatch = useDispatch();
 
-  const allProducts = useSelector((state) => state.productsHome);
+/*   const allProducts = useSelector((state) => state.productsHome); */
   const { user, isAuthenticated, } = useAuth0();
 
   useEffect(() => {
@@ -25,37 +25,35 @@ const Perfil = () => {
       <div className={style.cont}>
         {isAuthenticated && (
           <div className={style.allInfo}>
-            <div className={style.infoName}>
-              {/* <img src={user.picture} alt={user.name} /> */}
-              <p>{user.name}</p>
+            <div className={style.info}>
+              <img src={user.picture} alt={user.name} />
+              <h2>{user.name}</h2>
             </div>
             <div className={style.info}>
-              <p>Correo: {user.email}</p>
+              <h4>Correo: {user.email}</h4>
             </div >
 
             <div className={style.info}>
-              <p>Email verificado: {user.email_verified === true
+              <h4>Email verificado: {user.email_verified === true
                 ? 'Si'
-                : 'No, verificar por favor.'}</p>
+                : 'No, verificar por favor.'}</h4>
             </div >
 
             <div className={style.info}>
-              <p>Rol: {user.nickname === 'suprasportspf'
+              <h4>Rol: {user.nickname === 'suprasportspf'
                 ? 'Administrador'
-                : 'Usuario'}</p>
+                : 'Usuario'}</h4>
             </div >
           </div>
         )}
       </div>
-      <hr />
 
-      <div className={style.relacionados}>
+      {/* <div className={style.relacionados}>
         <h4>Productos recomendados para vos!</h4>
         <div className={style.section}>
           {allProducts.map((card) => card.categoria === 'Camperas' && (
-            <div className={style.cardCont} key={card.id}>
+            <div key={card.id}>
               <Card
-                className={style.card}
                 nombre={card.nombre}
                 URL={card.URL}
                 marca={card.marca}
@@ -68,7 +66,7 @@ const Perfil = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
       <Footer />
     </div>
   )

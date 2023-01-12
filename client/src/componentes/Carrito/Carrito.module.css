@@ -2,11 +2,27 @@
 
 .cartCont {
   background-color: white;
-  height: 200vh;
-  /* display: flex; */
-  /* flex-direction: column; */
- /*  align-items: center; */
-  margin-left: 90px;
+  height: 300vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.cartCont2 {
+  display: flex;
+  flex-direction: row-reverse;
+  position: relative;
+  height: 95%;
+  width: 100%;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 0;
+  height: 5%;
+  margin-top: 40px;
 }
 
 .cartCont h1 {
@@ -15,19 +31,45 @@
   font-size: 60px;
 }
 
-.titulo{
+.totalCont {
+  position: fixed;
+  width: 20%;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.totalCont button {
+  width: 30%;
+}
+
+.cardsProd {
+  width: 80%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  left: 0;
+}
+
+.titulo {
   font-family: 'Poppins', sans-serif;
   font-size: 30px;
   margin-top: 25px;
+  position: absolute;
+  left: 3%;
 }
 
 .limpiar {
-  margin-top: 45px;
   padding: 5px 10px;
   border-radius: 5px;
+  right: 5%;
   position: absolute;
+  /* position: absolute;
   top: 15%;
-  right: 10%;
+  right: 10%; */
   font-weight: 500;
 }
 
@@ -35,44 +77,54 @@
   border-radius: 5px;
   width: 250px;
   height: 100px;
-  position: absolute;
+  /* position: absolute;
   top: 45%;
-  right: 3%;
+  right: 3%; */
 }
 
 .total p {
   font-size: 30px;
   width: 100%;
   font-weight: bold;
-  right: -290%;
+  /* right: -290%; */
 }
 
 .pagar {
-  padding: 5px 10px;
+  width: 50%;
   border-radius: 5px;
-  position: absolute;
+  /* position: absolute;
   top: 55%;
-  right: 10%;
+  right: 10%; */
   font-weight: 500;
 }
 
 .totalFinal {
   display: none;
-  border: 2px solid black;
 }
 
-.recuadroTotal{
-  border: 2px solid black;
+.recuadroTotal {
 }
 
-.boton{
+.boton {
   font-size: 15px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-
 @media (max-width: 768px) {
   .search {
+    display: none;
+  }
+
+  .cartCont {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .cartCont2 {
+    width: 100%;
+  }
+
+  .totalCont {
     display: none;
   }
 
@@ -99,6 +151,11 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     position: fixed;
     bottom: 0;
+    background-color: white;
+  }
+
+  .cardsProd {
+    width: 100%;
   }
 
   .total {
@@ -119,5 +176,26 @@
     height: 40px;
     border-radius: 5px;
     font-weight: 500;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1700px) {
+  .pagar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 60px;
+    border-radius: 5px;
+    font-weight: 500;
+  }
+
+  .totalCont {
+  }
+}
+
+@media (min-width: 1100px) and (max-width: 1700px) {
+  .cardsProd {
+    display: flex;
+    justify-content: left;
   }
 }

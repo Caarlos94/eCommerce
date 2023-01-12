@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import s from './details.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import s from "./details.module.css";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getDetails,
   limpiarState,
@@ -10,39 +10,40 @@ import {
   getFavorites,
   deleteProd,
   removeOneFromCart,
-} from '../../redux/actions/actions.js';
-import { NavLink, useHistory, useParams } from 'react-router-dom';
-import heart from '../../img/heart-regular.svg';
-import trash from '../../img/trash.png';
-import edit from '../../img/edit.png';
-import QASection from '../customersQA/QASection'; // La sección de QA del producto. Debe ir en este componente. Falta posicionarlo bien, dar estilos etc
-import { useAuth0 } from '@auth0/auth0-react';
-import jwt_decode from 'jwt-decode';
-import Navbar2 from '../navbar/navBar2';
-import Footer from '../Footer/Footer';
-import Reviews from '../Reviews/Reviews';
-import { Toaster, toast } from 'react-hot-toast';
+} from "../../redux/actions/actions.js";
+import { NavLink, useHistory, useParams } from "react-router-dom";
+import heart from "../../img/heart-regular.svg";
+import trash from "../../img/trash.png";
+import edit from "../../img/edit.png";
+import QASection from "../customersQA/QASection"; // La sección de QA del producto. Debe ir en este componente. Falta posicionarlo bien, dar estilos etc
+import { useAuth0 } from "@auth0/auth0-react";
+import jwt_decode from "jwt-decode";
+import Navbar2 from "../navbar/navBar2";
+import Footer from "../Footer/Footer";
+import Reviews from "../Reviews/Reviews";
+import { Toaster, toast } from "react-hot-toast";
 
 const Details = () => {
-  const history = useHistory()
+  const history = useHistory();
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews);
   const details = useSelector((state) => state.details);
+  const [token, setToken] = useState("");
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [, setFavoritos] = useState([]);
-  const [clienteId, setClienteId] = useState('');
+  const [clienteId, setClienteId] = useState("");
   const [, setDidDelete] = useState(false);
   const [input, setInput] = useState({
-    email: '',
-    productoId: '',
+    email: "",
+    productoId: "",
   });
 
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   let { id } = useParams();
 
   useEffect(() => {
-    user && dispatch(getFavorites(user.email))
+    user && dispatch(getFavorites(user.email));
     dispatch(limpiarState());
     dispatch(getDetails(id));
     dispatch(getReviews(id));
@@ -62,9 +63,10 @@ const Details = () => {
     const checkForAdminRole = async () => {
       if (isAuthenticated) {
         const accessToken = await getAccessTokenSilently();
+        setToken(accessToken);
         let decoded = jwt_decode(accessToken);
 
-        if (decoded.permissions.includes("read:admin")) {
+        if (decoded.permissions.includes('read:admin')) {
           // verificación principalmente estética. No brinda seguridad.
           setIsAdmin(true);
         }
@@ -92,9 +94,9 @@ const Details = () => {
 
   const handleDelete = () => {
     fetch(`http://localhost:3001/favoritos/${clienteId}/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-type': 'application/json',
+        "Content-type": "application/json",
       },
     })
       .then((response) => response.json())
@@ -105,40 +107,38 @@ const Details = () => {
   };
 
   const favoritos = useSelector((state) => state.favorites);
-  let actualInFav = favoritos.filter(fav => fav.id === id);
+  let actualInFav = favoritos.filter((fav) => fav.id === id);
   const carrito = useSelector((state) => state.cart);
-  let actualInCart = carrito.filter(prod => prod.id === id);
+  let actualInCart = carrito.filter((prod) => prod.id === id);
 
   const handleAdd = () => {
-    user && dispatch(getFavorites(user.email))
+    user && dispatch(getFavorites(user.email));
     if (actualInFav.length === 0) {
       dispatch(addToFavorite(input));
-      toast.success('El producto se agrego a favoritos.');
-      user && dispatch(getFavorites(user.email))
+      toast.success("El producto se agrego a favoritos.");
+      user && dispatch(getFavorites(user.email));
     } else {
-      handleDelete()
-      toast.error('El producto se quitó de favoritos.');
-      user && dispatch(getFavorites(user.email))
+      handleDelete();
+      toast.error("El producto se quitó de favoritos.");
+      user && dispatch(getFavorites(user.email));
     }
   };
-  const handleDeleteProd = (id) => {
-    console.log(id + ' ELIMINADO');
-    dispatch(deleteProd(id)).then(
-      toast('Producto eliminado con éxito! Se te redirigirá al inicio...')
+  const handleDeleteProd = (id, token) => {
+    console.log(id + " ELIMINADO");
+    console.log("token:", token);
+    dispatch(deleteProd(id, token)).then(
+      toast("Producto eliminado con éxito! Se te redirigirá al inicio...")
     );
-    history.push('/');
+    history.push("/");
   };
 
   const handleSubmit = (id) => {
     if (actualInCart.length === 0) {
-      dispatch(addToCart(id));
-      toast.success('El producto fue añadido al carrito.');
+      dispatch(addToCart(id)) && toast.success("El producto fue añadido al carrito.");
     } else {
-      dispatch(removeOneFromCart(id))
-      toast.error('El producto se quitó de favoritos.');
+      dispatch(removeOneFromCart(id));
+      toast.error('El producto se quitó del carrito.');
     }
-
-    console.log(actualInCart);
   };
 
   return (
@@ -146,14 +146,14 @@ const Details = () => {
       <Navbar2 />
       <div>
         {details.length ? (
-          <div className={s['parent-container']}>
+          <div className={s["parent-container"]}>
             <div className={s.detailCont}>
               <div className={s.imgCont}>
                 <div className={s.img11}>
                   <div
-                  className={s.img111}
-                  style={{ backgroundImage: `url(${details[0].URL[0]})` }}
-                ></div>
+                    className={s.img111}
+                    style={{ backgroundImage: `url(${details[0].URL})` }}
+                  ></div>
                 </div>
               </div>
               <div className={s.textCont}>
@@ -163,7 +163,9 @@ const Details = () => {
                   <p className={s.precio}>${details[0].precio}</p>
                   {/* <p className={s.categoria}>Categoría: {details[0].color}</p> */}
                   <p className={s.color}>Color: {details[0].color}</p>
-                  <p className={s.talla}>Talla: {details[0].talla.toUpperCase()}</p>
+                  <p className={s.talla}>
+                    Talla: {details[0].talla.toUpperCase()}
+                  </p>
                   {/* <button className={s.buttonTalle}>XS</button>
                   <button className={s.buttonTalle}>S</button>
                   <button className={s.buttonTalle}>M</button>
@@ -183,7 +185,9 @@ const Details = () => {
                     <button
                       disabled={details[0].stock === 0}
                       onClick={() => handleSubmit(id)}
-                      className={actualInCart.length > 0 ? s.añadido : s.añadirCart}
+                      className={
+                        actualInCart.length > 0 ? s.añadido : s.añadirCart
+                      }
                     >
                       AÑADIR AL CARRITO
                     </button>
@@ -197,7 +201,7 @@ const Details = () => {
                         </div>
                       </>
                     ) : (
-                      <div className={s.fav}>
+                      <div className={s.fav} /* onClick={toast.error('Necesita iniciar sesión para guardar en favoritos.')} */>
                         <img src={heart} alt=""></img>
                       </div>
                     )}
@@ -206,14 +210,14 @@ const Details = () => {
                   <div className={s.btns}>
                     <button
                       /* value={categ} */
-                      onClick={() => handleDelete(id)}
+                      onClick={() => handleDeleteProd(id, token)}
                     >
                       <img src={trash} alt=""></img>
                     </button>
 
                     <NavLink
                       to={`/updateProd/${id}`}
-                      style={{ textDecoration: 'none' }}
+                      style={{ textDecoration: "none" }}
                     >
                       <img src={edit} alt=""></img>
                     </NavLink>
@@ -227,6 +231,7 @@ const Details = () => {
             <div className={s.valoraciones}>
               <Reviews reviews={reviews} />
             </div>
+            <Footer />
           </div>
         ) : (
           <div className={s.spinner}>
@@ -238,16 +243,16 @@ const Details = () => {
             <div></div>
           </div>
         )}
-        <Footer />
       </div>
+
       <Toaster
         toastOptions={{
           // Define default options
-          className: '',
-          duration: 3000,
+          className: "",
+          duration: 1000,
           style: {
-            background: '#fff',
-            color: '#000',
+            background: "#fff",
+            color: "#000",
           },
         }}
       />
