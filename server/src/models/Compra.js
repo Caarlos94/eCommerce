@@ -34,6 +34,9 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         alowNull: true,
       },
+      nombre: { type: DataTypes.STRING },
+      apellido: { type: DataTypes.STRING },
+      DNI: { type: DataTypes.STRING },
     },
     {
       timestamps: true,

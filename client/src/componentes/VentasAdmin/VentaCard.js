@@ -101,6 +101,8 @@ const VentaCard = ({ data, accessToken }) => {
             {cliente.nombre} {cliente.apellido}
           </p>
           <p className={classes["info"]}>Correo: {cliente.email || "null"}</p>
+          <p className={classes["info"]}>DNI: {cliente.dni || "null"}</p>
+
           <p className={classes["info"]}>Teléfono: {cliente.cel || "null"}</p>
           <p className={classes["info"]}>Ciudad: {cliente.ciudad || "null"}</p>
           <p className={classes["info"]}>

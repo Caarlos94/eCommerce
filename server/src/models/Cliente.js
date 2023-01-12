@@ -35,9 +35,6 @@ module.exports = (sequelize) => {
       auth0Id: {
         type: DataTypes.STRING,
       },
-      nombre: { type: DataTypes.STRING },
-      apellido: { type: DataTypes.STRING },
-      DNI: { type: DataTypes.STRING },
     },
     { timestamps: false }
   );

@@ -33,6 +33,7 @@ const VentasAdmin = () => {
         .then((response) => response.json())
         .then((response) => {
           if (response.error) return setError(response);
+          console.log(response);
           setData(response);
         });
   }, [accessToken, filters]);
