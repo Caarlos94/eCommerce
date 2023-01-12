@@ -104,7 +104,7 @@ export default function UpdateProd() {
   const handlerSubmit = (e) => {
     e.preventDefault();
     console.log(input);
-    dispatch(updateProduct(input, id));
+    dispatch(updateProduct(input, id, token));
     setTimeout(() => dispatch(getProducts2()), 100);
     alert("Producto actualizado con éxito! Se te redirigirá al inicio...");
     setInput({

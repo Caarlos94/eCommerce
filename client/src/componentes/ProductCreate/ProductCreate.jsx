@@ -124,12 +124,6 @@ export default function ProdCreate() {
     }
   };
 
- /*  const handlerImg = (e) => {
-    setInput({ ...input, URL: [e.target.value] });
-    setErrors(validate({ ...input, URL: [e.target.value] }, prods))
-    console.log(input);
-  }; */
-
   const handlerSubmit = (e) => {
     e.preventDefault();
     console.log(input);

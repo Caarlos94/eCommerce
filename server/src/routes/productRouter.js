@@ -8,8 +8,9 @@ const { errorHandler } = require("./middleware/error.middleware");
 
 productRouter.get("/", async (req, res) => {
   try {
-    await getProductsFireBase();
-    res.status(200).json(await getProductsFireBase());
+    await getProductsFireBase()
+    await getProductsFireBase()
+    res.status(200).json(await getDataBaseProducts());
     // res.status(200).json(await getDataBaseProducts());
   } catch (error) {
     res.status(400).send(error.message);
@@ -54,8 +55,8 @@ productRouter.get("/:id", async (req, res) => {
 // admins only
 productRouter.post(
   "/",
- /*  validateAccessToken,
-  validateAdmin, */
+  validateAccessToken,
+  validateAdmin,
   async (req, res) => {
     try {
       const data = req.body;
@@ -75,8 +76,8 @@ productRouter.post(
 // admins only
 productRouter.delete(
   "/:id",
-  /* validateAccessToken,
-  validateAdmin, */
+  validateAccessToken,
+  validateAdmin,
   async (req, res) => {
     try {
       const { id } = req.params;
@@ -93,8 +94,8 @@ productRouter.delete(
 // admins only
 productRouter.put(
   "/:id",
-  /* validateAccessToken,
-  validateAdmin,*/
+  validateAccessToken,
+  validateAdmin,
   async (req, res) => {
     const data = req.body;
     const { id } = req.params;

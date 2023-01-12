@@ -57,16 +57,6 @@ const SuperAdmin = (props) => {
           setCueParentUpdate(cueParentUpdate + 1);
         }, 200)
       ); // lo pasé a promesas porque necesito actualizar a partir de la respuesta
-
-    // if (adminsdeletes.data) {
-    //   setTimeout(async () => {
-    //     const result = await axios.get(
-    //       "http://localhost:3001/superAdmin/fetchRoles"
-    //     );
-
-    //     setAdmins(result.data);
-    //   }, 100);
-    // }
   };
 
   return (
@@ -88,21 +78,26 @@ const SuperAdmin = (props) => {
                   <p>Usuarios con rol admin</p>
                   <div>
                     {admins?.map((element) => {
+                      console.log(element);
                       return (
                         <div className={style.admin} key={element.user_id}>
                           <h5>{element.email}</h5>
-                          <h5>{element.name}</h5>
+                          <h5>
+                            {element.user_id.includes("google")
+                              ? "GoogleID"
+                              : "Auth0ID"}
+                          </h5>
                           <button
                             onClick={() => deleteAd(element.user_id)}
                             className={style.buttonAdmins}
                           >
-                            Eliminar admin
+                            Seleccionar admin
                           </button>
                         </div>
                       );
                     })}
                     <button onClick={() => Delete()} className={style.admins}>
-                      Delete admins
+                      Eliminar admins
                     </button>
                   </div>
                 </div>

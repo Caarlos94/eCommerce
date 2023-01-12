@@ -1,5 +1,9 @@
 .divPadre {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  flex-direction: column;
   /* border: 3px solid green; */
   padding-bottom: 12rem;
   height: 100%;
@@ -9,10 +13,11 @@
 .divAdmins {
   /* border: 3px solid red; */
   text-align: center;
-  width: 40%;
+  width: 35rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   position: relative;
-  top: 85px;
+  margin-top: 4rem;
+  border-radius: 10px;
   padding: 20px;
 }
 .divAdmins p {
@@ -20,14 +25,6 @@
   font-weight: bold;
   font-size: 1.6rem;
   padding-bottom: 1.5rem;
-}
-
-.add-container {
-  width: 40%;
-}
-
-.blocking-options {
-  width: 40%;
 }
 
 .admin {

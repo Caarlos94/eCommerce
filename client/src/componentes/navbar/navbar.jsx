@@ -138,7 +138,7 @@ const Navbar = ({ setPages }) => {
                             to="/superAdmin"
                             style={{ textDecoration: 'none' }}
                           >
-                            <button>Admins</button>
+                            <button>Gestionar Permisos de Admin</button>
                           </NavLink>
                         </div>
                       ) : (
@@ -173,15 +173,6 @@ const Navbar = ({ setPages }) => {
                   </div>
                 </NavLink>
               </div>
-              {/* {isSuperAdmin ? (
-                <div className={style.historial}>
-                  <NavLink to="/superAdmin" style={{ textDecoration: 'none' }}>
-                    <button>admins</button>
-                  </NavLink>
-                </div>
-              ) : (
-                ''
-              )} */}
             </div>
           ) : (
             <>

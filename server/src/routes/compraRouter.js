@@ -9,9 +9,13 @@ const { DATE } = require("sequelize");
 require("dotenv").config();
 const { EMAIL_PASSWORD, EMAIL_HOST, EMAIL_PORT, EMAIL_USER } = process.env;
 
-compraRouter.post("/", validateAccessToken, async (req, res) => {
+compraRouter.post("/", async (req, res) => {
   try {
     const { email, productos, input } = req.body;
+
+    const { nombre, apellido, DNI } = input;
+
+    // console.log(nombre, apellido, DNI, productos);
 
     const cliente = await Cliente.findOne({
       where: { email: email },
@@ -26,6 +30,9 @@ compraRouter.post("/", validateAccessToken, async (req, res) => {
     nuevaCompra.cel = input.cel;
     nuevaCompra.cp = input.cp;
     nuevaCompra.ciudad = input.ciudad;
+    nuevaCompra.nombre = nombre;
+    nuevaCompra.apellido = apellido;
+    nuevaCompra.DNI = DNI;
     nuevaCompra.save();
 
     productos.forEach(async (producto) => {
@@ -186,6 +193,9 @@ compraRouter.get(
             direccion: purchase.direccion,
             cel: purchase.cel,
             cp: purchase.cp,
+            nombre: purchase.nombre,
+            apellido: purchase.apellido,
+            dni: purchase.DNI,
           },
           productos: mappedProducts,
         });
@@ -362,6 +372,16 @@ compraRouter.post("/obtenerId", async (req, res) => {
     res.send(usuario.dataValues.id);
   } catch (error) {
     res.status(400).json(error.message);
+  }
+});
+
+compraRouter.get("/length", async () => {
+  try {
+    const compras = await Compra.findAll();
+    const total = compras.length;
+    res.status(200).json(total);
+  } catch (error) {
+    res.status(400).json({ error: true, msg: error.msg });
   }
 });
 

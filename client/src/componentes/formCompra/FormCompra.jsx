@@ -8,10 +8,13 @@ export default function FormCompra({ handle }) {
   console.log(user.email);
 
   const [input, setInput] = useState({
-    ciudad: '',
-    cp: '',
-    direc: '',
-    cel: '',
+    ciudad: "",
+    cp: "",
+    direc: "",
+    cel: "",
+    nombre: "",
+    apellido: "",
+    DNI: "",
   });
 
   const handlerChange = (e) => {
@@ -25,10 +28,13 @@ export default function FormCompra({ handle }) {
     e.preventDefault();
     console.log(input);
     setInput({
-      ciudad: '',
-      cp: '',
-      direc: '',
-      cel: '',
+      ciudad: "",
+      cp: "",
+      direc: "",
+      cel: "",
+      nombre: "",
+      apellido: "",
+      DNI: "",
     });
   };
 
@@ -40,6 +46,35 @@ export default function FormCompra({ handle }) {
 
         <div className={style.forms}>
           <form onSubmit={(e) => handlerSubmit(e)}>
+            <div className={style.inputI}>
+              <label>Nombre: </label>
+              <input
+                type="string"
+                value={input.nombre}
+                name="nombre"
+                onChange={(e) => handlerChange(e)}
+              ></input>
+            </div>
+
+            <div className={style.inputI}>
+              <label>Apellido: </label>
+              <input
+                type="string"
+                value={input.apellido}
+                name="apellido"
+                onChange={(e) => handlerChange(e)}
+              ></input>
+            </div>
+
+            <div className={style.inputI}>
+              <label>DNI: </label>
+              <input
+                type="string"
+                value={input.DNI}
+                name="DNI"
+                onChange={(e) => handlerChange(e)}
+              ></input>
+            </div>
             <div className={style.inputI}>
               <label>Ciudad: </label>
               <input
