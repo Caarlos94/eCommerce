@@ -12,7 +12,9 @@ export default function Answers() {
             <div className={s.answerCont}>
                 <AdminQA></AdminQA>
             </div>
-            <Footer />
+            <div className={s.divFooter}>
+             <Footer />
+            </div>
         </div>
     );
 }
