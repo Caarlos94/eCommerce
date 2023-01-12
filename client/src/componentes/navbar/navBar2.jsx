@@ -79,9 +79,9 @@ const Navbar2 = () => {
           </div>
         </NavLink>
 
-        <div className={style.searchBar}>
+        {/* <div className={style.searchBar}>
           <SearchBar />
-        </div>
+        </div> */}
 
         <div className={style.btns}>
           {isAuthenticated ? (
