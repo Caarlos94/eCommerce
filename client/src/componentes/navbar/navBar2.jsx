@@ -79,7 +79,6 @@ const Navbar2 = () => {
           </div>
         </NavLink>
 
-
         <div className={style.searchBar}>
           <SearchBar />
         </div>
@@ -104,11 +103,6 @@ const Navbar2 = () => {
                       Cerrar sesión
                     </button>
                   </div>
-                  {/* <div className={style.historialC}>
-                    <NavLink to="/historial" style={{ textDecoration: 'none' }}>
-                      <button>Historial de Compras</button>
-                    </NavLink>
-                  </div> */}
                   {isAdmin ? (
                     <div className={style.adminn}>
                       <div className={style.historialV}>
@@ -124,6 +118,18 @@ const Navbar2 = () => {
                           <button>Publicar un Producto</button>
                         </NavLink>
                       </div>
+                      {isSuperAdmin ? (
+                        <div className={style.btnAdmin}>
+                          <NavLink
+                            to="/superAdmin"
+                            style={{ textDecoration: 'none' }}
+                          >
+                            <button>Admins</button>
+                          </NavLink>
+                        </div>
+                      ) : (
+                        ''
+                      )}
                     </div>
                   ) : (
                     <div className={style.historialC}>
@@ -146,11 +152,6 @@ const Navbar2 = () => {
 
           {isAdmin ? (
             <div className={style.admin}>
-              {/* <div className={style.publicar}>
-                <NavLink to="/product" style={{ textDecoration: 'none' }}>
-                  <button>Publicar un Producto</button>
-                </NavLink>
-              </div> */}
               <div className={style.qa}>
                 <NavLink to="/answers">
                   <div className={style.btnQA}>
@@ -158,12 +159,7 @@ const Navbar2 = () => {
                   </div>
                 </NavLink>
               </div>
-              {/* <div className={style.publicar}>
-                <NavLink to="/sales" style={{ textDecoration: "none" }}>
-                  <button>Historial de Ventas</button>
-                </NavLink>
-              </div> */}
-              {isSuperAdmin ? (
+              {/* {isSuperAdmin ? (
                 <div className={style.historial}>
                   <NavLink to="/superAdmin" style={{ textDecoration: 'none' }}>
                     <button>admins</button>
@@ -171,7 +167,7 @@ const Navbar2 = () => {
                 </div>
               ) : (
                 ''
-              )}
+              )} */}
             </div>
           ) : (
             <>
@@ -202,12 +198,6 @@ const Navbar2 = () => {
                       <img src={heart} alt=""></img>
                     </div>
                   </NavLink>
-
-                  {/* <div className={style.historial}>
-                    <NavLink to="/historial" style={{ textDecoration: "none" }}>
-                      <button>Historial de Compras</button>
-                    </NavLink>
-                  </div> */}
                 </>
               ) : (
                 <NavLink to="/">

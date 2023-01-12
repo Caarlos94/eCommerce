@@ -24,7 +24,7 @@ import Reviews from '../Reviews/Reviews';
 import { Toaster, toast } from 'react-hot-toast';
 
 const Details = () => {
-  const history = useHistory()
+  const history = useHistory();
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews);
   const details = useSelector((state) => state.details);
@@ -42,7 +42,7 @@ const Details = () => {
   let { id } = useParams();
 
   useEffect(() => {
-    user && dispatch(getFavorites(user.email))
+    user && dispatch(getFavorites(user.email));
     dispatch(limpiarState());
     dispatch(getDetails(id));
     dispatch(getReviews(id));
@@ -64,7 +64,7 @@ const Details = () => {
         const accessToken = await getAccessTokenSilently();
         let decoded = jwt_decode(accessToken);
 
-        if (decoded.permissions.includes("read:admin")) {
+        if (decoded.permissions.includes('read:admin')) {
           // verificación principalmente estética. No brinda seguridad.
           setIsAdmin(true);
         }
@@ -79,7 +79,6 @@ const Details = () => {
     }
 
     checkForAdminRole();
-
     if (user) {
       fetch(`http://localhost:3001/favoritos/${user.email}`)
         .then((data) => data.json())
@@ -106,20 +105,20 @@ const Details = () => {
   };
 
   const favoritos = useSelector((state) => state.favorites);
-  let actualInFav = favoritos.filter(fav => fav.id === id);
+  let actualInFav = favoritos.filter((fav) => fav.id === id);
   const carrito = useSelector((state) => state.cart);
-  let actualInCart = carrito.filter(prod => prod.id === id);
+  let actualInCart = carrito.filter((prod) => prod.id === id);
 
   const handleAdd = () => {
-    user && dispatch(getFavorites(user.email))
+    user && dispatch(getFavorites(user.email));
     if (actualInFav.length === 0) {
       dispatch(addToFavorite(input));
       toast.success('El producto se agrego a favoritos.');
-      user && dispatch(getFavorites(user.email))
+      user && dispatch(getFavorites(user.email));
     } else {
-      handleDelete()
+      handleDelete();
       toast.error('El producto se quitó de favoritos.');
-      user && dispatch(getFavorites(user.email))
+      user && dispatch(getFavorites(user.email));
     }
   };
   const handleDeleteProd = (id) => {
@@ -135,7 +134,7 @@ const Details = () => {
       dispatch(addToCart(id));
       toast.success('El producto fue añadido al carrito.');
     } else {
-      dispatch(removeOneFromCart(id))
+      dispatch(removeOneFromCart(id));
       toast.error('El producto se quitó de favoritos.');
     }
 
@@ -152,17 +151,17 @@ const Details = () => {
               <div className={s.imgCont}>
                 <div className={s.img11}>
                   <div
-                  className={s.img111}
-                  style={{ backgroundImage: `url(${details[0].URL[0]})` }}
-                ></div>
+                    className={s.img111}
+                    style={{ backgroundImage: `url(${details[0].URL[0]})` }}
+                  ></div>
                   <div
-                  className={s.img111}
-                  style={{ backgroundImage: `url(${details[0].URL[1]})` }}
-                ></div>
+                    className={s.img111}
+                    style={{ backgroundImage: `url(${details[0].URL[1]})` }}
+                  ></div>
                   <div
-                  className={s.img111}
-                  style={{ backgroundImage: `url(${details[0].URL[2]})` }}
-                ></div>
+                    className={s.img111}
+                    style={{ backgroundImage: `url(${details[0].URL[2]})` }}
+                  ></div>
                 </div>
               </div>
               <div className={s.textCont}>
@@ -170,9 +169,11 @@ const Details = () => {
                   <p className={s.marca}>{details[0].marca}</p>
                   <p className={s.nombre}>{details[0].nombre}</p>
                   <p className={s.precio}>${details[0].precio}</p>
-                  <p className={s.categoria}>Categoria</p>
+                  {/* <p className={s.categoria}>Categoría: {details[0].color}</p> */}
                   <p className={s.color}>Color: {details[0].color}</p>
-                  <p className={s.talla}>Talla: {details[0].talla.toUpperCase()}</p>
+                  <p className={s.talla}>
+                    Talla: {details[0].talla.toUpperCase()}
+                  </p>
                   {/* <button className={s.buttonTalle}>XS</button>
                   <button className={s.buttonTalle}>S</button>
                   <button className={s.buttonTalle}>M</button>
@@ -182,9 +183,9 @@ const Details = () => {
                   {details[0].stock > 0 ? (
                     <p className={s.stock}>Stock: {details[0].stock}</p>
                   ) : (
-                    <p>
+                    <h5>
                       Producto no disponible! Stock agotado momentáneamente...
-                    </p>
+                    </h5>
                   )}
                 </div>
                 {!isAdmin ? (
@@ -192,7 +193,9 @@ const Details = () => {
                     <button
                       disabled={details[0].stock === 0}
                       onClick={() => handleSubmit(id)}
-                      className={actualInCart.length > 0 ? s.añadido : s.añadirCart}
+                      className={
+                        actualInCart.length > 0 ? s.añadido : s.añadirCart
+                      }
                     >
                       AÑADIR AL CARRITO
                     </button>
@@ -215,7 +218,7 @@ const Details = () => {
                   <div className={s.btns}>
                     <button
                       /* value={categ} */
-                      onClick={() => handleDeleteProd(id)}
+                      onClick={() => handleDelete(id)}
                     >
                       <img src={trash} alt=""></img>
                     </button>

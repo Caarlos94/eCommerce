@@ -116,7 +116,7 @@
 }
 
 .marca {
-  font-size: 15px;
+  font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -137,17 +137,17 @@
 }
 
 .color {
-  font-size: 15px;
+  font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .talla {
-  font-size: 15px;
+  font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .stock {
-  font-size: 15px;
+  font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -312,6 +312,7 @@
 }
 
 .btns img {
+  width: 45px;
   transition: all 0.4s;
 }
 
@@ -330,7 +331,7 @@
   top: 45%;
 }
 
-.spinner>div {
+.spinner > div {
   background-color: rgba(0, 77, 255, 0.2);
   height: 100%;
   position: absolute;
@@ -423,7 +424,7 @@
   }
 
   .btns img {
-    width: 50px;
+    width: 41px;
   }
 
   .productDesc {
@@ -520,7 +521,7 @@
   }
 
   .btns img {
-    width: 50px;
+    width: 43px;
   }
 
   .productDesc {

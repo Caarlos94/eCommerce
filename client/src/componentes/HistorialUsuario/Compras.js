@@ -15,7 +15,6 @@ const Compras = (props) => {
     )
       .then((data) => data.json())
       .then((data) => {
-
         console.log(props);
         if (data.error === true) {
           setDidReview(true);
@@ -29,37 +28,38 @@ const Compras = (props) => {
   return (
     <div key={props.nombre} className={style.div}>
       <div className={style.imgCont}>
-
         <div className={style.itemImg}>
           <img src={props.URL[0]} alt="imagen de producto" />
         </div>
       </div>
       <div className={style.textCont}>
-        <NavLink to={`/details/${productId}`} style={{ textDecoration: 'none' }}>
+        <NavLink
+          to={`/details/${productId}`}
+          style={{ textDecoration: 'none' }}
+        >
           <h4>{props.nombre}</h4>
         </NavLink>
         <h5>Marca: {props.marca}</h5>
         <h5>Fecha: {props.fecha}</h5>
         <h5>Precio: {props.precio}</h5>
         <h5>Talla: {props.talla}</h5>
-        <h5>cantidad: {props.cantidad}</h5>
+        <h5>Cantidad: {props.cantidad}</h5>
         <h5>Numero de envio: {props.localizador}</h5>
-      </div>
-      {
-        enviado && !didReview ? (
+        {enviado && !didReview ? (
           <Link
             to={{
               pathname: '/review-form',
               state: { producto: props, clienteId },
             }}
+            style={{ textDecoration: 'none' }}
           >
-            <button>Dejar reseña.</button>
+            <button className={style.btnReview}>Dejar reseña</button>
           </Link>
         ) : (
           ''
-        )
-      }
-    </div >
+        )}
+      </div>
+    </div>
   );
 };
 

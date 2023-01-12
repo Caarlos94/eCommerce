@@ -1,12 +1,16 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { getCategorys, getProducts, getImages } from "../../redux/actions/actions.js";
-import s from "./home.module.css";
-import Navbar from "../navbar/navbar.jsx";
-import { useDispatch, useSelector } from "react-redux";
-import Paginado from "../Paginate/Paginate.jsx";
-import Card from "../Card/Card.js";
-import Footer from "../Footer/Footer";
+import React, { useState } from 'react';
+import { useEffect } from 'react';
+import {
+  getCategorys,
+  getProducts,
+  getImages,
+} from '../../redux/actions/actions.js';
+import s from './home.module.css';
+import Navbar from '../navbar/navbar.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import Paginado from '../Paginate/Paginate.jsx';
+import Card from '../Card/Card.js';
+import Footer from '../Footer/Footer';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -26,7 +30,8 @@ const Home = () => {
   const firstIndex = lastIndex - productsPerPage; // 8 - 8 = 0
   const currentProducts = allProducts.slice(firstIndex, lastIndex);
 
-  const fnPaginado = (page) => {  // FUNCIÓN PARA MODIFICAR EL ESTADO LOCAL PAGE
+  const fnPaginado = (page) => {
+    // FUNCIÓN PARA MODIFICAR EL ESTADO LOCAL PAGE
     setCurrentPage(page);
   };
 
@@ -34,12 +39,10 @@ const Home = () => {
 
   const paginateNext = (nextPage) => setCurrentPage(nextPage);
 
-
-
   return (
     <div className={s.divaHome}>
       <Navbar setPages={setCurrentPage} />
-      <img src="../../img/messi.jpg" alt="" className={s.imgH}/>
+      {/* <img src="../../img/messi.jpg" alt="" className={s.imgH}/> */}
       <div className={s.hero}>
         <div className={s.textoHero}>
           <h1>Supra Sports</h1>
@@ -70,20 +73,23 @@ const Home = () => {
       {allProducts.length > 0 ? (
         <div>
           <div className={s.section}>
-            {currentProducts.map((card) => parseInt(card.stock) > 0 && (
-              <div key={card.id}>
-                <Card
-                  nombre={card.nombre}
-                  URL={card.URL}
-                  marca={card.marca}
-                  precio={card.precio}
-                  color={card.color}
-                  talla={card.talla}
-                  categoria={card.categoria}
-                  id={card.id}
-                />
-              </div>
-            ))}
+            {currentProducts.map(
+              (card) =>
+                parseInt(card.stock) > 0 && (
+                  <div key={card.id}>
+                    <Card
+                      nombre={card.nombre}
+                      URL={card.URL}
+                      marca={card.marca}
+                      precio={card.precio}
+                      color={card.color}
+                      talla={card.talla}
+                      categoria={card.categoria}
+                      id={card.id}
+                    />
+                  </div>
+                )
+            )}
           </div>
         </div>
       ) : (

@@ -7,13 +7,20 @@
 .divAdmins {
   /* border: 3px solid red; */
   text-align: center;
-  width: 35rem;
+  width: 40%;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   position: relative;
   top: 85px;
-  left: 1%;
   padding: 20px;
   margin-bottom: 30px;
+}
+
+.add-container {
+  width: 40%;
+}
+
+.blocking-options {
+  width: 40%;
 }
 
 .admin {
@@ -66,4 +73,26 @@
 
 .right-side {
   padding-left: 22px;
+}
+
+@media (max-width: 768px) {
+  .divAdmins {
+    width: 90%;
+  }
+
+  .add-container {
+    width: 90%;
+  }
+
+  .blocking-options {
+    width: 90%;
+  }
+
+  .admin h5 {
+    font-size: 17px;
+  }
+
+  .admins {
+    width: 60%;
+  }
 }

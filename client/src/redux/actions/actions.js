@@ -27,7 +27,6 @@ export const GET_IMAGES = "GET_IMAGES"
 export const getProducts = () => {
   return async function (dispatch) {
     const response = await fetch('http://localhost:3001/products');
-    // console.log(response);
     const data = await response.json();
     return dispatch({
       type: GET_PRODUCTS,

@@ -5,6 +5,7 @@
   width: 50%;
   height: 250px;
   display: flex;
+  position: relative;
 }
 
 .imgCont {
@@ -51,9 +52,25 @@
   font-size: 18px;
 }
 
-/* .review {
-  border: 1px solid red;
-} */
+.btnReview {
+  border: 1px solid black;
+  display: flex;
+  padding: 5px;
+  color: black;
+  background-color: white;
+  font-weight: bold;
+  transition: all 0.4s;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  position: absolute;
+  top: 40%;
+  right: 3%;
+}
+
+.btnReview:hover {
+  filter: invert(100%);
+}
 
 @media (max-width: 768px) {
   .div {

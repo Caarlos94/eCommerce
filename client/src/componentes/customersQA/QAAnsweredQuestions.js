@@ -12,12 +12,12 @@ const QAAnsweredQuestions = ({ productId }) => {
     setActive(!active);
   };
 
-  useEffect(() => {
-    if (active) {
-      document.body.style.overflow = 'hidden';
-    }
-    return () => (document.body.style.overflow = 'unset');
-  }, [active]);
+  // useEffect(() => {
+  //   if (active) {
+  //     document.body.style.overflow = 'hidden';
+  //   }
+  //   return () => (document.body.style.overflow = 'unset');
+  // }, [active]);
 
   useEffect(() => {
     let isSubscribed = true;
