@@ -62,7 +62,7 @@ const Navbar = ({ setPages }) => {
 
   useEffect(() => {
     user &&
-      fetch('http://localhost:3001/users', {
+      fetch('https://suprasports.up.railway.app/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -31,7 +31,7 @@
     width: 100%;
     position: absolute;
     transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1);
-    background: url('./carlos_islas.jpg');
+    background: url('./carlos_islas.jpeg');
     background-size: cover;
 
     /* background: linear-gradient(to top, #0a3394, #4286f4); */

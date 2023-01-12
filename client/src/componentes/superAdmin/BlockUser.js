@@ -10,10 +10,10 @@ const BlockUser = ({ accessToken, block, handler, cue }) => {
   };
 
   // ruta para traer lista de users => block === true? trae usuarios sin bloquear : trae usuarios bloqueados
-  const getUsersUrl = "http://localhost:3001/superAdmin/getUsers";
+  const getUsersUrl = "https://suprasports.up.railway.app/superAdmin/getUsers";
 
   // ruta para bloquear y desbloquear => block === true? bloquea usuario enviado : desbloquea usuario enviado
-  const postBlockedUserUrl = "http://localhost:3001/superAdmin/blockUser";
+  const postBlockedUserUrl = "https://suprasports.up.railway.app/superAdmin/blockUser";
 
   const [users, setUsers] = useState([]);
   const [blockedUser, setBlockedUser] = useState({});

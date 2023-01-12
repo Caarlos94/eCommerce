@@ -36,7 +36,7 @@ const Carrito = () => {
       if (isAuthenticated === true) {
         if (cart.length) {
           const idUsuariodb = await axios.post(
-            'http://localhost:3001/compras/obtenerId',
+            'https://suprasports.up.railway.app/compras/obtenerId',
             {
               User: user.nickname,
             }
@@ -83,7 +83,7 @@ const Carrito = () => {
     /* console.log(cart); */
 
     if (!cart.length) return; // manejar mejor la respuesta al intentar comprar con un carrito vacio?
-    fetch('http://localhost:3001/pagosMeli', {
+    fetch('https://suprasports.up.railway.app/pagosMeli', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
@@ -97,7 +97,7 @@ const Carrito = () => {
         window.open(data, "_self");
         /* console.log(data); */
 
-        // fetch("http://localhost:3001/compras", {
+        // fetch("https://suprasports.up.railway.app/compras", {
         //   method: "POST",
         //   headers: {
         //     "Content-Type": "application/json",

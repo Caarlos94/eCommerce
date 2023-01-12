@@ -22,7 +22,7 @@ const QAAnsweredQuestions = ({ productId }) => {
   useEffect(() => {
     let isSubscribed = true;
 
-    fetch(`http://localhost:3001/customerQA/${productId}`)
+    fetch(`https://suprasports.up.railway.app/customerQA/${productId}`)
       .then((data) => data.json())
       .then((data) => {
         if (isSubscribed) setQuestions(data);
